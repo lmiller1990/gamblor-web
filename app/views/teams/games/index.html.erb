@@ -1,0 +1,18 @@
+<h2>Games for <%= @team.name %></h2>
+
+<% @team.games.each do |game| %>
+  <div>
+    <%= game.id %> 
+    <span class="<%= game.winner_id == @team.id ? 'winner' : '' %>">
+
+      <%= @team.name %>
+
+    </span> vs 
+
+    <span class="<%= game.winner_id != @team.id ? 'winner' : '' %>">
+
+      <%= GameHelper.opposing_team(game, @team).name %>
+
+    </span>
+  </div>
+<% end %>

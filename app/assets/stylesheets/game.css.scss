@@ -1,0 +1,27 @@
+.game_show {
+  .winner {
+    font-weight: bold;
+  }
+}
+
+%first_market {
+  .first_market {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+
+    select {
+      width: 105px;
+    }
+  }
+}
+
+.game_edit {
+  width: 250px;
+  @extend %first_market;
+} 
+
+.game_new {
+  width: 200px;
+  @extend %first_market;
+}

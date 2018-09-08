@@ -1,0 +1,96 @@
+<%= form_with model: @game do |f| %>
+  <div class="first_market">
+    <%= f.label :date %>
+    <%= f.date_field :date, value: Date.today %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :blue_side %>
+    <%= f.select :blue_side_team_id, @teams_for_select, {}, { class: 'side_select' } %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :red_side %>
+    <%= f.select :red_side_team_id, @teams_for_select, {}, { class: 'side_select' } %>
+  </div>
+
+  <h3>First Blood</h3>
+  <div class="first_market">
+    <%= f.label :first_blood_team_id %>
+    <%= f.select :first_blood_team_id, @teams_for_select, {}, { class: 'first_select', data_select: 'first_blood' } %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :first_blood_player_id %>
+    <%= f.select :first_blood_player_id, @players_for_first_blood, {}, data_to_update: 'first_blood' %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :first_blood_time %>
+    <%= f.time_field :first_blood_time, { step: 1 } %>
+  </div>
+
+
+  <h3>First Turret</h3>
+  <div class="first_market">
+    <%= f.label :first_turret_team_id %>
+    <%= f.select :first_turret_team_id, @teams_for_select, {}, { class: 'first_select', data_select: 'first_turret' } %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :first_turret_player_id %>
+    <%= f.select :first_turret_player_id, @players_for_first_turret, {}, data_to_update: 'first_turret' %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :first_turret_time %>
+    <%= f.time_field :first_turret_time, { step: 1 } %>
+  </div>
+
+  <h3>First Dragon</h3>
+  <div class="first_market">
+    <%= f.label :first_dragon_team_id %>
+    <%= f.select :first_dragon_team_id, @teams_for_select, {}, { class: 'first_select', data_select: 'first_dragon' } %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :first_dragon_player_id %>
+    <%= f.select :first_dragon_player_id, @players_for_first_dragon, {}, data_to_update: 'first_dragon' %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :first_dragon_time %>
+    <%= f.time_field :first_dragon_time, { step: 1 } %>
+  </div>
+
+  <h3>First Baron</h3>
+  <div class="first_market">
+    <%= f.label :first_baron_team_id %>
+    <%= f.select :first_baron_team_id, @teams_for_select, {}, { class: 'first_select', data_select: 'first_baron' } %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :first_baron_player_id %>
+    <%= f.select :first_baron_player_id, @players_for_first_baron, {}, { data_to_update: 'first_baron' } %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :first_baron_time %>
+    <%= f.time_field :first_baron_time, { step: 1 } %>
+  </div>
+
+
+  <h3>Result</h3>
+
+  <div class="first_market">
+    <%= f.label :winner_id %>
+    <%= f.select :winner_id, @teams_for_select %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :loser_id %>
+    <%= f.select :loser_id, @teams_for_select %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

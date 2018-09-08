@@ -1,0 +1,16 @@
+<h3>Players</h3>
+
+<% @players.each do |player| %>
+  <div>
+    <b><%= player.name %></b>
+    <div>
+      Position: <%= player.position.name %>
+    </div>
+    <div>
+      Team: <%= player.current_team.name %>
+    </div>
+
+    <%= link_to 'edit', edit_player_path(player) %>  
+  </div>
+  <br>
+<% end %>

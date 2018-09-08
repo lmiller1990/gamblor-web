@@ -1,0 +1,11 @@
+<%= form_with model: @player do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :position %>
+  <%= f.select :position_id, @positions %>
+
+  <%= f.label :team %>
+  <%= f.select :team_id, @teams %>
+  <%= f.submit %>
+<% end %>

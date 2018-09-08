@@ -1,0 +1,40 @@
+<div class="game_show">
+
+  <div>
+    <%= @game.date.strftime("%Y/%m/%d") %>
+  </div>
+
+  <% if @game.winner_id && @game.loser_id %>
+
+    <span class="winner"><%= @game.winner.name %></span> vs <%= @game.loser.name %>
+
+  <% else %>
+
+    <%= @game.blue_side_team.name %> vs <%= @game.red_side_team.name %>
+
+  <% end %>
+</div>
+
+<div>
+  First blood (<%= gametime(@game.first_blood_time) %>): 
+  <%= @game.first_team_to_get('blood').try(:name) %> 
+  (<%= @game.player_to_get_first('blood').try(:name) %>)
+</div>
+
+<div>
+  First turret (<%= gametime(@game.first_turret_time) %>): 
+  <%= @game.first_team_to_get('turret').try(:name) %> 
+  (<%= @game.player_to_get_first('turret').try :name %>)
+</div>
+
+<div>
+  First dragon (<%= gametime(@game.first_dragon_time) %>): 
+  <%= @game.first_team_to_get('dragon').try(:name) %> 
+  (<%= @game.player_to_get_first('dragon').try :name %>)
+</div>
+
+<div>
+  First baron (<%= gametime(@game.first_baron_time) %>): <%= @game.first_team_to_get('baron').try(:name) %> (<%= @game.player_to_get_first('baron').try :name %>)
+</div>
+
+<%= link_to 'Edit', edit_game_path(@game), method: :get %>

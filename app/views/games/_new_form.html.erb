@@ -1,0 +1,18 @@
+<%= form_with model: @game do |f| %>
+  <div class="first_market">
+    <%= f.label :date %>
+    <%= f.date_field :date, value: Date.today %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :blue_side %>
+    <%= f.select :blue_side_team_id, @teams_for_select, {}, { class: 'side_select' } %>
+  </div>
+
+  <div class="first_market">
+    <%= f.label :red_side %>
+    <%= f.select :red_side_team_id, @teams_for_select, {}, { class: 'side_select' } %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

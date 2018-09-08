@@ -1,0 +1,10 @@
+<h3>Games</h3>
+
+<% @games.each do |game| %>
+
+  <div data-test-game>
+    <%= game.date.strftime("%Y/%m/%d") %> <%= game.blue_side_team.name %> vs <%= game.red_side_team.name %>
+    <%= link_to 'Edit', edit_game_path(game), method: :get %>
+  </div>
+
+<% end %>
