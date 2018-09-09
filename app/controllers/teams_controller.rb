@@ -5,6 +5,8 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find(params[:id])
+    @current_contracts = @team.contracts.ongoing
+    @players = @team.current_players
   end
 
   def new
