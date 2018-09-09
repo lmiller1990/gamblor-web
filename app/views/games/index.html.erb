@@ -1,5 +1,9 @@
 <h3>Games</h3>
 
+<div>
+  <%= link_to 'New Game', new_game_url %>
+</div>
+
 <% @games.each do |game| %>
 
   <div data-test-game>

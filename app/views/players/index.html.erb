@@ -7,7 +7,7 @@
       Position: <%= player.position.name %>
     </div>
     <div>
-      Team: <%= player.current_team.name %>
+      Team: <%= player.current_team ? player.current_team.name : 'unsigned'  %>
     </div>
 
     <%= link_to 'edit', edit_player_path(player) %>  

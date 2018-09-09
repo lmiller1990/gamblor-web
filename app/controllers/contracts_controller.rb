@@ -1,5 +1,7 @@
 class ContractsController < ApplicationController
   def index
+    @ongoing_contracts = Contract.ongoing
+    @past_contracts = Contract.past
   end
 
   def edit

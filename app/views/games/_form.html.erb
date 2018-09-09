@@ -6,18 +6,18 @@
 
   <div class="first_market">
     <%= f.label :blue_side %>
-    <%= f.select :blue_side_team_id, @teams_for_select, {}, { class: 'side_select' } %>
+    <%= f.select :blue_side_team_id, @teams, {}, { class: 'side_select' } %>
   </div>
 
   <div class="first_market">
     <%= f.label :red_side %>
-    <%= f.select :red_side_team_id, @teams_for_select, {}, { class: 'side_select' } %>
+    <%= f.select :red_side_team_id, @teams, {}, { class: 'side_select' } %>
   </div>
 
   <h3>First Blood</h3>
   <div class="first_market">
     <%= f.label :first_blood_team_id %>
-    <%= f.select :first_blood_team_id, @teams_for_select, {}, { class: 'first_select', data_select: 'first_blood' } %>
+    <%= f.select :first_blood_team_id, @teams, {}, { class: 'first_select', data_select: 'first_blood' } %>
   </div>
 
   <div class="first_market">
@@ -34,7 +34,7 @@
   <h3>First Turret</h3>
   <div class="first_market">
     <%= f.label :first_turret_team_id %>
-    <%= f.select :first_turret_team_id, @teams_for_select, {}, { class: 'first_select', data_select: 'first_turret' } %>
+    <%= f.select :first_turret_team_id, @teams, {}, { class: 'first_select', data_select: 'first_turret' } %>
   </div>
 
   <div class="first_market">
@@ -50,7 +50,7 @@
   <h3>First Dragon</h3>
   <div class="first_market">
     <%= f.label :first_dragon_team_id %>
-    <%= f.select :first_dragon_team_id, @teams_for_select, {}, { class: 'first_select', data_select: 'first_dragon' } %>
+    <%= f.select :first_dragon_team_id, @teams, {}, { class: 'first_select', data_select: 'first_dragon' } %>
   </div>
 
   <div class="first_market">
@@ -66,7 +66,7 @@
   <h3>First Baron</h3>
   <div class="first_market">
     <%= f.label :first_baron_team_id %>
-    <%= f.select :first_baron_team_id, @teams_for_select, {}, { class: 'first_select', data_select: 'first_baron' } %>
+    <%= f.select :first_baron_team_id, @teams, {}, { class: 'first_select', data_select: 'first_baron' } %>
   </div>
 
   <div class="first_market">
@@ -84,12 +84,12 @@
 
   <div class="first_market">
     <%= f.label :winner_id %>
-    <%= f.select :winner_id, @teams_for_select %>
+    <%= f.select :winner_id, @teams %>
   </div>
 
   <div class="first_market">
     <%= f.label :loser_id %>
-    <%= f.select :loser_id, @teams_for_select %>
+    <%= f.select :loser_id, @teams %>
   </div>
 
   <%= f.submit %>

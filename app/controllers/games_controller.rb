@@ -1,6 +1,5 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update]
-  before_action :set_teams, only: [:new, :edit, :update]
 
   def index
     @games = Game.all.order(date: :asc)
@@ -17,11 +16,12 @@ class GamesController < ApplicationController
   def create
     game = Game.create!(game_params)
 
-    redirect_to game
+    redirect_to edit_game_url(game)
   end
 
   def edit
     set_players_for_first
+    @teams = FormHelper.select_for(@game.teams)
     @players_for_select = @game.teams.first.players.collect {|t| [ t.name, t.id ] }
   end
 
@@ -75,15 +75,13 @@ class GamesController < ApplicationController
       :first_baron_player_id, :first_dragon_player_id,
 
       :first_baron_time, :first_blood_time,
-      :first_turret_time, :first_dragon_time
+      :first_turret_time, :first_dragon_time,
+
+      :winner_id, :loser_id
     )
   end
 
   def set_game
     @game = Game.find(params[:id])
-  end
-
-  def set_teams
-    @teams_for_select = Team.all.collect {|t| [ t.name, t.id ] }
   end
 end

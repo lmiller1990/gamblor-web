@@ -1,4 +1,4 @@
-<h2><%= @team.name %></h2>
+<h2><%= @team.name %></h2> <%= link_to 'Games', team_games_url(@team) %>
 
 <h3>Current Player (under contract)</h3>
 
@@ -9,3 +9,4 @@
     <%= link_to 'Edit', edit_contract_url(c) %>
   </div>
 <% end %>
+
