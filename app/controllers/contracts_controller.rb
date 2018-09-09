@@ -24,7 +24,7 @@ class ContractsController < ApplicationController
   def create 
     Contract.create!(contract_params)
 
-    redirect_to :back
+    redirect_to Team.find contract_params[:team_id]
   end
 
   private
