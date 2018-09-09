@@ -7,6 +7,7 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+    @teams = Team.all.order(name: :asc)
   end
 
   def show

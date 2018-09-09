@@ -7,7 +7,6 @@ class PlayersController < ApplicationController
 
   def create
     @player = Player.create!(player_params)
-    @teams = teams.order(name: :desc)
     redirect_to @player
   end
 

@@ -1,5 +1,6 @@
 <%= javascript_pack_tag "games/edit" %>
 
+<h2><%= @game.blue_side_team.name %> vs <%= @game.red_side_team.name %></h2>
 <div class="game_edit">
   <%= render partial: 'form' %>
 </div>
