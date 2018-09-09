@@ -2,6 +2,7 @@ import axios from 'axios'
 import { updatePlayerSelect } from '../../src/dom_utils.js'
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('adding event listeners')
   const selects = qss('.first_select')
 
   for (let select of selects) {

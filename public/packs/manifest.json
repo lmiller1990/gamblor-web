@@ -1,8 +1,8 @@
 {
   "application.js": "/packs/application-90e29f273a6e634e13ed.js",
   "application.js.map": "/packs/application-90e29f273a6e634e13ed.js.map",
-  "games/edit.js": "/packs/games/edit-24a72e866c45e1a0b82c.js",
-  "games/edit.js.map": "/packs/games/edit-24a72e866c45e1a0b82c.js.map",
+  "games/edit.js": "/packs/games/edit-cc8edd6dabaffbedfdc2.js",
+  "games/edit.js.map": "/packs/games/edit-cc8edd6dabaffbedfdc2.js.map",
   "hello_react.js": "/packs/hello_react-76bd50525fd20ad6c808.js",
   "hello_react.js.map": "/packs/hello_react-76bd50525fd20ad6c808.js.map"
 }

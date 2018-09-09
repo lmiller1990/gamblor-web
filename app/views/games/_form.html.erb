@@ -1,7 +1,7 @@
 <%= form_with model: @game do |f| %>
   <div class="first_market">
     <%= f.label :date %>
-    <%= f.date_field :date, value: Date.today %>
+    <%= f.date_field :date %>
   </div>
 
   <div class="first_market">
@@ -22,7 +22,7 @@
 
   <div class="first_market">
     <%= f.label :first_blood_player_id %>
-    <%= f.select :first_blood_player_id, @players_for_first_blood, {}, data_to_update: 'first_blood' %>
+    <%= f.select :first_blood_player_id, @players_for_first_blood, { include_blank: '----' }, data_to_update: 'first_blood' %>
   </div>
 
   <div class="first_market">
@@ -39,7 +39,7 @@
 
   <div class="first_market">
     <%= f.label :first_turret_player_id %>
-    <%= f.select :first_turret_player_id, @players_for_first_turret, {}, data_to_update: 'first_turret' %>
+    <%= f.select :first_turret_player_id, @players_for_first_turret, { include_blank: '----' }, data_to_update: 'first_turret' %>
   </div>
 
   <div class="first_market">
@@ -55,7 +55,7 @@
 
   <div class="first_market">
     <%= f.label :first_dragon_player_id %>
-    <%= f.select :first_dragon_player_id, @players_for_first_dragon, {}, data_to_update: 'first_dragon' %>
+    <%= f.select :first_dragon_player_id, @players_for_first_dragon, { include_blank: '----' }, data_to_update: 'first_dragon' %>
   </div>
 
   <div class="first_market">
@@ -71,7 +71,7 @@
 
   <div class="first_market">
     <%= f.label :first_baron_player_id %>
-    <%= f.select :first_baron_player_id, @players_for_first_baron, {}, { data_to_update: 'first_baron' } %>
+    <%= f.select :first_baron_player_id, @players_for_first_baron, { include_blank: '----' }, { data_to_update: 'first_baron' } %>
   </div>
 
   <div class="first_market">
