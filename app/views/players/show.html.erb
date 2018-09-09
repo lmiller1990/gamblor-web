@@ -1,4 +1,4 @@
 <h3><%= @player.name %></h3>
 
 <div>Position: <%= @player.position.name %></div>
-<div>Team: <%= @player.current_team.name %></div>
+<div>Team: <%= @player.current_team ? @player.current_team.name : 'Unsigned'  %></div>

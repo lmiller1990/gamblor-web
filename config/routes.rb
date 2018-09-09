@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'admin', to: 'admin#index'
 
   resources :games
+  resources :contracts
   resources :players
   resources :teams do
     resources :games, only: [:index], controller: 'teams/games'

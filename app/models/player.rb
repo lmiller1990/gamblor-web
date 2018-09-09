@@ -4,6 +4,6 @@ class Player < ApplicationRecord
   belongs_to :position
 
   def current_team
-    contracts.order(start: :desc).first.team
+    contracts.order(start: :desc).first.team unless contracts.count == 0
   end
 end

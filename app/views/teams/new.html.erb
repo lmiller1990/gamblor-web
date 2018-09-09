@@ -1,0 +1,8 @@
+<h2>New Team</h2>
+
+<%= form_with model: @team do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.submit %>
+<% end %>
