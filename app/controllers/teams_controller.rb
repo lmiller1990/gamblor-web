@@ -7,6 +7,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @current_contracts = @team.contracts.ongoing
     @players = @team.current_players
+    @opponents = all_opponents
   end
 
   def new
@@ -21,7 +22,18 @@ class TeamsController < ApplicationController
 
   private
 
+  def all_opponents 
+    @team.games.map do |game|
+      if game.red_side_team_id == @team.id
+        game.blue_side_team
+      else
+        game.red_side_team
+      end
+    end.uniq
+  end
+
   def team_params
     params.require(:team).permit(:name)
   end
+
 end

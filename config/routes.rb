@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :teams, only: [:show, :index]
+      resources :teams, only: [:show, :index] do
+        resources :first_markets, only: [:index, :show], controller: 'teams/first_markets'
+      end
       resources :games, only: [:show, :index, :create, :update]
     end
   end

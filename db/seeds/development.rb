@@ -15,6 +15,12 @@ optic = Team.find_or_create_by(name: 'Optic Gaming')
 clg = Team.find_or_create_by(name: 'Counter Logic Gaming')
 thieves = Team.find_or_create_by(name: '100 Thieves')
 
+def rand_min_and_sec 
+  min = (rand * 100 % 20).ceil
+  sec = (rand * 100 % 60).ceil
+  DateTime.new(1, 1, 1, 0, min, sec)
+end
+
 def min_and_sec(min, sec)
   DateTime.new(1, 1, 1, 0, min, (((sec/100.0) * 60).ceil))
 end
@@ -75,6 +81,7 @@ Game.find_or_create_by(
   first_turret_team_id: clutch.id,
   first_turret_time: min_and_sec(12, 89),
   first_turret_player_id: apollo.id,
+  first_turret_type: 1,
   first_dragon_team_id: c9.id,
   first_dragon_time: min_and_sec(12, 04),
   first_dragon_player_id: svenskeren.id,
@@ -83,3 +90,16 @@ Game.find_or_create_by(
   first_baron_player_id: lira.id,
   date: DateTime.now
 )
+
+10.times do
+  Game.find_or_create_by(
+    winner_id: c9.id,
+    loser_id: clg.id,
+    red_side_team_id: c9.id,
+    blue_side_team_id: clg.id,
+    first_blood_team_id: rand > 0.5 ? c9.id : clg.id,
+    first_blood_time: rand_min_and_sec,
+    first_blood_player_id: c9.players.first.id,
+    date: DateTime.now
+)
+end

@@ -1,12 +1,27 @@
-<h2><%= @team.name %></h2> <%= link_to 'Games', team_games_url(@team) %>
+<%= javascript_pack_tag 'teams/show' %>
 
-<h3>Current Player (under contract)</h3>
 
-<% @current_contracts.each do |c| %>
+<div class="teams">
+  <div class="players">
 
-  <div>
-    <%= c.player.name %> 
-    <%= link_to 'Edit', edit_contract_url(c) %>
+    <h2><%= @team.name %></h2> <%= link_to 'Games', team_games_url(@team) %>
+    <h3>Current Player (under contract)</h3>
+
+    <% @current_contracts.each do |c| %>
+
+      <div>
+        <%= c.player.name %> 
+        <%= link_to 'Edit', edit_contract_url(c) %>
+      </div>
+    <% end %>
+
   </div>
-<% end %>
 
+  <div class="chart">
+
+    <canvas id="chart" width="400" height="400"></canvas>
+
+  </div>
+
+  <%= select_tag 'opponent', options_from_collection_for_select(@opponents, 'id', 'name') %>
+</div>
