@@ -43,6 +43,11 @@
   </div>
 
   <div class="first_market">
+    <%= f.label :first_turret_type %>
+    <%= f.select(:first_turret_type, Game.first_turret_types.collect { |t| [ t[0], t[0] ] }) %>
+  </div>
+
+  <div class="first_market">
     <%= f.label :first_turret_time %>
     <%= f.time_field :first_turret_time, { step: 1 } %>
   </div>

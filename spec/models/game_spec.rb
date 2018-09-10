@@ -12,7 +12,13 @@ describe Game do
            first_turret_team_id: red_side_team.id,
            first_dragon_team_id: red_side_team.id,
            blue_side_team_id: blue_side_team.id,
-           red_side_team_id: red_side_team.id) }
+           red_side_team_id: red_side_team.id,
+           first_turret_type: :top
+          ) }
+
+  it 'has a first turret type' do
+    expect(game.first_turret_type).to eq "top"
+  end
 
   describe '#winner' do
     it { expect(game.winner).to eq blue_side_team }
