@@ -3,47 +3,20 @@ import axios from 'axios'
 import { options } from '../../src/teams/chart_options.js'
 
 class ChartCreator {
-  constructor({ options }) {
-    this.datasets = []
+  constructor({ ctx, options, datasets }) {
+    this.datasets = datasets
     this.options = options
+    this.ctx = ctx
   }
 
-  static getTeamId(url) {
-    return parseInt(url.split('/').slice(-1)[0])
+  addDataset(dataset) {
+    this.datasets.push(dataset)
+    console.log(dataset)
+    this.drawChart()
   }
 
-
-  async getFirstMarketData({ teamId, firstMarket }) {
-    const response = await axios.get(`/api/v1/teams/${teamId}/first_markets/${firstMarket}`)
-    const data = this.toPercentage(this.getAverage(response.data))
-
-    console.log({ label: 'c9', data, fill: false })
-    this.datasets.push({ label: 'c9', data, fill: false })
-  }
-
-  getAverage(data) {
-    return data.map((x, idx) => ({
-      gameNum: idx + 1,
-      runningWins: data
-      .slice(0, idx+1)
-      .reduce((acc, currVal) => {
-        return currVal.val ?  acc += 1 : acc
-      }, 0)
-    }))
-  }
-
-  toPercentage(average) {
-    return average.map(({ gameNum, runningWins }, idx) => { 
-      return {
-        x: gameNum - 1,
-        y: (runningWins/gameNum) * 100
-      } 
-    })
-  }
-
-  createChart({ ctx }) {
-    console.log('create', this.datasets)
-    new Chart(ctx, {
+  drawChart() {
+    new Chart(this.ctx, {
       type: 'line',
       data: {
         datasets: this.datasets 
@@ -51,31 +24,64 @@ class ChartCreator {
       options: this.options
     })
   }
+}
 
-  static setOpponentSelectListener() {
-    const select = document.getElementById('opponent')
-    select.addEventListener('change', async (e) => {
-      const teamId = e.target.value
-      const response = await getFirstMarketData({ teamId, firstMarket: 'first_blood' })
-      const data = toPercentage(getAverage(response.data))
-      window.chart.data.datasets.push({
-        label: 'team',
-        data,
-        fill: false
-      })
-      window.chart.update()
-    })
-  }
+function getTeamId(url) {
+  return parseInt(url.split('/').slice(-1)[0])
+}
+
+async function getAndProcessMarketData({ label, teamId, firstMarket }) {
+  const response = await axios.get(`/api/v1/teams/${teamId}/first_markets/${firstMarket}`)
+  const data = toPercentage(getAverage(response.data))
+
+  return { label, data, fill: false }
+}
+
+function getAverage(data) {
+  return data.map((x, idx) => ({
+    gameNum: idx + 1,
+    runningWins: data
+    .slice(0, idx+1)
+    .reduce((acc, currVal) => {
+      return currVal.val ?  acc += 1 : acc
+    }, 0)
+  }))
+}
+
+function toPercentage(average) {
+  return average.map(({ gameNum, runningWins }, idx) => { 
+    return {
+      x: gameNum - 1,
+      y: (runningWins/gameNum) * 100
+    } 
+  })
+}
+
+function setOpponentSelectListener(opponents) {
+  const select = document.getElementById('opponent')
+
+  select.addEventListener('change', async (e) => {
+    const teamId = e.target.value
+    const label = id => opponents.find(x => x.id === parseInt(teamId)).name
+
+    const dataset = await getAndProcessMarketData({ label: label(teamId), teamId, firstMarket: 'first_blood' })
+
+    window.firstMarketChart.addDataset(dataset)
+  })
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  ChartCreator.setOpponentSelectListener()
+  const currentTeamName = document.getElementById('team_name').getAttribute('data_team_name')
+  const opponents = JSON.parse(document.getElementById('opponents').getAttribute('data_opponents'))
+
+  setOpponentSelectListener(opponents)
 
   const ctx = document.getElementById('chart').getContext('2d')
-  const teamId = ChartCreator.getTeamId(location.pathname)
 
-  const firstMarketChart = new ChartCreator({ options })
-  await firstMarketChart.getFirstMarketData({ teamId, firstMarket: 'first_blood' })
+  const teamId = getTeamId(location.pathname)
+  const dataset = await getAndProcessMarketData({ label: currentTeamName, teamId, firstMarket: 'first_blood' })
 
-  firstMarketChart.createChart({ ctx })
+  window.firstMarketChart = new ChartCreator({ ctx, options, datasets: [dataset] })
+
+  firstMarketChart.drawChart({ ctx })
 })

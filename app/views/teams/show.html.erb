@@ -23,5 +23,11 @@
 
   </div>
 
-  <%= select_tag 'opponent', options_from_collection_for_select(@opponents, 'id', 'name') %>
+  <%= select_tag 'opponent', options_from_collection_for_select(@opponents, 'id', 'name'), { include_blank: 'Select opponent' } %>
 </div>
+
+<%= content_tag :div, { id: 'team_name', data_team_name: @team.name } do %> 
+<% end %>
+
+<%= content_tag :div, { id: 'opponents', data_opponents: @opponents.to_json } do %> 
+<% end %>

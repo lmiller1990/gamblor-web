@@ -7,7 +7,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @current_contracts = @team.contracts.ongoing
     @players = @team.current_players
-    @opponents = all_opponents
+    @opponents = all_opponents.sort_by { |o| o.name }
   end
 
   def new
