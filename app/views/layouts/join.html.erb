@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', (e) => {
     btn.value = 'Submitting...'
     btn.setAttribute('disabled', true)
-    btn.classList.toggle('loading')
+    btn.classList.add('loading')
     e.preventDefault()
 
     const subscriber = {
@@ -183,7 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(buildRequest(subscriber, csrfToken))
       .then(() => {
         btn.value = 'Submitted ✓'
-        btn.classList.toggle('loading')
+        btn.classList.remove('loading')
+        btn.setAttribute('disabled', false)
       })
   })
 })
