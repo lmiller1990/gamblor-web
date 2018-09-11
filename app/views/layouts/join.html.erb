@@ -1,3 +1,5 @@
+<%= csrf_meta_tag %>
+
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 
 <style>
@@ -34,7 +36,7 @@
       </p>
     </div>
 
-    <%= form_for :join, url: 'join/register', html: { class: 'join' }  do |f| %>
+    <%= form_for @subscriber, url: 'subscribers/create', html: { class: 'join' }  do |f| %>
       <div class="join-field">
         <%= f.text_field :name, { placeholder: 'Name' } %>
       </div>
@@ -44,7 +46,7 @@
       </div>
 
       <div class="join-btn">
-        <%= f.submit 'Submit' %>
+        <%= f.submit 'Submit', { id: 'submit-btn' } %>
       </div>
     <% end %>
   </div>
@@ -107,4 +109,50 @@ a {
   color: white;
   font-family: 'Comfortaa', cursive;
 }
+
+.loading {
+  opacity: 0.5;
+}
 </style>
+
+<script>
+function buildRequest(subscriber, csrfToken) {
+  const headers = new Headers()
+  headers.append('Content-Type', 'application/json')
+  headers.append('X-Requested-With', 'XMLHttpRequest')
+  headers.append('X-CSRF-TOKEN', csrfToken)
+  return new Request('/subscribers', {
+    headers: headers,
+    method: 'POST',
+
+    credentials: 'same-origin',
+    body: JSON.stringify({
+      subscriber
+    })
+  })
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form')
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  const btn = document.querySelector('#submit-btn')
+
+  form.addEventListener('submit', (e) => {
+    btn.value = 'Submitting...'
+    btn.setAttribute('disabled', true)
+    btn.classList.toggle('loading')
+    e.preventDefault()
+
+    const subscriber = {
+      name: form.querySelector('#subscriber_name').value,
+      email: form.querySelector('#subscriber_email').value
+    }
+
+    fetch(buildRequest(subscriber, csrfToken))
+      .then(() => {
+        btn.value = 'Submitted ✓'
+        btn.classList.toggle('loading')
+      })
+  })
+})
+</script>

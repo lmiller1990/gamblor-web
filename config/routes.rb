@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :games
   resources :contracts
   resources :players
+  resources :subscribers, only: [:create]
+
   resources :teams do
     resources :games, only: [:index], controller: 'teams/games'
   end
