@@ -1,4 +1,6 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <%= csrf_meta_tag %>
+
 
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 
@@ -28,7 +30,7 @@
       </p>
 
       <p>
-      Sign up here to get my <span class="color-3">weekly analysis</span> and <span class="color-3">recommendations</span>, as well as progress updates on my platform and your invite to the <span class="color-2">private alpha</span> later this year.
+      Sign up below to get my <span class="color-3">weekly analysis</span> and <span class="color-3">recommendations</span>, as well as progress updates on my platform and your invite to the <span class="color-2">private alpha</span> later this year.
       </p>
 
       <p>
@@ -53,22 +55,40 @@
 </div>
 
 <style>
-body { padding: 0px; margin: 0px; }
+html, body { 
+  background-color: black; 
+  padding: 0px; 
+  margin: 0px; 
+  border: 0px;
+}
+
+@media screen and (max-width: 480px) {
+  body {
+  }
+}
 
 .outer { 
-  width: 100%;
   display: flex;
   justify-content: center;
   background-color: black;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 }
 
 .wrapper {
   display: flex;
   max-width: 800px;
-    padding-top: 100px;
+  padding-top: 100px;
 }
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    flex-direction: column;
+    padding-top: 0px;
+    margin: 10px;
+  }
+}
+
 
 .hero-text, form {
   width: 100%;
@@ -76,6 +96,12 @@ body { padding: 0px; margin: 0px; }
 
 form {
   margin: 0 20px;
+}
+
+@media screen and (max-width: 480px) {
+  form {
+    margin: 15px 0 15px 0;
+  }
 }
 
 .join-btn, .join-field {
