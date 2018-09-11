@@ -11,7 +11,6 @@ class ChartCreator {
 
   addDataset(dataset) {
     this.datasets.push(dataset)
-    console.log(dataset)
     this.drawChart()
   }
 
@@ -30,11 +29,11 @@ function getTeamId(url) {
   return parseInt(url.split('/').slice(-1)[0])
 }
 
-async function getAndProcessMarketData({ label, teamId, firstMarket }) {
+async function getAndProcessMarketData({ label, teamId, firstMarket, borderColor }) {
   const response = await axios.get(`/api/v1/teams/${teamId}/first_markets/${firstMarket}`)
   const data = toPercentage(getAverage(response.data))
 
-  return { label, data, fill: false }
+  return { label, data, fill: false, borderColor }
 }
 
 function getAverage(data) {
@@ -64,7 +63,12 @@ function setOpponentSelectListener(opponents) {
     const teamId = e.target.value
     const label = id => opponents.find(x => x.id === parseInt(teamId)).name
 
-    const dataset = await getAndProcessMarketData({ label: label(teamId), teamId, firstMarket: 'first_blood' })
+    const dataset = await getAndProcessMarketData({ 
+      label: label(teamId), 
+      teamId, 
+      firstMarket: 'first_blood',
+      borderColor: 'orange'
+    })
 
     window.firstMarketChart.addDataset(dataset)
   })
@@ -79,7 +83,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const ctx = document.getElementById('chart').getContext('2d')
 
   const teamId = getTeamId(location.pathname)
-  const dataset = await getAndProcessMarketData({ label: currentTeamName, teamId, firstMarket: 'first_blood' })
+  const dataset = await getAndProcessMarketData({ 
+    label: currentTeamName, 
+    teamId, 
+    firstMarket: 'first_blood',
+    borderColor: 'lightblue'
+  })
 
   window.firstMarketChart = new ChartCreator({ ctx, options, datasets: [dataset] })
 
