@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/', to: 'join#index'
   get 'app', to: 'app#index'
   get 'admin', to: 'admin#index'
 

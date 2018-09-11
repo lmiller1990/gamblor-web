@@ -1,0 +1,110 @@
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+<style>
+
+.color-1 { color: pink }
+.color-2 { color: hotpink; }
+.color-3 { color: gold; }
+.color-4 { color: lightblue; }
+.color-5 { color: peachpuff; }
+</style>
+
+<div class="outer">
+  <div class="bg wrapper">
+    <div class="hero-text">
+      <p>
+      Let <span class="color-2">data</span> 
+      drive your betting.</span> 
+      </p>
+      <p>
+      Hi, I'm Lachlan, a <span class="color-2">data scientist</span> and <span class="color-3">League of Legends</span> fan. I'm building an <span class="color-2">analytics platform</span> to optimize my LCS betting.
+      </p>
+
+      <p>
+      I've had <span class="color-3">great results</span> during the <span class="color-1">2018 Summer Split</span>. I'll continue fine turing and testing during the throughout worlds, working towards a <span class="color-2">private alpha</span> for <span class="color-1">late 2018</span>, to be ready for the <span class="color-1">2019</span> NA and EU <span class="color-6">Spring Split</span>.
+
+      </p>
+
+      <p>
+      Sign up here to get my <span class="color-3">weekly analysis</span> and <span class="color-3">recommendations</span>, as well as progress updates on my platform and your invite to the <span class="color-2">private alpha</span> later this year.
+      </p>
+
+      <p>
+        You can also follow my publication on <a href="https://medium.com/lolesports-betting" class="color-1">Medium</a>.
+      </p>
+    </div>
+
+    <%= form_for :join, url: 'join/register', html: { class: 'join' }  do |f| %>
+      <div class="join-field">
+        <%= f.text_field :name, { placeholder: 'Name' } %>
+      </div>
+
+      <div class="join-field">
+        <%= f.email_field :email, { placeholder: 'Email' } %>
+      </div>
+
+      <div class="join-btn">
+        <%= f.submit 'Submit' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+body { padding: 0px; margin: 0px; }
+
+.outer { 
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  max-width: 800px;
+    padding-top: 100px;
+}
+
+.hero-text, form {
+  width: 100%;
+}
+
+form {
+  margin: 0 20px;
+}
+
+.join-btn, .join-field {
+  width: 100%;
+  height: 50px;
+  margin: 8px 0;
+}
+
+.join-field > input {
+  color: black;
+  padding: 8px;
+}
+
+.join-btn > input, .join-field > input {
+  font-size: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+input[type='submit'] {
+  background-color: orange;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hero-text, input {
+  line-height: 1.5;
+  color: white;
+  font-family: 'Comfortaa', cursive;
+}
+</style>
