@@ -1,8 +1,10 @@
 {
-  "application.js": "/packs-test/application-aa0c865975c96b6c69da.js",
-  "application.js.map": "/packs-test/application-aa0c865975c96b6c69da.js.map",
-  "games/edit.js": "/packs-test/games/edit-cd369a5520395e353409.js",
-  "games/edit.js.map": "/packs-test/games/edit-cd369a5520395e353409.js.map",
-  "hello_react.js": "/packs-test/hello_react-05d4b1c6b08088d41dc2.js",
-  "hello_react.js.map": "/packs-test/hello_react-05d4b1c6b08088d41dc2.js.map"
+  "application.js": "/packs-test/application-770056be285b6fff75a9.js",
+  "application.js.map": "/packs-test/application-770056be285b6fff75a9.js.map",
+  "games/edit.js": "/packs-test/games/edit-f5d1b7fb429c0b576cdb.js",
+  "games/edit.js.map": "/packs-test/games/edit-f5d1b7fb429c0b576cdb.js.map",
+  "hello_react.js": "/packs-test/hello_react-349fca3f69d44b8f1a7a.js",
+  "hello_react.js.map": "/packs-test/hello_react-349fca3f69d44b8f1a7a.js.map",
+  "teams/show.js": "/packs-test/teams/show-775cab3a1738d33c6768.js",
+  "teams/show.js.map": "/packs-test/teams/show-775cab3a1738d33c6768.js.map"
 }
