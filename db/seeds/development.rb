@@ -103,3 +103,9 @@ Game.find_or_create_by(
     date: DateTime.now
 )
 end
+
+User.create!(
+  email: 'admin@lcs.com',
+  password: 'password123',
+  password_confirmation: 'password123'
+)

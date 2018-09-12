@@ -29,6 +29,9 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'webpacker', '~> 3.5'
 
+# use devise for authentication
+gem 'devise'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
