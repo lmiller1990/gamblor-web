@@ -74,7 +74,12 @@ function setOpponentSelectListener(opponents) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
+  execute()
+})
+
+
+async function execute() {
   const currentTeamName = document.getElementById('team_name').getAttribute('data_team_name')
   const opponents = JSON.parse(document.getElementById('opponents').getAttribute('data_opponents'))
 
@@ -93,4 +98,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.firstMarketChart = new ChartCreator({ ctx, options, datasets: [dataset] })
 
   firstMarketChart.drawChart({ ctx })
-})
+}
