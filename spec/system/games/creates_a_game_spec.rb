@@ -2,10 +2,13 @@ require 'rails_helper'
 
 describe 'games#new', type: :system do
 
+  let!(:user) { create(:user) }
   let!(:red_side_team) { create(:red_side_team) }
   let!(:blue_side_team) { create(:blue_side_team) }
 
   it 'creates a game' do
+    sign_in user
+
     expect {
       visit new_game_url
 

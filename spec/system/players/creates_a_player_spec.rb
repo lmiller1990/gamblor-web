@@ -2,9 +2,12 @@ require 'rails_helper'
 
 describe 'creates a player', type: :system do
   
+  let!(:user) { create(:user) }
   let!(:position) { create(:position) }
 
   it 'creates a player' do
+    sign_in user
+
     expect {
       visit new_player_url
 

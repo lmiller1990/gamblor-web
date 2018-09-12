@@ -2,7 +2,11 @@ require 'rails_helper'
 
 describe 'creates a team', type: :system do
 
+  let!(:user) { create(:user) }
+
   it 'creates a game' do
+    sign_in user
+
     team_name = 'Team Liquid'
 
     expect {

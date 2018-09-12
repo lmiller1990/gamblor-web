@@ -7,7 +7,7 @@ class PlayersController < ApplicationController
 
   def create
     @player = Player.create!(player_params)
-    redirect_to @player
+    redirect_to edit_player_url(@player)
   end
 
   def show
@@ -28,6 +28,8 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:id])
     @teams = teams
     @positions = positions
+    @new_contract = Contract.new(player: @player)
+    @teams = teams
   end
 
   private

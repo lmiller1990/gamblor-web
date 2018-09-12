@@ -1,11 +1,15 @@
 require 'rails_helper'
 
 describe 'creating a contract', type: :system do
+
+  let!(:user) { create(:user) }
   let!(:position) { create(:position) }
   let!(:player) { create(:player, position: position) }
   let!(:team) { create(:team) }
 
   it 'creates a contract and redirects team page' do
+    sign_in user
+
     expect {
       visit new_contract_url
       
