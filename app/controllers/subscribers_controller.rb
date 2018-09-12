@@ -3,6 +3,10 @@ class SubscribersController < ApplicationController
     Subscriber.create!(subscriber_params)
   end
 
+  def index
+    @subscribers = Subscriber.all
+  end
+
   private
 
   def subscriber_params

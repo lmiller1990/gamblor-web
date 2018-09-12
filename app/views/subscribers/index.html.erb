@@ -1,0 +1,16 @@
+<h2>Subscribers</h2>
+
+<% @subscribers.each do |sub| %>
+  <div>
+    <div>
+      Name: <%= sub.name %>
+    </div>
+    <div>
+      Email: <%= sub.email %>
+    </div>
+    <div>
+      Subbed: <%= sub.created_at.strftime('%e %b %Y %H:%M:%S%p') %>
+    </div>
+  </div>
+  <br>
+<% end %>
