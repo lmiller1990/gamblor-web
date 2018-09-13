@@ -91,20 +91,27 @@ Game.find_or_create_by(
   date: DateTime.now
 )
 
-10.times do
-  Game.find_or_create_by(
-    winner_id: c9.id,
-    loser_id: clg.id,
-    red_side_team_id: c9.id,
-    blue_side_team_id: clg.id,
-    first_blood_team_id: rand > 0.5 ? c9.id : clg.id,
-    first_blood_time: rand_min_and_sec,
-    first_blood_player_id: c9.players.first.id,
-    date: DateTime.now
-)
-end
+Game.find_or_create_by(red_side_team_id: gg.id, blue_side_team_id: tsm.id, date: 2.days.ago)
+Game.find_or_create_by(red_side_team_id: echo.id, blue_side_team_id: flyquest.id, date: 1.day.ago)
 
-User.create!(
+Game.find_or_create_by(
+  red_side_team_id: c9.id,
+  blue_side_team_id: clg.id,
+  date: 1.day.ago
+)
+
+Game.find_or_create_by(
+  winner_id: c9.id,
+  loser_id: clg.id,
+  red_side_team_id: c9.id,
+  blue_side_team_id: clg.id,
+  first_blood_team_id: rand > 0.5 ? c9.id : clg.id,
+  first_blood_time: rand_min_and_sec,
+  first_blood_player_id: c9.players.first.id,
+  date: 5.days.ago
+)
+
+user = User.create!(
   email: 'admin@lcs.com',
   password: 'password123',
   password_confirmation: 'password123'

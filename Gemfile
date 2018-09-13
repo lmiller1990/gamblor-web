@@ -32,6 +32,9 @@ gem 'webpacker', '~> 3.5'
 # use devise for authentication
 gem 'devise'
 
+# jsonify api
+gem "olive_branch"
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

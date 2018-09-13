@@ -9,12 +9,11 @@
         },
         "useBuiltIns": true
       }
-    ],
-    "react"
+    ]
   ],
   "env": {
     "test": {
-      "presets": [["env"], "react"]
+      "presets": [["env"]]
     }
   },
   "plugins": [
