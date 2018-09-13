@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="$emit('selected', { matchId })">
     <div class="matchup">
       <div class="blue_team team_name">
         {{ blueTeam.name }}

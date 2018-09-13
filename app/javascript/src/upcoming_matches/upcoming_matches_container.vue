@@ -6,6 +6,7 @@
           v-for="matchId in matchIds"
           :key="matchId"
           :match-id="matchId"
+          @selected="fetchMatchup"
         />
       </div>
     </div>
@@ -33,10 +34,21 @@ export default {
   computed: {
     matchIds() {
       return this.$store.state.games.ids
+    },
+
+    matches() {
+      return this.$store.state.games.all
     }
   },
 
   methods: {
+    fetchMatchup({ matchId }) {
+      this.$store.dispatch('matchups/setMatchup', { 
+        firstTeamId: this.matches[matchId].redSideTeamId,
+        secondTeamId: this.matches[matchId].blueSideTeamId
+      })
+    },
+
     async fetchData() {
       await Promise.all([
         this.$store.dispatch('games/getUpcomingGames'),
