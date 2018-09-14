@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :games
     resources :contracts
     resources :players
+    resources :articles
     resources :subscribers, only: [:create, :index]
 
     resources :teams do

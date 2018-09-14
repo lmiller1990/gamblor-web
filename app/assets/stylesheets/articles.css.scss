@@ -1,0 +1,42 @@
+.article {
+  display: flex;
+  justify-content: center;
+}
+
+form { 
+  width: 100%;
+
+  input[type="text"], textarea {
+    width: 100%;
+    font-size: 1.3rem;
+  }
+
+  textarea {
+    height: 100%;
+  }
+}
+
+.form_outer {
+  display: flex;
+  justify-content: center;
+  width: 700px;
+}
+
+/* edit.html.erb */
+.article_edit {
+  display: flex;
+  justify-content: center;
+
+
+  .article_outer {
+    max-width: 800px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .body {
+    font-size: 1.05rem;
+  }
+}

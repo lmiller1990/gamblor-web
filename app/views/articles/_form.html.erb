@@ -1,0 +1,11 @@
+<%= form_with model: @article do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :body %>
+  <%= f.text_area :body %>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
