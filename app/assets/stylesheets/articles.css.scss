@@ -7,12 +7,8 @@ form {
   width: 100%;
 
   input[type="text"], textarea {
-    width: 100%;
     font-size: 1.3rem;
-  }
-
-  textarea {
-    height: 100%;
+    width: 100%;
   }
 }
 
@@ -23,7 +19,7 @@ form {
 }
 
 /* edit.html.erb */
-.article_edit {
+.article_edit, .article_show {
   display: flex;
   justify-content: center;
 
@@ -39,4 +35,15 @@ form {
   .body {
     font-size: 1.05rem;
   }
+}
+
+.article_edit {
+  textarea {
+    height: 80vh;
+  }
+}
+
+/* show */
+.article_show {
+  white-space: pre-line;
 }
