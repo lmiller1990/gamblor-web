@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   get '/', to: 'join#index'
+  resources :subscribers, only: [:create, :index]
 
   authenticated do
     get 'app', to: 'app#index'
@@ -10,7 +11,6 @@ Rails.application.routes.draw do
     resources :contracts
     resources :players
     resources :articles
-    resources :subscribers, only: [:create, :index]
 
     resources :teams do
       resources :games, only: [:index], controller: 'teams/games'
