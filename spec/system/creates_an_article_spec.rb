@@ -11,8 +11,10 @@ describe 'creates an article', type: :system do
       visit new_article_url
 
       fill_in 'article_title', with: 'title'
-      fill_in 'article_body', with: 'body'
+      fill_in 'article_body', with: '**body**'
       click_on 'Create Article'
     }.to change { Article.count }.by 1
+
+    expect(Article.first.body).to eq '<p><strong>body</strong></p>'
   end
 end

@@ -33,7 +33,10 @@ gem 'webpacker', '~> 3.5'
 gem 'devise'
 
 # jsonify api
-gem "olive_branch"
+gem 'olive_branch'
+
+# markdown
+gem 'redcarpet'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

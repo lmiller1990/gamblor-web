@@ -8,7 +8,10 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.create!(article_params)
+    @article = Article.new(article_params)
+    @article.body = @article.parse_body_markdown_to_html
+
+    @article.save!
 
     redirect_to @article
   end
@@ -19,8 +22,10 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find params[:id]
+    @article.attributes = article_params
+    @article.body = @article.parse_body_markdown_to_html
 
-    @article.update_attributes!(article_params)
+    @article.save!
 
     redirect_to @article
   end

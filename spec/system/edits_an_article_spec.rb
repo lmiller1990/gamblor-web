@@ -11,12 +11,12 @@ describe 'edits an article', type: :system do
     visit edit_article_path({ id: article.id })
 
     fill_in 'article_title', with: 'new_title'
-    fill_in 'article_body', with: 'new_body'
+    fill_in 'article_body', with: '**new_body**'
     click_on 'Update Article'
 
     article.reload
 
     expect(article.title).to eq 'new_title' 
-    expect(article.body).to eq 'new_body' 
+    expect(article.body).to eq '<p><strong>new_body</strong></p>' 
   end
 end

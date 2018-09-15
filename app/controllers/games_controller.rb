@@ -37,7 +37,6 @@ class GamesController < ApplicationController
   # Get the correct list of players based on which team 
   # got the first blood/dragon
   def set_players_for_first
-    puts 'ok'
     Game::FIRST_MARKETS.each do |market|
       team_id =  @game["first_#{market}_team_id".to_sym]
 
