@@ -17,6 +17,7 @@ describe 'edits an article', type: :system do
     article.reload
 
     expect(article.title).to eq 'new_title' 
-    expect(article.body).to eq '<p><strong>new_body</strong></p>' 
+    expect(article.body).to eq '**new_body**'
+    expect(article.body_html).to eq '<p><strong>new_body</strong></p>' 
   end
 end

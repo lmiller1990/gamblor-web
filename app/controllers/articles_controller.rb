@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    @article.body = @article.parse_body_markdown_to_html
+    @article.body_html = @article.parse_body_markdown_to_html
 
     @article.save!
 
@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find params[:id]
     @article.attributes = article_params
-    @article.body = @article.parse_body_markdown_to_html
+    @article.body_html = @article.parse_body_markdown_to_html
 
     @article.save!
 

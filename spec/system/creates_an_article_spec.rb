@@ -15,6 +15,7 @@ describe 'creates an article', type: :system do
       click_on 'Create Article'
     }.to change { Article.count }.by 1
 
-    expect(Article.first.body).to eq '<p><strong>body</strong></p>'
+    expect(Article.first.body).to eq '**body**'
+    expect(Article.first.body_html).to eq '<p><strong>body</strong></p>'
   end
 end
