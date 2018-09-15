@@ -38,7 +38,7 @@
       </p>
     </div>
 
-    <%= form_for @subscriber, url: 'subscribers/create', html: { class: 'join' }  do |f| %>
+    <%= form_for @subscriber do |f| %>
       <div class="join-field">
         <%= f.text_field :name, { placeholder: 'Name' } %>
       </div>

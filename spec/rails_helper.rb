@@ -44,14 +44,11 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
-
   config.before(:each, type: :system, js: true) do
     driven_by :selenium_chrome_headless
   end
 
+  # RSpec.configure do |config|
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
