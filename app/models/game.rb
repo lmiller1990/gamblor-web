@@ -2,6 +2,9 @@ class Game < ApplicationRecord
   FIRST_MARKETS = %w(blood turret dragon baron).freeze
   enum first_turret_type: [ :top, :middle, :bottom ]
 
+  belongs_to :league
+
+
   def winner 
     Team.find winner_id
   end

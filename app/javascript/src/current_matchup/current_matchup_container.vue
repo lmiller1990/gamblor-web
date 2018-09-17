@@ -1,9 +1,6 @@
 <template>
   <div>
     <div v-if="isCurrentMatchup">
-      <div class="charts">
-        <canvas id="first_blood" width="400" height="400"></canvas>
-      </div>
     </div>
 
     <div v-if=!currentMatchup>
@@ -12,8 +9,8 @@
 </template>
 
 <script>
-import { ChartCreator } from './draw_chart.js'
-import { getAndProcessMarketData } from './fetch_and_process_market_data.js'
+// import { ChartCreator } from './draw_chart.js'
+// import { getAndProcessMarketData } from './fetch_and_process_market_data.js'
 import { options } from '../teams/chart_options.js'
 
 export default {
@@ -30,18 +27,13 @@ export default {
       return firstTeamId && secondTeamId
     },
 
-    async currentMatchup() {
+    currentMatchup() {
       if (this.isCurrentMatchup) {
         const { firstTeamId, secondTeamId } = this.$store.state.matchups
-
-        const [firstTeamData, secondTeamData] = await this.fetchDataForTeams(firstTeamId, secondTeamId) 
-
-        this.firstTeamData = {...this.firstTeamData, ...firstTeamData}
-        this.secondTeamData = {...this.secondTeamData, ...secondTeamData}
-
-
-        const ctx = document.getElementById('first_blood').getContext('2d')
-        new ChartCreator({ ctx, options, datasets: [this.firstTeamData] }).drawChart({ ctx })
+        const gamesForFirstTeam = this.$store.getters['games/byTeamId'](firstTeamId)
+        const gamesForSecondTeam = this.$store.getters['games/byTeamId'](secondTeamId)
+        console.log(gamesForFirstTeam)
+        console.log(gamesForSecondTeam)
       }
     }
   },
@@ -51,6 +43,7 @@ export default {
       return this.$store.state.teams.all[id]
     },
 
+    // TODO: Delete me
     fetchDataForTeams(firstTeamId, secondTeamId) {
       const firstTeam = this.getTeamById(firstTeamId)
       const secondTeam = this.getTeamById(secondTeamId)

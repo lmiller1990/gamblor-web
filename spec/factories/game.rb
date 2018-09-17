@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :game do
+    association :league
+
     date DateTime.now
     winner_id 1  
     loser_id 1

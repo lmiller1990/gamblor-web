@@ -5,6 +5,7 @@ describe 'games#new', type: :system do
   let!(:user) { create(:user) }
   let!(:red_side_team) { create(:red_side_team) }
   let!(:blue_side_team) { create(:blue_side_team) }
+  let!(:league) { create(:league, name: 'nalcs') }
 
   it 'creates a game' do
     sign_in user
@@ -16,6 +17,7 @@ describe 'games#new', type: :system do
 
       select(blue_side_team.name, from: 'game[blue_side_team_id]') 
       select(red_side_team.name, from: 'game_red_side_team_id') 
+      select 'nalcs', from: 'game_league_id'
 
       click_on 'Create Game'
 

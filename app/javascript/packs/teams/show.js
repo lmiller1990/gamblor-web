@@ -1,6 +1,7 @@
 import Chart from 'chart.js'
 import axios from 'axios'
 import { options } from '../../src/teams/chart_options.js'
+import { rgbFromStringHash } from '../../src/utils.js'
 
 class ChartCreator {
   constructor({ ctx, options, datasets }) {
@@ -67,7 +68,7 @@ function setOpponentSelectListener(opponents) {
       label: label(teamId), 
       teamId, 
       firstMarket: 'first_blood',
-      borderColor: 'orange'
+      borderColor: await rgbFromStringHash(teamId)
     })
 
     window.firstMarketChart.addDataset(dataset)
@@ -92,7 +93,7 @@ async function execute() {
     label: currentTeamName, 
     teamId, 
     firstMarket: 'first_blood',
-    borderColor: 'lightblue'
+    borderColor: await rgbFromStringHash(teamId)
   })
 
   window.firstMarketChart = new ChartCreator({ ctx, options, datasets: [dataset] })

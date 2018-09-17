@@ -78,7 +78,9 @@ class GamesController < ApplicationController
       :first_baron_time, :first_blood_time,
       :first_turret_time, :first_dragon_time,
 
-      :winner_id, :loser_id
+      :winner_id, :loser_id,
+
+      :league_id
     )
   end
 
