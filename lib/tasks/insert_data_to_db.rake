@@ -4,22 +4,32 @@ desc "Write Oracle's elixir data to database"
 
 def seed_games(games)
   Game.delete_all
-  puts "==============\nSeeding Gamesa\n=============="
+  puts "==============\nSeeding Games\n=============="
   games = games.select {|g| g[:player] == 'Team' }.uniq! { |g| g[:gameid] }
 
 
   games.each_with_index do |game, i|
-    if i == 1
-      puts game
-      puts game[:team]
-    end
     new_game = Game.find_or_initialize_by(id: game[:gameid])
     team = Team.find_by_name(game[:team])
     opponent = Team.find_by_name(game[:opponent])
 
-    puts game[:side]
     new_game.blue_side_team_id = game[:side] == "0.0" ? team.id : opponent.id
     new_game.red_side_team_id = game[:side] == "1.0" ? team.id : opponent.id
+
+    new_game.first_blood_team_id = game[:fb] == "0.0" ? team.id : opponent.id
+    new_game.first_blood_time = game[:fbtime]
+
+    new_game.first_turret_team_id = game[:ft] == "0.0" ? team.id : opponent.id
+    new_game.first_turret_time = game[:fttime]
+
+    new_game.winner_id = game[:result] == "1.0" ? team.id : opponent.id
+    new_game.loser_id = game[:result] == "0.0" ? team.id : opponent.id
+
+    new_game.first_dragon_team_id = game[:fd] == "0.0" ? team.id : opponent.id
+    new_game.first_dragon_time = game[:fdtime]
+
+    new_game.first_baron_team_id = game[:fbaron] == "0.0" ? team.id : opponent.id
+    new_game.first_baron_time = game[:fbarontime]
 
     new_game.save!
   end
@@ -78,8 +88,7 @@ task :csv_to_db => :environment do
     games << game
   end
 
-  #seed_teams(games)
-  #seed_players(games)
+  seed_teams(games) if Team.count == 0
+  seed_players(games) if Player.count == 0
   seed_games(games)
-  0
 end

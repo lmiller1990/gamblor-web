@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_15_052812) do
+ActiveRecord::Schema.define(version: 2018_09_17_065443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,11 +50,11 @@ ActiveRecord::Schema.define(version: 2018_09_15_052812) do
     t.integer "first_dragon_player_id"
     t.integer "first_baron_player_id"
     t.integer "first_blood_player_id"
-    t.time "first_baron_time"
-    t.time "first_dragon_time"
-    t.time "first_blood_time"
-    t.time "first_turret_time"
     t.integer "first_turret_type"
+    t.float "first_dragon_time"
+    t.float "first_blood_time"
+    t.float "first_turret_time"
+    t.float "first_baron_time"
   end
 
   create_table "players", force: :cascade do |t|
