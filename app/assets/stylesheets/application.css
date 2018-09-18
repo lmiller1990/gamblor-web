@@ -22,3 +22,7 @@ header {
 header > a {
   margin: 0 0 0 10px;
 }
+
+html, body {
+  height: 100%;
+}

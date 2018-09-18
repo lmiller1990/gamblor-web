@@ -1,6 +1,26 @@
 <template>
-  <div>
+  <div class="history">
     <h3>{{ teamName }}</h3>
+    <div class="first_markets">
+      <FirstMarketsContainer 
+        v-for="market in markets.slice(0, 2)"
+        :teamId="teamId"
+        :teamName="teamName"
+        :games="games" 
+        :side="side"
+        :market="market"
+      />
+    </div>
+    <div class="first_markets">
+      <FirstMarketsContainer 
+        v-for="market in markets.slice(2, 4)"
+        :teamId="teamId"
+        :teamName="teamName"
+        :games="games" 
+        :side="side"
+        :market="market"
+      />
+    </div>
     <table>
       <tr>
         <td>Date</td>
@@ -14,7 +34,7 @@
       <tr v-for="game in games">
         <td>{{ new Date(game.date).toDateString() }}</td>
         <td>{{ getOpponent(game) }}</td>
-        <td>{{ didGetFirst('blood', game) }}</td>
+        <td>{{ didGetFirst('Blood', game) }}</td>
         <td>{{ didGetFirst('Turret', game) }}</td>
         <td>{{ didGetFirst('Dragon', game) }}</td>
         <td>{{ didGetFirst('Baron', game) }}</td>
@@ -25,8 +45,14 @@
 </template>
 
 <script>
+import FirstMarketsContainer from './first_markets_container.vue'
 export default {
   props: {
+    side: {
+      type: String,
+      required: true
+    },
+
     teamId: {
       type: Number,
       required: true
@@ -38,6 +64,14 @@ export default {
     }
   },
 
+  components: { FirstMarketsContainer },
+
+  data() {
+    return {
+      markets: ['Blood', 'Turret', 'Dragon', 'Baron']
+    }
+  },
+
   computed: {
     teamName() {
       return this.$store.getters['teams/nameById'](this.teamId)
@@ -46,7 +80,7 @@ export default {
 
   methods: {
     didGetFirst(market, game) {
-      return game[`first${market}TeamId`] === this.teamId
+      return game[`first${market}TeamId`] === this.teamId ? 'O' : 'X'
     },
 
     getOpponent(game) {
@@ -60,5 +94,16 @@ export default {
 </script>
 
 <style scoped>
+.history {
+  margin: 2px;
+}
+
+.first_markets {
+  display: flex;
+}
+
+table, td {
+  border: 1px solid silver;
+}
 </style>
 

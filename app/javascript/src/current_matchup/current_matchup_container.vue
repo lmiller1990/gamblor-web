@@ -1,22 +1,27 @@
 <template>
   <div class="matchup_container">
-    <MatchHistory 
+    <div 
       v-if="isCurrentMatchup"
-      :games="blueSideGames"
-      :teamId="blueSideTeamId"
-    />
-    <MatchHistory 
-      v-if="isCurrentMatchup"
-      :games="redSideGames"
-      :teamId="redSideTeamId"
-    />
-    <UpcomingMatchesContainer @matchupSelected="setMatchup" />
+      class="team_history">
+      <MatchHistory 
+        :games="blueSideGames"
+        :teamId="blueSideTeamId"
+        side="blue" />
+      <MatchHistory 
+        :games="redSideGames"
+        :teamId="redSideTeamId"
+        side="red" />
+    </div>
+    <div v-else class="team_history">
+      No matchup selected
+    </div>
+    <div class="upcoming_matches">
+      <UpcomingMatchesContainer @matchupSelected="setMatchup" />
+    </div>
   </div>
 </template>
 
 <script>
-// import { ChartCreator } from './draw_chart.js'
-// import { getAndProcessMarketData } from './fetch_and_process_market_data.js'
 import { options } from '../teams/chart_options.js'
 import UpcomingMatchesContainer from '../upcoming_matches/upcoming_matches_container.vue'
 import MatchHistory from './match_history.vue'
@@ -65,27 +70,6 @@ export default {
 
     getTeamById(id) {
       return this.$store.state.teams.all[id]
-    },
-
-    // TODO: Delete me
-    fetchDataForTeams(firstTeamId, secondTeamId) {
-      const firstTeam = this.getTeamById(firstTeamId)
-      const secondTeam = this.getTeamById(secondTeamId)
-
-      return Promise.all([
-        getAndProcessMarketData({ 
-          label: firstTeam.name, 
-          teamId: firstTeamId, 
-          firstMarket: 'first_blood',
-          borderColor: 'red' 
-        }), 
-        getAndProcessMarketData({ 
-          label: secondTeam.name, 
-          teamId: secondTeamId, 
-          firstMarket: 'first_blood', 
-          borderColor: 'red' 
-        })
-      ])
     }
   }
 }
@@ -94,6 +78,19 @@ export default {
 <style scoped>
 .matchup_container {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 
+.team_history {
+  width: 100%;
+  padding: 2px;
+  display: flex;
+}
+
+.upcoming_matches {
+  border-left: 1px solid black;
+  padding: 2px;
+  width: 450px;
 }
 </style>

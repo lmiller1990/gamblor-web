@@ -1,5 +1,7 @@
 <template>
-  <div @click="$emit('selected', { matchId })">
+  <div 
+    class="matchup_wrapper"
+    @click="$emit('selected', { matchId })">
     <div class="matchup">
       <div class="blue_team team_name">
         {{ blueTeam.name }}
@@ -40,12 +42,12 @@ export default {
 </script>
 
 <style scoped>
-.matchup {
-  display: flex;
+.matchup_wrapper {
+  padding: 4px;
 }
 
-* {
-  border: 1px solid;
+.matchup {
+  display: flex;
 }
 
 .team_name {

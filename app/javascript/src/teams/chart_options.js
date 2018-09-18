@@ -1,15 +1,18 @@
-const options = {
+const options = ({ title }) => ({
   title: {
-    text: 'Average First Blood %',
+    text: title,
     display: true
   },
 
+  legend: {
+    display: false
+  },
+
+  responsive: true,
+  maintainAspectRatio: false,
+
   scales: {
     xAxes: [{
-      gridLines: {
-        // color: 'white',
-      },
-
       type: 'linear',
       display: true,
       ticks: {
@@ -18,16 +21,12 @@ const options = {
       }
     }],
     yAxes: [{
-      gridLines: {
-        // color: 'white',
-      },
-
       ticks: {
         beginAtZero: true,
         suggestedMax: 100
       }
     }]
   }
-}
+})
 
 export { options }
