@@ -45,7 +45,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome_headless
+    driven_by :selenium, using: :chrome #_chrome_headless
   end
 
   # RSpec.configure do |config|

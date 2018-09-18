@@ -60,7 +60,6 @@ jobs:
       # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      - run: bundle exec rake db:seed
 
       # run tests!
       - run:
@@ -69,8 +68,8 @@ jobs:
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
             
-            bundle exec rake
             yarn test
+            bundle exec rake
 
 
       # collect reports
