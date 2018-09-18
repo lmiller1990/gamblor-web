@@ -44,10 +44,15 @@ export default {
 
   methods: {
     fetchMatchup({ matchId }) {
+      this.$emit('matchupSelected', { 
+        blueSideTeamId: this.matches[matchId].blueSideTeamId,
+        redSideTeamId: this.matches[matchId].redSideTeamId
+      })
+        /*
       this.$store.dispatch('matchups/setMatchup', { 
         firstTeamId: this.matches[matchId].blueSideTeamId,
         secondTeamId: this.matches[matchId].redSideTeamId
-      })
+      })*/
     },
 
     async fetchData() {

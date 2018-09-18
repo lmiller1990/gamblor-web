@@ -20,9 +20,14 @@ export const actions = {
   }
 }
 
+export const getters = {
+  nameById: (state) => (teamId) => state.all[teamId].name
+}
+
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
+  getters
 }

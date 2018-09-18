@@ -103,7 +103,7 @@ def hashify_csv
 end
 
 task :simulate_recent_games => :environment do
-  (1..10).each do |i|
+  (1..20).each do |i|
     if i % 2 == 0
       Game.all[i].update_attributes(date: 3.days.ago)
     else
