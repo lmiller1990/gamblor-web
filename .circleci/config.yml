@@ -19,7 +19,8 @@ jobs:
            POSTGRES_USER: web
            POSTGRES_DB: web_test
            POSTGRES_PASSWORD: ""
-        - image: selenium/standalone-chrome:3.14.0
+
+       - image: selenium/standalone-chrome:3.14.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
