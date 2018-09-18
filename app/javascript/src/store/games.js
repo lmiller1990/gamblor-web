@@ -20,9 +20,24 @@ export const actions = {
   }
 }
 
+export const getters = {
+  byTeamId: (state) => (teamId) => {
+    const inGame = 
+      (teamId, game) => {
+        const { blueSideTeamId, redSideTeamId } = game
+        return [blueSideTeamId, redSideTeamId].includes(teamId)
+      }
+
+    const ids = state.ids.filter(gameId => inGame(teamId, state.all[gameId]))
+
+    return ids.map(x => state.all[x])
+  }
+}
+
 export default {
   namespaced: true,
   state,
   mutations,
+  getters,
   actions
 }

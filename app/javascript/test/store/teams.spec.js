@@ -1,4 +1,4 @@
-import { mutations } from '../../src/store/teams.js'
+import { mutations, getters } from '../../src/store/teams.js'
 
 const createState = () => ({ ids: [], all: {} })
 
@@ -16,6 +16,19 @@ describe('mutations', () => {
 
       expect(state.ids).toEqual([1, 2])
       expect(Object.keys(state.all)).toEqual(['1', '2'])
+    })
+  })
+})
+
+describe('getters', () => {
+  describe('nameById', () => {
+    it('returns a team name by the id', () => {
+      const state = createState()
+      state.all = { '1': { name: 'tsm' } }
+      state.ids = [1]
+
+      expect(getters.nameById(state)(1)).toBe('tsm')
+
     })
   })
 })

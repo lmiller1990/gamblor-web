@@ -9,7 +9,6 @@ export const mutations = {
   SET_MATCHUP(state, { firstTeamId, secondTeamId }) {
     state.firstTeamId = firstTeamId
     state.secondTeamId = secondTeamId
-    console.log(state)
   }
 }
 

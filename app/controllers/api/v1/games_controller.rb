@@ -21,7 +21,8 @@ module Api
           :loser_id,
           :red_side_team_id,
           :blue_side_team_id,
-          :date
+          :date,
+          :league_id
         )
       end
     end

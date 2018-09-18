@@ -1,6 +1,7 @@
 <template>
   <div>
     <div v-if="!loading">
+      <h3>Current Match (container)</h3>
       <div class="matchup-container">
         <Match
           v-for="matchId in matchIds"
@@ -43,10 +44,15 @@ export default {
 
   methods: {
     fetchMatchup({ matchId }) {
-      this.$store.dispatch('matchups/setMatchup', { 
-        firstTeamId: this.matches[matchId].redSideTeamId,
-        secondTeamId: this.matches[matchId].blueSideTeamId
+      this.$emit('matchupSelected', { 
+        blueSideTeamId: this.matches[matchId].blueSideTeamId,
+        redSideTeamId: this.matches[matchId].redSideTeamId
       })
+        /*
+      this.$store.dispatch('matchups/setMatchup', { 
+        firstTeamId: this.matches[matchId].blueSideTeamId,
+        secondTeamId: this.matches[matchId].redSideTeamId
+      })*/
     },
 
     async fetchData() {
