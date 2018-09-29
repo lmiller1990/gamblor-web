@@ -3,12 +3,14 @@
     class="matchup_wrapper"
     @click="$emit('selected', { matchId })">
     <div class="matchup">
+      <img :src="teamImage(blueTeam.name)">
       <div class="blue_team team_name">
         {{ blueTeam.name }}
       </div>
 
       <div> vs </div>
 
+      <img :src="teamImage(redTeam.name)">
       <div class="red_team team_name">
         {{ redTeam.name }}
       </div>
@@ -36,6 +38,12 @@ export default {
 
     redTeam() {
       return this.teams[this.$store.state.games.all[this.matchId].redSideTeamId]
+    }
+  },
+
+  methods: {
+    teamImage(name) {
+      return `/images/${name.replace(/\s/g, '_')}.png`
     }
   }
 }
