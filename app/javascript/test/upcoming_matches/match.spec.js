@@ -1,25 +1,32 @@
 import { shallowMount } from '@vue/test-utils'
 import Match from '../../src/upcoming_matches/match.vue'
+import TeamLogo from '../../src/components/team_logo.vue'
 
 describe('Match', () => {
-  describe('teamImage', () => {
-    it('returns a team icon image path', () => {
-      const clg = 'counter logic gaming'
-      const tsm = 'team solomid'
-      
-      const wrapper = shallowMount(Match, {
-        propsData: {
-          matchId: 1
-        },
-        computed: {
-          blueTeam: () => ({ name: clg }),
-          redTeam: () => ({ name: tsm }),
-          teams: () => ({})
-        }
-      })
+  const clg = 'counter logic gaming'
+  const tsm = 'team solomid'
+  const matchId = 1
 
-      expect(wrapper.findAll('img').at(0).element.src.includes('/images/counter_logic_gaming.png')).toBe(true)
-      expect(wrapper.findAll('img').at(1).element.src.includes('/images/team_solomid.png')).toBe(true)
-    })
+  const factory = () => shallowMount(Match, {
+    propsData: { matchId },
+    computed: {
+      blueTeam: () => ({ name: clg }),
+      redTeam: () => ({ name: tsm }),
+      teams: () => ({})
+    }
+  })
+
+  it('renders two team logos', () => {
+    const wrapper = factory()
+
+    expect(wrapper.findAll(TeamLogo)).toHaveLength(2)
+  })
+
+  it('emits a selected event with match id when clicked', () => {
+    const wrapper = factory()
+
+    wrapper.trigger('click')
+
+    expect(wrapper.emitted().selected[0][0]).toEqual({ matchId })
   })
 })

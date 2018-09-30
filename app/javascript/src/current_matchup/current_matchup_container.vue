@@ -89,7 +89,6 @@ export default {
 }
 
 .upcoming_matches {
-  border-left: 1px solid black;
   padding: 2px;
   width: 450px;
 }
