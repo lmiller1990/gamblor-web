@@ -2,6 +2,13 @@ require 'csv'
 
 desc "Write Oracle's elixir data to database"
 
+def convert_excel_date(date, unix_offset)
+  # https://stackoverflow.com/questions/1703505/excel-date-to-unix-timestamp
+  unix_timestamp = (date - 25569) * 86400
+
+  Time.at(unix_timestamp + unix_offset.days.to_i)
+end
+
 def seed_games(games)
   Game.delete_all
   puts "==============\nSeeding Games\n=============="
@@ -15,16 +22,26 @@ def seed_games(games)
 
     new_game.league_id = league.id
 
+    begin
+      # go back to week 8 of na lcs
+      past = Date.new(2018, 8, 12)
+      unix_offset = (DateTime.now - past).to_i
+      new_game.date = convert_excel_date(game[:date].to_f, unix_offset)
+    rescue => e
+      puts "Error occurred converting #{game[:date]}"
+      puts e
+    end
+
     new_game.blue_side_team_id = game[:side] == "0.0" ? team.id : opponent.id
     new_game.red_side_team_id = game[:side] == "1.0" ? team.id : opponent.id
 
     if game[:fb] 
-      new_game.first_blood_team_id = game[:fb] == "0.0" ? team.id : opponent.id
+      new_game.first_blood_team_id = game[:fb] == "1.0" ? team.id : opponent.id
       new_game.first_blood_time = game[:fbtime]
     end
 
     if game[:ft] 
-      new_game.first_turret_team_id = game[:ft] == "0.0" ? team.id : opponent.id
+      new_game.first_turret_team_id = game[:ft] == "1.0" ? team.id : opponent.id
       new_game.first_turret_time = game[:fttime]
     end
 
@@ -32,12 +49,12 @@ def seed_games(games)
     new_game.loser_id = game[:result] == "0.0" ? team.id : opponent.id
 
     if game[:fd] 
-      new_game.first_dragon_team_id = game[:fd] == "0.0" ? team.id : opponent.id
+      new_game.first_dragon_team_id = game[:fd] == "1.0" ? team.id : opponent.id
       new_game.first_dragon_time = game[:fdtime]
     end
 
     if game[:fbaron]
-      new_game.first_baron_team_id = game[:fbaron] == "0.0" ? team.id : opponent.id
+      new_game.first_baron_team_id = game[:fbaron] == "1.0" ? team.id : opponent.id
       new_game.first_baron_time = game[:fbarontime]
     end
 

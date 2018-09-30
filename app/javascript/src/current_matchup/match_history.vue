@@ -1,6 +1,11 @@
 <template>
   <div class="history">
-    <h3>{{ teamName }}</h3>
+
+    <div class="header">
+      <TeamLogo :teamName="teamName" />
+      <h3 class="team_name">{{ teamName | titlecase }}</h3>
+    </div>
+
     <div class="first_markets">
       <FirstMarketsContainer 
         v-for="market in markets.slice(0, 2)"
@@ -45,7 +50,10 @@
 </template>
 
 <script>
+import { titlecase } from '../filters/index.js'
 import FirstMarketsContainer from './first_markets_container.vue'
+import TeamLogo from '../components/team_logo.vue'
+
 export default {
   props: {
     side: {
@@ -64,7 +72,12 @@ export default {
     }
   },
 
-  components: { FirstMarketsContainer },
+  components: {
+    FirstMarketsContainer,
+    TeamLogo
+  },
+
+  filters: { titlecase },
 
   data() {
     return {
@@ -94,6 +107,16 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.team_name {
+  font-size: 1.4em;
+  margin: 0 10px;
+}
+
 .history {
   margin: 2px;
 }
