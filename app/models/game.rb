@@ -4,6 +4,18 @@ class Game < ApplicationRecord
 
   belongs_to :league
 
+  def self.upcoming_games(num = 5)
+    Game
+      .where('date >= ?', Date.today)
+      .order(date: :asc)[0...num]
+  end
+
+  def self.most_recently_played(num = 5)
+    Game
+      .where('date < ?', Date.today)
+      .order(date: :desc)[0...num]
+      .reverse
+  end
 
   def winner 
     Team.find winner_id
@@ -23,15 +35,6 @@ class Game < ApplicationRecord
 
   def blue_side_team
     Team.find blue_side_team_id
-  end
-
-
-  def first_turret_team
-    Team.find first_turret_team_id
-  end
-
-  def first_dragon_team
-    Team.find first_dragon_team_id
   end
 
   def first_team_to_get(market)

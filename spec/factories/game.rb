@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :game do
     association :league
 
-    date DateTime.now
+    date 100.years.ago
     winner_id 1  
     loser_id 1
     blue_side_team_id 1

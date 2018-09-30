@@ -1,10 +1,10 @@
 module Api
   module V1
     class UpcomingGamesController < ActionController::API
+      # returns past 5 games and upcoming 5 games
+      # in chronological order, from oldest to most in future
       def index
-        games = Game.where('date > ?', 3.days.ago).order(date: :asc)
-
-        render json: games
+        render json: Game.most_recently_played + Game.upcoming_games
       end
     end
   end

@@ -46,4 +46,24 @@ describe Game do
   describe '#teams' do
     it { expect(game.teams).to eq [blue_side_team, red_side_team] }
   end
+
+  let!(:game_4_weeks_ago) { create(:game, date: 4.weeks.ago) }
+  let!(:game_3_weeks_ago) { create(:game, date: 3.weeks.ago) }
+  let!(:game_2_weeks_ago) { create(:game, date: 2.weeks.ago) }
+  let!(:game_1_week_ago)  { create(:game, date: 1.week.ago) }
+  let!(:game_tomorrow)    { create(:game, date: 1.day.from_now) }
+  let!(:game_1_week_time) { create(:game, date: 1.week.from_now) }
+  let!(:game_2_weeks_time) { create(:game, date: 2.weeks.from_now) }
+
+  describe '#most_recently_played' do
+    it 'returns the n most recently played games' do
+      expect(Game.most_recently_played(2)).to eq([  game_2_weeks_ago, game_1_week_ago ])
+    end
+  end
+
+  describe '#upcoming_games' do
+    it 'returns n upcoming games' do
+      expect(Game.upcoming_games(2)).to eq([ game_tomorrow, game_1_week_time ])
+    end
+  end
 end
