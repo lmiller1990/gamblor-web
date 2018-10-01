@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :contracts
     resources :players
     resources :articles
+    resources :splits
 
     resources :teams do
       resources :games, only: [:index], controller: 'teams/games'

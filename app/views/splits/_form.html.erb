@@ -1,0 +1,15 @@
+<%= form_with model: @split do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :league %>
+  <%= f.select :league_id, @leagues %>
+
+  <%= f.label :start_date %>
+  <%= f.date_field :start_date, value: Date.today %>
+
+  <%= f.label :end_date %>
+  <%= f.date_field :end_date %>
+
+  <%= f.submit %>
+<% end %>
