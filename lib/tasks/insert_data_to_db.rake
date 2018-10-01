@@ -24,7 +24,7 @@ def seed_games(games)
 
     begin
       # go back to week 8 of na lcs
-      past = Date.new(2018, 8, 12)
+      past = DateTime.now # Date.new(2018, 8, 12)
       unix_offset = (DateTime.now - past).to_i
       new_game.date = convert_excel_date(game[:date].to_f, unix_offset)
     rescue => e
