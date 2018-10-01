@@ -56,7 +56,6 @@ export default {
       this.blueSideTeamId = firstTeamId
       this.redSideTeamId = secondTeamId
       this.blueSideGames = gamesForFirstTeam
-      console.log(this.blueSideGames.length)
       this.redSideGames = gamesForSecondTeam
     },
 

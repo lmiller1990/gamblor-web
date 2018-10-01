@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe Team do
   let!(:team)  { create(:red_side_team) }
-  let!(:victory) { create(:game, winner_id: team.id) }
-  let!(:defeat) { create(:game, loser_id: team.id) }
+  let!(:defeat) { create(:game, loser_id: team.id, date: 2.day.ago) }
+  let!(:victory) { create(:game, winner_id: team.id, date: 1.days.ago) }
 
   let!(:player) { create(:player) }
   let!(:team) { create(:team) }
 
   describe '#games' do
-    it 'returns games played' do
-      expect(team.games).to eq [victory, defeat]
+    it 'returns games played in chronological order' do
+      expect(team.games).to eq [defeat, victory]
     end
   end
 

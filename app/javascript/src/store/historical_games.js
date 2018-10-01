@@ -8,16 +8,7 @@ const state = {
 
 export const mutations = {
   SET_GAMES(state, axiosResponse) {
-    for (let game of axiosResponse) {
-      if (!state.ids.includes(game.id)) {
-        state.ids.push(game.id)
-      }
-      state.all = {
-        ...state.all, 
-        [game.id]: {...axiosResponse.find(x => x.id === game.id)}
-      }
-    }
-    //mapResponseToStore(state, axiosResponse)
+    mapResponseToStore(state, axiosResponse)
   }
 }
 
@@ -37,7 +28,10 @@ export const getters = {
         return [blueSideTeamId, redSideTeamId].includes(teamId)
       }
 
-    const ids = state.ids.filter(gameId => inGame(teamId, state.all[gameId]))
+    const ids = state.ids
+      .filter(gameId => inGame(teamId, state.all[gameId]))
+      .sort((x, y) => new Date(state.all[y].date) - new Date(state.all[x].date))
+      .reverse()
 
     return ids.map(x => state.all[x])
   }

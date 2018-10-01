@@ -15,11 +15,13 @@
  * @param {Array} AxiosResponse.data array, containing [{ id... }]
  */
 function mapResponseToStore(state, response) {
-  state.ids = response.map(x => x.id)
-  for (let id of state.ids) {
+  for (let obj of response) {
+    if (!state.ids.includes(obj.id)) {
+      state.ids.push(obj.id)
+    }
     state.all = {
       ...state.all, 
-      [id]: {...response.find(x => x.id === id)}
+      [obj.id]: {...response.find(x => x.id === obj.id)}
     }
   }
 }
