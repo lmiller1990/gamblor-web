@@ -34,11 +34,11 @@ export default {
 
   computed: {
     matchIds() {
-      return this.$store.state.games.ids
+      return this.$store.state.scheduledGames.ids
     },
 
     matches() {
-      return this.$store.state.games.all
+      return this.$store.state.scheduledGames.all
     }
   },
 
@@ -52,7 +52,7 @@ export default {
 
     async fetchData() {
       await Promise.all([
-        this.$store.dispatch('games/getUpcomingGames'),
+        this.$store.dispatch('scheduledGames/getUpcomingGames'),
         this.$store.dispatch('teams/getTeams')
       ])
       this.loading = false 

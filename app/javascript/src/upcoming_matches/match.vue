@@ -43,11 +43,11 @@ export default {
     },
 
     blueTeam() {
-      return this.teams[this.$store.state.games.all[this.matchId].blueSideTeamId]
+      return this.teams[this.$store.state.scheduledGames.all[this.matchId].blueSideTeamId]
     },
 
     redTeam() {
-      return this.teams[this.$store.state.games.all[this.matchId].redSideTeamId]
+      return this.teams[this.$store.state.scheduledGames.all[this.matchId].redSideTeamId]
     }
   }
 }

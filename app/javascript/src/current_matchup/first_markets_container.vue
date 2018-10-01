@@ -10,6 +10,8 @@ import { options } from '../teams/chart_options.js'
 import { rgbFromStringHash } from '../utils.js'
 
 export default {
+  name: 'FirstMarketContainer',
+
   props: {
     market: {
       type: String,

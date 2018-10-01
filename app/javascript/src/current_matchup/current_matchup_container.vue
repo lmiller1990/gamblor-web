@@ -43,28 +43,34 @@ export default {
 
   computed: {
     isCurrentMatchup() {
-      const { firstTeamId, secondTeamId } = this.$store.state.matchups
-      return firstTeamId && secondTeamId
+      return this.blueSideTeamId && this.redSideTeamId
     }
   },
 
   methods: {
     fetchCurrentMatchup() {
       const { firstTeamId, secondTeamId } = this.$store.state.matchups
-      const gamesForFirstTeam = this.$store.getters['games/byTeamId'](firstTeamId)
-      const gamesForSecondTeam = this.$store.getters['games/byTeamId'](secondTeamId)
+      const gamesForFirstTeam = this.$store.getters['historicalGames/byTeamId'](firstTeamId)
+      const gamesForSecondTeam = this.$store.getters['historicalGames/byTeamId'](secondTeamId)
 
       this.blueSideTeamId = firstTeamId
       this.redSideTeamId = secondTeamId
       this.blueSideGames = gamesForFirstTeam
+      console.log(this.blueSideGames.length)
       this.redSideGames = gamesForSecondTeam
     },
 
     async setMatchup({ blueSideTeamId, redSideTeamId }) {
-      await this.$store.dispatch('matchups/setMatchup', {
+      await Promise.all([
+        this.$store.dispatch('historicalGames/getByTeamId', blueSideTeamId),
+        this.$store.dispatch('historicalGames/getByTeamId', redSideTeamId)
+      ])
+
+      this.$store.dispatch('matchups/setMatchup', {
         firstTeamId: blueSideTeamId,
         secondTeamId: redSideTeamId
       })
+
       this.fetchCurrentMatchup()
     },
 

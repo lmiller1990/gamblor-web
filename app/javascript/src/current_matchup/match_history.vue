@@ -14,7 +14,7 @@
         :games="games" 
         :side="side"
         :market="market"
-      />
+        />
     </div>
     <div class="first_markets">
       <FirstMarketsContainer 
@@ -26,6 +26,7 @@
         :market="market"
       />
     </div>
+
     <table>
       <tr>
         <td>Date</td>
@@ -46,6 +47,7 @@
         <td>{{ game.winnerId === teamId }}</td>
       </tr>
     </table>
+
   </div>
 </template>
 
