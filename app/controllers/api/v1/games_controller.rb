@@ -22,7 +22,8 @@ module Api
           :red_side_team_id,
           :blue_side_team_id,
           :date,
-          :league_id
+          :league_id,
+          :split_id
         )
       end
     end

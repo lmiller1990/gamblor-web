@@ -5,7 +5,8 @@ describe 'games#new', type: :system do
   let!(:user) { create(:user) }
   let!(:red_side_team) { create(:red_side_team) }
   let!(:blue_side_team) { create(:blue_side_team) }
-  let!(:league) { create(:league, name: 'nalcs') }
+  let!(:league) { create(:league, name: 'NA LCS') }
+  let!(:split)  { create(:split, name: 'Summer Split', league: league) }
 
   it 'creates a game' do
     sign_in user
@@ -17,7 +18,8 @@ describe 'games#new', type: :system do
 
       select(blue_side_team.name, from: 'game[blue_side_team_id]') 
       select(red_side_team.name, from: 'game_red_side_team_id') 
-      select 'nalcs', from: 'game_league_id'
+      select league.name, from: 'game_league_id'
+      select split.name, from: 'game_split_id'
 
       click_on 'Create Game'
 

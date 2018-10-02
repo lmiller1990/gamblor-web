@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_01_155441) do
+ActiveRecord::Schema.define(version: 2018_10_02_131148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2018_10_01_155441) do
     t.float "first_baron_time"
     t.integer "league_id"
     t.string "gameid"
+    t.integer "split_id"
   end
 
   create_table "leagues", force: :cascade do |t|

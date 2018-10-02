@@ -10,6 +10,11 @@
   </div>
 
   <div class="first_market">
+    <%= f.label :split %>
+    <%= f.select :split_id, FormHelper.select_for(Split.all), { selected: Split.last.id }, { class: 'side_select' } %>
+  </div>
+
+  <div class="first_market">
     <%= f.label :blue_side %>
     <%= f.select :blue_side_team_id, FormHelper.select_for(@teams), { selected: @teams.first.id }, { class: 'side_select' } %>
   </div>

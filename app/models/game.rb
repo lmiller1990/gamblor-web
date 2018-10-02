@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   enum first_turret_type: [ :top, :middle, :bottom ]
 
   belongs_to :league
+  belongs_to :split
 
   def self.upcoming_games(num = 5)
     Game

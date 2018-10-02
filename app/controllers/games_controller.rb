@@ -80,7 +80,7 @@ class GamesController < ApplicationController
 
       :winner_id, :loser_id,
 
-      :league_id
+      :league_id, :split_id
     )
   end
 

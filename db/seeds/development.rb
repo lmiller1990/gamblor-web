@@ -15,6 +15,14 @@ optic = Team.find_or_create_by(name: 'Optic Gaming')
 clg = Team.find_or_create_by(name: 'Counter Logic Gaming')
 thieves = Team.find_or_create_by(name: '100 Thieves')
 
+nalcs = League.find_or_create_by(name: 'NA LCS')
+spring_split = Split.find_or_create_by(
+  name: 'Spring Split', 
+  league: nalcs,
+  start_date: 6.months.ago,
+  end_date: 6.months.from_now
+)
+
 def rand_min_and_sec 
   min = (rand * 100 % 20).ceil
   sec = (rand * 100 % 60).ceil
@@ -111,8 +119,8 @@ Game.find_or_create_by(
   date: 5.days.ago
 )
 
-user = User.create!(
-  email: 'admin@lcs.com',
-  password: 'password123',
-  password_confirmation: 'password123'
-)
+#user = User.find_or_create_by(
+#  email: 'admin@lcs.com',
+#  password: 'password123',
+#  password_confirmation: 'password123'
+#)

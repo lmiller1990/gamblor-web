@@ -25,6 +25,10 @@ Rails.application.routes.draw do
           resources :first_markets, only: [:index, :show], controller: 'teams/first_markets'
         end
         resources :games, only: [:show, :index, :create, :update]
+
+        resources :leagues do
+          resources :splits, only: %i(index), controller: 'leagues/splits'
+        end
       end
     end
   end

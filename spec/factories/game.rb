@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :game do
     association :league
+    association :split
 
     date 100.years.ago
     winner_id 1  
