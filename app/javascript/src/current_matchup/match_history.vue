@@ -40,11 +40,11 @@
       <tr v-for="game in games" :key="game.id">
         <td>{{ new Date(game.date).toDateString() }}</td>
         <td>{{ getOpponent(game) }}</td>
-        <MatchHistoryRow :victory="didGetFirst('Blood', game)" />
-        <MatchHistoryRow :victory="didGetFirst('Turret', game)" />
-        <MatchHistoryRow :victory="didGetFirst('Dragon', game)" />
-        <MatchHistoryRow :victory="didGetFirst('Baron', game)" />
-        <MatchHistoryRow :victory="didWin(game.winnerId)" />
+        <MatchHistoryRow :victory="didGetFirst('Blood', game)" :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow :victory="didGetFirst('Turret', game)" :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow :victory="didGetFirst('Dragon', game)" :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow :victory="didGetFirst('Baron', game)" :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow :victory="didWin(game.winnerId)" :gameCompleted="game.winnerId ? true : false" />
       </tr>
     </table>
 
@@ -97,10 +97,16 @@ export default {
 
   methods: {
     didWin(winnerId) {
+      if (!winnerId) 
+        return undefined
+
       return winnerId === this.teamId
     },
 
     didGetFirst(market, game) {
+      if (!game[`first${market}TeamId`]) 
+        return undefined
+
       return game[`first${market}TeamId`] === this.teamId
     },
 

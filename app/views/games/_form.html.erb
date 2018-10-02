@@ -89,12 +89,12 @@
 
   <div class="first_market">
     <%= f.label :winner_id %>
-    <%= f.select :winner_id, @teams %>
+    <%= f.select :winner_id, @teams, { include_blank: '----' } %>
   </div>
 
   <div class="first_market">
     <%= f.label :loser_id %>
-    <%= f.select :loser_id, @teams %>
+    <%= f.select :loser_id, @teams, { include_blank: '----' } %>
   </div>
 
   <%= f.submit %>

@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$img_dim: 70px;
+@import '../shared_style.scss';
 
 img {
   width: $img_dim;

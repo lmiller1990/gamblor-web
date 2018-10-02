@@ -1,6 +1,6 @@
 <template>
   <td :class="checkForVictory">
-    {{ victory ? 'O' : 'X' }}
+    {{ resultSymbol }}
   </td>
 </template>
 
@@ -12,12 +12,24 @@ export default {
     victory: {
       type: Boolean,
       required: false
+    },
+
+    gameCompleted: {
+      type: Boolean,
+      required: true
     }
   },
 
   computed: {
+    resultSymbol() {
+      if (!this.gameCompleted)
+        return ''
+
+      return this.victory ? 'O' : 'X'
+    },
+
     checkForVictory() {
-      if (this.victory === undefined || this.victory === null)
+      if (!this.gameCompleted)
         return ''
 
       return this.victory ? 'victory' : 'defeat'

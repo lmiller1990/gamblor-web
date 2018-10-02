@@ -1,7 +1,7 @@
 <template>
   <div class="matchups">
     <div v-if="!loading">
-      <h3>Recent Matches</h3>
+      <h2 class="header">Schedule</h2>
       <div class="matchup-container">
         <Match
           v-for="matchId in matchIds"
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style scoped>
-h3 {
+.header {
   text-align: center;
 }
 </style>

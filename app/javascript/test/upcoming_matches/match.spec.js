@@ -2,6 +2,8 @@ import { shallowMount } from '@vue/test-utils'
 import Match from '../../src/upcoming_matches/match.vue'
 import TeamLogo from '../../src/components/team_logo.vue'
 
+const context = describe
+
 describe('Match', () => {
   const clg = 'counter logic gaming'
   const tsm = 'team solomid'
@@ -12,6 +14,7 @@ describe('Match', () => {
     computed: {
       blueTeam: () => ({ name: clg }),
       redTeam: () => ({ name: tsm }),
+      match: () => ({}),
       teams: () => ({})
     }
   })
@@ -28,5 +31,33 @@ describe('Match', () => {
     wrapper.trigger('click')
 
     expect(wrapper.emitted().selected[0][0]).toEqual({ matchId })
+  })
+})
+
+describe('styleCompleteGameByResult', () => {
+  const subject = Match.methods.styleCompleteGameByResult
+
+  context('team won game', () => {
+    const localThis = { match: { winnerId: 1 } }
+
+    const result = subject.call(localThis, 1)
+
+    expect(result).toBe('winning_team')
+  })
+
+  context('team lost game', () => {
+    const localThis = { match: { loserId: 1 } }
+
+    const result = subject.call(localThis, 1)
+
+    expect(result).toBe('losing_team')
+  })
+
+  context('game is pending, team neither won nor lost', () => {
+    const localThis = { match: {} }
+
+    const result = subject.call(localThis, 1)
+
+    expect(result).toBe('result_pending')
   })
 })

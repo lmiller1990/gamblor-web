@@ -13,13 +13,13 @@ describe Api::V1::TeamsController, type: :controller do
       expect(json_response['team']['name']).to eq team.first.name
       expect(json_response['games'].length).to eq 2
     end
+  end
 
-    describe 'GET /' do
-      it 'returns a list of all teams' do
-        get :index
+  describe 'GET /' do
+    it 'returns a list of all teams' do
+      get :index
 
-        expect(json_response.length).to eq 2
-      end
+      expect(json_response.length).to eq 2
     end
   end
 end
