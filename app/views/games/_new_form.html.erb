@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'games/new' %>
+
 <%= form_with model: @game do |f| %>
   <div class="first_market">
     <%= f.label :date %>
@@ -6,12 +8,12 @@
 
   <div class="first_market">
     <%= f.label :league %>
-    <%= f.select :league_id, FormHelper.select_for(League.all), { selected: League.first.id }, { class: 'side_select' } %>
+    <%= f.select :league_id, FormHelper.select_for(League.all), { selected: @league.id }, { class: 'side_select', data_select: 'league_select' } %>
   </div>
 
   <div class="first_market">
     <%= f.label :split %>
-    <%= f.select :split_id, FormHelper.select_for(Split.all), { selected: Split.last.id }, { class: 'side_select' } %>
+    <%= f.select :split_id, FormHelper.select_for(@splits.all), { selected: @splits.last.id }, { class: 'side_select', data_select: 'split_select' } %>
   </div>
 
   <div class="first_market">
