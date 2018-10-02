@@ -28,7 +28,7 @@
     </div>
 
     <table>
-      <tr>
+      <tr class="header-tr">
         <td>Date</td>
         <td>Opponent</td>
         <td>FB</td>
@@ -37,14 +37,14 @@
         <td>FBaron</td>
         <td>Result</td>
       </tr>
-      <tr v-for="game in games">
+      <tr v-for="game in games" :key="game.id">
         <td>{{ new Date(game.date).toDateString() }}</td>
         <td>{{ getOpponent(game) }}</td>
-        <td>{{ didGetFirst('Blood', game) }}</td>
-        <td>{{ didGetFirst('Turret', game) }}</td>
-        <td>{{ didGetFirst('Dragon', game) }}</td>
-        <td>{{ didGetFirst('Baron', game) }}</td>
-        <td>{{ game.winnerId === teamId }}</td>
+        <MatchHistoryRow :victory="didGetFirst('Blood', game)" />
+        <MatchHistoryRow :victory="didGetFirst('Turret', game)" />
+        <MatchHistoryRow :victory="didGetFirst('Dragon', game)" />
+        <MatchHistoryRow :victory="didGetFirst('Baron', game)" />
+        <MatchHistoryRow :victory="didWin(game.winnerId)" />
       </tr>
     </table>
 
@@ -54,6 +54,7 @@
 <script>
 import { titlecase } from '../filters/index.js'
 import FirstMarketsContainer from './first_markets_container.vue'
+import MatchHistoryRow from './match_history_row.vue'
 import TeamLogo from '../components/team_logo.vue'
 
 export default {
@@ -76,7 +77,8 @@ export default {
 
   components: {
     FirstMarketsContainer,
-    TeamLogo
+    TeamLogo,
+    MatchHistoryRow
   },
 
   filters: { titlecase },
@@ -94,8 +96,12 @@ export default {
   },
 
   methods: {
+    didWin(winnerId) {
+      return winnerId === this.teamId
+    },
+
     didGetFirst(market, game) {
-      return game[`first${market}TeamId`] === this.teamId ? 'O' : 'X'
+      return game[`first${market}TeamId`] === this.teamId
     },
 
     getOpponent(game) {
@@ -108,7 +114,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   display: flex;
   align-items: center;
@@ -127,8 +133,13 @@ export default {
   display: flex;
 }
 
-table, td {
-  border: 1px solid silver;
+table {
+  border-collapse: collapse;
+}
+
+tr, td { 
+  padding: 5px;
+  border: 1px solid black;
 }
 </style>
 

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe Team do
   let!(:team)  { create(:red_side_team) }
-  let!(:defeat) { create(:game, loser_id: team.id, date: 2.day.ago) }
-  let!(:victory) { create(:game, winner_id: team.id, date: 1.days.ago) }
+  let!(:defeat) { create(:game, red_side_team_id: team.id, date: 2.day.ago) }
+  let!(:victory) { create(:game, blue_side_team_id: team.id, date: 1.days.ago) }
 
   let!(:player) { create(:player) }
   let!(:team) { create(:team) }

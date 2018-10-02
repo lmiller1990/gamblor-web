@@ -3,7 +3,7 @@ class Team < ApplicationRecord
   has_many :players, through: :contracts
 
   def games
-    Game.where(winner_id: id).or(Game.where(loser_id: id))
+    Game.where(red_side_team_id: id).or(Game.where(blue_side_team_id: id))
       .order(date: :asc)
   end
 
