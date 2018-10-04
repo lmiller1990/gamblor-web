@@ -20,6 +20,11 @@
     <%= f.select :first_blood_team_id, @teams, { include_blank: '----' }, { class: 'first_select', data_select: 'first_blood' } %>
   </div>
 
+  <div class="odds">
+    <%= f.label :fb_odds %>
+    <%= f.text_field :fb_odds %>
+  </div>
+
   <div class="first_market">
     <%= f.label :first_blood_player_id %>
     <%= f.select :first_blood_player_id, @players_for_first_blood, { include_blank: '----' }, data_to_update: 'first_blood' %>
@@ -35,6 +40,11 @@
   <div class="first_market">
     <%= f.label :first_turret_team_id %>
     <%= f.select :first_turret_team_id, @teams, { include_blank: '----' }, { class: 'first_select', data_select: 'first_turret' } %>
+  </div>
+
+  <div class="odds">
+    <%= f.label :ft_odds %>
+    <%= f.text_field :ft_odds %>
   </div>
 
   <div class="first_market">
@@ -58,6 +68,11 @@
     <%= f.select :first_dragon_team_id, @teams, { include_blank: '----' }, { class: 'first_select', data_select: 'first_dragon' } %>
   </div>
 
+  <div class="odds">
+    <%= f.label :fd_odds %>
+    <%= f.text_field :fd_odds %>
+  </div>
+
   <div class="first_market">
     <%= f.label :first_dragon_player_id %>
     <%= f.select :first_dragon_player_id, @players_for_first_dragon, { include_blank: '----' }, data_to_update: 'first_dragon' %>
@@ -72,6 +87,11 @@
   <div class="first_market">
     <%= f.label :first_baron_team_id %>
     <%= f.select :first_baron_team_id, @teams, { include_blank: '----' }, { class: 'first_select', data_select: 'first_baron' } %>
+  </div>
+
+  <div class="odds">
+    <%= f.label :fbaron_odds %>
+    <%= f.text_field :fbaron_odds %>
   </div>
 
   <div class="first_market">

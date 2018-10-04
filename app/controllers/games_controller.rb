@@ -70,6 +70,8 @@ class GamesController < ApplicationController
     params.require(:game).permit(
       :blue_side_team_id, :red_side_team_id, :date,
 
+      :fb_odds, :ft_odds, :fd_odds, :fbaron_odds, 
+
       :first_blood_team_id, :first_turret_team_id,
       :first_baron_team_id, :first_dragon_team_id,
 

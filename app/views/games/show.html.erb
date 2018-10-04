@@ -19,22 +19,26 @@
   First blood (<%= gametime(@game.first_blood_time) %>): 
   <%= @game.first_team_to_get('blood').try(:name) %> 
   (<%= @game.player_to_get_first('blood').try(:name) %>)
+  Odds <%= @game.fb_odds %>
 </div>
 
 <div>
   First turret (<%= gametime(@game.first_turret_time) %>): 
   <%= @game.first_team_to_get('turret').try(:name) %> 
   (<%= @game.player_to_get_first('turret').try :name %>)
+  Odds <%= @game.ft_odds %>
 </div>
 
 <div>
   First dragon (<%= gametime(@game.first_dragon_time) %>): 
   <%= @game.first_team_to_get('dragon').try(:name) %> 
   (<%= @game.player_to_get_first('dragon').try :name %>)
+  Odds <%= @game.fd_odds %>
 </div>
 
 <div>
   First baron (<%= gametime(@game.first_baron_time) %>): <%= @game.first_team_to_get('baron').try(:name) %> (<%= @game.player_to_get_first('baron').try :name %>)
+  Odds <%= @game.fbaron_odds %>
 </div>
 
 <%= link_to 'Edit', edit_game_path(@game), method: :get %>

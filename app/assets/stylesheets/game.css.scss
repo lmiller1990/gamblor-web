@@ -4,6 +4,16 @@
   }
 }
 
+.odds {
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    font-size: 1.0em !important;
+    width: 90px !important;
+  }
+}
+
 %first_market {
   .first_market {
     margin: 5px 0;
