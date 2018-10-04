@@ -8,7 +8,7 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     @teams = Team.all.order(name: :asc)
-    @league = League.first # ('World Championship')
+    @league = League.last # ('World Championship')
     @splits = @league.splits
   end
 
@@ -70,7 +70,11 @@ class GamesController < ApplicationController
     params.require(:game).permit(
       :blue_side_team_id, :red_side_team_id, :date,
 
-      :fb_odds, :ft_odds, :fd_odds, :fbaron_odds, 
+      :blue_side_team_fb_odds, :blue_side_team_ft_odds, 
+      :blue_side_team_fd_odds, :blue_side_team_fbaron_odds, 
+
+      :red_side_team_fb_odds, :red_side_team_ft_odds, 
+      :red_side_team_fd_odds, :red_side_team_fbaron_odds, 
 
       :first_blood_team_id, :first_turret_team_id,
       :first_baron_team_id, :first_dragon_team_id,
