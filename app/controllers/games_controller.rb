@@ -8,7 +8,7 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     @teams = Team.all.order(name: :asc)
-    @league = League.find_by_name('NA LCS')
+    @league = League.first # ('World Championship')
     @splits = @league.splits
   end
 
