@@ -4,14 +4,28 @@
     <%= f.date_field :date %>
   </div>
 
-  <div class="first_market">
-    <%= f.label :blue_side %>
-    <%= f.select :blue_side_team_id, @teams, { }, { class: 'side_select' } %>
+  <div class="odds">
+    <div class="first_market">
+      <%= f.label :blue_side %>
+      <%= f.select :blue_side_team_id, @teams, { }, { class: 'side_select' } %>
+    </div>
+
+    <div class="odds">
+      <%= f.label :odds, for: 'game_blue_side_team_win_odds', class: 'odds_label' %>
+      <%= f.text_field :blue_side_team_win_odds %>
+    </div>
   </div>
 
-  <div class="first_market">
-    <%= f.label :red_side %>
-    <%= f.select :red_side_team_id, @teams, {}, { class: 'side_select' } %>
+  <div class="odds">
+    <div class="first_market">
+      <%= f.label :red_side %>
+      <%= f.select :red_side_team_id, @teams, {}, { class: 'side_select' } %>
+    </div>
+
+    <div class="odds">
+      <%= f.label :odds, for: 'game_red_side_team_win_odds', class: 'odds_label' %>
+      <%= f.text_field :red_side_team_win_odds %>
+    </div>
   </div>
 
   <h3>First Blood</h3>

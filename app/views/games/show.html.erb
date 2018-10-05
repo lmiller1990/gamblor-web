@@ -15,26 +15,42 @@
   <% end %>
 </div>
 
+<br>
+
+<div>
+  Red Side: <%= @game.red_side_team.name %> (<%= @game.red_side_team_win_odds %>)
+</div>
+
+<div>
+  Blue Side: <%= @game.blue_side_team.name %> (<%= @game.blue_side_team_win_odds %>)
+</div>
+
+<br>
+
 <div>
   First blood (<%= gametime(@game.first_blood_time) %>): 
   <%= @game.first_team_to_get('blood').try(:name) %> 
   (<%= @game.player_to_get_first('blood').try(:name) %>)
+  Blue odds: <%= @game.blue_side_team_fb_odds %> Red odds: <%= @game.red_side_team_fb_odds %>
 </div>
 
 <div>
   First turret (<%= gametime(@game.first_turret_time) %>): 
   <%= @game.first_team_to_get('turret').try(:name) %> 
   (<%= @game.player_to_get_first('turret').try :name %>)
+  Blue odds: <%= @game.blue_side_team_ft_odds %> Red odds: <%= @game.red_side_team_ft_odds %>
 </div>
 
 <div>
   First dragon (<%= gametime(@game.first_dragon_time) %>): 
   <%= @game.first_team_to_get('dragon').try(:name) %> 
   (<%= @game.player_to_get_first('dragon').try :name %>)
+  Blue odds: <%= @game.blue_side_team_fd_odds %> Red odds: <%= @game.red_side_team_fd_odds %>
 </div>
 
 <div>
   First baron (<%= gametime(@game.first_baron_time) %>): <%= @game.first_team_to_get('baron').try(:name) %> (<%= @game.player_to_get_first('baron').try :name %>)
+  Blue odds: <%= @game.blue_side_team_fbaron_odds %> Red odds: <%= @game.red_side_team_fbaron_odds %>
 </div>
 
 <%= link_to 'Edit', edit_game_path(@game), method: :get %>
