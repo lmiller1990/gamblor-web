@@ -4,7 +4,7 @@ module Api
       # returns past 5 games and upcoming 5 games
       # in chronological order, from oldest to most in future
       def index
-        render json: Game.most_recently_played + Game.upcoming_games
+        render json: Game.most_recently_played(10) + Game.upcoming_games
       end
     end
   end

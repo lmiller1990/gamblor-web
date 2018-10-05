@@ -10,10 +10,10 @@ describe Api::V1::UpcomingGamesController, type: :controller do
   end
 
   describe 'GET /' do
-    it 'gets past 5 and upcoming 5 games' do
+    it 'gets past 10 and upcoming 5 games' do
       get :index
 
-      expect(json_response.first['id']).to eq game_5_days_ago.id
+      expect(json_response.first['id']).to eq game_10_days_ago.id
       expect(json_response.last['id']).to eq game_5_days_from_now.id
     end
   end

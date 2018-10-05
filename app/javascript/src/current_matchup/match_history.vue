@@ -4,6 +4,8 @@
     <div class="header">
       <TeamLogo :teamName="teamName" />
       <h3 class="team_name">{{ teamName | titlecase }}</h3>
+
+      <slot name="team-selector" />
     </div>
 
     <div class="first_markets">

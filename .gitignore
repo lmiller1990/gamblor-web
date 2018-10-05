@@ -5,3 +5,5 @@ tmp/
 yarn-error.log
 public/packs
 public/packs-test
+
+latest.dump

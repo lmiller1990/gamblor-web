@@ -3,14 +3,31 @@
     <div 
       v-if="isCurrentMatchup"
       class="team_history">
+
       <MatchHistory 
         :games="blueSideGames"
         :teamId="blueSideTeamId"
-        side="blue" />
+        side="blue"
+      >
+        <TeamSelector 
+          slot="team-selector"
+          :selectedId="blueSideTeamId"
+          @change="(teamId) => selectTeam(teamId, 'blue')"
+        />
+      </MatchHistory>
+
       <MatchHistory 
         :games="redSideGames"
         :teamId="redSideTeamId"
-        side="red" />
+        side="red" 
+      >
+        <TeamSelector 
+          slot="team-selector"
+          :selectedId="redSideTeamId"
+          @change="(teamId) => selectTeam(teamId, 'red')"
+        />
+      </MatchHistory>
+
     </div>
     <div v-else class="team_history">
       No matchup selected
@@ -25,6 +42,7 @@
 import { options } from '../teams/chart_options.js'
 import UpcomingMatchesContainer from '../upcoming_matches/upcoming_matches_container.vue'
 import MatchHistory from './match_history.vue'
+import TeamSelector from '../components/team_selector.vue'
 
 export default {
   data() {
@@ -37,6 +55,7 @@ export default {
   },
 
   components: {
+    TeamSelector,
     UpcomingMatchesContainer,
     MatchHistory
   },
@@ -48,6 +67,14 @@ export default {
   },
 
   methods: {
+    selectTeam(teamId, side) {
+      if (side === 'blue')
+        this.setMatchup({ blueSideTeamId: parseInt(teamId), redSideTeamId: this.redSideTeamId })
+
+      if (side === 'red')
+        this.setMatchup({ blueSideTeamId: this.blueSideTeamId, redSideTeamId: parseInt(teamId) })
+    },
+
     fetchCurrentMatchup() {
       const { firstTeamId, secondTeamId } = this.$store.state.matchups
       const gamesForFirstTeam = this.$store.getters['historicalGames/byTeamId'](firstTeamId)
@@ -94,7 +121,9 @@ export default {
 }
 
 .upcoming_matches {
-  padding: 2px;
   width: 450px;
+
+  height: 100vh;
+  overflow-y: scroll;
 }
 </style>
