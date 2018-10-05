@@ -19,7 +19,7 @@ export default {
 
   methods: {
     teamImage(name) {
-      return `/images/${name.replace(/\s/g, '_')}.png`
+      return `/images/${name.replace(/\s/g, '_').toLowerCase()}.png`
     }
   }
 }

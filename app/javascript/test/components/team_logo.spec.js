@@ -6,7 +6,7 @@ describe('TeamLogo', () => {
     it('returns a team icon image path', () => {
       const wrapper = shallowMount(TeamLogo, {
         propsData: {
-          teamName: 'counter logic gaming'
+          teamName: 'Counter Logic Gaming'
         }
       })
 
