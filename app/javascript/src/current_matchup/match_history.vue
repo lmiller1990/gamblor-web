@@ -40,7 +40,11 @@
         <td>Result</td>
       </tr>
       <tr v-for="game in games" :key="game.id">
-        <td>{{ new Date(game.date).toDateString() }}</td>
+        <td>
+          <a :href="`/games/${game.id}/edit`">
+            {{ new Date(game.date).toDateString() }}
+          </a>
+        </td>
         <td>{{ getOpponent(game) }}</td>
         <MatchHistoryRow :victory="didGetFirst('Blood', game)" :gameCompleted="game.winnerId ? true : false" />
         <MatchHistoryRow :victory="didGetFirst('Turret', game)" :gameCompleted="game.winnerId ? true : false" />
