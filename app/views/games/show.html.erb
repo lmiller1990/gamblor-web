@@ -54,3 +54,5 @@
 </div>
 
 <%= link_to 'Edit', edit_game_path(@game), method: :get %>
+
+<%= button_to 'Duplicate', game_duplicate_index_path(@game), method: :post %>

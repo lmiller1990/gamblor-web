@@ -7,7 +7,10 @@ Rails.application.routes.draw do
     get 'app', to: 'app#index'
     get 'admin', to: 'admin#index'
 
-    resources :games
+    resources :games do
+      resources :duplicate, only: [:create], controller: 'games/duplicate'
+    end
+
     resources :contracts
     resources :players
     resources :articles
