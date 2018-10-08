@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     namespace :api do
       namespace :v1 do
         resources :upcoming_games, only: [:index]
+        resources :odds, only: %i(create show)
 
         resources :teams, only: [:show, :index] do
           resources :first_markets, only: [:index, :show], controller: 'teams/first_markets'

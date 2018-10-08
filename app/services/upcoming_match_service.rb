@@ -6,8 +6,8 @@ class UpcomingMatchService
   end
 
   def games_with_teams
-    games_for_team_one = @team_one.games
-    games_for_team_two = @team_two.games
+    games_for_team_one = @team_one.games.where(game_number: 1)
+    games_for_team_two = @team_two.games.where(game_number: 1)
 
     games_for_team_one & games_for_team_two
   end
