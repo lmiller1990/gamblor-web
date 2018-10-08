@@ -118,6 +118,7 @@ export default {
   width: 100%;
   padding: 2px;
   display: flex;
+  justify-content: space-around;
 }
 
 .upcoming_matches {

@@ -25,7 +25,7 @@ export default {
       if (!this.gameCompleted)
         return ''
 
-      return this.victory ? 'O' : 'X'
+      return this.victory ? '✓' : '✘'
     },
 
     checkForVictory() {

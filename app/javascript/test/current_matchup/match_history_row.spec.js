@@ -15,7 +15,7 @@ describe('MatchHistoryRow', () => {
         const wrapper = factory({ victory: true })
 
         expect(wrapper.classes()).toContain('victory')
-        expect(wrapper.text()).toBe('O')
+        expect(wrapper.text()).toBe('✓')
       })
     })
 
@@ -24,7 +24,7 @@ describe('MatchHistoryRow', () => {
         const wrapper = factory({ victory: false })
 
         expect(wrapper.classes()).toContain('defeat')
-        expect(wrapper.text()).toBe('X')
+        expect(wrapper.text()).toBe('✘')
       })
     })
   })
