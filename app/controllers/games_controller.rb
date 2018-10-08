@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update]
 
@@ -17,7 +19,9 @@ class GamesController < ApplicationController
   end
 
   def create
-    game = Game.create!(game_params)
+    game = Game.new(game_params)
+    game.match_uuid = SecureRandom.uuid if game.game_number == 1
+    game.save!
 
     redirect_to edit_game_url(game)
   end
@@ -68,7 +72,7 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(
-      :game_number, 
+      :game_number, :match_uuid,
 
       :blue_side_team_id, :red_side_team_id, :date,
       :blue_side_team_win_odds, :red_side_team_win_odds,

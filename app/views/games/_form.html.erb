@@ -4,7 +4,12 @@
     <%= f.date_field :date %>
   </div>
 
-  <div class="first_market">
+  <div class="odds match_uuid">
+    <%= f.label :match_uuid %>
+    <%= f.text_field :match_uuid %>
+  </div>
+
+  <div class="odds">
     <%= f.label :game_number %>
     <%= f.number_field :game_number %>
   </div>
