@@ -10,7 +10,9 @@ module Schedule
       .reverse
 
     games.each do |game|
-      game.winner_id = match_winner(game).id
+      winner, loser = match_overall_result(game)
+      game.winner_id = winner.id
+      game.loser_id = loser.id
     end
 
     games
@@ -23,20 +25,23 @@ module Schedule
       .order(date: :asc)[0...num]
 
     games.each do |game|
-      game.winner_id = match_winner(game)
+      winner, loser = match_overall_result(game)
+      game.winner_id = winner.id
+      game.loser_id = loser.id
     end
 
     games
   end
 
   # given a game, check if it is part of a Bo3/Bo5.
-  # If so, get the eventual overall winner.
-  def self.match_winner(game)
+  # If so, get the eventual overall winner/loser.
+  def self.match_overall_result(game)
     games_in_match = Game.where(match_uuid: game.match_uuid)
 
     winner_ids = games_in_match.collect { |x| x.winner_id }
     winner_id = winner_ids.max_by { |x| winner_ids.count(x) }
+    loser_id = winner_ids.min_by { |x| winner_ids.count(x) }
 
-    Team.find winner_id
+    [Team.find(winner_id), Team.find(loser_id)]
   end
 end
