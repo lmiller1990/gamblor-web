@@ -38,10 +38,14 @@ module Schedule
   def self.match_overall_result(game)
     games_in_match = Game.where(match_uuid: game.match_uuid)
 
-    winner_ids = games_in_match.collect { |x| x.winner_id }
-    winner_id = winner_ids.max_by { |x| winner_ids.count(x) }
-    loser_id = winner_ids.min_by { |x| winner_ids.count(x) }
+    if games_in_match.count > 1 
+      winner_ids = games_in_match.collect { |x| x.winner_id }
+      winner_id = winner_ids.max_by { |x| winner_ids.count(x) }
+      loser_id = winner_ids.min_by { |x| winner_ids.count(x) }
 
-    [Team.find(winner_id), Team.find(loser_id)]
+      [Team.find(winner_id), Team.find(loser_id)]
+    else
+      [game.winner, game.loser]
+    end
   end
 end
