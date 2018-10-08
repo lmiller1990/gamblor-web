@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe Api::V1::UpcomingGamesController, type: :controller do
+  let!(:team) { create(:team) }
   (1..10).each do |i| 
-    let!("game_#{i}_days_ago".to_sym) { create(:game, date: i.days.ago) }
+    let!("game_#{i}_days_ago".to_sym) { create(:game, date: i.days.ago, winner_id: team.id) }
   end
 
   (1..10).each do |i| 
-    let!("game_#{i}_days_from_now".to_sym) { create(:game, date: i.days.from_now) }
+    let!("game_#{i}_days_from_now".to_sym) { create(:game, date: i.days.from_now, winner_id: team.id) }
   end
 
   describe 'GET /' do
