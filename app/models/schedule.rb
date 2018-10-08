@@ -1,7 +1,7 @@
 # In the case of a Bo3/Bo5, we only want the first game.
 # The goal is to show which teams will be playing, not
 # how many games they played/will play.
-module UpcomingMatches
+module Schedule
   def self.most_recently_played(num = 5)
     games = Game
       .where(game_number: 1)

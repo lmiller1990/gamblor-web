@@ -62,8 +62,6 @@ export default {
 
   methods: {
     styleCompleteGameByResult(teamId) {
-      console.log(this.match)
-      console.log(this.match.winnerId, this.match.loserId, teamId)
       if (teamId === this.match.winnerId)
         return 'winning_team'
 

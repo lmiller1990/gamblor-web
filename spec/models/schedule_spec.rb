@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UpcomingMatches do
+describe Schedule do
   let!(:team) { create(:team) }
   let!(:bo1_g1_5_weeks_ago) { create(:game, date: 5.weeks.ago, game_number: 1, winner_id: team.id) }
   let!(:bo1_g1_4_weeks_ago) { create(:game, date: 4.weeks.ago, game_number: 1, winner_id: team.id) }
