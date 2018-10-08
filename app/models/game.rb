@@ -7,19 +7,6 @@ class Game < ApplicationRecord
 
   validates :game_number, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
-  def self.upcoming_games(num = 5)
-    Game
-      .where('date >= ?', Date.today)
-      .order(date: :asc)[0...num]
-  end
-
-  def self.most_recently_played(num = 5)
-    Game
-      .where('date < ?', Date.today)
-      .order(date: :desc)[0...num]
-      .reverse
-  end
-
   def winner 
     Team.find winner_id
   end
