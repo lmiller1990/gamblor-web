@@ -66,4 +66,23 @@ describe Game do
       expect(Game.upcoming_games(2)).to eq([ game_tomorrow, game_1_week_time ])
     end
   end
+
+  describe 'validations' do
+    describe 'game_number' do
+      it 'has a valid game number' do
+        game = build(:game, game_number: 1)
+        expect(game.valid?).to be true
+      end
+
+      it 'is invalid with nil game_number' do
+        game = build(:game, game_number: nil)
+        expect(game.valid?).to be false
+      end
+
+      it 'has an invalid with game number' do
+        game = build(:game, game_number: 0)
+        expect(game.valid?).to be false
+      end
+    end
+  end
 end

@@ -19,6 +19,7 @@ module Api
           :first_turret_team_id,
           :winner_id,
           :loser_id,
+          :game_number,
           :red_side_team_id,
           :blue_side_team_id,
           :date,

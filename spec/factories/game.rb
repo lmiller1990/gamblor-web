@@ -8,6 +8,7 @@ FactoryBot.define do
     loser_id 1
     blue_side_team_id 1
     red_side_team_id 2
+    game_number 1
   end
 
   trait :with_teams do

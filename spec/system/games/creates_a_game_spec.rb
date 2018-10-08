@@ -15,11 +15,11 @@ describe 'games#new', type: :system do
       visit new_game_url
 
       fill_in 'game_date', with: '2018/09/07'
-
       select(blue_side_team.name, from: 'game[blue_side_team_id]') 
       select(red_side_team.name, from: 'game_red_side_team_id') 
       select league.name, from: 'game_league_id'
       select split.name, from: 'game_split_id'
+      fill_in 'game[game_number]', with: '1'
 
       click_on 'Create Game'
 

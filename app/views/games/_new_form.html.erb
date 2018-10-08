@@ -26,5 +26,10 @@
     <%= f.select :red_side_team_id, FormHelper.select_for(@teams), { selected: @teams.second.id }, { class: 'side_select' } %>
   </div>
 
+  <div class="first_market">
+    <%= f.label :game_no %>
+    <%= f.number_field :game_number, id: 'game_game_no' %>
+  </div>
+
   <%= f.submit %>
 <% end %>

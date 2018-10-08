@@ -5,6 +5,8 @@ class Game < ApplicationRecord
   belongs_to :league
   belongs_to :split
 
+  validates :game_number, presence: true, numericality: { greater_than_or_equal_to: 1 }
+
   def self.upcoming_games(num = 5)
     Game
       .where('date >= ?', Date.today)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_04_092846) do
+ActiveRecord::Schema.define(version: 2018_10_08_061501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2018_10_04_092846) do
     t.float "blue_side_team_win_odds"
     t.float "blue_side_win_odds"
     t.float "red_side_win_odds"
+    t.integer "game_number"
   end
 
   create_table "leagues", force: :cascade do |t|

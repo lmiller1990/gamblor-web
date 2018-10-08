@@ -68,6 +68,8 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(
+      :game_number, 
+
       :blue_side_team_id, :red_side_team_id, :date,
       :blue_side_team_win_odds, :red_side_team_win_odds,
 
