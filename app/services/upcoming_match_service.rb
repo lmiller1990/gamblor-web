@@ -1,8 +1,8 @@
 class UpcomingMatchService
   # @param {Array} teams - array containing two teams
   def initialize(team_one, team_two)
-    @team_one = Team.find_by_name(team_one)
-    @team_two = Team.find_by_name(team_two)
+    @team_one = Team.find_by_name_case_insensitive(team_one)
+    @team_two = Team.find_by_name_case_insensitive(team_two)
   end
 
   def games_with_teams

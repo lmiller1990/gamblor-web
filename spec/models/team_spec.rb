@@ -29,4 +29,12 @@ describe Team do
       expect(team.past_players).to eq [ player ]
     end
   end
+
+  describe '#find_by_name_case_insensitive' do
+    it 'finds a team regardless of case' do
+      team = create(:team, name: 'Team Liquid')
+      actual = Team.find_by_name_case_insensitive('team liquid')
+      expect(actual).to eq team
+    end
+  end
 end
