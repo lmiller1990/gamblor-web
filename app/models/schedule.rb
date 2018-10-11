@@ -10,19 +10,31 @@ module Schedule
       .reverse
 
     games.each do |game|
-      winner, loser = match_overall_result(game)
-      game.winner_id = winner.id
-      game.loser_id = loser.id
+      if game.winner_id && game.loser_id
+        winner, loser = match_overall_result(game)
+        game.winner_id = winner.id
+        game.loser_id = loser.id
+      end
     end
 
     games
   end
 
   def self.upcoming(num = 5)
-    Game
+    games = Game
       .where(game_number: 1)
       .where('date >= ?', Date.today)
       .order(date: :asc)[0...num]
+
+    games.each do |game|
+      if game.winner_id && game.loser_id
+        winner, loser = match_overall_result(game)
+        game.winner_id = winner.id
+        game.loser_id = loser.id
+      end
+    end
+
+    games
   end
 
   # given a game, check if it is part of a Bo3/Bo5.
