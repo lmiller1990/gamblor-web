@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::OddsController do
-  let!(:game) { create(:game, :with_teams) }
+  let!(:game) { create(:game, :with_teams, :unplayed) }
 
   describe 'create' do
     it 'receives and updates odds for a game' do

@@ -3,7 +3,7 @@ class Team < ApplicationRecord
   has_many :players, through: :contracts
 
   def self.find_by_name_case_insensitive(name)
-    where('name like ?', name).first
+    where('lower(name) = ?', name).first
   end
 
   def games

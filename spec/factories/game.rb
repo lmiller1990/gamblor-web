@@ -21,6 +21,12 @@ FactoryBot.define do
     end
   end
 
+  trait :unplayed do
+    after :create do |game|
+      game.update_attributes!(winner_id: nil, loser_id: nil)
+    end
+  end
+
   trait :with_stats do
     after :create do |game|
       game.blue_side_team_fb_odds = 1.5

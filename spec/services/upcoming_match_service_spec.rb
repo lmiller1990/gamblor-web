@@ -1,14 +1,22 @@
 require 'rails_helper'
 
 describe UpcomingMatchService do
-  let!(:game) { create(:game, :with_teams, date: Date.yesterday) }
+  let!(:game) { create(:game, :with_teams, date: Date.yesterday, winner_id: nil, loser_id: nil) }
   let!(:random_team) { create(:team) }
   let!(:another_team) { create(:team) }
 
+  let!(:todays_game) { 
+    create(:game, date: Date.today,
+           red_side_team_id: game.red_side_team.id,
+           blue_side_team_id: game.blue_side_team.id,
+           winner_id: game.red_side_team.id) 
+  }
   let!(:upcoming_game) { 
     create(:game, date: Date.tomorrow,
            red_side_team_id: game.red_side_team.id,
-           blue_side_team_id: game.blue_side_team.id) 
+           blue_side_team_id: game.blue_side_team.id,
+           winner_id: nil,
+           loser_id: nil) 
   }
 
   subject {

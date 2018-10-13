@@ -1,6 +1,16 @@
 const axios = require('axios')
 const fs = require('fs')
 const path = require('path')
+const snakeCase = require('lodash/snakeCase.js')
+
+const keysToSnake = (obj) => {
+  const snakeCased = {}
+  for (const k of Object.keys(obj)) {
+    snakeCased[snakeCase(k)] = obj[k]
+  }
+
+  return snakeCased
+}
 
 class GameOdds {
   constructor(t1, t2, t1Odds, t2Odds) {
@@ -28,12 +38,12 @@ module.exports.readOddsForMarket = (...filepath) => {
 
 module.exports.postOddsToApi = (odds) => {
   for (const odd of odds) {
-    axios.post(`http://localhost:3000/api/v1/odds`, {
-      blueSideTeam: odds.t1,
-      redSideTeam: odds.t2,
-      blueSideTeamFbOdds: odds.t1Odds,
-      redSideTeamFbOdds: odds.t2Odds
-    })
+    axios.post(`http://localhost:3000/api/v1/odds`, keysToSnake({
+      blueSideTeam: odd.t1,
+      redSideTeam: odd.t2,
+      blueSideTeamFbOdds: odd.t1Odds,
+      redSideTeamFbOdds: odd.t2Odds
+    }))
       .then(() => console.log('ok'))
   }
 }

@@ -2,10 +2,9 @@ module Api
   module V1
     class OddsController < ::ActionController::API
       def create
-        puts params
         game = UpcomingMatchService.new(
-          params[:blue_side_team],
-          params[:red_side_team]
+          odds_params[:blue_side_team],
+          odds_params[:red_side_team]
         ).call
 
         odds = odds_params.except(:blue_side_team, :red_side_team)
