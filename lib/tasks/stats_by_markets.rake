@@ -17,7 +17,6 @@ task :stats_by_markets, [:vals] => :environment do |t, args|
     bet_on_fave = 0
 
     games.each do |game|
-      puts market
       underdog = game["red_side_team_#{market}_odds"] < game["blue_side_team_#{market}_odds"] ? game.blue_side_team : game.red_side_team
 
       if game["#{market_full}_id"] == underdog.id
