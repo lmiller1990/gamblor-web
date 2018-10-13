@@ -5,7 +5,7 @@ Rake.application.rake_require 'tasks/stats_by_markets'
 describe 'stats_by_markets' do
   event_name = 'World Championship'
   market = 'fb'
-  market_full = 'first_blood'
+  market_full = 'first_blood_team'
 
   before { Rake::Task.define_task(:environment) }
 
