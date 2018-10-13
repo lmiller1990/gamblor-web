@@ -2,6 +2,7 @@ module Api
   module V1
     class OddsController < ::ActionController::API
       def create
+        puts params
         game = UpcomingMatchService.new(
           params[:blue_side_team],
           params[:red_side_team]
