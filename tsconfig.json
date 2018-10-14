@@ -1,0 +1,15 @@
+{
+  "include": [
+    "crawlers/better.ts",
+    "node_modules/@types/puppeteer/index.d.ts",
+    "node_modules/@types/es6-shim/index.d.ts"
+  ],
+  "compilerOptions": {
+    "importHelpers": true,
+    "target": "es6",
+    "noEmitHelpers": true,
+    "module": "commonjs",
+    "moduleResolution": "node"
+  },
+  "exclude": ["node_modules"]
+}

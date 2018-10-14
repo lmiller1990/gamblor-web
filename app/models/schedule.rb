@@ -24,7 +24,7 @@ module Schedule
     games = Game
       .where(game_number: 1)
       .where('date >= ?', Date.today)
-      .order(date: :asc)[0...num]
+      .order(date: :asc, created_at: :asc)[0...num]
 
     games.each do |game|
       if game.winner_id && game.loser_id
