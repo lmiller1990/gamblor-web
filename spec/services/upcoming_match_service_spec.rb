@@ -1,14 +1,22 @@
 require 'rails_helper'
 
 describe UpcomingMatchService do
-  let!(:game) { create(:game, :with_teams, date: Date.yesterday) }
+  let!(:game) { create(:game, :with_teams, date: Date.yesterday, winner_id: nil, loser_id: nil) }
   let!(:random_team) { create(:team) }
   let!(:another_team) { create(:team) }
 
+  let!(:todays_game) { 
+    create(:game, date: Date.today,
+           red_side_team_id: game.red_side_team.id,
+           blue_side_team_id: game.blue_side_team.id,
+           winner_id: game.red_side_team.id) 
+  }
   let!(:upcoming_game) { 
     create(:game, date: Date.tomorrow,
            red_side_team_id: game.red_side_team.id,
-           blue_side_team_id: game.blue_side_team.id) 
+           blue_side_team_id: game.blue_side_team.id,
+           winner_id: nil,
+           loser_id: nil) 
   }
 
   subject {
@@ -35,6 +43,29 @@ describe UpcomingMatchService do
       actual = subject.latest_game([ upcoming_game, game ])
 
       expect(actual).to eq upcoming_game
+    end
+  end
+
+  describe '#arrange odds' do
+    it 'reverses the red/blue side odds if incorrect' do
+      blue_odds = 1.5
+      red_odds = 2.5
+      market = 'fb'
+      odds = {
+        blue_side_team: game.red_side_team.name.downcase,
+        red_side_team: game.blue_side_team.name.downcase,
+        blue_side_team_fb_odds: blue_odds,
+        red_side_team_fb_odds: red_odds
+      }
+
+      actual = described_class.arrange_odds(
+        market,
+        game.blue_side_team.name.downcase, 
+        odds)
+  
+      expect(actual[:red_side_team_fb_odds]).to eq(blue_odds)
+
+      expect(actual[:blue_side_team_fb_odds]).to eq(red_odds)
     end
   end
 end

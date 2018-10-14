@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   get '/', to: 'join#index'
   resources :subscribers, only: [:create, :index]
 
+
+  namespace :api do
+    namespace :v1 do
+      resources :odds, only: %i(create show)
+    end
+  end
   authenticated do
     get 'app', to: 'app#index'
     get 'admin', to: 'admin#index'
