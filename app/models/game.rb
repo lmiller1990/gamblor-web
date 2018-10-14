@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
   FIRST_MARKETS = %w(blood turret dragon baron).freeze
+  FIRST_MARKETS_SHORT = %w(fb ft fd fbaron win).freeze
   enum first_turret_type: [ :top, :middle, :bottom ]
 
   belongs_to :league
