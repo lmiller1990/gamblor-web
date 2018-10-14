@@ -46,6 +46,7 @@ td {
   border: 1px solid black; 
   text-align: center;
   padding: 5px;
+  width: 30px;
 }
 
 </style>
