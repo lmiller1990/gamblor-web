@@ -42,7 +42,7 @@
       <tr v-for="game in games" :key="game.id">
         <td>
           <a :href="`/games/${game.id}/edit`">
-            {{ new Date(game.date).toDateString() }}
+            {{ game.date | shortDate }}
           </a>
         </td>
         <td>{{ getOpponent(game) }}</td>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { titlecase } from '../filters/index.js'
+import { shortDate, titlecase } from '../filters/index.js'
 import FirstMarketsContainer from './first_markets_container.vue'
 import MatchHistoryRow from './match_history_row.vue'
 import TeamLogo from '../components/team_logo.vue'
@@ -87,7 +87,10 @@ export default {
     MatchHistoryRow
   },
 
-  filters: { titlecase },
+  filters: {
+    shortDate,
+    titlecase
+  },
 
   data() {
     return {
