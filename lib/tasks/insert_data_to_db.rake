@@ -131,7 +131,6 @@ end
 
 task :csv_to_db => :environment do
   Position.find_or_create_by! name: 'unset'
-
   games = hashify_csv
 
   seed_leagues(games) if League.count == 0
