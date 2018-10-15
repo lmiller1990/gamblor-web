@@ -8,13 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     data() {
       return {
         scraping: false,
-        markets: ['fb', 'fd', 'ft', 'fbaron']
+        markets: ['fb', 'fd', 'ft', 'fbaron'],
+        marketData: {} // will contain 'fb': [t1, t2, t1odds, t2odds]...
       }
     },
 
     methods: {
       async getOdds(bookie) {
-        const response = await axios.get(`/api/v1/scrapers?bookie=${bookie}&markets=${this.markets}`)
+        const { data } = await axios.get(`/api/v1/scrapers?bookie=${bookie}&markets=${this.markets}`)
+        this.marketData = data
       },
 
       async scrapeOdds(bookie) {

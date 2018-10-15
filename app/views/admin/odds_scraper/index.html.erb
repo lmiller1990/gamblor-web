@@ -5,8 +5,7 @@
 <div id="app">
   <button 
      @click="scrapeOdds('bet365')"
-     :disabled="scraping"
-     >
+     :disabled="scraping">
      {{ scraping ? 'Scraping' : 'Scrape Bet 365' }}
   </button>
 
@@ -23,14 +22,18 @@
   <input type="checkbox" id="fbaron" value="fbaron" v-model="markets">
   <label for="fbaron">Fbaron</label>
 
-  <table>
-    <tr>
-      <td>Team 1</td>
-      <td>Team 2</td>
-      <td>Team 1 Odds</td>
-      <td>Team 2 Odds</td>
-    </tr>
-  </table>
+  <div v-for="market in markets" :key="market">
+    <h3>Data for {{ market }}</h3>
+
+    <table>
+      <tr v-for="data in marketData[market]">
+        <td>{{ data[0] }}</td>
+        <td>{{ data[1] }}</td>
+        <td>{{ data[2] }}</td>
+        <td>{{ data[3] }}</td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 
