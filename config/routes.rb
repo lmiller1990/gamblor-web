@@ -9,9 +9,12 @@ Rails.application.routes.draw do
       resources :odds, only: %i(create show)
     end
   end
+
   authenticated do
     get 'app', to: 'app#index'
     get 'admin', to: 'admin#index'
+
+    get 'admin/odds_scraper', to: 'admin/odds_scraper#index'
 
     resources :games do
       resources :duplicate, only: [:create], controller: 'games/duplicate'
@@ -30,6 +33,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         resources :upcoming_games, only: [:index]
         resources :odds, only: %i(create show)
+        resources :scrapers, only: %i(create index)
 
         resources :teams, only: [:show, :index] do
           resources :first_markets, only: [:index, :show], controller: 'teams/first_markets'
