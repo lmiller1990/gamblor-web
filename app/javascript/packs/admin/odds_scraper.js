@@ -1,5 +1,5 @@
 import Vue from 'vue/dist/vue.esm.js'
-import axios from 'axios'
+import { processData, postOdds } from '../../src/admin/odds_scraper.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
@@ -7,22 +7,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     data() {
       return {
-        scraping: false,
-        markets: ['fb', 'fd', 'ft', 'fbaron'],
-        marketData: {} // will contain 'fb': [t1, t2, t1odds, t2odds]...
+        posting: false,
+        market: 'fb',
+        teamsAndOdds: '',
+        odds: []
       }
     },
 
     methods: {
-      async getOdds(bookie) {
-        const { data } = await axios.get(`/api/v1/scrapers?bookie=${bookie}&markets=${this.markets}`)
-        this.marketData = data
+      postOdds() {
+        postOdds(this.odds)
       },
 
-      async scrapeOdds(bookie) {
-        this.scraping = true
-        await axios.post('/api/v1/scrapers', { bookie })
-        this.scraping = false
+      processData() { 
+        this.odds = processData(this.market, this.teamsAndOdds) 
       }
     }
   })

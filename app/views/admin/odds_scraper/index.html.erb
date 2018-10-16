@@ -3,37 +3,46 @@
 <h2>Odds Scraper</h2>
 
 <div id="app">
-  <button 
-     @click="scrapeOdds('bet365')"
-     :disabled="scraping">
-     {{ scraping ? 'Scraping' : 'Scrape Bet 365' }}
-  </button>
+  <div>
+    <div>
+      <textarea v-model="teamsAndOdds"></textarea>
+    </div>
 
-  <button @click="getOdds('bet365')">
-    Get Bet 365 odds
-  </button>
+    <div>
+      <button @click="processData">Process</button>
 
-  <input type="checkbox" id="fb" value="fb" v-model="markets">
-  <label for="fb">FB</label>
-  <input type="checkbox" id="ft" value="ft" v-model="markets">
-  <label for="ft">FT</label>
-  <input type="checkbox" id="fd" value="fd" v-model="markets">
-  <label for="fd">FD</label>
-  <input type="checkbox" id="fbaron" value="fbaron" v-model="markets">
-  <label for="fbaron">Fbaron</label>
+      <input type="radio" id="fb" value="fb" v-model="market">
+      <label for="fb">FB</label>
+      <input type="radio" id="ft" value="ft" v-model="market">
+      <label for="ft">FT</label>
+      <input type="radio" id="fd" value="fd" v-model="market">
+      <label for="fd">FD</label>
+      <input type="radio" id="fbaron" value="fbaron" v-model="market">
+      <label for="fbaron">Fbaron</label>
+      <input type="radio" id="win" value="win" v-model="market">
+      <label for="win">Win</label>
+       
+      <table>
+        <tr>
+          <td>Team One</td>
+          <td>Team Two</td>
+          <td>Team One Odds</td>
+          <td>Team Two Odds</td>
+        </tr>
+        <tr v-for="odd in odds">
+          <td>{{ odd.t1 }}</td>
+          <td>{{ odd.t2 }}</td>
+          <td>{{ odd.t1Odds }}</td>
+          <td>{{ odd.t2Odds }}</td>
+        </tr>
+      </table>
 
-  <div v-for="market in markets" :key="market">
-    <h3>Data for {{ market }}</h3>
-
-    <table>
-      <tr v-for="data in marketData[market]">
-        <td>{{ data[0] }}</td>
-        <td>{{ data[1] }}</td>
-        <td>{{ data[2] }}</td>
-        <td>{{ data[3] }}</td>
-      </tr>
-    </table>
+      <button 
+         v-if="odds.length"
+         @click="postOdds"
+         :disabled="posting">
+         {{ posting ? 'Posting...' : 'Post' }}
+      </button>
+    </div>
   </div>
 </div>
-
-
