@@ -46,11 +46,26 @@
           </a>
         </td>
         <td>{{ getOpponent(game) }}</td>
-        <MatchHistoryRow :victory="didGetFirst('Blood', game)" :gameCompleted="game.winnerId ? true : false" />
-        <MatchHistoryRow :victory="didGetFirst('Turret', game)" :gameCompleted="game.winnerId ? true : false" />
-        <MatchHistoryRow :victory="didGetFirst('Dragon', game)" :gameCompleted="game.winnerId ? true : false" />
-        <MatchHistoryRow :victory="didGetFirst('Baron', game)" :gameCompleted="game.winnerId ? true : false" />
-        <MatchHistoryRow :victory="didWin(game.winnerId)" :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow 
+          :odds="getOddsFor('fb', game)"
+          :victory="didGetFirst('Blood', game)" 
+          :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow 
+          :odds="getOddsFor('ft', game)"
+          :victory="didGetFirst('Turret', game)" 
+          :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow 
+          :odds="getOddsFor('fd', game)"
+          :victory="didGetFirst('Dragon', game)" 
+          :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow 
+          :odds="getOddsFor('fbaron', game)"
+          :victory="didGetFirst('Baron', game)" 
+          :gameCompleted="game.winnerId ? true : false" />
+        <MatchHistoryRow 
+          :odds="getOddsFor('win', game)"
+          :victory="didWin(game.winnerId)" 
+          :gameCompleted="game.winnerId ? true : false" />
       </tr>
     </table>
 
@@ -105,6 +120,14 @@ export default {
   },
 
   methods: {
+    getOddsFor(market, game) {
+      if (this.teamId === game.redSideTeamId)
+        return game[`redSideTeam${titlecase(market)}Odds`]
+
+      if (this.teamId === game.blueSideTeamId)
+        return game[`blueSideTeam${titlecase(market)}Odds`]
+    },
+
     didWin(winnerId) {
       if (!winnerId) 
         return undefined

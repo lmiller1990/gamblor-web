@@ -46,26 +46,27 @@ describe UpcomingMatchService do
     end
   end
 
-  describe '#arrange odds' do
-    it 'reverses the red/blue side odds if incorrect' do
+  describe '#arrange_odds' do
+    it 'reverses the red/blue team/odds if incorrect' do
       blue_odds = 1.5
       red_odds = 2.5
       market = 'fb'
       odds = {
         blue_side_team: game.red_side_team.name.downcase,
+        blue_side_team_odds: red_odds,
         red_side_team: game.blue_side_team.name.downcase,
-        blue_side_team_fb_odds: blue_odds,
-        red_side_team_fb_odds: red_odds
+        red_side_team_odds: blue_odds,
+        market: market
       }
 
       actual = described_class.arrange_odds(
-        market,
-        game.blue_side_team.name.downcase, 
-        odds)
+        game.blue_side_team.name.downcase, odds)
   
-      expect(actual[:red_side_team_fb_odds]).to eq(blue_odds)
+      expect(actual[:red_side_team_odds]).to eq(red_odds)
+      expect(actual[:red_side_team]).to eq(game.red_side_team.name.downcase)
 
-      expect(actual[:blue_side_team_fb_odds]).to eq(red_odds)
+      expect(actual[:blue_side_team_odds]).to eq(blue_odds)
+      expect(actual[:blue_side_team]).to eq(game.blue_side_team.name.downcase)
     end
   end
 end

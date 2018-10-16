@@ -17,13 +17,18 @@ export default {
     gameCompleted: {
       type: Boolean,
       required: true
+    },
+
+    odds: {
+      type: Number,
+      required: false
     }
   },
 
   computed: {
     resultSymbol() {
       if (!this.gameCompleted)
-        return ''
+        return this.odds
 
       return this.victory ? '✓' : '✘'
     },

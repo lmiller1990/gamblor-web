@@ -38,17 +38,22 @@ class UpcomingMatchService
   # but the API sends the odds in the format 
   # clg,c9,1.2,1.5
   # This will lead to the odds saved in the wrong column
-  # param {Hash} odds - { :blue_side_team, :red_side_team, :blue_side_team_fb_odds ... }
-  def self.arrange_odds(market, blue_side_team_name, odds)
-    if odds[:blue_side_team] != blue_side_team_name
-      temp = odds["blue_side_team_#{market}_odds".to_sym]
+  # param {Hash} odds - { :blue_side_team, :red_side_team, :blue_side_team_odds ... }
+  def self.arrange_odds(blue_side_team_name, odds_params)
+    if odds_params[:blue_side_team] != blue_side_team_name
+      temp_blue_team_odds = odds_params["blue_side_team_odds".to_sym]
+      temp_blue_team_name = odds_params["blue_side_team".to_sym]
 
-      odds["blue_side_team_#{market}_odds".to_sym] = 
-        odds["red_side_team_#{market}_odds".to_sym]
-      odds["red_side_team_#{market}_odds".to_sym] = temp
+      odds_params["blue_side_team_odds".to_sym] = 
+        odds_params["red_side_team_odds".to_sym]
+      odds_params["blue_side_team".to_sym] = 
+        odds_params["red_side_team".to_sym]
+
+      odds_params["red_side_team_odds".to_sym] = temp_blue_team_odds
+      odds_params["red_side_team".to_sym] = temp_blue_team_name
     end
 
-    odds
+    odds_params
   end
 
   # Format attrs correctly to match game model
