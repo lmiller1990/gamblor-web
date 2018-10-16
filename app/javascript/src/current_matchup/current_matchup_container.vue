@@ -1,48 +1,33 @@
 <template>
   <div class="matchup_container">
-    <div 
+    <CurrentMatchupInfo 
       v-if="isCurrentMatchup"
+      class="team_history"
+      :blueSideGames="blueSideGames"
+      :blueSideTeamId="blueSideTeamId"
+      :redSideTeamId="redSideTeamId"
+      :redSideGames="redSideGames"
+      @change="selectTeam" />
+
+    <div 
+      v-if="!isCurrentMatchup" 
       class="team_history">
-
-      <MatchHistory 
-        :games="blueSideGames"
-        :teamId="blueSideTeamId"
-        side="blue"
-      >
-        <TeamSelector 
-          slot="team-selector"
-          :selectedId="blueSideTeamId"
-          @change="(teamId) => selectTeam(teamId, 'blue')"
-        />
-      </MatchHistory>
-
-      <MatchHistory 
-        :games="redSideGames"
-        :teamId="redSideTeamId"
-        side="red" 
-      >
-        <TeamSelector 
-          slot="team-selector"
-          :selectedId="redSideTeamId"
-          @change="(teamId) => selectTeam(teamId, 'red')"
-        />
-      </MatchHistory>
-
-    </div>
-    <div v-else class="team_history">
       No matchup selected
     </div>
-    <div class="upcoming_matches">
-      <UpcomingMatchesContainer @matchupSelected="setMatchup" />
+
+    <div class="schedule">
+      <h2 class="header">Schedule</h2>
+      <div class="upcoming_matches">
+        <UpcomingMatchesContainer @matchupSelected="setMatchup" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { options } from '../teams/chart_options.js'
+import CurrentMatchupInfo from './current_matchup_info.vue'
 import UpcomingMatchesContainer from '../upcoming_matches/upcoming_matches_container.vue'
-import MatchHistory from './match_history.vue'
-import TeamSelector from '../components/team_selector.vue'
 
 export default {
   data() {
@@ -55,9 +40,8 @@ export default {
   },
 
   components: {
-    TeamSelector,
-    UpcomingMatchesContainer,
-    MatchHistory
+    CurrentMatchupInfo,
+    UpcomingMatchesContainer
   },
 
   computed: {
@@ -122,9 +106,15 @@ export default {
 }
 
 .upcoming_matches {
-  width: 450px;
-
-  height: 100vh;
+  width: 400px;
+  height: 90%;
   overflow-y: scroll;
+}
+
+.schedule {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
