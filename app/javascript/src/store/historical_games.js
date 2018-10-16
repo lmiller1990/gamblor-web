@@ -30,8 +30,8 @@ export const getters = {
 
     const ids = state.ids
       .filter(gameId => inGame(teamId, state.all[gameId]))
-      .sort((x, y) => new Date(state.all[y].date) - new Date(state.all[x].date))
-      .reverse()
+      //.sort((x, y) => new Date(state.all[y].date) - new Date(state.all[x].date))
+      // .reverse()
 
     return ids.map(x => state.all[x])
   }

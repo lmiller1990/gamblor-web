@@ -56,6 +56,21 @@ export default {
   },
 
   methods: {
+    createCanvas() {
+      const canvas = document.createElement('canvas')
+      canvas.setAttribute('id', this.chartId)
+      return canvas
+    },
+
+    resetChart() {
+      // destroy <canvas> and recreate
+      if (this.$el.querySelector(`#${this.chartId}`)) {
+        this.$el.removeChild(this.$el.querySelector(`#${this.chartId}`))
+      }
+      
+      this.$el.appendChild(this.createCanvas())
+    },
+
     async updateChart() {
       const dataset = this.getAverageForMarket(this.market)
       this.dataset = {
@@ -68,6 +83,7 @@ export default {
     },
 
     drawChart() {
+      this.resetChart()
       const ctx = this.$el.querySelector('#' + this.chartId)
       new Chart(ctx, {
         type: 'line',
