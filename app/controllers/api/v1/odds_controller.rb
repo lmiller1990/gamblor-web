@@ -9,7 +9,7 @@ module Api
 
           game.update_attributes!(attrs)
         else
-          render json: { status: 500 }
+          render json: { status: 404 }
         end
       end
 
