@@ -8,7 +8,7 @@ task :stats_by_markets, [:vals] => :environment do |t, args|
   ]
 
   league = League.find_by_name('World Championship')
-  games = league.games
+  games = league.games.complete
 
   markets.each do |market|
     league_name, market, market_full = market

@@ -65,4 +65,12 @@ describe Game do
       end
     end
   end
+
+  describe '.complete' do
+    it 'returns all completed games' do
+      incomplete_game = build(:game, winner_id: nil, loser_id: nil)
+
+      expect(Game.complete).to eq [game]
+    end
+  end
 end
