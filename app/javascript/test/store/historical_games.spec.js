@@ -5,9 +5,9 @@ const createState = () => ({ ids: [], all: {} })
 describe('historicalGames', () => {
   describe('getters', () => {
     describe('byTeamId', () => {
-      it('returns games team participated in', () => {
+      it('returns games team participated in and sorts by id', () => {
         const state = createState()
-        state.ids = [1, 2, 3]
+        state.ids = [2, 1, 3]
         state.all = {
           '1': { blueSideTeamId: 1, redSideTeamId: 2 },
           '2': { blueSideTeamId: 1, redSideTeamId: 3 },

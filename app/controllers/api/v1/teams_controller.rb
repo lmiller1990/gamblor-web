@@ -10,7 +10,7 @@ module Api
 
         render json: { 
           team: team, 
-          games: team.games.order(created_at: :desc),
+          games: team.games,
           players: team.players
         }
       end
