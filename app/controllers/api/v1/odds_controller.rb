@@ -4,9 +4,9 @@ module Api
       def create
         game = UpcomingMatchService.new(odds_params[:blue_side_team], odds_params[:red_side_team]).call
         if game
-          odds = UpcomingMatchService.arrange_odds(odds_params[:market], odds_params[:blue_side_team], odds_params)
+          odds = UpcomingMatchService.arrange_odds(game.blue_side_team.name.downcase, odds_params)
           attrs = UpcomingMatchService.format_attributes_for_model(odds_params[:market], odds)
-
+          
           game.update_attributes!(attrs)
         else
           render json: { status: 404 }

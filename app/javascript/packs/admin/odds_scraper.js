@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     data() {
       return {
-        posting: false,
         market: 'fb',
         teamsAndOdds: '',
         odds: []
