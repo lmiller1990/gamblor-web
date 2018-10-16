@@ -2,12 +2,13 @@ class UpcomingMatchService
   # @param {String} team name
   # @param {String} team name
   def initialize(team_one, team_two)
-    @logger = Logger.new "#{Rails.root}/log/upcoming_match_logger.log"
+    # @logger = Logger.new "#{Rails.root}/log/upcoming_match_logger.log"
     begin
       @team_one = Team.find_by_name_case_insensitive(team_one)
       @team_two = Team.find_by_name_case_insensitive(team_two)
     rescue => e
-      @logger.error e
+      puts 'error!', e
+      # @logger.error e
     end
   end
 
@@ -28,7 +29,7 @@ class UpcomingMatchService
       game = latest_game(games)
       game
     rescue
-      @logger.error "No upcoming game found for #{@team_one.name} and #{@team_two.name}"
+      puts "No upcoming game found for #{@team_one.name} and #{@team_two.name}"
     end
   end
 
