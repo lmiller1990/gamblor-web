@@ -1,7 +1,6 @@
 <template>
   <div class="matchups">
     <div v-if="!loading">
-      <h2 class="header">Schedule</h2>
       <div class="matchup-container">
         <Match
           v-for="matchId in matchIds"
@@ -9,6 +8,7 @@
           :match-id="matchId"
           @selected="fetchMatchup"
         />
+        <div id="end_of_schedule" />
       </div>
     </div>
   </div>
@@ -56,6 +56,7 @@ export default {
         this.$store.dispatch('teams/getTeams')
       ])
       this.loading = false 
+      setTimeout(() => this.$el.querySelector('#end_of_schedule').scrollIntoView())
     }
   }
 }

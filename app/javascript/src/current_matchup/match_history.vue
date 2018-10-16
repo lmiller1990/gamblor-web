@@ -79,6 +79,8 @@ import MatchHistoryRow from './match_history_row.vue'
 import TeamLogo from '../components/team_logo.vue'
 
 export default {
+  name: 'MatchHistory',
+
   props: {
     side: {
       type: String,
