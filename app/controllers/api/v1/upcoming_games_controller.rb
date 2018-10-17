@@ -15,7 +15,7 @@ module Api
       end
 
       def default_split
-        Split.find_by_name('Groups')
+        Split.find_by_name(EasySettings['default_split'])
       end
     end
   end

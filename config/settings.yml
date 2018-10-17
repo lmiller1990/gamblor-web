@@ -1,0 +1,8 @@
+development:
+  default_split: 'Groups'
+
+test:
+  default_split: 'Groups'
+
+production:
+  default_split: 'Groups'
