@@ -4,6 +4,7 @@
       <option
         v-for="{id, name} in splits" :key="id"
         :value="id"
+        :selected="id === selectedId"
       >
         {{ name }}
       </option>
@@ -14,6 +15,14 @@
 <script>
 export default {
   name: 'LeagueSelector',
+
+  props: {
+    selectedId: {
+      type: Number,
+      required: false
+    }
+  },
+
 
   created() {
     this.$store.dispatch('leagues/getLeagues')

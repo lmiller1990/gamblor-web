@@ -15,6 +15,7 @@
  * @param {Array} AxiosResponse.data array, containing [{ id... }]
  */
 function mapResponseToStore(state, response) {
+  console.log(response)
   for (let obj of response) {
     if (!state.ids.includes(obj.id)) {
       state.ids.push(obj.id)

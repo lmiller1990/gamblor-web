@@ -37,7 +37,7 @@ describe('getters', () => {
       }
 
       const actual = getters.bySplitId(state)(SUMMER_SPLIT_ID)
-      expect(actual).toEqual([summerSplitGame])
+      expect(actual).toEqual([SUMMER_SPLIT_ID])
     })
   })
 

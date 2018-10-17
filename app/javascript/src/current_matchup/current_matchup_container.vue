@@ -18,10 +18,16 @@
     <div class="schedule">
       <div class="schedule_header">
         <h2 class="header">Schedule</h2>
-        <LeagueSelector @change="selectSplit" />
+        <LeagueSelector 
+          :selectedId="splitId"
+          @change="selectSplit" 
+        />
       </div>
-      <div class="upcoming_matches">
-        <UpcomingMatchesContainer @matchupSelected="setMatchup" />
+      <div class="upcoming_matches" v-if="splitId">
+        <UpcomingMatchesContainer 
+          :splitId="splitId"
+          @matchupSelected="setMatchup" 
+        />
       </div>
     </div>
   </div>
@@ -36,6 +42,7 @@ import UpcomingMatchesContainer from '../upcoming_matches/upcoming_matches_conta
 export default {
   data() {
     return {
+      splitId: undefined,
       redSideTeamId: 0,
       blueSideTeamId: 0,
       redSideGames: [],
@@ -57,6 +64,7 @@ export default {
 
   methods: {
     selectSplit(splitId) {
+      this.splitId = splitId
     },
 
     selectTeam(teamId, side) {

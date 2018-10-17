@@ -22,6 +22,13 @@ export default {
     Match
   },
 
+  props: {
+    splitId: {
+      type: Number,
+      required: true
+    }
+  },
+
   created() {
     this.fetchData()
   },
@@ -32,9 +39,16 @@ export default {
     }
   },
 
+  watch: {
+    splitId(val) {
+      this.fetchGames()
+    }
+  },
+
   computed: {
     matchIds() {
-      return this.$store.state.scheduledGames.ids
+      console.log(this.splitId)
+      return this.$store.getters['scheduledGames/bySplitId'](this.splitId)
     },
 
     matches() {
@@ -50,9 +64,13 @@ export default {
       })
     },
 
+    fetchGames() {
+      return this.$store.dispatch('scheduledGames/getUpcomingGames', { splitId: this.splitId })
+    },
+
     async fetchData() {
       await Promise.all([
-        this.$store.dispatch('scheduledGames/getUpcomingGames'),
+        this.fetchGames(),
         this.$store.dispatch('teams/getTeams')
       ])
       this.loading = false 
