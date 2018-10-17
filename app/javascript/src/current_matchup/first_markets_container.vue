@@ -100,7 +100,9 @@ export default {
     },
 
     getAverageForMarket(market) {
-      const fbs = this.games.map(x => x[`first${market}TeamId`] == this.teamId ? 1 : 0)
+      const fbs = this.games
+        .filter(game => (game.winnerId && game.loserId))
+        .map(x => x[`first${market}TeamId`] == this.teamId ? 1 : 0)
 
       let i = 0
       return fbs.map(x => {
