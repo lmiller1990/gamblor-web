@@ -21,6 +21,12 @@ export const actions = {
 }
 
 export const getters = {
+  bySplitId: (state) => (splitId) => {
+    return state.ids
+      .filter(x => state.all[x].splitId === splitId)
+      .map(x => state.all[x])
+  },
+
   byTeamId: (state) => (teamId) => {
     const inGame = 
       (teamId, game) => {
