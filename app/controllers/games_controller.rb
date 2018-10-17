@@ -9,17 +9,20 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+    authorize @game
     @teams = Team.all.order(name: :asc)
     @league = League.last # ('World Championship')
     @splits = @league.splits
   end
 
   def show
+    authorize @game
     set_first_teams
   end
 
   def create
     game = Game.new(game_params)
+    authorize game
     game.match_uuid = SecureRandom.uuid if game.game_number == 1
     game.save!
 
@@ -27,12 +30,14 @@ class GamesController < ApplicationController
   end
 
   def edit
+    authorize @game
     set_players_for_first
     @teams = FormHelper.select_for(@game.teams)
     @players_for_select = @game.teams.first.players.collect {|t| [ t.name, t.id ] }
   end
 
   def update
+    authorize @game
     @game.update_attributes(game_params)
 
     redirect_to @game
