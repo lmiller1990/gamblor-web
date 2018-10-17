@@ -2,18 +2,18 @@ const FirstMarketsContainer = require('../../src/current_matchup/first_markets_c
 
 describe('FirstMarketsContainer', () => {
   describe('getAverageForMarket', () => {
-    it('returns the running first average', () => {
+    it('returns the running first average, excluding unplayed games', () => {
       const subject = FirstMarketsContainer.methods.getAverageForMarket
       const teamId = 1
       const games = [
-        { firstBloodTeamId: 0 },
-        { firstBloodTeamId: 1 },
-        { firstBloodTeamId: 0 },
+        { firstBloodTeamId: 0, winnerId: 1, loserId: 2 },
+        { firstBloodTeamId: 1, winnerId: 1, loserId: 2 },
+        { firstBloodTeamId: 0, winnerId: 1, loserId: 2 },
         { firstBloodTeamId: 1 }
       ]
 
       expect(subject.call({ teamId, games }, 'Blood'))
-        .toEqual([0, .5, .33, .5])
+        .toEqual([0, .5, .33])
     })
   })
 

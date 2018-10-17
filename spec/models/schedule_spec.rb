@@ -14,7 +14,7 @@ describe Schedule do
     it 'returns recently played and upcoming matches' do
       expected = [bo1_g1_4_weeks_ago, bo3_g1_3_weeks_ago, bo3_g1_1_week_ago]
 
-      actual = described_class.most_recently_played(3)
+      actual = described_class.most_recently_played(Game.all, 3)
 
       expect(actual).to eq(expected)
     end
@@ -28,7 +28,7 @@ describe Schedule do
   describe 'upcoming_games' do
     it 'returns upcoming matches' do
       expected = [bo1_g1_next_week, bo1_g1_two_weeks_time]
-      actual = described_class.upcoming(2)
+      actual = described_class.upcoming(Game.all, 2)
 
       expect(actual).to eq(expected)
     end

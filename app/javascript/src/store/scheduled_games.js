@@ -1,4 +1,5 @@
 import axios from 'axios'
+import snakeCase from 'lodash/snakeCase'
 import { mapResponseToStore } from './map_response_to_store.js'
 
 const state = {
@@ -13,14 +14,20 @@ export const mutations = {
 }
 
 export const actions = {
-  async getUpcomingGames({ commit }) {
-    const response = await axios.get('/api/v1/upcoming_games')
+  async getUpcomingGames({ commit }, { splitId }) {
+    console.log(splitId)
+    const response = await axios.get('/api/v1/upcoming_games', { params: { [snakeCase('splitId')]: splitId } })
 
     commit('SET_GAMES', response.data)
   }
 }
 
 export const getters = {
+  bySplitId: (state) => (splitId) => {
+    return state.ids
+      .filter(x => state.all[x].splitId === splitId)
+  },
+
   byTeamId: (state) => (teamId) => {
     const inGame = 
       (teamId, game) => {

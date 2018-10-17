@@ -1,6 +1,13 @@
 <template>
   <div class="matchups">
-    <div v-if="!loading">
+    <div class="header">
+      <h2>Schedule</h2>
+      <LeagueSplitSelector 
+        :selectedId="splitId"
+        @change="selectSplit" 
+      />
+    </div>
+    <div v-show="!loading">
       <div class="matchup-container">
         <Match
           v-for="matchId in matchIds"
@@ -15,26 +22,31 @@
 </template>
 
 <script>
+import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
 
 export default {
   components: {
+    LeagueSplitSelector,
     Match
   },
 
-  created() {
-    this.fetchData()
+  async created() {
+    await this.fetchLeaguesAndSplits()
+    this.setDefaultSplit()
+    this.fetchGamesAndTeams()
   },
 
   data() {
     return {
-      loading: true
+      loading: true,
+      splitId: undefined
     }
   },
 
   computed: {
     matchIds() {
-      return this.$store.state.scheduledGames.ids
+      return this.$store.getters['scheduledGames/bySplitId'](this.splitId)
     },
 
     matches() {
@@ -43,6 +55,18 @@ export default {
   },
 
   methods: {
+    async selectSplit(splitId) {
+      this.splitId = splitId
+      await this.fetchGames()
+      this.scrollToBottomOfContainer()
+    },
+
+    setDefaultSplit() {
+      const name = this.$store.state.leagues.defaultSplit
+      const defaultSplit = this.$store.getters['leagues/getSplitByName'](name)
+      this.splitId = defaultSplit.id
+    },
+
     fetchMatchup({ matchId }) {
       this.$emit('matchupSelected', { 
         blueSideTeamId: this.matches[matchId].blueSideTeamId,
@@ -50,21 +74,42 @@ export default {
       })
     },
 
-    async fetchData() {
+    fetchGames() {
+      return this.$store.dispatch('scheduledGames/getUpcomingGames', { splitId: this.splitId })
+    },
+    
+    scrollToBottomOfContainer() {
+      this.$el.querySelector('#end_of_schedule').scrollIntoView()
+    },
+
+    fetchLeaguesAndSplits() {
+      return this.$store.dispatch('leagues/getLeagues')
+    },
+
+    async fetchGamesAndTeams() {
       await Promise.all([
-        this.$store.dispatch('scheduledGames/getUpcomingGames'),
+        this.fetchGames(),
         this.$store.dispatch('teams/getTeams')
       ])
       this.loading = false 
-      setTimeout(() => this.$el.querySelector('#end_of_schedule').scrollIntoView())
+
+      setTimeout(this.scrollToBottomOfContainer)
     }
   }
 }
 </script>
 
 <style scoped>
-
 .header {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.matchup-container {
+  height: 80vh;
+  overflow-y: scroll;
 }
 </style>
