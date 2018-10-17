@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'games#new', type: :system do
 
-  let!(:user) { create(:user) }
+  let!(:user) { create(:admin) }
   let!(:red_side_team) { create(:red_side_team) }
   let!(:blue_side_team) { create(:blue_side_team) }
   let!(:league) { create(:league, name: 'NA LCS') }
