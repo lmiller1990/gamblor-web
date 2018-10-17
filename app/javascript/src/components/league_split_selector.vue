@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <select @change="handleChange">
-      <option
-        v-for="{id, name} in splits" :key="id"
-        :value="id"
-        :selected="id === selectedId"
-      >
-        {{ name }}
-      </option>
-    </select>
-  </div>
+  <select @change="handleChange">
+    <option
+      v-for="{id, name} in splits" :key="id"
+      :value="id"
+      :selected="id === selectedId"
+    >
+      {{ name }}
+    </option>
+  </select>
 </template>
 
 <script>
