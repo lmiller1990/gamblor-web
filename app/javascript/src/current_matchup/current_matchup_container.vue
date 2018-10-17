@@ -1,7 +1,7 @@
 <template>
   <div class="matchup_container">
     <CurrentMatchupInfo 
-      v-if="isCurrentMatchup"
+      v-if="currentMatchupSelected"
       class="team_history"
       :blueSideGames="blueSideGames"
       :blueSideTeamId="blueSideTeamId"
@@ -10,25 +10,9 @@
       @change="selectTeam" />
 
     <div 
-      v-if="!isCurrentMatchup" 
-      class="team_history">
-      No matchup selected
-    </div>
-
-    <div class="schedule">
-      <div class="schedule_header">
-        <h2 class="header">Schedule</h2>
-        <LeagueSelector 
-          :selectedId="splitId"
-          @change="selectSplit" 
-        />
-      </div>
-      <div class="upcoming_matches" v-if="splitId">
-        <UpcomingMatchesContainer 
-          :splitId="splitId"
-          @matchupSelected="setMatchup" 
-        />
-      </div>
+      v-if="!currentMatchupSelected" 
+      class="team_history no_matchup">
+      Select a matchup on the right.
     </div>
   </div>
 </template>
@@ -36,72 +20,43 @@
 <script>
 import { options } from '../teams/chart_options.js'
 import CurrentMatchupInfo from './current_matchup_info.vue'
-import LeagueSelector from '../components/league_selector.vue'
-import UpcomingMatchesContainer from '../upcoming_matches/upcoming_matches_container.vue'
 
 export default {
-  data() {
-    return {
-      splitId: undefined,
-      redSideTeamId: 0,
-      blueSideTeamId: 0,
-      redSideGames: [],
-      blueSideGames: []
-    }
-  },
-
   components: {
-    LeagueSelector,
-    CurrentMatchupInfo,
-    UpcomingMatchesContainer
+    CurrentMatchupInfo
   },
 
-  computed: {
-    isCurrentMatchup() {
-      return this.blueSideTeamId && this.redSideTeamId
+  props: {
+    currentMatchupSelected: {
+      type: Boolean,
+      default: false
+    },
+
+    blueSideGames: {
+      type: Array,
+      required: true
+    },
+
+    redSideGames: {
+      type: Array,
+      required: true
+    },
+
+    blueSideTeamId: {
+      type: Number,
+      required: true
+    },
+
+    redSideTeamId: {
+      type: Number,
+      required: true
     }
   },
+
 
   methods: {
-    selectSplit(splitId) {
-      this.splitId = splitId
-    },
-
     selectTeam(teamId, side) {
-      if (side === 'blue')
-        this.setMatchup({ blueSideTeamId: parseInt(teamId), redSideTeamId: this.redSideTeamId })
-
-      if (side === 'red')
-        this.setMatchup({ blueSideTeamId: this.blueSideTeamId, redSideTeamId: parseInt(teamId) })
-    },
-
-    fetchCurrentMatchup() {
-      const { firstTeamId, secondTeamId } = this.$store.state.matchups
-      const gamesForFirstTeam = this.$store.getters['historicalGames/byTeamId'](firstTeamId)
-      const gamesForSecondTeam = this.$store.getters['historicalGames/byTeamId'](secondTeamId)
-
-      this.blueSideTeamId = firstTeamId
-      this.redSideTeamId = secondTeamId
-      this.blueSideGames = gamesForFirstTeam
-      this.redSideGames = gamesForSecondTeam
-    },
-
-    async setMatchup({ blueSideTeamId, redSideTeamId }) {
-      await Promise.all([
-        this.$store.dispatch('historicalGames/getByTeamId', blueSideTeamId),
-        this.$store.dispatch('historicalGames/getByTeamId', redSideTeamId)
-      ])
-
-      this.$store.dispatch('matchups/setMatchup', {
-        firstTeamId: blueSideTeamId,
-        secondTeamId: redSideTeamId
-      })
-
-      this.fetchCurrentMatchup()
-    },
-
-    getTeamById(id) {
-      return this.$store.state.teams.all[id]
+      this.$emit('teamSelected', { teamId, side })
     }
   }
 }
@@ -110,8 +65,13 @@ export default {
 <style scoped>
 .matchup_container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
+  margin: 10px 0 0 0;
+}
+
+.no_matchup {
+  align-items: center;
 }
 
 .team_history {
@@ -119,25 +79,5 @@ export default {
   padding: 2px;
   display: flex;
   justify-content: space-around;
-}
-
-.upcoming_matches {
-  width: 100%;
-  height: 90%;
-  overflow-y: scroll;
-}
-
-.schedule {
-  width: 450px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.schedule_header {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
 </style>

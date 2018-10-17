@@ -1,12 +1,18 @@
 import axios from 'axios'
+import flatten from 'lodash/flatten'
 
 export const state = {
-  all: []
+  all: [],
+  defaultSplit: ''
 }
 
 export const mutations = {
   SET_LEAGUES(state, { leagues }) {
     state.all = leagues
+  },
+
+  SET_DEFAULT_SPLIT(state, { defaultSplit }) {
+    state.defaultSplit = defaultSplit
   }
 }
 
@@ -18,6 +24,11 @@ export const actions = {
 }
 
 export const getters = {
+  getSplitByName: (state) => (name) => {
+    const splits = flatten(state.all.map(x => x.splits))
+    return splits.find(x => x.name === name)
+  },
+
   splits: ({ all }) => {
     const splits = []
     for (const league of all) {

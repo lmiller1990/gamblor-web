@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'LeagueSelector',
+  name: 'LeagueSplitSelector',
 
   props: {
     selectedId: {
@@ -23,9 +23,7 @@ export default {
     }
   },
 
-
   created() {
-    this.$store.dispatch('leagues/getLeagues')
   },
 
   computed: {
