@@ -16,7 +16,10 @@
     </div>
 
     <div class="schedule">
-      <h2 class="header">Schedule</h2>
+      <div class="schedule_header">
+        <h2 class="header">Schedule</h2>
+        <LeagueSelector @change="selectSplit" />
+      </div>
       <div class="upcoming_matches">
         <UpcomingMatchesContainer @matchupSelected="setMatchup" />
       </div>
@@ -27,6 +30,7 @@
 <script>
 import { options } from '../teams/chart_options.js'
 import CurrentMatchupInfo from './current_matchup_info.vue'
+import LeagueSelector from '../components/league_selector.vue'
 import UpcomingMatchesContainer from '../upcoming_matches/upcoming_matches_container.vue'
 
 export default {
@@ -40,6 +44,7 @@ export default {
   },
 
   components: {
+    LeagueSelector,
     CurrentMatchupInfo,
     UpcomingMatchesContainer
   },
@@ -51,6 +56,9 @@ export default {
   },
 
   methods: {
+    selectSplit(splitId) {
+    },
+
     selectTeam(teamId, side) {
       if (side === 'blue')
         this.setMatchup({ blueSideTeamId: parseInt(teamId), redSideTeamId: this.redSideTeamId })
@@ -106,15 +114,22 @@ export default {
 }
 
 .upcoming_matches {
-  width: 400px;
+  width: 100%;
   height: 90%;
   overflow-y: scroll;
 }
 
 .schedule {
+  width: 450px;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.schedule_header {
+  display: flex;
+  justify-content: space-around;
   align-items: center;
 }
 </style>

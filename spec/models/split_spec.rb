@@ -8,6 +8,13 @@ RSpec.describe Split, type: :model do
       expect(split.valid?).to be true
     end
 
+    it 'has games' do
+      split = create(:split)
+      game = create(:game, split: split)
+
+      expect(split.games.count).to eq 1
+    end
+
     it 'disallows nil league' do
       split = build(:split, league_id: nil)
 

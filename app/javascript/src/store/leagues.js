@@ -17,9 +17,26 @@ export const actions = {
   }
 }
 
+export const getters = {
+  splits: ({ all }) => {
+    const splits = []
+    for (const league of all) {
+      for (const split of league.splits) {
+        splits.push({ 
+          id: split.id, 
+          name: `${league.name} - ${split.name}` 
+        })
+      }
+    }
+
+    return splits
+  }
+}
+
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
+  getters
 }
