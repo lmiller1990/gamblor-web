@@ -2,8 +2,8 @@
 # The goal is to show which teams will be playing, not
 # how many games they played/will play.
 module Schedule
-  def self.most_recently_played(num = 5)
-    games = Game
+  def self.most_recently_played(games, num = 5)
+    games = games
       .where(game_number: 1)
       .where('date < ?', Date.today)
       .order(date: :desc)[0...num]
@@ -20,8 +20,8 @@ module Schedule
     games
   end
 
-  def self.upcoming(num = 5)
-    games = Game
+  def self.upcoming(games, num = 5)
+    games = games
       .where(game_number: 1)
       .where('date >= ?', Date.today)
       .order(date: :asc, created_at: :asc)[0...num]
