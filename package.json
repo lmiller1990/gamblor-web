@@ -6,6 +6,7 @@
   "dependencies": {
     "@rails/webpacker": "3.5",
     "@types/es6-shim": "^0.31.37",
+    "@types/lodash": "^4.14.117",
     "@types/puppeteer": "^1.9.0",
     "@vue/test-utils": "^1.0.0-beta.25",
     "axios": "^0.18.0",
@@ -42,12 +43,21 @@
     ],
     "transform": {
       "^.+\\.vue$": "vue-jest",
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
     },
     "testPathIgnorePatterns": [
       "<rootDir>/config/",
       "<rootDir>/node_modules/",
       "<rootDir>/vendor/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
     ]
   },
   "husky": {

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import snakeCase from 'lodash/snakeCase'
+const snakeCase = require('lodash/snakeCase')
 import { mapResponseToStore } from './map_response_to_store'
 
 const state = {

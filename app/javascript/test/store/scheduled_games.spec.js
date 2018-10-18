@@ -1,4 +1,4 @@
-import { mutations, getters } from '../../src/store/scheduled_games.js'
+import { mutations, getters } from '../../src/store/scheduled_games'
 import { index } from '../fixtures/upcoming_games_api.js'
 
 const createState = () => ({ ids: [], all: {} })

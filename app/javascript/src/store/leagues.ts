@@ -1,5 +1,5 @@
 import axios from 'axios'
-import flatten from 'lodash/flatten'
+const flatten = require('lodash/flatten')
 
 export const state = {
   all: [],
