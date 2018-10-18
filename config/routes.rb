@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     namespace :api do
       namespace :v1 do
         delete 'session', to: 'session#destroy'
+        resources :bets
         resources :upcoming_games, only: [:index]
         resources :odds, only: %i(create show)
         resources :scrapers, only: %i(create index)

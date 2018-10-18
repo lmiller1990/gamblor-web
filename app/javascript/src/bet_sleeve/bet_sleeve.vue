@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Bet from './bet.vue'
 
 export default {
@@ -17,6 +18,10 @@ export default {
 
   components: {
     Bet
+  },
+
+  created() {
+    this.$store.dispatch('bets/getBets')
   },
 
   data() {
