@@ -74,7 +74,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { titlecase } from '../filters/index.js'
 import FirstMarketsContainer from './first_markets_container.vue'
 import MatchHistoryRow from './match_history_row.vue'

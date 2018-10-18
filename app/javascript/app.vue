@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import BetSleeve from './src/bet_sleeve/bet_sleeve.vue'
 import CurrentMatchupContainer from './src/current_matchup/current_matchup_container.vue'
 import UpcomingMatchesContainer from './src/upcoming_matches/upcoming_matches_container.vue'

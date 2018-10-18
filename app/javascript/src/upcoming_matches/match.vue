@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import TeamLogo from '../components/team_logo.vue'
 
 export default {

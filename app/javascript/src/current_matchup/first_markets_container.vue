@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Chart from 'chart.js'
 import { options } from '../teams/chart_options.js'
 import { rgbFromStringHash } from '../utils.js'

@@ -1,15 +1,19 @@
 {
-  "include": [
-    "crawlers/better.ts",
-    "node_modules/@types/puppeteer/index.d.ts",
-    "node_modules/@types/es6-shim/index.d.ts"
-  ],
   "compilerOptions": {
-    "importHelpers": true,
-    "target": "es6",
-    "noEmitHelpers": true,
-    "module": "commonjs",
-    "moduleResolution": "node"
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5"
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "**/*.spec.ts",
+    "node_modules",
+    "vendor",
+    "public"
+  ],
+  "compileOnSave": false
 }

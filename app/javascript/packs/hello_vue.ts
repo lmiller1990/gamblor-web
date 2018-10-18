@@ -6,12 +6,12 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import App from '../app.vue'
+import * as App from '../app.vue'
 import axios from 'axios'
 
 axios.defaults.headers.common['X-Key-Inflection'] = 'camel'
 
-import store from '../src/store/index.js'
+import * as store from '../src/store/index.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.body.appendChild(document.createElement('hello'))

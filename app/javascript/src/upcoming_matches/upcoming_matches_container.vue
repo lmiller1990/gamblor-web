@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import SignOutForm from '../components/sign_out_form.vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
