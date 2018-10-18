@@ -33,6 +33,9 @@ gem 'webpacker', '~> 3.5'
 # use devise for authentication
 gem 'devise'
 
+# money!!!
+gem 'money-rails', '~>1'
+
 # jsonify api
 gem 'olive_branch'
 
