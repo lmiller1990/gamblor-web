@@ -1,10 +1,10 @@
 <template>
   <div class="bet_window">
-    <Bet v-for="bet in bets" :key="bet.id"
-         :priceCents="bet.priceCents"
-         :odds="bet.odds"
-         :teamToWinId="bet.teamToWinId"
-         :market="bet.market"
+    <Bet 
+       v-for="id in betIds" 
+       :key="id"
+       :id="id"
+       :bet="bets[id]"
      />
   </div>
 </template>
@@ -24,11 +24,13 @@ export default {
     this.$store.dispatch('bets/getBets')
   },
 
-  data() {
-    return {
-      bets: [
-        { id: 0, priceCents: 100020, odds: 1.2, teamToWinId: 1,  market: 'ft' }
-      ]
+  computed: {
+    bets() {
+      return this.$store.state.bets.all
+    },
+
+    betIds() {
+      return this.$store.state.bets.ids
     }
   }
 }
