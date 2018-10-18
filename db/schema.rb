@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_162710) do
+ActiveRecord::Schema.define(version: 2018_10_18_064445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,19 @@ ActiveRecord::Schema.define(version: 2018_10_17_162710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "body_html"
+  end
+
+  create_table "bets", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "price_cents"
+    t.string "market"
+    t.bigint "game_id"
+    t.bigint "user_id"
+    t.boolean "won"
+    t.float "odds"
+    t.index ["game_id"], name: "index_bets_on_game_id"
+    t.index ["user_id"], name: "index_bets_on_user_id"
   end
 
   create_table "contracts", force: :cascade do |t|
@@ -133,5 +146,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_162710) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bets", "games"
+  add_foreign_key "bets", "users"
   add_foreign_key "splits", "leagues"
 end
