@@ -11,6 +11,7 @@
     <div class="first_markets">
       <FirstMarketsContainer 
         v-for="market in markets.slice(0, 2)"
+        :key="market"
         :teamId="teamId"
         :teamName="teamName"
         :games="games" 
@@ -21,6 +22,7 @@
     <div class="first_markets">
       <FirstMarketsContainer 
         v-for="market in markets.slice(2, 4)"
+        :key="market"
         :teamId="teamId"
         :teamName="teamName"
         :games="games" 

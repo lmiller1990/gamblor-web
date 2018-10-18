@@ -7,7 +7,7 @@
 
 import Vue from 'vue'
 // @ts-ignore
-import App from '../app.vue'
+import App from '../src/App.vue'
 import axios from 'axios'
 
 import store from '../src/store/index'

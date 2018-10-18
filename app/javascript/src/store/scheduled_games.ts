@@ -15,7 +15,6 @@ export const mutations = {
 
 export const actions = {
   async getUpcomingGames({ commit }, { splitId }) {
-    console.log(splitId)
     const response = await axios.get('/api/v1/upcoming_games', { params: { [snakeCase('splitId')]: splitId } })
 
     commit('SET_GAMES', response.data)
