@@ -7,21 +7,27 @@
         @change="selectSplit" 
       />
     </div>
-    <div v-show="!loading">
-      <div class="matchup-container">
-        <Match
-          v-for="matchId in matchIds"
-          :key="matchId"
-          :match-id="matchId"
-          @selected="fetchMatchup"
-        />
-        <div id="end_of_schedule" />
-      </div>
+    <div 
+      v-show="!loading" 
+      class="matchup-container">
+      <Match
+        v-for="matchId in matchIds"
+        :key="matchId"
+        :match-id="matchId"
+        @selected="fetchMatchup"
+      />
+      <div id="end_of_schedule"></div>
+    </div>
+    <div class="status">
+      <form @submit.prevent="signout">
+        <input type="submit" value="Sign out">
+      </form>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
 
@@ -55,6 +61,11 @@ export default {
   },
 
   methods: {
+    async signout() {
+      await axios.delete('/api/v1/session')
+      document.location.replace('/')
+    },
+
     async selectSplit(splitId) {
       this.splitId = splitId
       await this.fetchGames()
@@ -100,12 +111,17 @@ export default {
 </script>
 
 <style scoped>
+.status, .header {
+  height: 10vh;
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+
 .header {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin: 10px 0;
 }
 
 .matchup-container {
