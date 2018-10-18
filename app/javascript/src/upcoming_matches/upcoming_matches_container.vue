@@ -1,6 +1,6 @@
 <template>
   <div class="matchups">
-    <div class="header">
+    <div class="header border-left border-bottom">
       <h2>Schedule</h2>
       <LeagueSplitSelector 
         :selectedId="splitId"
@@ -9,7 +9,7 @@
     </div>
     <div 
       v-show="!loading" 
-      class="matchup-container">
+      class="matchup-container border-left border-bottom">
       <Match
         v-for="matchId in matchIds"
         :key="matchId"
@@ -18,23 +18,22 @@
       />
       <div id="end_of_schedule"></div>
     </div>
-    <div class="status">
-      <form @submit.prevent="signout">
-        <input type="submit" value="Sign out">
-      </form>
+    <div class="status border-left">
+      <SignOutForm />
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import SignOutForm from '../components/sign_out_form.vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
 
 export default {
   components: {
-    LeagueSplitSelector,
-    Match
+    Match,
+    SignOutForm,
+    LeagueSplitSelector
   },
 
   async created() {
@@ -61,11 +60,6 @@ export default {
   },
 
   methods: {
-    async signout() {
-      await axios.delete('/api/v1/session')
-      document.location.replace('/')
-    },
-
     async selectSplit(splitId) {
       this.splitId = splitId
       await this.fetchGames()
@@ -110,11 +104,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$color: silver;
+
+.border-left {
+  box-sizing: border-box;
+  border-left: 1px solid $color;
+}
+
+.border-bottom {
+  box-sizing: border-box;
+  border-bottom: 1px solid $color;
+}
+
 .status, .header {
   height: 10vh;
-  border: 1px solid black;
-  box-sizing: border-box;
 }
 
 .header {

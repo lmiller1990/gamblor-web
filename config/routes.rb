@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   get '/', to: 'join#index'
   root 'join#index'
   resources :subscribers, only: [:create, :index]
+  resources :app, only: %i(index)
 
   authenticated do
-    resources :app, only: %i(index)
     get 'admin', to: 'admin#index'
 
     get 'admin/odds_scraper', to: 'admin/odds_scraper#index'
