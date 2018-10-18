@@ -37,6 +37,8 @@ RSpec.configure do |config|
   config.include Requests::ApiHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::IntegrationHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
 
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

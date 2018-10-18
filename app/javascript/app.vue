@@ -55,8 +55,9 @@ export default {
 
     // Set default settings declared on server side in config/settings.yml
     setDefaults() {
-      const { defaultSplit } = JSON.parse(document.querySelector('#settings').getAttribute('data_settings'))
+      const { defaultSplit, admin } = JSON.parse(document.querySelector('#settings').getAttribute('data_settings'))
       this.$store.commit('leagues/SET_DEFAULT_SPLIT', { defaultSplit })
+      this.$store.commit('user/SET_ADMIN', { admin })
     },
 
     async setMatchup({ blueSideTeamId, redSideTeamId }) {
@@ -87,14 +88,20 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 #app {
-  height: 100%;
   display: flex;
 }
 
+.nav {
+  position: sticky;
+  top: 0;
+}
 .schedule {
+  height: 80vh;
   width: 400px;
+  position: sticky;
+  top: 0;
 }
 
 </style>

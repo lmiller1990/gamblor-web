@@ -6,6 +6,7 @@ import historicalGames from './historical_games.js'
 import leagues from './leagues.js'
 import matchups from './matchups.js'
 import teams from './teams.js'
+import user from './user.js'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     matchups,
     leagues,
     teams,
-    historicalGames
+    historicalGames,
+    user
   }
 })

@@ -1,17 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   get '/', to: 'join#index'
+  root 'join#index'
   resources :subscribers, only: [:create, :index]
 
-
-  namespace :api do
-    namespace :v1 do
-      resources :odds, only: %i(create show)
-    end
-  end
-
   authenticated do
-    get 'app', to: 'app#index'
+    resources :app, only: %i(index)
     get 'admin', to: 'admin#index'
 
     get 'admin/odds_scraper', to: 'admin/odds_scraper#index'
@@ -31,6 +25,7 @@ Rails.application.routes.draw do
 
     namespace :api do
       namespace :v1 do
+        delete 'session', to: 'session#destroy'
         resources :upcoming_games, only: [:index]
         resources :odds, only: %i(create show)
         resources :scrapers, only: %i(create index)
