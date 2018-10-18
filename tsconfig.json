@@ -7,13 +7,16 @@
     "module": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "target": "es5"
+    "target": "es6"
   },
   "exclude": [
     "**/*.spec.ts",
     "node_modules",
     "vendor",
     "public"
+  ],
+  "files": [
+    "./static/types/vue-shims.d.ts"
   ],
   "compileOnSave": false
 }

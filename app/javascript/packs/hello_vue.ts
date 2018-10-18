@@ -6,16 +6,18 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import * as App from '../app.vue'
+// @ts-ignore
+import App from '../app.vue'
 import axios from 'axios'
 
-axios.defaults.headers.common['X-Key-Inflection'] = 'camel'
+import store from '../src/store/index'
+axios.defaults.headers.common
 
-import * as store from '../src/store/index.js'
+const VueApp: any = Vue
 
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.body.appendChild(document.createElement('hello'))
-  const app = new Vue({
+  const app = new VueApp({
     el,
     store,
     render: h => h(App)

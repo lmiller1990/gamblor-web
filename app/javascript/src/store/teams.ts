@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { mapResponseToStore } from './map_response_to_store.js'
+import { mapResponseToStore } from './map_response_to_store'
 
 const state = {
   ids: [],

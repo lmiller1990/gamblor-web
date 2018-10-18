@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { mapResponseToStore } from './map_response_to_store.js'
+import { mapResponseToStore } from './map_response_to_store'
 
 const state = {
   ids: [],
@@ -25,7 +25,7 @@ export const getters = {
     const inGame = 
       (teamId, game) => {
         const { blueSideTeamId, redSideTeamId } = game
-        return [blueSideTeamId, redSideTeamId].includes(teamId)
+        return [blueSideTeamId, redSideTeamId].indexOf(teamId) != -1
       }
 
     const ids = state.ids

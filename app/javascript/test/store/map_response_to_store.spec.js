@@ -1,4 +1,4 @@
-import { mapResponseToStore } from '../../src/store/map_response_to_store.js'
+import { mapResponseToStore } from '../../src/store/map_response_to_store'
 
 describe('mapResponseToStore', () => {
   it('maps ids and objects from axios response to store.state', () => {

@@ -22,6 +22,8 @@ import CurrentMatchupContainer from './src/current_matchup/current_matchup_conta
 import UpcomingMatchesContainer from './src/upcoming_matches/upcoming_matches_container.vue'
 
 export default {
+  name: 'App',
+
   components: {
     CurrentMatchupContainer,
     UpcomingMatchesContainer,
@@ -29,6 +31,7 @@ export default {
   },
 
   created() {
+    console.log(this.$store)
     this.setDefaults()
   },
   
