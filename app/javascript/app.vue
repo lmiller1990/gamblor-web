@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <BetSleeve />
     <CurrentMatchupContainer 
       :currentMatchupSelected="currentMatchupSelected"
       :blueSideGames="blueSideGames"
@@ -16,13 +17,15 @@
 </template>
 
 <script>
+import BetSleeve from './src/bet_sleeve/bet_sleeve.vue'
 import CurrentMatchupContainer from './src/current_matchup/current_matchup_container.vue'
 import UpcomingMatchesContainer from './src/upcoming_matches/upcoming_matches_container.vue'
 
 export default {
   components: {
     CurrentMatchupContainer,
-    UpcomingMatchesContainer
+    UpcomingMatchesContainer,
+    BetSleeve
   },
 
   created() {

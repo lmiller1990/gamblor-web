@@ -1,5 +1,7 @@
 <template>
-  <td :class="checkForVictory">
+  <td :class="checkForVictory" 
+    @mouseenter="showBetWindow"
+    @mouseleave="hideBetWindow">
     {{ resultSymbol }}
   </td>
 </template>
@@ -38,6 +40,16 @@ export default {
         return ''
 
       return this.victory ? 'victory' : 'defeat'
+    }
+  },
+
+  methods: {
+    hideBetWindow() {
+      console.log('hide it !!')
+    },
+
+    showBetWindow() {
+      console.log('show it!!')
     }
   }
 }
