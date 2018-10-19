@@ -9,6 +9,9 @@
        :odds="bets[id].odds"
        :gameTitle="gameTitle(bets[id].gameId)"
      />
+
+    <NewBetForm 
+    />
   </div>
 </template>
 
@@ -16,13 +19,15 @@
 import { Bet } from '../types/bet'
 import Vue from 'vue'
 import axios from 'axios'
+import NewBetForm from './new_bet_form.vue'
 import SingleBet from './bet.vue'
 
 export default Vue.extend({
   name: 'BetSleeve',
 
   components: {
-    SingleBet
+    SingleBet,
+    NewBetForm
   },
 
   created() {

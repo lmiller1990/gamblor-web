@@ -17,15 +17,20 @@
 
 <script lang="ts">
 import { betProps } from './bet_props'
-import { dollars } from '../filters/index'
 
-export default {
-  name: 'Bet',
+import Vue from 'vue'
 
-  props: betProps,
+export default Vue.extend({
+  name: 'NewBetForm',
 
-  filters: { dollars }
-}
+  props: {
+    ...betProps,
+    priceCents: {
+      type: Number,
+      default: 0.0
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

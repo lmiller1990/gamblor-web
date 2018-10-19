@@ -1,0 +1,17 @@
+.bet { padding: 8px; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2em;
+  padding: 4px 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+
+  .stake {
+    align-self: flex-end;
+  }
+}
