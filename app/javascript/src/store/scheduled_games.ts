@@ -31,7 +31,7 @@ export const getters = {
     const inGame = 
       (teamId, game) => {
         const { blueSideTeamId, redSideTeamId } = game
-        return [blueSideTeamId, redSideTeamId].indexOf(teamId) != -1
+        return [blueSideTeamId, redSideTeamId].includes(teamId)
       }
 
     const ids = state.ids.filter(gameId => inGame(teamId, state.all[gameId]))

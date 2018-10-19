@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import axios,{ AxiosPromise } from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'SignOutForm',

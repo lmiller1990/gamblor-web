@@ -10,11 +10,6 @@ import Chart from 'chart.js'
 import { options } from '../teams/chart_options.js'
 import { rgbFromStringHash } from '../utils.js'
 
-interface Game {
-  winnerId: number
-  loserId: number
-}
-
 export default Vue.extend({
   name: 'FirstMarketContainer',
 

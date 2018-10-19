@@ -132,11 +132,9 @@ export default Vue.extend({
 
   methods: {
     getOddsFor(market, game) {
-      // @ts-ignore
       if (this.teamId === game.redSideTeamId)
         return game[`redSideTeam${titlecase(market)}Odds`]
 
-      // @ts-ignore
       if (this.teamId === game.blueSideTeamId)
         return game[`blueSideTeam${titlecase(market)}Odds`]
     },
@@ -145,7 +143,6 @@ export default Vue.extend({
       if (!winnerId) 
         return undefined
 
-      // @ts-ignore
       return winnerId === this.teamId
     },
 
@@ -153,7 +150,6 @@ export default Vue.extend({
       if (!game[`first${market}TeamId`]) 
         return undefined
 
-      // @ts-ignore
       return game[`first${market}TeamId`] === this.teamId
     },
 
