@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <BetSleeve />
+    <!-- <BetSleeve /> -->
     <CurrentMatchupContainer 
       :currentMatchupSelected="currentMatchupSelected"
       :blueSideGames="blueSideGames"
