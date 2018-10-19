@@ -11,3 +11,7 @@ export const shortDate = (date) =>
     .split(' ')
     .slice(0, 3)
     .join(' ')
+
+export const dollars = (cents: number) => {
+  return (cents/100).toLocaleString('en-US', { style: 'currency',  currency: 'AUD' })
+}

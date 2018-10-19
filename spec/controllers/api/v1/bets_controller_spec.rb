@@ -12,6 +12,7 @@ describe Api::V1::BetsController, type: :controller do
       get :index
 
       expect(json_response.count).to be 2
+      expect(json_response.first['game']['id']).to eq bet_one.game.id
     end
   end
 end

@@ -4,7 +4,10 @@
        v-for="id in betIds" 
        :key="id"
        :id="id"
-       :bet="bets[id]"
+       :teamBetOn="teamBetOn(id)"
+       :priceCents="bets[id].priceCents"
+       :odds="bets[id].odds"
+       :gameTitle="gameTitle(bets[id].gameId)"
      />
   </div>
 </template>
@@ -27,12 +30,24 @@ export default Vue.extend({
   },
 
   computed: {
-    bets(): Bet[] {
+    // TODO: Proper types
+    // { [bet.id]: Bet }
+    bets(): object {
       return this.$store.state.bets.all
     },
 
     betIds(): number[] {
       return this.$store.state.bets.ids
+    }
+  },
+
+  methods: {
+    gameTitle(id: number): string {
+      return this.$store.getters['games/titleById'](id)
+    },
+
+    teamBetOn(id: number): string {
+      return this.$store.getters['teams/nameById'](id)
     }
   }
 })

@@ -4,7 +4,7 @@ module Api
       before_action :authenticate_user!
 
       def index
-        render json: current_user.bets 
+        render json: current_user.bets.to_json(methods: [:game])
       end
     end
   end

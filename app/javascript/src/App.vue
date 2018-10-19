@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <BetSleeve /> -->
+    <BetSleeve v-if="loaded" />
     <CurrentMatchupContainer 
       :currentMatchupSelected="currentMatchupSelected"
       :blueSideGames="blueSideGames"
@@ -12,6 +12,7 @@
     <UpcomingMatchesContainer 
       class="schedule"
       @matchupSelected="setMatchup" 
+      @loaded="loaded = true"
     />
   </div>
 </template>
@@ -36,6 +37,7 @@ export default {
   
   data() {
     return {
+      loaded: false,
       redSideTeamId: 0,
       blueSideTeamId: 0,
       redSideGames: [],
