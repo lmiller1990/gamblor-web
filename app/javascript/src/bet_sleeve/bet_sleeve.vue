@@ -58,7 +58,7 @@ export default Vue.extend({
   position: sticky;
   top: 0;
   height: 100vh;
-  width: 300px;
+  width: 400px;
   border-right: 1px solid silver;
 }
 </style>
