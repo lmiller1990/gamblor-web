@@ -1,4 +1,4 @@
-import { mutations, getters } from '../../src/store/teams.js'
+import { mutations, getters } from '../../src/store/teams.ts'
 
 const createState = () => ({ ids: [], all: {} })
 

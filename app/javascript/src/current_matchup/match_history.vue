@@ -11,6 +11,7 @@
     <div class="first_markets">
       <FirstMarketsContainer 
         v-for="market in markets.slice(0, 2)"
+        :key="market"
         :teamId="teamId"
         :teamName="teamName"
         :games="games" 
@@ -21,13 +22,14 @@
     <div class="first_markets">
       <FirstMarketsContainer 
         v-for="market in markets.slice(2, 4)"
+        :key="market"
         :teamId="teamId"
         :teamName="teamName"
         :games="games" 
         :side="side"
         :market="market"
       />
-    </div>
+    </div> 
 
     <table>
       <tr class="header-tr">
@@ -74,14 +76,15 @@
   </div>
 </template>
 
-<script>
-import { titlecase } from '../filters/index.js'
+<script lang="ts">
+import Vue, { PropOptions } from 'vue'
+import { titlecase } from '../filters/index'
 import FirstMarketsContainer from './first_markets_container.vue'
 import MatchHistoryRow from './match_history_row.vue'
 import TeamLogo from '../components/team_logo.vue'
 import MatchDate from './match_date.vue'
 
-export default {
+export default Vue.extend({
   name: 'MatchHistory',
 
   props: {
@@ -90,13 +93,12 @@ export default {
       required: true
     },
 
-    teamId: {
-      type: Number,
+    games: <PropOptions<object[]>> {
       required: true
     },
 
-    games: {
-      type: Array,
+    teamId: {
+      type: Number,
       required: true
     }
   },
@@ -119,11 +121,11 @@ export default {
   },
 
   computed: {
-    admin() {
+    admin(): boolean {
       return this.$store.state.user.admin
     },
 
-    teamName() {
+    teamName(): string {
       return this.$store.getters['teams/nameById'](this.teamId)
     }
   },
@@ -152,13 +154,13 @@ export default {
     },
 
     getOpponent(game) {
-      const { blueSideTeamId, redSideTeamId } = game
+      const { blueSideTeamId, redSideTeamId } = game  
       return this.$store.getters['teams/nameById'](this.teamId === blueSideTeamId
         ? redSideTeamId
         : blueSideTeamId)
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

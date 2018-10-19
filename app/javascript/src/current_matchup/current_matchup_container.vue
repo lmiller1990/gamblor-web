@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { options } from '../teams/chart_options.js'
 import CurrentMatchupInfo from './current_matchup_info.vue'
 

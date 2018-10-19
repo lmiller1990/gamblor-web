@@ -5,6 +5,7 @@ function removeDupMatches(matches) {
     var foundMatches = [];
     var i = 0;
     var _loop_1 = function (match) {
+        // @ts-ignore
         var matchValues = Object.keys(match).map(function (x) { return match[x]; }).join(",");
         var included = foundMatches.indexOf(matchValues);
         if (included < 0) {

@@ -7,8 +7,8 @@
   </div>
 </template>
 
-<script>
-import { shortDate } from '../filters/index.js'
+<script lang="ts">
+import { shortDate } from '../filters/index'
 
 export default {
   name: 'MatchDate',

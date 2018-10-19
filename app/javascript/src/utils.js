@@ -1,4 +1,4 @@
-import snakeCase from 'lodash/snakeCase'
+const snakeCase = require('lodash/snakeCase')
 
 export const rgbFromStringHash = (str) => {
   return new Promise(async (resolve) => {

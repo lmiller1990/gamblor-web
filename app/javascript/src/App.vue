@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- <BetSleeve /> -->
     <CurrentMatchupContainer 
       :currentMatchupSelected="currentMatchupSelected"
       :blueSideGames="blueSideGames"
@@ -15,14 +16,18 @@
   </div>
 </template>
 
-<script>
-import CurrentMatchupContainer from './src/current_matchup/current_matchup_container.vue'
-import UpcomingMatchesContainer from './src/upcoming_matches/upcoming_matches_container.vue'
+<script lang="ts">
+import BetSleeve from './bet_sleeve/bet_sleeve.vue'
+import CurrentMatchupContainer from './current_matchup/current_matchup_container.vue'
+import UpcomingMatchesContainer from './upcoming_matches/upcoming_matches_container.vue'
 
 export default {
+  name: 'App',
+
   components: {
     CurrentMatchupContainer,
-    UpcomingMatchesContainer
+    UpcomingMatchesContainer,
+    BetSleeve
   },
 
   created() {
@@ -39,13 +44,13 @@ export default {
   },
 
   computed: {
-    currentMatchupSelected() {
+    currentMatchupSelected(): boolean {
       return (this.blueSideTeamId && this.redSideTeamId) !== 0
     }
   },
 
   methods: {
-    selectTeam({ teamId, side }) {
+    selectTeam({ teamId, side }: { teamId: string, side: string }) {
       if (side === 'blue')
         this.setMatchup({ blueSideTeamId: parseInt(teamId), redSideTeamId: this.redSideTeamId })
 
@@ -55,12 +60,13 @@ export default {
 
     // Set default settings declared on server side in config/settings.yml
     setDefaults() {
-      const { defaultSplit, admin } = JSON.parse(document.querySelector('#settings').getAttribute('data_settings'))
+      const dataSettings =  <HTMLDivElement>document.querySelector('#settings')
+      const { defaultSplit, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
       this.$store.commit('leagues/SET_DEFAULT_SPLIT', { defaultSplit })
-      this.$store.commit('user/SET_ADMIN', { admin })
+      this.$store.commit('user/SET_ADMIN', { admin }) 
     },
 
-    async setMatchup({ blueSideTeamId, redSideTeamId }) {
+    async setMatchup({ blueSideTeamId, redSideTeamId }: { blueSideTeamId: number, redSideTeamId: number }) {
       await Promise.all([
         this.$store.dispatch('historicalGames/getByTeamId', blueSideTeamId),
         this.$store.dispatch('historicalGames/getByTeamId', redSideTeamId)

@@ -1,4 +1,4 @@
-import { state, mutations, getters } from '../../src/store/leagues.js'
+import { state, mutations, getters } from '../../src/store/leagues'
 
 const createState = () => Object.assign({}, state)
 const SUMMMER_SPLIT = { name: 'summer split' }

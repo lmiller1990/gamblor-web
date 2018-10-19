@@ -2,7 +2,7 @@
   <img :src="teamLogo">
 </template>
 
-<script>
+<script lang="ts">
 export default {
   props: {
     teamName: {
@@ -12,13 +12,13 @@ export default {
   },
 
   computed: {
-    teamLogo() {
+    teamLogo(): string {
       return this.teamImage(this.teamName)
     }
   },
 
   methods: {
-    teamImage(name) {
+    teamImage(name: string): string {
       return `/images/${name.replace(/\s/g, '_').toLowerCase()}.png`
     }
   }

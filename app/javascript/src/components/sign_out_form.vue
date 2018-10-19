@@ -4,7 +4,7 @@
   </form>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios'
 
 export default {
@@ -12,8 +12,9 @@ export default {
 
   methods: {
     async signout() {
-      await axios.delete('/api/v1/session')
-      document.location.replace('/')
+      await axios.delete('/api/v1/session') as any
+      const { location: any } = document
+      location.replace('/')
     }
   }
 }

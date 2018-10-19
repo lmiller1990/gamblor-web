@@ -10,8 +10,10 @@
   </select>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'LeagueSplitSelector',
 
   props: {
@@ -21,21 +23,18 @@ export default {
     }
   },
 
-  created() {
-  },
-
   computed: {
-    splits() {
+    splits(): object[] {
       return this.$store.getters['leagues/splits']
     }
   },
   
   methods: {
-    handleChange(e) {
-      this.$emit('change', parseInt(e.target.value))
+    handleChange(e: Event) {
+      this.$emit('change', parseInt(((<HTMLSelectElement>e.target).value)))
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

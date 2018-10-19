@@ -1,6 +1,6 @@
 import {
   titlecase
-} from '../../src/filters/index.js'
+} from '../../src/filters/index'
 
 describe('titlecase', () => {
   it('capitalizes every word', () => {

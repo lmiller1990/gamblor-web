@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import TeamSelector from '../components/team_selector.vue'
 import MatchHistory from './match_history.vue'
 

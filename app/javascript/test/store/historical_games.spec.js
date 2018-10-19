@@ -1,4 +1,4 @@
-import { getters } from '../../src/store/historical_games.js'
+import { getters } from '../../src/store/historical_games'
 
 const createState = () => ({ ids: [], all: {} })
 

@@ -8,10 +8,10 @@ import { removeDupMatches } from "./utils";
 const args = minimist(process.argv.slice(2))
 
 export interface Match {
-  firstTeamName: String
-  secondTeamName: String
-  firstTeamOdds: Number
-  secondTeamOdds: Number
+  firstTeamName: string
+  secondTeamName: string
+  firstTeamOdds: number
+  secondTeamOdds: number
 }
 
 const theEvent = args.event
@@ -47,9 +47,13 @@ function clearPreviouslyScrapedData() {
   )
 }
 
-function getTeams(el: HTMLElement) {
-  return Array.from(el.querySelectorAll(".gl-Participant_Name"))
-    .map((x: HTMLElement) => x.innerHTML)
+function getTeams(el: Element): string[] {
+  const teams: string[] = []
+  for (const elm of Array.from(el.querySelectorAll(".gl-Participant_Name"))) {
+    teams.push(elm.innerHTML)
+  }
+ 
+  return teams
 }
 /**
  * @param el {HTMLElement} HTMLElement that looks like this:
@@ -62,15 +66,18 @@ function getTeams(el: HTMLElement) {
  * @returns teams {Array<string} array containing the two teams
  */
 function getTeamsForOverUnder(el: HTMLElement): Array<string> {
-  const tableHeader = el.previousElementSibling
+  const tableHeader = el.previousElementSibling as HTMLTableHeaderCellElement
   const child = tableHeader.children[0] as HTMLElement 
   const teams = child.innerText.split('- LOL')[0].split('vs')
   return teams.map(x => x.toLowerCase().trim())
 }
 
-function getOdds(el: HTMLElement) {
-  return Array.from(el.querySelectorAll(".gl-Participant_Odds"))
-    .map((x: HTMLElement) => x.innerHTML)
+function getOdds(el: HTMLElement): string[] {
+  const odds: string[] = []
+  for (const elm of Array.from(el.querySelectorAll(".gl-Participant_Odds"))) {
+    odds.push(elm.innerHTML)
+  }
+  return odds
 }
 
 const visitEsportsPage = (async (page: puppeteer.Page) => {

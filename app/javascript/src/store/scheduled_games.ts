@@ -1,6 +1,6 @@
 import axios from 'axios'
-import snakeCase from 'lodash/snakeCase'
-import { mapResponseToStore } from './map_response_to_store.js'
+const snakeCase = require('lodash/snakeCase')
+import { mapResponseToStore } from './map_response_to_store'
 
 const state = {
   ids: [],
@@ -15,7 +15,6 @@ export const mutations = {
 
 export const actions = {
   async getUpcomingGames({ commit }, { splitId }) {
-    console.log(splitId)
     const response = await axios.get('/api/v1/upcoming_games', { params: { [snakeCase('splitId')]: splitId } })
 
     commit('SET_GAMES', response.data)

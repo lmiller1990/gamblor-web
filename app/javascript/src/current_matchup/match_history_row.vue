@@ -1,11 +1,15 @@
 <template>
-  <td :class="checkForVictory">
+  <td :class="checkForVictory" 
+    @mouseenter="showBetWindow"
+    @mouseleave="hideBetWindow">
     {{ resultSymbol }}
   </td>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'MatchHistoryRow',
 
   props: {
@@ -26,21 +30,31 @@ export default {
   },
 
   computed: {
-    resultSymbol() {
+    resultSymbol(): string {
       if (!this.gameCompleted)
-        return this.odds
+        return this.odds ? this.odds.toString() : ''
 
       return this.victory ? '✓' : '✘'
     },
 
-    checkForVictory() {
+    checkForVictory(): string {
       if (!this.gameCompleted)
         return ''
 
       return this.victory ? 'victory' : 'defeat'
     }
+  },
+
+  methods: {
+    hideBetWindow() {
+      console.log('hide it !!')
+    },
+
+    showBetWindow() {
+      console.log('show it!!')
+    }
   }
-}
+})
 </script>
 
 <style scoped>

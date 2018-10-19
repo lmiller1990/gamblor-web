@@ -10,8 +10,10 @@
   </select>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'TeamSelector',
 
   props: {
@@ -22,11 +24,11 @@ export default {
   },
 
   computed: {
-    allTeams() {
+    allTeams(): object[] {
       return this.$store.state.teams.all
     },
 
-    allTeamIds() {
+    allTeamIds(): number[] {
       return this.$store.state.teams.ids
     }
   },
@@ -36,5 +38,5 @@ export default {
       this.$emit('change', parseInt(e.target.value))
     }
   }
-}
+})
 </script>
