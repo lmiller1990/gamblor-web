@@ -45,13 +45,13 @@ export default {
   },
 
   computed: {
-    currentMatchupSelected() {
+    currentMatchupSelected(): boolean {
       return (this.blueSideTeamId && this.redSideTeamId) !== 0
     }
   },
 
   methods: {
-    selectTeam({ teamId, side }) {
+    selectTeam({ teamId, side }: { teamId: string, side: string }) {
       if (side === 'blue')
         this.setMatchup({ blueSideTeamId: parseInt(teamId), redSideTeamId: this.redSideTeamId })
 
@@ -61,12 +61,13 @@ export default {
 
     // Set default settings declared on server side in config/settings.yml
     setDefaults() {
-      const { defaultSplit, admin } = JSON.parse(document.querySelector('#settings').getAttribute('data_settings'))
+      const dataSettings =  <HTMLDivElement>document.querySelector('#settings')
+      const { defaultSplit, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
       this.$store.commit('leagues/SET_DEFAULT_SPLIT', { defaultSplit })
-      this.$store.commit('user/SET_ADMIN', { admin })
+      this.$store.commit('user/SET_ADMIN', { admin }) 
     },
 
-    async setMatchup({ blueSideTeamId, redSideTeamId }) {
+    async setMatchup({ blueSideTeamId, redSideTeamId }: { blueSideTeamId: number, redSideTeamId: number }) {
       await Promise.all([
         this.$store.dispatch('historicalGames/getByTeamId', blueSideTeamId),
         this.$store.dispatch('historicalGames/getByTeamId', redSideTeamId)

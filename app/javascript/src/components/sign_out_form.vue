@@ -5,15 +5,16 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
+import axios,{ AxiosPromise } from 'axios'
 
 export default {
   name: 'SignOutForm',
 
   methods: {
     async signout() {
-      await axios.delete('/api/v1/session')
-      document.location.replace('/')
+      await axios.delete('/api/v1/session') as any
+      const { location: any } = document
+      location.replace('/')
     }
   }
 }

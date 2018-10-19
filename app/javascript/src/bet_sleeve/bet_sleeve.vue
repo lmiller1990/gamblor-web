@@ -1,6 +1,6 @@
 <template>
   <div class="bet_window">
-    <Bet 
+    <SingleBet 
        v-for="id in betIds" 
        :key="id"
        :id="id"
@@ -10,14 +10,16 @@
 </template>
 
 <script lang="ts">
+import { Bet } from '../types/bet'
+import Vue from 'vue'
 import axios from 'axios'
-import Bet from './bet.vue'
+import SingleBet from './bet.vue'
 
-export default {
+export default Vue.extend({
   name: 'BetSleeve',
 
   components: {
-    Bet
+    SingleBet
   },
 
   created() {
@@ -25,15 +27,15 @@ export default {
   },
 
   computed: {
-    bets() {
+    bets(): Bet[] {
       return this.$store.state.bets.all
     },
 
-    betIds() {
+    betIds(): number[] {
       return this.$store.state.bets.ids
     }
   }
-}
+})
 </script>
 
 <style scoped>

@@ -1,3 +1,4 @@
+import { AxiosResponse, BaseState } from './types'
 /**
  * This maps a typical axios response to a state like this:
  * ids: []
@@ -14,7 +15,7 @@
  * @param {Object} the reactive Vuex state
  * @param {Array} AxiosResponse.data array, containing [{ id... }]
  */
-function mapResponseToStore(state, response) {
+function mapResponseToStore(state: BaseState, response: AxiosResponse[]) {
   for (let obj of response) {
     if (!state.ids.includes(obj.id)) {
       state.ids.push(obj.id)

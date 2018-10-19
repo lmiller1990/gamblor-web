@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "@types/chart.js": "^2.7.40",
     "@types/es6-shim": "^0.31.37",
     "@types/lodash": "^4.14.117",
     "@types/puppeteer": "^1.9.0",

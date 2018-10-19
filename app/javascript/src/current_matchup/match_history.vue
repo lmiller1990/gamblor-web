@@ -29,7 +29,7 @@
         :side="side"
         :market="market"
       />
-    </div>
+    </div> 
 
     <table>
       <tr class="header-tr">
@@ -77,13 +77,14 @@
 </template>
 
 <script lang="ts">
-import { titlecase } from '../filters/index.js'
+import Vue, { PropOptions } from 'vue'
+import { titlecase } from '../filters/index'
 import FirstMarketsContainer from './first_markets_container.vue'
 import MatchHistoryRow from './match_history_row.vue'
 import TeamLogo from '../components/team_logo.vue'
 import MatchDate from './match_date.vue'
 
-export default {
+export default Vue.extend({
   name: 'MatchHistory',
 
   props: {
@@ -92,13 +93,12 @@ export default {
       required: true
     },
 
-    teamId: {
-      type: Number,
+    games: <PropOptions<object[]>> {
       required: true
     },
 
-    games: {
-      type: Array,
+    teamId: {
+      type: Number,
       required: true
     }
   },
@@ -121,20 +121,22 @@ export default {
   },
 
   computed: {
-    admin() {
+    admin(): boolean {
       return this.$store.state.user.admin
     },
 
-    teamName() {
+    teamName(): string {
       return this.$store.getters['teams/nameById'](this.teamId)
     }
   },
 
   methods: {
     getOddsFor(market, game) {
+      // @ts-ignore
       if (this.teamId === game.redSideTeamId)
         return game[`redSideTeam${titlecase(market)}Odds`]
 
+      // @ts-ignore
       if (this.teamId === game.blueSideTeamId)
         return game[`blueSideTeam${titlecase(market)}Odds`]
     },
@@ -143,6 +145,7 @@ export default {
       if (!winnerId) 
         return undefined
 
+      // @ts-ignore
       return winnerId === this.teamId
     },
 
@@ -150,17 +153,18 @@ export default {
       if (!game[`first${market}TeamId`]) 
         return undefined
 
+      // @ts-ignore
       return game[`first${market}TeamId`] === this.teamId
     },
 
     getOpponent(game) {
-      const { blueSideTeamId, redSideTeamId } = game
+      const { blueSideTeamId, redSideTeamId } = game  
       return this.$store.getters['teams/nameById'](this.teamId === blueSideTeamId
         ? redSideTeamId
         : blueSideTeamId)
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

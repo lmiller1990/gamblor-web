@@ -25,11 +25,12 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import SignOutForm from '../components/sign_out_form.vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
 
-export default {
+export default Vue.extend({
   components: {
     Match,
     SignOutForm,
@@ -50,11 +51,11 @@ export default {
   },
 
   computed: {
-    matchIds() {
+    matchIds(): number[] {
       return this.$store.getters['scheduledGames/bySplitId'](this.splitId)
     },
 
-    matches() {
+    matches(): object[] {
       return this.$store.state.scheduledGames.all
     }
   },
@@ -101,7 +102,7 @@ export default {
       setTimeout(this.scrollToBottomOfContainer)
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
