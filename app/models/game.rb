@@ -11,6 +11,12 @@ class Game < ApplicationRecord
 
   scope :complete, -> { where.not(winner_id: nil, loser_id: nil) }
 
+  def odds_for_team_in_market(team_id, market)
+    team_side = red_side_team_id == team_id ? 'red_side' : 'blue_side'
+
+    self["#{team_side}_team_#{market}_odds"]
+  end
+
   def winner 
     Team.find winner_id
   end

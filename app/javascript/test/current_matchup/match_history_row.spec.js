@@ -47,6 +47,7 @@ describe('MatchHistoryRow', () => {
 
       expect(wrapper.classes()).not.toContain('defeat')
       expect(wrapper.classes()).not.toContain('victory')
+      expect(wrapper.classes()).toContain('awaiting_result')
       expect(wrapper.text()).toBe('1.5')
     })
   })

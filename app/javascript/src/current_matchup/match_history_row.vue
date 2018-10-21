@@ -1,5 +1,6 @@
 <template>
-  <td :class="checkForVictory" 
+  <td 
+    :class="checkForVictory" 
     @mouseenter="showBetWindow"
     @mouseleave="hideBetWindow"
     @click="createBet">
@@ -60,7 +61,7 @@ export default Vue.extend({
 
     checkForVictory(): string {
       if (!this.gameCompleted)
-        return ''
+        return 'awaiting_result'
 
       return this.victory ? 'victory' : 'defeat'
     }
@@ -68,7 +69,6 @@ export default Vue.extend({
 
   methods: {
     createBet(): void {
-      console.log(this.market)
       // negative id represents a bet not yet persisted to the database
       const bet: Bet = {
         market: this.market,
@@ -88,13 +88,13 @@ export default Vue.extend({
     },
 
     showBetWindow() {
-      console.log('show it!!', this.odds)
+      // console.log('show it!!', this.odds)
     }
   }
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .victory { background-color: deepskyblue; }
 .defeat  { background-color: red; }
 
@@ -103,6 +103,13 @@ td {
   text-align: center;
   padding: 5px;
   width: 30px;
+  cursor: default;
 }
 
+.awaiting_result {
+  &:hover {
+    background-color: silver;
+    cursor: pointer;
+  }
+}
 </style>

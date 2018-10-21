@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 describe Game do
+  RED_SIDE_TEAM_ODDS = 1.5
   let!(:blue_side_team) { create(:blue_side_team) }
   let!(:red_side_team) { create(:red_side_team) }
   let!(:game) { 
     create(:game, 
            winner_id: blue_side_team.id, 
            loser_id: red_side_team.id,
+           red_side_team_fb_odds: RED_SIDE_TEAM_ODDS,
            first_baron_team_id: red_side_team.id,
            first_blood_team_id: red_side_team.id,
            first_turret_team_id: red_side_team.id,
@@ -71,6 +73,14 @@ describe Game do
       incomplete_game = build(:game, winner_id: nil, loser_id: nil)
 
       expect(Game.complete).to eq [game]
+    end
+  end
+
+  describe '#odds_for_team_in_market' do
+    it 'returns odds for a market given a team id' do
+      actual = game.odds_for_team_in_market(game.red_side_team_id, 'fb')
+
+      expect(actual).to eq RED_SIDE_TEAM_ODDS
     end
   end
 end

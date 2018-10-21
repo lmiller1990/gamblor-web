@@ -10,6 +10,20 @@ global.Math = mockMath
 
 describe('bets', () => {
   describe('mutations', () => {
+    test('MOVE_TENTATIVE_BET_TO_CONFIRMED updates the id of a tentative bet', () => {
+      const state = createState()
+      state.ids = [-1]
+      state.all = { '-1': { priceCents: PRICE_CENTS } }
+      const persistedBet = { id: 1, priceCents: PRICE_CENTS }
+
+      mutations.MOVE_TENTATIVE_BET_TO_CONFIRMED(
+        state, { tentativeId: -1, bet: persistedBet })
+
+      expect(state.ids).toEqual([1])
+      expect(state.all).toEqual({ '1': {...persistedBet} })
+
+    }) 
+
     test('ADD_BET adds a new bet', () => {
       const state = createState()
       const bet = { id: ID, priceCents: PRICE_CENTS }

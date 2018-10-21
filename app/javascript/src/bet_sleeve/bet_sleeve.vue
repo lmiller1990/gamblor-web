@@ -27,7 +27,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { keysToSnake } from '../utils.js'
 import axios from 'axios'
 import { Bet } from '../types/bet'
 import NewBetForm from './new_bet_form.vue'
@@ -63,12 +62,16 @@ export default Vue.extend({
 
   methods: {
     async createBet({ id, priceDollars }: { id: number, priceDollars: number }) {
-      const res = await axios.post('/api/v1/bets', keysToSnake({
+      const bet: Bet = {
+        id: id,
         priceCents: priceDollars * 100,
         market: this.bets[id].market,
         teamBetOnId: this.bets[id].teamBetOnId,
+        odds: this.bets[id].odds,
         gameId: this.bets[id].gameId
-      }))
+      }
+
+      await this.$store.dispatch('bets/create', { bet })
     },
 
     gameTitle(id: number): string {

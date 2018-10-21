@@ -18,7 +18,6 @@ export const mutations: MutationTree<GamesState> = {
 export const getters: GetterTree<GamesState, RootState> = {
   titleById: (state, getters, rootState, rootGetters) => (id: number): string => {
     const game = state.all[id]
-    console.log(game, id)
     const blueTeam: string  = rootGetters['teams/nameById'](game.blueSideTeamId)
     const redTeam: string = rootGetters['teams/nameById'](game.redSideTeamId)
 

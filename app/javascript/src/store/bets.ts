@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Module, GetterTree } from 'vuex'
+import { keysToSnake } from '../utils.js'
 import { Game } from '../../src/types/game'
 import { Bet } from '../../src/types/bet'
 import { BetsState, AxiosResponse, RootState } from './types'
@@ -18,10 +19,32 @@ export const mutations = {
   ADD_BET(state: BetsState, { bet }: { bet: Bet } ) {
     state.ids.push(bet.id)
     state.all = {...state.all, [bet.id]: bet}
+  },
+
+  /**
+   * before persisting to DB, tentative bets have negative ids
+   * when a bet is persisted, simply change the negative id to the
+   * real id from the DB.
+   */
+  MOVE_TENTATIVE_BET_TO_CONFIRMED(state: BetsState, { tentativeId, bet }
+    : { tentativeId: number, bet: Bet }) {
+    state.ids = state.ids.filter(x => x !== tentativeId)
+    state.ids.push(bet.id)
+    state.all = {...state.all, [bet.id]: {...bet} }
+    delete state.all[tentativeId]
   }
 }
 
 export const actions = {
+  async create({ commit }, { bet }: { commit: Function, bet: Bet }) {
+    const tentativeId = bet.id
+    const res = await axios.post('/api/v1/bets', keysToSnake(bet))
+
+    commit('MOVE_TENTATIVE_BET_TO_CONFIRMED', {
+      tentativeId, bet: res.data
+    })
+  },
+
   async getBets({ commit }) {
     const res = await axios.get('/api/v1/bets')
     const games: Game[] = res.data.map((bet: Bet) => bet.game)

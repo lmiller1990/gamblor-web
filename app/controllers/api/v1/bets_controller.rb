@@ -8,7 +8,11 @@ module Api
       end
 
       def create 
-        bet = current_user.bets.create!(bets_params)
+        game = Game.find(bets_params[:game_id])
+        odds = game.odds_for_team_in_market(
+          bets_params[:team_bet_on_id].to_i, bets_params[:market])
+
+        bet = current_user.bets.create!(bets_params.merge({ odds: odds }))
 
         render json: bet
       end
