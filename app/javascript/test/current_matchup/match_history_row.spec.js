@@ -2,11 +2,22 @@ import { shallowMount } from '@vue/test-utils'
 import MatchHistoryRow from '../../src/current_matchup/match_history_row.vue'
 
 const context = describe
+const createMockStore = (commit) => ({ commit })
+
+const UNUSED_ID = 1
+const GAME_ID = 2
+const TEAM_ID = 3
+const ODDS = 1.5
 
 describe('MatchHistoryRow', () => {
-  const factory = ({ victory = undefined, gameCompleted = true, odds = 0.0 }) => 
+  const factory = 
+    ({ victory = undefined, gameCompleted = true, odds = 0.0 }, store = {}) => 
     shallowMount(MatchHistoryRow, {
-      propsData: { victory, gameCompleted, odds }
+      propsData: { victory, gameCompleted, odds, teamId: TEAM_ID, gameId: GAME_ID },
+      mocks: { $store: store },
+      computed: {
+        unusedId: () => UNUSED_ID
+      }
     })
 
   context('game is completed', () => {
@@ -31,11 +42,42 @@ describe('MatchHistoryRow', () => {
 
   context('game has not been played', () => {
     it('does not render marker or give victory/defeat class', () => {
-      const wrapper = factory({ gameCompleted: false, odds: 1.5 })
+      const wrapper = factory({ gameCompleted: false, odds: ODDS })
 
       expect(wrapper.classes()).not.toContain('defeat')
       expect(wrapper.classes()).not.toContain('victory')
       expect(wrapper.text()).toBe('1.5')
+    })
+  })
+
+  describe('createBet', () => {
+    context('game has not been played', () => {
+      it('commits a ADD_BET mutation when clicked', () => {
+        const commit = jest.fn()
+        const wrapper = factory({ gameCompleted: false, odds: ODDS }, { commit })
+        const bet = {
+          id: UNUSED_ID * -1,
+          priceCents: 0,
+          odds: ODDS,
+          gameId: GAME_ID,
+          teamBetOnId: TEAM_ID
+        }
+
+        wrapper.trigger('click')
+
+        expect(commit).toHaveBeenCalledWith('bets/ADD_BET', { bet })
+      })
+    })
+
+    context('game has been played', () => {
+      it('does nothing', () => {
+        const commit = jest.fn()
+        const wrapper = factory({ gameCompleted: true, odds: ODDS }, { commit })
+
+        wrapper.trigger('click')
+
+        expect(commit).not.toHaveBeenCalled()
+      })
     })
   })
 })

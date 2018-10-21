@@ -1,16 +1,23 @@
 <template>
   <div class="bet_window">
     <SingleBet 
-       v-for="id in betIds" 
+       v-for="id in persistedBetIds" 
        :key="id"
        :id="id"
-       :teamBetOn="teamBetOn(id)"
+       :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
        :priceCents="bets[id].priceCents"
        :odds="bets[id].odds"
        :gameTitle="gameTitle(bets[id].gameId)"
      />
 
     <NewBetForm 
+      v-for="id in tentativeBetIds" 
+      :key="id"
+      :id="id"
+      :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
+      :priceCents="bets[id].priceCents"
+      :odds="bets[id].odds"
+      :gameTitle="gameTitle(bets[id].gameId)"
     />
   </div>
 </template>
@@ -41,8 +48,12 @@ export default Vue.extend({
       return this.$store.state.bets.all
     },
 
-    betIds(): number[] {
-      return this.$store.state.bets.ids
+    tentativeBetIds(): number[] {
+      return this.$store.getters['bets/tentativeBetIds']
+    },
+
+    persistedBetIds(): number[] {
+      return this.$store.getters['bets/persistedBetIds']
     }
   },
 

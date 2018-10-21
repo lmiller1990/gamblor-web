@@ -53,23 +53,38 @@
         <MatchHistoryRow 
           :odds="getOddsFor('fb', game)"
           :victory="didGetFirst('Blood', game)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+        />
         <MatchHistoryRow 
           :odds="getOddsFor('ft', game)"
           :victory="didGetFirst('Turret', game)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+        />
         <MatchHistoryRow 
           :odds="getOddsFor('fd', game)"
           :victory="didGetFirst('Dragon', game)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+        />
         <MatchHistoryRow 
           :odds="getOddsFor('fbaron', game)"
           :victory="didGetFirst('Baron', game)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+        />
         <MatchHistoryRow 
           :odds="getOddsFor('win', game)"
           :victory="didWin(game.winnerId)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+        />
       </tr>
     </table>
 

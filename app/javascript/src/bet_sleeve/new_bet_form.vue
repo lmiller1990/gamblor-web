@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import { betProps } from './bet_props'
+import { dollars } from '../filters/index'
 
 import Vue from 'vue'
 
@@ -29,7 +30,9 @@ export default Vue.extend({
       type: Number,
       default: 0.0
     }
-  }
+  },
+
+  filters: { dollars }
 })
 </script>
 

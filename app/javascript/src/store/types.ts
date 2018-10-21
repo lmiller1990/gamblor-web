@@ -1,6 +1,7 @@
 import { Bet } from '../types/bet'
 
-export interface RootState {}
+export interface RootState {
+}
 
 export interface BaseState {
   all: {},
