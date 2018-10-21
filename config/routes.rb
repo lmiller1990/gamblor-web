@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
     resources :games do
       resources :duplicate, only: [:create], controller: 'games/duplicate'
+      put 'switch_side', controller: 'games/switch_side'
     end
 
     resources :contracts
