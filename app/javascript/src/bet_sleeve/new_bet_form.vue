@@ -1,7 +1,7 @@
 <template>
   <div class="bet">
     <div class="header">
-      <div>{{ teamBetOn }}</div>
+      <div>{{ teamBetOn }} to get {{ market }}</div>
       <div>{{ odds }}</div>
     </div>
     <div class="info">
@@ -9,13 +9,17 @@
         {{ gameTitle }}
       </div>
       <div class="stake">
-        {{ priceCents | dollars }}
       </div>
+      <form @submit.prevent="createBet">
+        <input type="string" v-model="priceDollars">
+        <input type="submit" value="Create Bet">
+      </form>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import axios from 'axios'
 import { betProps } from './bet_props'
 import { dollars } from '../filters/index'
 
@@ -32,7 +36,19 @@ export default Vue.extend({
     }
   },
 
-  filters: { dollars }
+  filters: { dollars },
+
+  data() {
+    return {
+      priceDollars: '0.00'
+    }
+  },
+
+  methods: {
+    createBet() {
+      this.$emit('submit', parseFloat(this.priceDollars))
+    }
+  }
 })
 </script>
 

@@ -1,4 +1,9 @@
 export const betProps = {
+  market: {
+    type: String,
+    required: true
+  },
+
   gameTitle: {
     type: String,
     required: true

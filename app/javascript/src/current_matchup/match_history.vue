@@ -56,6 +56,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          market="fb"
         />
         <MatchHistoryRow 
           :odds="getOddsFor('ft', game)"
@@ -63,6 +64,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          market="ft"
         />
         <MatchHistoryRow 
           :odds="getOddsFor('fd', game)"
@@ -70,6 +72,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          market="fd"
         />
         <MatchHistoryRow 
           :odds="getOddsFor('fbaron', game)"
@@ -77,6 +80,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          market="fbaron"
         />
         <MatchHistoryRow 
           :odds="getOddsFor('win', game)"
@@ -84,6 +88,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          market="win"
         />
       </tr>
     </table>

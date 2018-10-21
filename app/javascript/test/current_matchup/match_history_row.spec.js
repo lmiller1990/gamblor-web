@@ -7,13 +7,14 @@ const createMockStore = (commit) => ({ commit })
 const UNUSED_ID = 1
 const GAME_ID = 2
 const TEAM_ID = 3
+const MARKET = 'FT'
 const ODDS = 1.5
 
 describe('MatchHistoryRow', () => {
   const factory = 
     ({ victory = undefined, gameCompleted = true, odds = 0.0 }, store = {}) => 
     shallowMount(MatchHistoryRow, {
-      propsData: { victory, gameCompleted, odds, teamId: TEAM_ID, gameId: GAME_ID },
+      propsData: { victory, gameCompleted, odds, teamId: TEAM_ID, gameId: GAME_ID, market: MARKET },
       mocks: { $store: store },
       computed: {
         unusedId: () => UNUSED_ID
@@ -60,6 +61,7 @@ describe('MatchHistoryRow', () => {
           priceCents: 0,
           odds: ODDS,
           gameId: GAME_ID,
+          market: MARKET,
           teamBetOnId: TEAM_ID
         }
 

@@ -8,6 +8,7 @@
        :priceCents="bets[id].priceCents"
        :odds="bets[id].odds"
        :gameTitle="gameTitle(bets[id].gameId)"
+       :market="bets[id].market"
      />
 
     <NewBetForm 
@@ -18,14 +19,17 @@
       :priceCents="bets[id].priceCents"
       :odds="bets[id].odds"
       :gameTitle="gameTitle(bets[id].gameId)"
+      :market="bets[id].market"
+      @submit="priceDollars => createBet({ id, priceDollars })"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { Bet } from '../types/bet'
 import Vue from 'vue'
+import { keysToSnake } from '../utils.js'
 import axios from 'axios'
+import { Bet } from '../types/bet'
 import NewBetForm from './new_bet_form.vue'
 import SingleBet from './bet.vue'
 
@@ -58,6 +62,15 @@ export default Vue.extend({
   },
 
   methods: {
+    async createBet({ id, priceDollars }: { id: number, priceDollars: number }) {
+      const res = await axios.post('/api/v1/bets', keysToSnake({
+        priceCents: priceDollars * 100,
+        market: this.bets[id].market,
+        teamBetOnId: this.bets[id].teamBetOnId,
+        gameId: this.bets[id].gameId
+      }))
+    },
+
     gameTitle(id: number): string {
       return this.$store.getters['games/titleById'](id)
     },

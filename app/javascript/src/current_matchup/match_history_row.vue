@@ -15,6 +15,11 @@ export default Vue.extend({
   name: 'MatchHistoryRow',
 
   props: {
+    market: {
+      type: String,
+      required: true
+    },
+
     teamId: {
       type: Number,
       required: true
@@ -63,8 +68,10 @@ export default Vue.extend({
 
   methods: {
     createBet(): void {
+      console.log(this.market)
       // negative id represents a bet not yet persisted to the database
       const bet: Bet = {
+        market: this.market,
         id: this.unusedId * -1,
         priceCents: 0,
         odds: this.odds,

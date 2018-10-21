@@ -1,7 +1,7 @@
 <template>
   <div class="bet">
     <div class="header">
-      <div>{{ teamBetOn }}</div>
+      <div>{{ teamBetOn }} to get {{ market }}</div>
       <div>{{ odds }}</div>
     </div>
     <div class="info">
