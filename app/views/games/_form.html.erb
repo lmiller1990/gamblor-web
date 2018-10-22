@@ -1,3 +1,8 @@
+
+<%= form_with url: game_switch_side_path(@game), method: :put do |form| %>
+  <%= form.submit 'Switch Sides', id: 'switch_sides' %>
+<% end %>
+
 <%= form_with model: @game do |f| %>
   <div class="first_market">
     <%= f.label :date %>

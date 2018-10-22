@@ -6,13 +6,13 @@ describe GamePolicy do
   subject { described_class }
 
   context 'admin' do
-    permissions :index?, :show?, :create?, :update?, :edit?, :new? do
+    permissions :index?, :show?, :create?, :update?, :edit?, :new?, :switch_side? do
       it { expect(subject).to permit(admin, Game.new) }
     end
   end
 
   context 'user' do
-    permissions :create?, :update?, :edit?, :new? do
+    permissions :switch_side?, :create?, :update?, :edit?, :new? do
       it 'denies access' do
         expect(subject).to_not permit(user, Game.new)
       end
