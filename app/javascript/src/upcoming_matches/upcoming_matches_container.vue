@@ -98,6 +98,7 @@ export default Vue.extend({
         this.$store.dispatch('teams/getTeams')
       ])
       this.loading = false 
+      this.$emit('loaded')
 
       setTimeout(this.scrollToBottomOfContainer)
     }

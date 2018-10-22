@@ -17,6 +17,7 @@ export const actions = {
     const response = await axios.get(`/api/v1/teams/${teamId}`)
 
     commit('SET_GAMES', response.data.games)
+    commit('games/SET_GAMES', response.data.games, { root: true })
   }
 }
 

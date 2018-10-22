@@ -53,23 +53,43 @@
         <MatchHistoryRow 
           :odds="getOddsFor('fb', game)"
           :victory="didGetFirst('Blood', game)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          market="fb"
+        />
         <MatchHistoryRow 
           :odds="getOddsFor('ft', game)"
           :victory="didGetFirst('Turret', game)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          market="ft"
+        />
         <MatchHistoryRow 
           :odds="getOddsFor('fd', game)"
           :victory="didGetFirst('Dragon', game)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          market="fd"
+        />
         <MatchHistoryRow 
           :odds="getOddsFor('fbaron', game)"
           :victory="didGetFirst('Baron', game)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          market="fbaron"
+        />
         <MatchHistoryRow 
           :odds="getOddsFor('win', game)"
           :victory="didWin(game.winnerId)" 
-          :gameCompleted="game.winnerId ? true : false" />
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          market="win"
+        />
       </tr>
     </table>
 
@@ -191,4 +211,3 @@ tr, td {
   border: 1px solid black;
 }
 </style>
-

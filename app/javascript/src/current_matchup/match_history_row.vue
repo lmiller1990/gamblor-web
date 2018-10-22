@@ -1,18 +1,36 @@
 <template>
-  <td :class="checkForVictory" 
+  <td 
+    :class="checkForVictory" 
     @mouseenter="showBetWindow"
-    @mouseleave="hideBetWindow">
+    @mouseleave="hideBetWindow"
+    @click="createBet">
     {{ resultSymbol }}
   </td>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { Bet, BetStatus } from '../types/bet'
 
 export default Vue.extend({
   name: 'MatchHistoryRow',
 
   props: {
+    market: {
+      type: String,
+      required: true
+    },
+
+    teamId: {
+      type: Number,
+      required: true
+    },
+
+    gameId: {
+      type: Number,
+      required: true
+    },
+
     victory: {
       type: Boolean,
       required: false
@@ -30,6 +48,10 @@ export default Vue.extend({
   },
 
   computed: {
+    unusedId(): number {
+      return this.$store.getters['bets/unusedId']
+    },
+
     resultSymbol(): string {
       if (!this.gameCompleted)
         return this.odds ? this.odds.toString() : ''
@@ -39,25 +61,41 @@ export default Vue.extend({
 
     checkForVictory(): string {
       if (!this.gameCompleted)
-        return ''
+        return 'awaiting_result'
 
       return this.victory ? 'victory' : 'defeat'
     }
   },
 
   methods: {
+    createBet(): void {
+      // negative id represents a bet not yet persisted to the database
+      const bet: Bet = {
+        market: this.market,
+        id: this.unusedId * -1,
+        priceCents: 0,
+        odds: this.odds,
+        teamBetOnId: this.teamId,
+        gameId: this.gameId,
+        status: BetStatus.AwaitingResult
+      }
+
+      if (!this.gameCompleted)
+        this.$store.commit('bets/ADD_BET', { bet })
+    },
+
     hideBetWindow() {
-      console.log('hide it !!')
+      // console.log('hide it !!', this.odds)
     },
 
     showBetWindow() {
-      console.log('show it!!')
+      // console.log('show it!!', this.odds)
     }
   }
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .victory { background-color: deepskyblue; }
 .defeat  { background-color: red; }
 
@@ -66,6 +104,13 @@ td {
   text-align: center;
   padding: 5px;
   width: 30px;
+  cursor: default;
 }
 
+.awaiting_result {
+  &:hover {
+    background-color: silver;
+    cursor: pointer;
+  }
+}
 </style>

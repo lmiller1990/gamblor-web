@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -8,7 +9,10 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "target": "es6",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "plugins": [
+      { "name": "ts-vue-plugin" }
+    ]
   },
   "exclude": [
     "**/*.spec.ts",

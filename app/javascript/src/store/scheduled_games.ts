@@ -18,6 +18,7 @@ export const actions = {
     const response = await axios.get('/api/v1/upcoming_games', { params: { [snakeCase('splitId')]: splitId } })
 
     commit('SET_GAMES', response.data)
+    commit('games/SET_GAMES', response.data, { root: true })
   }
 }
 
