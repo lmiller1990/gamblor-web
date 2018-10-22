@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
+import { BetStatus } from '../../src/types/bet'
 import NewBetForm from '../../src/bet_sleeve/new_bet_form.vue'
 
 const id = 1
@@ -6,6 +7,7 @@ const teamBetOn = 'TSM'
 const market = 'ft'
 const odds = 1.5
 const gameTitle = 'TSM vs CLG'
+const status = BetStatus.AwaitingResult
 
 const factory = () => 
   shallowMount(NewBetForm, {
@@ -14,7 +16,8 @@ const factory = () =>
       teamBetOn,
       market,
       odds,
-      gameTitle
+      gameTitle,
+      status
     }
   })
 

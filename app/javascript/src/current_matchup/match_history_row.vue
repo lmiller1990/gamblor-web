@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Bet } from '../types/bet'
+import { Bet, BetStatus } from '../types/bet'
 
 export default Vue.extend({
   name: 'MatchHistoryRow',
@@ -76,7 +76,8 @@ export default Vue.extend({
         priceCents: 0,
         odds: this.odds,
         teamBetOnId: this.teamId,
-        gameId: this.gameId
+        gameId: this.gameId,
+        status: BetStatus.AwaitingResult
       }
 
       if (!this.gameCompleted)

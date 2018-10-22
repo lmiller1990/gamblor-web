@@ -1,4 +1,11 @@
+import { BetStatus } from '../types/Bet'
+
 export const betProps = {
+  status: {
+    type: Number as () => BetStatus,
+    required: true
+  },
+
   market: {
     type: String,
     required: true

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Module, GetterTree } from 'vuex'
 import { keysToSnake } from '../utils.js'
 import { Game } from '../../src/types/game'
-import { Bet } from '../../src/types/bet'
+import { Bet, setBetStatus } from '../../src/types/bet'
 import { BetsState, AxiosResponse, RootState } from './types'
 import { mapResponseToStore } from './map_response_to_store'
 
@@ -45,16 +45,19 @@ export const actions = {
     const tentativeId = bet.id
     const res = await axios.post('/api/v1/bets', keysToSnake(bet))
 
+    const persistedBet: Bet = {...res.data, status: setBetStatus(bet.won)}
+
     commit('MOVE_TENTATIVE_BET_TO_CONFIRMED', {
-      tentativeId, bet: res.data
+      tentativeId, bet: persistedBet
     })
   },
 
   async getBets({ commit }) {
     const res = await axios.get('/api/v1/bets')
     const games: Game[] = res.data.map((bet: Bet) => bet.game)
+    const bets: Bet[] = res.data.map(x => ({...x, status: setBetStatus(x.won) }))
     
-    commit('SET_BETS', res.data)
+    commit('SET_BETS', bets)
     commit('games/SET_GAMES', games, { root: true })
   }
 }

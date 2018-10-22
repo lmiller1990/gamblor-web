@@ -1,6 +1,13 @@
 import { Game } from './game'
 
+export enum BetStatus {
+  Won,
+  Lost,
+  AwaitingResult
+}
+
 export interface Bet {
+  status: BetStatus
   id: number
   teamBetOnId: number
   market: string
@@ -8,4 +15,12 @@ export interface Bet {
   odds: number
   gameId: number
   game?: Game
+  won?: boolean
+}
+
+export const setBetStatus = (won: boolean | null) => {
+  if (won === null)
+    return BetStatus.AwaitingResult
+
+  return won ? BetStatus.Won : BetStatus.Lost
 }

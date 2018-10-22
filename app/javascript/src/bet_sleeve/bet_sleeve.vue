@@ -9,6 +9,7 @@
        :odds="bets[id].odds"
        :gameTitle="gameTitle(bets[id].gameId)"
        :market="bets[id].market"
+       :status="bets[id].status"
      />
 
     <NewBetForm 
@@ -20,6 +21,7 @@
       :odds="bets[id].odds"
       :gameTitle="gameTitle(bets[id].gameId)"
       :market="bets[id].market"
+      :status="bets[id].status"
       @submit="priceDollars => createBet({ id, priceDollars })"
       @cancel="cancel({ id })"
     />
@@ -29,7 +31,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
-import { Bet } from '../types/bet'
+import { Bet, BetStatus } from '../types/bet'
 import NewBetForm from './new_bet_form.vue'
 import SingleBet from './bet.vue'
 
@@ -73,7 +75,8 @@ export default Vue.extend({
         market: this.bets[id].market,
         teamBetOnId: this.bets[id].teamBetOnId,
         odds: this.bets[id].odds,
-        gameId: this.bets[id].gameId
+        gameId: this.bets[id].gameId,
+        status: BetStatus.AwaitingResult
       }
 
       await this.$store.dispatch('bets/create', { bet })

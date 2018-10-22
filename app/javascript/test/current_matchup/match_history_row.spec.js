@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
+import { BetStatus } from '../../src/types/bet'
 import MatchHistoryRow from '../../src/current_matchup/match_history_row.vue'
 
 const context = describe
@@ -63,7 +64,8 @@ describe('MatchHistoryRow', () => {
           odds: ODDS,
           gameId: GAME_ID,
           market: MARKET,
-          teamBetOnId: TEAM_ID
+          teamBetOnId: TEAM_ID,
+          status: BetStatus.AwaitingResult
         }
 
         wrapper.trigger('click')
