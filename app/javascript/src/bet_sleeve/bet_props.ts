@@ -1,4 +1,4 @@
-import { BetStatus } from '../types/Bet'
+import { BetStatus } from '../types/bet'
 
 export const betProps = {
   status: {
