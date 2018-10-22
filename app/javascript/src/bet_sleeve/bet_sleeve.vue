@@ -21,6 +21,7 @@
       :gameTitle="gameTitle(bets[id].gameId)"
       :market="bets[id].market"
       @submit="priceDollars => createBet({ id, priceDollars })"
+      @cancel="cancel({ id })"
     />
   </div>
 </template>
@@ -61,6 +62,10 @@ export default Vue.extend({
   },
 
   methods: {
+    cancel({ id }: { id: number }) {
+      this.$store.commit('bets/CANCEL', { id })
+    },
+
     async createBet({ id, priceDollars }: { id: number, priceDollars: number }) {
       const bet: Bet = {
         id: id,
@@ -87,6 +92,7 @@ export default Vue.extend({
 
 <style scoped>
 .bet_window {
+  overflow-y: scroll;
   position: sticky;
   top: 0;
   height: 100vh;

@@ -8,11 +8,16 @@
       <div>
         {{ gameTitle }}
       </div>
-      <div class="stake">
-      </div>
+      <div class="stake"></div>
       <form @submit.prevent="createBet">
+        <button 
+          data-test="cancel-btn" 
+          type="button" 
+          @click="cancel">
+          <span> ✕ </span>
+        </button>
         <input type="string" v-model="priceDollars">
-        <input type="submit" value="Create Bet">
+        <input type="submit" value="Place Bet">
       </form>
     </div>
   </div>
@@ -45,7 +50,11 @@ export default Vue.extend({
   },
 
   methods: {
-    createBet() {
+    cancel(): void {
+      this.$emit('cancel')
+    },
+
+    createBet(): void {
       this.$emit('submit', parseFloat(this.priceDollars))
     }
   }
@@ -54,4 +63,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import './bet_form.scss';
+
+form {
+  display: flex;
+}
 </style>

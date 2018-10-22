@@ -10,6 +10,17 @@ global.Math = mockMath
 
 describe('bets', () => {
   describe('mutations', () => {
+    test('CANCEL removes a bet', () => {
+      const state = createState()
+      state.ids = [ID]
+      state.all = { [ID]: {} }
+
+      mutations.CANCEL(state, { id: ID })
+
+      expect(state.ids).toEqual([])
+      expect(state.all).toEqual({})
+    })
+
     test('MOVE_TENTATIVE_BET_TO_CONFIRMED updates the id of a tentative bet', () => {
       const state = createState()
       state.ids = [-1]

@@ -26,4 +26,11 @@ describe('NewBetForm', () => {
 
     expect(wrapper.emitted().submit[0][0]).toBe(1.5)
   })
+
+  it('emits a cancel when X button clicked', () => {
+    const wrapper = factory()
+    wrapper.find('[data-test="cancel-btn"]').trigger('click')
+
+    expect(wrapper.emitted().cancel).toBeDefined()
+  })
 })

@@ -12,6 +12,11 @@ export const state: BetsState = {
 }
 
 export const mutations = {
+  CANCEL(state: BetsState, { id }: { id: number }) {
+    state.ids = state.ids.filter(x => x !== id)
+    delete state.all[id]
+  },
+
   SET_BETS(state: BetsState, axiosResponse: AxiosResponse[]) {
     mapResponseToStore(state, axiosResponse)
   },
