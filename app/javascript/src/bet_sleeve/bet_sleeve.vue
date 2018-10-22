@@ -33,7 +33,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import { Bet, BetStatus } from '../types/bet'
 import NewBetForm from './new_bet_form.vue'
-import SingleBet from './bet.vue'
+import SingleBet from './single_bet.vue'
 
 export default Vue.extend({
   name: 'BetSleeve',

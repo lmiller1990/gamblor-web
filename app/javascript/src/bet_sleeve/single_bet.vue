@@ -16,11 +16,12 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { BetStatus } from '../types/bet'
 import { betProps } from './bet_props'
 import { dollars } from '../filters/index'
 
-export default {
+export default Vue.extend({
   name: 'Bet',
 
   props: betProps,
@@ -35,7 +36,7 @@ export default {
         return this.status === BetStatus.Won ? 'won' : 'lost'
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
