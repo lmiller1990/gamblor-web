@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_075721) do
+ActiveRecord::Schema.define(version: 2018_10_22_070756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_10_18_075721) do
     t.boolean "won"
     t.float "odds"
     t.integer "team_bet_on_id"
+    t.integer "payout_cents"
     t.index ["game_id"], name: "index_bets_on_game_id"
     t.index ["user_id"], name: "index_bets_on_user_id"
   end
