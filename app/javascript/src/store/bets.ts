@@ -45,6 +45,7 @@ export const actions = {
     const tentativeId = bet.id
     const res = await axios.post('/api/v1/bets', keysToSnake(bet))
 
+    console.log(bet, bet.won, setBetStatus(bet.won))
     const persistedBet: Bet = {...res.data, status: setBetStatus(bet.won)}
 
     commit('MOVE_TENTATIVE_BET_TO_CONFIRMED', {

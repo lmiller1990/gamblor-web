@@ -12,14 +12,15 @@ export interface Bet {
   teamBetOnId: number
   market: string
   priceCents: number
+  payoutCents?: number
   odds: number
   gameId: number
   game?: Game
   won?: boolean
 }
 
-export const setBetStatus = (won: boolean | null) => {
-  if (won === null)
+export const setBetStatus = (won: boolean | null | undefined) => {
+  if (won === null || won === undefined)
     return BetStatus.AwaitingResult
 
   return won ? BetStatus.Won : BetStatus.Lost

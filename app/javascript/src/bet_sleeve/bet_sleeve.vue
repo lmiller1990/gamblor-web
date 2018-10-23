@@ -6,6 +6,7 @@
        :id="id"
        :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
        :priceCents="bets[id].priceCents"
+       :payoutCents="bets[id].payoutCents"
        :odds="bets[id].odds"
        :gameTitle="gameTitle(bets[id].gameId)"
        :market="bets[id].market"
