@@ -11,7 +11,7 @@
       <div class="stake">
         Stake: {{ priceCents | dollars }}
       </div>
-      <div class="stake" v-if="payoutCents">
+      <div class="stake" v-if="notAwaitingResult">
         Payout: {{ payoutCents | dollars }}
       </div>
     </div>
@@ -41,6 +41,10 @@ export default Vue.extend({
   filters: { dollars },
 
   computed: {
+    notAwaitingResult(): boolean {
+      return this.status !== BetStatus.AwaitingResult 
+    },
+
     betStatus(): string {
       if (this.status === BetStatus.AwaitingResult) 
         return 'awaiting'
