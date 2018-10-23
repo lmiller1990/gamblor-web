@@ -6,12 +6,18 @@ const BLUE_TEAM_ID = 1
 const RED_TEAM_ID = 2
 const ODDS = 2
 const teamIds = { blueSideTeamId: BLUE_TEAM_ID, redSideTeamId: RED_TEAM_ID }
+const winLoseIds = { winnerId: BLUE_TEAM_ID, loserId: RED_TEAM_ID }
 
 const games = [
-  { ...teamIds, id: GAME_ID, firstBloodTeamId: BLUE_TEAM_ID, blueSideTeamFbOdds: ODDS },
-  { ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
-  { ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
-  { ...teamIds, firstBloodTeamId: RED_TEAM_ID  }
+  { ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID, 
+    blueSideTeamFbOdds: ODDS, id: GAME_ID },
+  { ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
+  { ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
+  { ...winLoseIds, ...teamIds, firstBloodTeamId: RED_TEAM_ID },
+  // since the last game lacks win/lose ids, it is the only 'incomplete' game
+  // we do not want to use unplayed games when calculating EV.
+  // therefore, this last game is not included in ev calculation.
+  { ...teamIds, firstBloodTeamId: BLUE_TEAM_ID  }
 ]
 
 const createState = () => Object.assign({}, state)

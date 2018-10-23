@@ -8,7 +8,7 @@
     <MatchEvTooltip 
       v-if="showEv" 
       :topOffset="topOffset"
-      :ev="ev"
+      :evs="evs"
     />
   </td>
 </template>
@@ -16,6 +16,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import MatchEvTooltip from './match_ev_tooltip.vue'
+import { EvProp } from './ev_prop'
 import { Bet, BetStatus } from '../types/bet'
 
 export default Vue.extend({
@@ -66,7 +67,7 @@ export default Vue.extend({
     return {
       showEv: false,
       topOffset: 0,
-      ev: 0
+      evs: [] as EvProp[]
     }
   },
 
@@ -116,16 +117,21 @@ export default Vue.extend({
       // console.log('hide it !!', this.odds)
     },
 
-    showBetWindow() {
-      this.ev = this.$store.getters['games/evByTeamId']({
-        teamId: this.teamId,
-        opponentId: this.opponentId,
-        market: this.market,
-        nLastGames: 4,
-        odds: this.odds
-      })
+    showBetWindow(): void {
+      if (this.gameCompleted) return
+
+      this.evs = [-1, 12, 10, 8, 5].map(nGames => ({
+        nLastGames: nGames,
+        ev: this.$store.getters['games/evByTeamId']({
+          teamId: this.teamId,
+          opponentId: this.opponentId,
+          market: this.market,
+          nLastGames: nGames,
+          odds: this.odds
+        })
+      }) as EvProp)
+
       this.showEv = true
-      // console.log('show it!!', this.odds)
     }
   }
 })
