@@ -2,7 +2,6 @@ import { state, mutations, getters } from '../../src/store/bets'
 
 const createState = () => Object.assign({}, state)
 const context = describe
-context.only = describe.only
 
 const ID = 1
 const PRICE_CENTS = 1000
