@@ -5,15 +5,25 @@
     @mouseleave="hideBetWindow"
     @click="createBet">
     {{ resultSymbol }}
+    <MatchEvTooltip 
+      v-if="showEv" 
+      :topOffset="topOffset"
+      :ev="ev"
+    />
   </td>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import MatchEvTooltip from './match_ev_tooltip.vue'
 import { Bet, BetStatus } from '../types/bet'
 
 export default Vue.extend({
   name: 'MatchHistoryRow',
+
+  components: {
+    MatchEvTooltip
+  },
 
   props: {
     market: {
@@ -45,6 +55,18 @@ export default Vue.extend({
       type: Number,
       required: false
     }
+  },
+
+  data() {
+    return {
+      showEv: false,
+      topOffset: 0,
+      ev: 0
+    }
+  },
+
+  mounted(): void {
+    this.topOffset = this.$el.offsetHeight
   },
 
   computed: {
@@ -85,10 +107,19 @@ export default Vue.extend({
     },
 
     hideBetWindow() {
+      this.showEv = false
       // console.log('hide it !!', this.odds)
     },
 
     showBetWindow() {
+      this.ev = this.$store.getters['games/evByTeamId']({
+        teamId: this.teamId,
+        opponentId: 0,
+        market: this.market,
+        nLastGames: 4,
+        odds: this.odds
+      })
+      this.showEv = true
       // console.log('show it!!', this.odds)
     }
   }
@@ -105,6 +136,7 @@ td {
   padding: 5px;
   width: 30px;
   cursor: default;
+  position: relative;
 }
 
 .awaiting_result {
