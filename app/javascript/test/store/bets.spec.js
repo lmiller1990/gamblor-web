@@ -1,6 +1,7 @@
 import { state, mutations, getters } from '../../src/store/bets'
 
 const createState = () => Object.assign({}, state)
+const context = describe
 
 const ID = 1
 const PRICE_CENTS = 1000
@@ -70,11 +71,22 @@ describe('bets', () => {
     })
 
     describe('unusedId', () => {
-      it('returns an id not already used', () => {
-        const state = createState()
-        state.ids = [1, 2]
+      context('state.ids is empty', () => {
+        it('returns 1', () => {
+          const state = createState()
+          state.ids = []
 
-        expect(getters.unusedId(state)).toBe(3)
+          expect(getters.unusedId(state)).toBe(1)
+        })
+      })
+
+      context('state.ids is not empty', () => {
+        it('returns id one larger than absolute largest', () => {
+          const state = createState()
+          state.ids = [-1, -2, 0]
+
+          expect(getters.unusedId(state)).toBe(3)
+        })
       })
     })
   })

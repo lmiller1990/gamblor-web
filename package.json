@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "yarn jest",
+    "test": "yarn jest --verbose",
     "start": "node app/javascript/index.js"
   },
   "dependencies": {

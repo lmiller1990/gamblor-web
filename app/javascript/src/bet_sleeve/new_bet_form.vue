@@ -2,7 +2,7 @@
   <div class="bet">
     <div class="header">
       <div>{{ teamBetOn }} to get {{ market }}</div>
-      <div>{{ odds }}</div>
+      <div>{{ odds.toFixed(2) }}</div>
     </div>
     <div class="info">
       <div>
