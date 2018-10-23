@@ -5,24 +5,40 @@
     @mouseleave="hideBetWindow"
     @click="createBet">
     {{ resultSymbol }}
+    <MatchEvTooltip 
+      v-if="showEv" 
+      :topOffset="topOffset"
+      :evs="evs"
+    />
   </td>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import MatchEvTooltip from './match_ev_tooltip.vue'
+import { EvProp } from './ev_prop'
 import { Bet, BetStatus } from '../types/bet'
 
 export default Vue.extend({
   name: 'MatchHistoryRow',
 
+  components: {
+    MatchEvTooltip
+  },
+
   props: {
-    market: {
-      type: String,
+    teamId: {
+      type: Number,
       required: true
     },
 
-    teamId: {
+    opponentId: {
       type: Number,
+      required: false
+    },
+
+    market: {
+      type: String,
       required: true
     },
 
@@ -45,6 +61,18 @@ export default Vue.extend({
       type: Number,
       required: false
     }
+  },
+
+  data() {
+    return {
+      showEv: false,
+      topOffset: 0,
+      evs: [] as EvProp[]
+    }
+  },
+
+  mounted(): void {
+    this.topOffset = this.$el.offsetHeight
   },
 
   computed: {
@@ -85,11 +113,25 @@ export default Vue.extend({
     },
 
     hideBetWindow() {
+      this.showEv = false
       // console.log('hide it !!', this.odds)
     },
 
-    showBetWindow() {
-      // console.log('show it!!', this.odds)
+    showBetWindow(): void {
+      if (this.gameCompleted) return
+
+      this.evs = [-1, 12, 10, 8, 5].map(nGames => ({
+        nLastGames: nGames,
+        ev: this.$store.getters['games/evByTeamId']({
+          teamId: this.teamId,
+          opponentId: this.opponentId,
+          market: this.market,
+          nLastGames: nGames,
+          odds: this.odds
+        })
+      }) as EvProp)
+
+      this.showEv = true
     }
   }
 })
@@ -105,6 +147,7 @@ td {
   padding: 5px;
   width: 30px;
   cursor: default;
+  position: relative;
 }
 
 .awaiting_result {

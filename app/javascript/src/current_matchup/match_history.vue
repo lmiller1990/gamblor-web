@@ -55,6 +55,7 @@
           :victory="didGetFirst('Blood', game)" 
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
+          :opponentId="getOpponentId(game)"
           :teamId="teamId"
           market="fb"
         />
@@ -64,6 +65,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          :opponentId="getOpponentId(game)"
           market="ft"
         />
         <MatchHistoryRow 
@@ -72,6 +74,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          :opponentId="getOpponentId(game)"
           market="fd"
         />
         <MatchHistoryRow 
@@ -80,6 +83,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          :opponentId="getOpponentId(game)"
           market="fbaron"
         />
         <MatchHistoryRow 
@@ -88,6 +92,7 @@
           :gameCompleted="game.winnerId ? true : false" 
           :gameId="game.id"
           :teamId="teamId"
+          :opponentId="getOpponentId(game)"
           market="win"
         />
       </tr>
@@ -173,7 +178,13 @@ export default Vue.extend({
       return game[`first${market}TeamId`] === this.teamId
     },
 
-    getOpponent(game) {
+    getOpponentId(game): number {
+      const { blueSideTeamId, redSideTeamId } = game  
+
+      return this.teamId === blueSideTeamId ? redSideTeamId : blueSideTeamId
+    },
+
+    getOpponent(game): string {
       const { blueSideTeamId, redSideTeamId } = game  
       return this.$store.getters['teams/nameById'](this.teamId === blueSideTeamId
         ? redSideTeamId
