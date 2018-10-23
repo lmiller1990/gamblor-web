@@ -63,7 +63,14 @@ export const actions = {
 }
 
 export const getters: GetterTree<BetsState, RootState> = {
-  unusedId: (state): number => Math.max(...state.ids) + 1,
+  unusedId: (state): number => {
+    if (state.ids.length > 0) {
+      return Math.max(...state.ids.map(Math.abs)) + 1
+    }
+
+    return 1
+  },
+      
 
   persistedBetIds: (state): number[] => state.ids.filter(x => x > 0),
 
