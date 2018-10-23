@@ -1,8 +1,8 @@
-export const mapper = {
-  fb: 'firstBlood',
-  ft: 'firstTurret',
-  fd: 'firstDragon',
-  fbaron: 'firstBaron',
-  win: 'win'
+export const mapperAppendTeam = {
+  fb: 'firstBloodTeam',
+  ft: 'firstTurretTeam',
+  fd: 'firstDragonTeam',
+  fbaron: 'firstBaronTeam',
+  win: 'winner'
 }
 

@@ -26,13 +26,18 @@ export default Vue.extend({
   },
 
   props: {
-    market: {
-      type: String,
+    teamId: {
+      type: Number,
       required: true
     },
 
-    teamId: {
+    opponentId: {
       type: Number,
+      required: false
+    },
+
+    market: {
+      type: String,
       required: true
     },
 
@@ -114,7 +119,7 @@ export default Vue.extend({
     showBetWindow() {
       this.ev = this.$store.getters['games/evByTeamId']({
         teamId: this.teamId,
-        opponentId: 0,
+        opponentId: this.opponentId,
         market: this.market,
         nLastGames: 4,
         odds: this.odds

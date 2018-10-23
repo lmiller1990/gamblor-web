@@ -3,7 +3,7 @@ import { Module, GetterTree, MutationTree } from 'vuex'
 import { RootState, GamesState, AxiosResponse } from './types'
 import { mapResponseToStore } from './map_response_to_store'
 import { Game } from '../types/game';
-import { mapper } from '../market_mapper'
+import { mapperAppendTeam } from '../market_mapper'
 const capitalize = require('lodash/capitalize')
 
 export const state: GamesState = {
@@ -45,17 +45,19 @@ export const getters: GetterTree<GamesState, RootState> = {
       odds: number 
     }): number => {
       const teamGames = rootGetters['historicalGames/byTeamId'](teamId)
-      const gamesOfInterest = teamGames.slice(0, nLastGames)
+      const opponentGames = rootGetters['historicalGames/byTeamId'](opponentId)
 
-      const gamesGotMarket = gamesOfInterest.filter((x: Game) => 
-        x[`${mapper[market]}TeamId`] === teamId
-      )
+      const nTeamLastGames = teamGames.slice(0, nLastGames)
+      const nOpponentLastGames = opponentGames.slice(0, nLastGames)
 
-      console.log(gamesGotMarket.length)
-      console.log(gamesOfInterest.length)
-      console.log(odds)
+      const gamesWonMarket = (games, teamId) => games.filter((x: Game) => x[`${mapperAppendTeam[market]}Id`] === teamId)
+      const teamGamesWonMarket = gamesWonMarket(nTeamLastGames, teamId)
+      const opponentGamesWonMarket = gamesWonMarket(nOpponentLastGames, opponentId)
 
-      return ((gamesGotMarket.length / gamesOfInterest.length) * odds)
+      const teamWinChance = teamGamesWonMarket.length / nTeamLastGames.length
+      const opponentNonWinChance = Math.abs(1 - opponentGamesWonMarket.length / nOpponentLastGames.length)
+
+      return ((teamWinChance + opponentNonWinChance) / 2) * odds
   }
 }
 
