@@ -2,6 +2,11 @@ import { getters } from '../../src/store/historical_games'
 
 const createState = () => ({ ids: [], all: {} })
 
+const GAME_ID_1 = 1
+const GAME_ID_2 = 2
+const SPLIT_ID_1 = 1
+const SPLIT_ID_2 = 2
+
 describe('historicalGames', () => {
   describe('getters', () => {
     describe('byTeamId', () => {
@@ -17,6 +22,21 @@ describe('historicalGames', () => {
         const actual = getters.byTeamId(state)(1)
 
         expect(actual).toEqual([ state.all['1'], state.all['2'] ])
+      })
+    })
+
+    describe('gameIdsbySplitId', () => {
+      it('returns game ids given a splitId', () => {
+        const state = createState()
+        state.ids = [GAME_ID_1, GAME_ID_2]
+        state.all = {
+          [GAME_ID_1]: { splitId: SPLIT_ID_1 },
+          [GAME_ID_2]: { splitId: SPLIT_ID_2 }
+        }
+
+        const actual = getters.gameIdsbySplitId(state)(SPLIT_ID_1)
+
+        expect(actual).toEqual([GAME_ID_1])
       })
     })
   })

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Game } from '../types/game'
 import { mapResponseToStore } from './map_response_to_store'
 
 const state = {
@@ -13,7 +14,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getByTeamId({ commit }, teamId) {
+  async getByTeamId({ commit }, { teamId, splitId }) {
     const response = await axios.get(`/api/v1/teams/${teamId}`)
 
     commit('SET_GAMES', response.data.games)
@@ -22,6 +23,9 @@ export const actions = {
 }
 
 export const getters = {
+  gameIdsbySplitId: (state) => (splitId): Game[] =>
+    state.ids.filter(id => state.all[id].splitId === splitId),
+
   byTeamId: (state) => (teamId) => {
     const inGame = 
       (teamId, game) => {
