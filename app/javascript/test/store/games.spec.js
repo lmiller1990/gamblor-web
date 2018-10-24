@@ -9,15 +9,16 @@ const teamIds = { blueSideTeamId: BLUE_TEAM_ID, redSideTeamId: RED_TEAM_ID }
 const winLoseIds = { winnerId: BLUE_TEAM_ID, loserId: RED_TEAM_ID }
 
 const games = [
-  { ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID, 
-    blueSideTeamFbOdds: ODDS, id: GAME_ID },
-  { ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
-  { ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
-  { ...winLoseIds, ...teamIds, firstBloodTeamId: RED_TEAM_ID },
+  { id: 0, ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
+  { id: GAME_ID, ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID, 
+    blueSideTeamFbOdds: ODDS },
+  { id: 2, ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
+  { id: 3, ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
+  { id: 4, ...winLoseIds, ...teamIds, firstBloodTeamId: RED_TEAM_ID },
   // since the last game lacks win/lose ids, it is the only 'incomplete' game
   // we do not want to use unplayed games when calculating EV.
   // therefore, this last game is not included in ev calculation.
-  { ...teamIds, firstBloodTeamId: BLUE_TEAM_ID  }
+  { id: 5, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID  }
 ]
 
 const createState = () => Object.assign({}, state)
@@ -46,7 +47,7 @@ describe('getters', () => {
   describe('oddsForMarket', () => {
     it('returns in game by team and market', () => {
       const state = createState()
-      state.all = { [GAME_ID]: games[0] }
+      state.all = { [GAME_ID]: games[1] }
       state.ids = [GAME_ID]
 
       const actual = getters.oddsForMarket(state)({
@@ -67,7 +68,7 @@ describe('getters', () => {
         opponentId: RED_TEAM_ID,
         market: 'fb',
         odds: ODDS,
-        nLastGames: games.length
+        nLastGames: 4
       })
 
       // (.75 chance to get + .75 opp. chance to not get / 2) * 2 odds
