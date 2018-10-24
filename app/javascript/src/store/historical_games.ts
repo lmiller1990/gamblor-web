@@ -14,7 +14,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getByTeamId({ commit }, { teamId, splitId }) {
+  async getByTeamId({ commit }, teamId) {
     const response = await axios.get(`/api/v1/teams/${teamId}`)
 
     commit('SET_GAMES', response.data.games)
