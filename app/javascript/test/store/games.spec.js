@@ -1,6 +1,8 @@
 import { Game } from '../../src/types/game'
 import { state, mutations, getters } from '../../src/store/games.ts'
 
+const context = describe
+
 const GAME_ID = 1
 const BLUE_TEAM_ID = 1
 const RED_TEAM_ID = 2
@@ -60,19 +62,31 @@ describe('getters', () => {
   })
 
   describe('evByTeamId', () => {
-    it('returns ev based on percent * odds formula', () => {
-      const state = createState()
-
-      const actual = getters.evByTeamId(state, getters, {}, rootGetters)({
+    const subject = ({ nLastGames }) =>
+      getters.evByTeamId({}, getters, {}, rootGetters)({
         teamId: BLUE_TEAM_ID,
         opponentId: RED_TEAM_ID,
         market: 'fb',
         odds: ODDS,
-        nLastGames: 4
+        nLastGames
       })
 
-      // (.75 chance to get + .75 opp. chance to not get / 2) * 2 odds
-      expect(actual).toBe(1.5)
+    context('requesting ev for nLastGames', () => {
+      it('returns ev based on percent * odds formula', () => {
+        const actual = subject({ nLastGames: 4 })
+        // (.75 chance to get + .75 opp. chance to not get / 2) * 2 odds
+        expect(actual).toBe(1.5)
+      })
+    })
+
+    context('requesting ev for nLastGames', () => {
+      it('returns ev based on percent * odds formula', () => {
+        const actual = subject({ nLastGames: -1 })
+        // (.75 chance to get + .75 opp. chance to not get / 2) * 2 odds
+        // ((4/5) + (4/5) / 2) * 2
+        // .8 + .8 = 1.6
+        expect(actual).toBe(1.6)
+      })
     })
   })
 })

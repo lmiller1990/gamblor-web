@@ -51,8 +51,11 @@ export const getters: GetterTree<GamesState, RootState> = {
       const teamGames = getCompletedGames(teamId)
       const opponentGames = getCompletedGames(opponentId)
 
-      const nTeamLastGames = teamGames.slice(teamGames.length - nLastGames)
-      const nOpponentLastGames = opponentGames.slice(opponentGames.length - nLastGames)
+      const nTeamGames = (n: number, games: Game[]) => 
+        n > 0 ? games.slice(games.length - n) : games
+
+      const nTeamLastGames = nTeamGames(nLastGames, teamGames)
+      const nOpponentLastGames = nTeamGames(nLastGames, opponentGames)
 
       const gamesWonMarket = (games, id) => games.filter((x: Game) => x[`${mapperAppendTeam[market]}Id`] === id)
       const teamGamesWonMarket = gamesWonMarket(nTeamLastGames, teamId)
