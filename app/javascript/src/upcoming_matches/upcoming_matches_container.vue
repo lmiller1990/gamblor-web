@@ -29,6 +29,8 @@ import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
 
 export default Vue.extend({
+  name: 'UpcomingMatchContainer',
+
   components: {
     Match,
     SignOutForm,
