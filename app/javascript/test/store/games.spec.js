@@ -79,7 +79,7 @@ describe('getters', () => {
       })
     })
 
-    context('requesting ev for nLastGames', () => {
+    context('requesting ev all past games', () => {
       it('returns ev based on percent * odds formula', () => {
         const actual = subject({ nLastGames: -1 })
         // (.75 chance to get + .75 opp. chance to not get / 2) * 2 odds
