@@ -11,8 +11,9 @@
     />
     <UpcomingMatchesContainer 
       class="schedule"
+      :splitId="splitId"
       @matchupSelected="setMatchup" 
-      @loaded="loaded = true"
+      @selectSplit="setSplitId"
     />
   </div>
 </template>
@@ -31,8 +32,10 @@ export default {
     BetSleeve
   },
 
-  created() {
+  async created() {
+    await this.fetchLeaguesAndSplits()
     this.setDefaults()
+    this.loaded = true
   },
   
   data() {
@@ -41,7 +44,8 @@ export default {
       redSideTeamId: 0,
       blueSideTeamId: 0,
       redSideGames: [],
-      blueSideGames: []
+      blueSideGames: [],
+      splitId: undefined
     }
   },
 
@@ -52,6 +56,10 @@ export default {
   },
 
   methods: {
+    setSplitId({ id }: { id: number }) {
+      this.splitId = id
+    },
+
     selectTeam({ teamId, side }: { teamId: string, side: string }) {
       if (side === 'blue')
         this.setMatchup({ blueSideTeamId: parseInt(teamId), redSideTeamId: this.redSideTeamId })
@@ -61,11 +69,20 @@ export default {
     },
 
     // Set default settings declared on server side in config/settings.yml
+    fetchLeaguesAndSplits() {
+      return this.$store.dispatch('leagues/getLeagues')
+    },
+
     setDefaults() {
       const dataSettings =  <HTMLDivElement>document.querySelector('#settings')
       const { defaultSplit, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
+
       this.$store.commit('leagues/SET_DEFAULT_SPLIT', { defaultSplit })
       this.$store.commit('user/SET_ADMIN', { admin }) 
+
+      const defaultSplitId = this.$store.getters['leagues/getSplitByName'](defaultSplit).id
+      this.setSplitId({ id: defaultSplitId })
+
     },
 
     async setMatchup({ blueSideTeamId, redSideTeamId }: { blueSideTeamId: number, redSideTeamId: number }) {
