@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Module, GetterTree, MutationTree } from 'vuex'
+import { ActionTree, Module, GetterTree, MutationTree } from 'vuex'
 import { RootState, GamesState, AxiosResponse } from './types'
 import { mapResponseToStore } from './map_response_to_store'
 import { Game } from '../types/game';
@@ -13,7 +13,19 @@ export const state: GamesState = {
 
 export const mutations: MutationTree<GamesState> = {
   SET_GAMES(state: GamesState, axiosResponse: AxiosResponse[]) {
+    console.log(axiosResponse)
     mapResponseToStore(state, axiosResponse)
+  }
+}
+
+const actions: ActionTree<GamesState, RootState> = {
+  async getByIds({ commit }, ids: number[]): Promise<any> {
+    const res = await Promise.all(
+      ids.map(id => axios.get(`/api/v1/games/${id}`))
+    )
+
+    console.log('commit')
+    commit('SET_GAMES', res.map(x => x.data))
   }
 }
 
@@ -71,6 +83,7 @@ export const getters: GetterTree<GamesState, RootState> = {
 export const games: Module<GamesState, RootState> = {
   namespaced: true,
   state,
-  getters,
-  mutations
+  mutations,
+  actions,
+  getters
 }

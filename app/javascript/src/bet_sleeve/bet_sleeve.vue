@@ -45,7 +45,7 @@ export default Vue.extend({
   },
 
   created() {
-    this.$store.dispatch('bets/getBets')
+    // this.$store.dispatch('bets/getBets')
   },
 
   computed: {

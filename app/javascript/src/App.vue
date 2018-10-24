@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <BetSleeve v-if="loaded" />
+    <BetSleeve v-if="loaded && loadedBets" />
     <CurrentMatchupContainer 
       :currentMatchupSelected="currentMatchupSelected"
       :blueSideGames="blueSideGames"
@@ -33,13 +33,15 @@ export default {
   },
 
   async created() {
-    await this.fetchLeaguesAndSplits()
-    this.setDefaults()
-    this.loaded = true
+    this.fetchBets()
+    // await this.fetchLeaguesAndSplits()
+    // this.setDefaults()
+    // this.loaded = true
   },
   
   data() {
     return {
+      loadedBets: false,
       loaded: false,
       redSideTeamId: 0,
       blueSideTeamId: 0,
@@ -56,6 +58,15 @@ export default {
   },
 
   methods: {
+    fetchBets() {
+      this.$store.dispatch('bets/getBets')
+        .then(() => {
+          this.$store.dispatch('games/getByIds', betIds)
+
+          // this.loadedBets = true
+        })
+    },
+
     setSplitId({ id }: { id: number }) {
       this.splitId = id
     },
