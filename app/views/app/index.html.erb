@@ -2,3 +2,13 @@
 <%= javascript_pack_tag 'hello_vue' %>
 
 <%= content_tag :div, id: 'settings', data_settings: @settings do %><% end %>
+
+<script>
+const username = "<%= current_user.email %>"
+window.ga('send', {
+  hitType: 'event',
+  eventCategory: 'app',
+  eventAction: 'visit',
+  eventLabel: username
+})
+</script>
