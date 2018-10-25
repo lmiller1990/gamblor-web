@@ -35,8 +35,8 @@ export default {
   async created() {
     this.fetchBets().then(() => this.loadedBets = true)
     this.fetchLeaguesAndSplits().then(() => {
-      this.loaded = true
       this.setDefaults()
+      this.loaded = true
     })
   },
   

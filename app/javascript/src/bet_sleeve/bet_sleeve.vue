@@ -44,10 +44,6 @@ export default Vue.extend({
     NewBetForm
   },
 
-  created() {
-    // this.$store.dispatch('bets/getBets')
-  },
-
   computed: {
     // TODO: Proper types
     // { [bet.id]: Bet }
