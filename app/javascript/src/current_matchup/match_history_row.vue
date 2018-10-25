@@ -114,7 +114,6 @@ export default Vue.extend({
 
     hideBetWindow() {
       this.showEv = false
-      // console.log('hide it !!', this.odds)
     },
 
     showBetWindow(): void {

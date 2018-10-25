@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Game } from '../types/game'
 import { mapResponseToStore } from './map_response_to_store'
 
 const state = {
@@ -22,6 +23,9 @@ export const actions = {
 }
 
 export const getters = {
+  gameIdsbySplitId: (state) => (splitId): Game[] =>
+    state.ids.filter(id => state.all[id].splitId === splitId),
+
   byTeamId: (state) => (teamId) => {
     const inGame = 
       (teamId, game) => {

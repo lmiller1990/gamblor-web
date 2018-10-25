@@ -7,9 +7,7 @@
         @change="selectSplit" 
       />
     </div>
-    <div 
-      v-show="!loading" 
-      class="matchup-container border-left border-bottom">
+    <div class="matchup-container border-left border-bottom">
       <Match
         v-for="matchId in matchIds"
         :key="matchId"
@@ -31,22 +29,26 @@ import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
 
 export default Vue.extend({
+  name: 'UpcomingMatchContainer',
+
   components: {
     Match,
     SignOutForm,
     LeagueSplitSelector
   },
 
-  async created() {
-    await this.fetchLeaguesAndSplits()
-    this.setDefaultSplit()
-    this.fetchGamesAndTeams()
+  props: {
+    splitId: {
+      type: Number,
+      required: false
+    }
   },
 
-  data() {
-    return {
-      loading: true,
-      splitId: undefined
+  watch: {
+    splitId(val) {
+      if (val) {
+        this.fetchGamesAndTeams()
+      }
     }
   },
 
@@ -62,15 +64,9 @@ export default Vue.extend({
 
   methods: {
     async selectSplit(splitId) {
-      this.splitId = splitId
-      await this.fetchGames()
+      this.$emit('selectSplit', { id: splitId }) 
+      await this.fetchGames(splitId)
       this.scrollToBottomOfContainer()
-    },
-
-    setDefaultSplit() {
-      const name = this.$store.state.leagues.defaultSplit
-      const defaultSplit = this.$store.getters['leagues/getSplitByName'](name)
-      this.splitId = defaultSplit.id
     },
 
     fetchMatchup({ matchId }) {
@@ -80,25 +76,19 @@ export default Vue.extend({
       })
     },
 
-    fetchGames() {
-      return this.$store.dispatch('scheduledGames/getUpcomingGames', { splitId: this.splitId })
+    fetchGames(splitId: number) {
+      return this.$store.dispatch('scheduledGames/getUpcomingGames', { splitId })
     },
     
     scrollToBottomOfContainer() {
       this.$el.querySelector('#end_of_schedule').scrollIntoView()
     },
 
-    fetchLeaguesAndSplits() {
-      return this.$store.dispatch('leagues/getLeagues')
-    },
-
     async fetchGamesAndTeams() {
       await Promise.all([
-        this.fetchGames(),
+        this.fetchGames(this.splitId),
         this.$store.dispatch('teams/getTeams')
       ])
-      this.loading = false 
-      this.$emit('loaded')
 
       setTimeout(this.scrollToBottomOfContainer)
     }

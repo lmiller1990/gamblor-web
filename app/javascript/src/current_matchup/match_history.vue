@@ -41,7 +41,12 @@
         <td>FBaron</td>
         <td>Result</td>
       </tr>
-      <tr v-for="game in games" :key="game.id">
+      <tr>
+        <td class="more_games" colspan="7" @click="showMoreGames">
+          Show {{ NUM_PREV_GAMES }} more previous games
+        </td>
+      </tr>
+      <tr v-for="game in previousGames" :key="game.id">
         <td>
           <MatchDate 
             :id="game.id"
@@ -103,11 +108,13 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
+import { Game } from '../types/game'
 import { titlecase } from '../filters/index'
 import FirstMarketsContainer from './first_markets_container.vue'
 import MatchHistoryRow from './match_history_row.vue'
 import TeamLogo from '../components/team_logo.vue'
 import MatchDate from './match_date.vue'
+
 
 export default Vue.extend({
   name: 'MatchHistory',
@@ -141,11 +148,20 @@ export default Vue.extend({
 
   data() {
     return {
-      markets: ['Blood', 'Turret', 'Dragon', 'Baron']
+      markets: ['Blood', 'Turret', 'Dragon', 'Baron'],
+      nPreviousGames: 10,
+      NUM_PREV_GAMES: 5
     }
   },
 
   computed: {
+    previousGames(): Game[] {
+      if (this.games.length - this.nPreviousGames <= 0)
+        return this.games
+      else
+        return this.games.slice(this.games.length - this.nPreviousGames)
+    },
+
     admin(): boolean {
       return this.$store.state.user.admin
     },
@@ -156,6 +172,10 @@ export default Vue.extend({
   },
 
   methods: {
+    showMoreGames() {
+      this.nPreviousGames += this.NUM_PREV_GAMES
+    },
+
     getOddsFor(market, game) {
       if (this.teamId === game.redSideTeamId)
         return game[`redSideTeam${titlecase(market)}Odds`]
@@ -211,6 +231,12 @@ export default Vue.extend({
 
 .first_markets {
   display: flex;
+}
+
+.more_games {
+  text-align: center;
+  cursor: pointer;
+  &:hover { background: silver; }
 }
 
 table {

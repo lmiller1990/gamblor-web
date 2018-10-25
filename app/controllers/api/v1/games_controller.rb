@@ -2,12 +2,16 @@ module Api
   module V1
     class GamesController < ActionController::API
       def create
-        game = Game.create!(game_params)
+        Game.create!(game_params)
       end
 
       def update
         game = Game.find(params[:id])
         game.update_attributes!(game_params)
+      end
+
+      def show
+        render json: Game.find(params[:id]).to_json(methods: [:teams])
       end
 
       private

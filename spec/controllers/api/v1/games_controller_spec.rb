@@ -20,4 +20,14 @@ describe Api::V1::GamesController do
       }.to change(Game, :count).by 1
     end
   end
+
+  describe '#show' do
+    it 'gets a game with teams' do
+      game = create(:game, :with_teams)
+
+      get :show, params: { id: game.id }
+
+      expect(json_response['teams'].count).to be 2
+    end
+  end
 end
