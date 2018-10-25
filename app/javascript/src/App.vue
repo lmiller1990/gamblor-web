@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <BetSleeve v-if="loaded && loadedBets" />
+    <transition name="fade" mode="out-in">
+      <component :is="leftStickyComponent"
+        v-if="loaded && loadedBets" 
+        class="left_sticky_window"
+        @toggle="toggleLeftSticky"
+      />
+    </transition>
     <CurrentMatchupContainer 
       :currentMatchupSelected="currentMatchupSelected"
       :blueSideGames="blueSideGames"
@@ -19,6 +25,7 @@
 </template>
 
 <script lang="ts">
+import HowToUse from './components/how_to_use.vue'
 import BetSleeve from './bet_sleeve/bet_sleeve.vue'
 import CurrentMatchupContainer from './current_matchup/current_matchup_container.vue'
 import UpcomingMatchesContainer from './upcoming_matches/upcoming_matches_container.vue'
@@ -28,8 +35,7 @@ export default {
 
   components: {
     CurrentMatchupContainer,
-    UpcomingMatchesContainer,
-    BetSleeve
+    UpcomingMatchesContainer
   },
 
   async created() {
@@ -42,6 +48,7 @@ export default {
   
   data() {
     return {
+      leftStickyComponent: HowToUse, // BetSleeve,
       loadedBets: false,
       loaded: false,
       redSideTeamId: 0,
@@ -59,6 +66,13 @@ export default {
   },
 
   methods: {
+    toggleLeftSticky(): void {
+      this.leftStickyComponent === HowToUse
+      ? this.leftStickyComponent = BetSleeve
+      : this.leftStickyComponent = HowToUse
+
+    },
+
     async fetchBets() {
       await this.$store.dispatch('bets/getBets')
       const gameIds = this.$store.getters['bets/gameIdsForAllBets']
@@ -127,15 +141,24 @@ export default {
   display: flex;
 }
 
-.nav {
+.left_sticky_window {
+  overflow-y: scroll;
   position: sticky;
   top: 0;
+  height: 100vh;
+  width: 400px;
 }
+
 .schedule {
   height: 80vh;
   width: 400px;
   position: sticky;
   top: 0;
 }
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .25s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 </style>

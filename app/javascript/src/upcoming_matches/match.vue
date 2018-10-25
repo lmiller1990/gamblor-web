@@ -84,7 +84,8 @@ export default {
 
   &:hover {
     cursor: pointer;
-    border: 1px solid rgba(100, 100, 100, 0.1);
+    // border: 1px solid rgba(100, 100, 100, 0.1);
+    background: rgba(100, 100, 100, 0.05);
   }
 }
 
