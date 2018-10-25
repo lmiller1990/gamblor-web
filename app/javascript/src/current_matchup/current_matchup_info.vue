@@ -4,6 +4,7 @@
       :games="blueSideGames"
       :teamId="blueSideTeamId"
       side="blue"
+      @createBet="$emit('createBet')"
     >
       <TeamSelector 
         slot="team-selector"
@@ -15,6 +16,7 @@
       :games="redSideGames"
       :teamId="redSideTeamId"
       side="red"
+      @createBet="$emit('createBet')"
     >
       <TeamSelector 
         slot="team-selector"

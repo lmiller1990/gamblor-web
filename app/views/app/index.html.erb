@@ -2,3 +2,15 @@
 <%= javascript_pack_tag 'hello_vue' %>
 
 <%= content_tag :div, id: 'settings', data_settings: @settings do %><% end %>
+
+<script>
+<% if Rails.env == 'production' %>
+  const username = "<%= current_user.email %>"
+  window.gtag('send', {
+    hitType: 'event',
+    eventCategory: 'app',
+    eventAction: 'visit',
+    eventLabel: username
+  })
+<% end %>
+</script>

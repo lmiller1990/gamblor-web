@@ -1,8 +1,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%= csrf_meta_tag %>
 
-
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125733430-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125733430-1');
+
+  gtag('config', 'GA_TRACKING_ID', {
+    'user_id': 'USER_ID'
+  })
+
+  gtag('send', {
+    hitType: 'event',
+    eventCategory: 'landing_page',
+    eventAction: 'visit'
+  });
+</script>
+
 
 <style>
 
@@ -35,6 +54,10 @@
 
       <p>
         You can also follow my publication on <a href="https://medium.com/lolesports-betting" class="color-1">Medium</a>.
+      </p>
+
+      <p>
+      Have an early access account? Log in <a href="/users/sign_in" class="color-1">here</a>.
       </p>
     </div>
 

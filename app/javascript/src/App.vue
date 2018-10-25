@@ -14,6 +14,7 @@
       :redSideTeamId="redSideTeamId"
       :redSideGames="redSideGames"
       @teamSelected="selectTeam"
+      @createBet="showBetSleeve"
     />
     <UpcomingMatchesContainer 
       class="schedule"
@@ -66,6 +67,10 @@ export default {
   },
 
   methods: {
+    showBetSleeve(): void {
+      this.leftStickyComponent = BetSleeve
+    },
+
     toggleLeftSticky(): void {
       this.leftStickyComponent === HowToUse
       ? this.leftStickyComponent = BetSleeve
