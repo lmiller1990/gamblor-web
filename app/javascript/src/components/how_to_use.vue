@@ -23,7 +23,7 @@
         View historical stats and compare teams.
       </div>
       <div>
-        Mouse over an upcoming game's market to see the approximate Expected Value (EV). Read more here.
+        Mouse over an upcoming game's market to see the approximate Expected Value (EV). <a target="_blank" href="/expected_value.html">See here for an example and explanation.</a>
       </div> 
       <img src="/how_to_2.png">
       <div>
