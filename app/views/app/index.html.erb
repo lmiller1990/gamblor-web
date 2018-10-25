@@ -4,11 +4,13 @@
 <%= content_tag :div, id: 'settings', data_settings: @settings do %><% end %>
 
 <script>
-const username = "<%= current_user.email %>"
-window.ga('send', {
-  hitType: 'event',
-  eventCategory: 'app',
-  eventAction: 'visit',
-  eventLabel: username
-})
+<% if Rails.env == 'production' %>
+  const username = "<%= current_user.email %>"
+  window.gtag('send', {
+    hitType: 'event',
+    eventCategory: 'app',
+    eventAction: 'visit',
+    eventLabel: username
+  })
+<% end %>
 </script>
