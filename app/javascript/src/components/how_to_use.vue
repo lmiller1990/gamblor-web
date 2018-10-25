@@ -11,33 +11,32 @@
       LCS Tracking
     </div>
 
+
     <div class="small-title">
       <div class="welcome-border" />
     </div>
 
     <div class="explanation">
       <div>
-        Select a matchup on the right.
+        Select a matchup on the right to view historical stats and compare teams.
       </div>
+      <hr>
       <div>
-        View historical stats and compare teams.
-      </div>
-      <div>
-        Mouse over an upcoming game's market to see the approximate Expected Value (EV). <a target="_blank" href="/expected_value.html">See here for an example and explanation.</a>
+        Mouse over an upcoming game's market to see the approximate<a target="_blank" href="/expected_value.html"> Expected Value (EV). </a>
       </div> 
       <img src="/how_to_2.png">
-      <div>
-        An EV above 1 desirable. Never bet on markets with an EV below 1.
-      </div>
 
       <hr>
       <div>
         <div>
-        You can test out your predictions and make pretend bets using LCS Tracking, too. Place a bet by clicking on an upcoming market, and entering a stake.
+        It's still a work in progress, but you can test out your predictions and make pretend bets using LCS Tracking, too! Place a bet by clicking on an upcoming market, and entering a stake.
         </div>
         
         <span class="link" @click="toggle">Click here to see your bets.</span> Once you are confident with your analysis, consider using a traditional bookkeeper to place bets.
       </div>
+      <hr>
+
+        Send feedback or suggestions to <a href="mailto:lcstracker@outlook.com">lcstracker@outlook.com</a>.
     </div>
   </div>
 </template>
@@ -59,6 +58,7 @@ export default {
   box-sizing: border-box;
   padding: 8px;
   border-right: 1px solid silver;
+  line-height: 150%;
 }
 
 .small-title {
@@ -84,6 +84,7 @@ export default {
 }
 
 .explanation {
+  margin-top: 14px;
   font-size: 1.1em;
 
   div {

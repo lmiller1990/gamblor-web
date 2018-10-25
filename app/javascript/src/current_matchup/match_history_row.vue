@@ -97,6 +97,7 @@ export default Vue.extend({
 
   methods: {
     createBet(): void {
+      this.$emit('createBet')
       // negative id represents a bet not yet persisted to the database
       const bet: Bet = {
         market: this.market,

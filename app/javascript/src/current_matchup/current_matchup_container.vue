@@ -7,7 +7,9 @@
       :blueSideTeamId="blueSideTeamId"
       :redSideTeamId="redSideTeamId"
       :redSideGames="redSideGames"
-      @change="selectTeam" />
+      @change="selectTeam" 
+      @createBet="$emit('createBet')"
+    />
 
     <div 
       v-if="!currentMatchupSelected" 
