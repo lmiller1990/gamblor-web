@@ -1,5 +1,6 @@
 <template>
   <div class="bet_window">
+    <button @click="toggle">Back</button>
     <SingleBet 
        v-for="id in persistedBetIds" 
        :key="id"
@@ -56,11 +57,16 @@ export default Vue.extend({
     },
 
     persistedBetIds(): number[] {
+      console.log(this.$store)
       return this.$store.getters['bets/persistedBetIds']
     }
   },
 
   methods: {
+    toggle() {
+      this.$emit('toggle')
+    },
+
     cancel({ id }: { id: number }) {
       this.$store.commit('bets/CANCEL', { id })
     },
@@ -92,11 +98,6 @@ export default Vue.extend({
 
 <style scoped>
 .bet_window {
-  overflow-y: scroll;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 400px;
   border-right: 1px solid silver;
 }
 </style>
