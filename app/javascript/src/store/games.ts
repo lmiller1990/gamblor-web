@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { ActionTree, Module, GetterTree, MutationTree } from 'vuex'
+import flatten from 'lodash/flatten'
 import { RootState, GamesState, AxiosResponse } from './types'
 import { mapResponseToStore } from './map_response_to_store'
-import { Game } from '../types/game';
+import { Game } from '../types/game'
 import { mapperAppendTeam } from '../market_mapper'
 const capitalize = require('lodash/capitalize')
 
@@ -13,19 +14,21 @@ export const state: GamesState = {
 
 export const mutations: MutationTree<GamesState> = {
   SET_GAMES(state: GamesState, axiosResponse: AxiosResponse[]) {
-    console.log(axiosResponse)
     mapResponseToStore(state, axiosResponse)
   }
 }
 
 const actions: ActionTree<GamesState, RootState> = {
   async getByIds({ commit }, ids: number[]): Promise<any> {
-    const res = await Promise.all(
+    const gamesData = await Promise.all(
       ids.map(id => axios.get(`/api/v1/games/${id}`))
     )
 
-    console.log('commit')
-    commit('SET_GAMES', res.map(x => x.data))
+    // for each bet, extract both teams and commit to teams module.
+    const teams = gamesData.map(game => game.data.teams)
+    commit('teams/SET_TEAMS', flatten(teams), { root: true })
+
+    commit('SET_GAMES', gamesData.map(x => x.data))
   }
 }
 

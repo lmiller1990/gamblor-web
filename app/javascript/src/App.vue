@@ -33,10 +33,11 @@ export default {
   },
 
   async created() {
-    this.fetchBets()
-    // await this.fetchLeaguesAndSplits()
-    // this.setDefaults()
-    // this.loaded = true
+    this.fetchBets().then(() => this.loadedBets = true)
+    this.fetchLeaguesAndSplits().then(() => {
+      this.loaded = true
+      this.setDefaults()
+    })
   },
   
   data() {
@@ -58,13 +59,10 @@ export default {
   },
 
   methods: {
-    fetchBets() {
-      this.$store.dispatch('bets/getBets')
-        .then(() => {
-          this.$store.dispatch('games/getByIds', betIds)
-
-          // this.loadedBets = true
-        })
+    async fetchBets() {
+      await this.$store.dispatch('bets/getBets')
+      const gameIds = this.$store.getters['bets/gameIdsForAllBets']
+      await this.$store.dispatch('games/getByIds', gameIds)
     },
 
     setSplitId({ id }: { id: number }) {

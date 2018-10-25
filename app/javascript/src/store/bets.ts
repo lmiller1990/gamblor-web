@@ -70,7 +70,10 @@ export const getters: GetterTree<BetsState, RootState> = {
 
     return 1
   },
-      
+
+  gameIdsForAllBets: (state: BetsState): number[] => {
+    return state.ids.map(x => state.all[x].gameId)
+  },
 
   persistedBetIds: (state): number[] => state.ids.filter(x => x > 0),
 

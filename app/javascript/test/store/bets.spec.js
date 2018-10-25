@@ -4,6 +4,7 @@ const createState = () => Object.assign({}, state)
 const context = describe
 
 const ID = 1
+const GAME_ID = 1
 const PRICE_CENTS = 1000
 
 const mockMath = Object.create(global.Math)
@@ -58,6 +59,20 @@ describe('bets', () => {
         state.ids = [-1, 1]
 
         expect(getters.persistedBetIds(state)).toEqual([1])
+      })
+    })
+
+    describe('gameIdsForAllBets', () => {
+      it('returns gameIds for all bets', () => {
+        const state = createState()
+        state.ids = [ID]
+        state.all = {
+          [ID]: { gameId: GAME_ID }
+        }
+
+        const actual = getters.gameIdsForAllBets(state)
+
+        expect(actual).toEqual([GAME_ID])
       })
     })
 

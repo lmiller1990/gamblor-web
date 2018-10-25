@@ -16,7 +16,6 @@ import { AxiosResponse, BaseState } from './types'
  * @param {Array} AxiosResponse.data array, containing [{ id... }]
  */
 function mapResponseToStore(state: BaseState, response: AxiosResponse[]) {
-  console.log('map', response)
   for (let obj of response) {
     if (!state.ids.includes(obj.id)) {
       state.ids.push(obj.id)
