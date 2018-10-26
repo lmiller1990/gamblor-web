@@ -39,12 +39,13 @@
 
     <div>
       <div>
-        It's still a work in progress, but you can test out your predictions and make pretend bets using LCS Tracking, too! 
+        It's still a work in progress, but you can simulate bets using LCS Tracking, too! 
+        <hr>
         Place a bet by clicking on an upcoming market, and entering a stake.
       </div>
       <div>
 
-        <span class="link" @click="toggle">Click here to see your bets.</span> Once you are confident with your analysis, consider using a traditional bookkeeper to place bets.
+        <span class="link" @click="toggle">Click here to see your bets.</span>
       </div>
       <hr>
 

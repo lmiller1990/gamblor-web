@@ -83,4 +83,18 @@ describe Game do
       expect(actual).to eq RED_SIDE_TEAM_ODDS
     end
   end
+
+  describe '#complete?' do
+    it 'returns true when game is complete' do
+      game = build(:game, winner_id: red_side_team.id, loser_id: blue_side_team.id)
+
+      expect(game.complete?).to be true
+    end
+
+    it 'return falase when game is not complete' do
+      game = build(:game, winner_id: nil, loser_id: nil)
+
+      expect(game.complete?).to be false
+    end
+  end
 end
