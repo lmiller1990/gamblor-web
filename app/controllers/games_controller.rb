@@ -39,7 +39,7 @@ class GamesController < ApplicationController
   def update
     authorize @game
     @game.update_attributes!(game_params)
-    SettleBetsService.new(@game).call
+    SettleBetsService.new(@game).call if @game.complete?
 
     redirect_to @game
   end

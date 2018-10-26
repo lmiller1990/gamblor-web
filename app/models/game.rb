@@ -46,4 +46,8 @@ class Game < ApplicationRecord
     id = self["first_#{market}_player_id"]
     Player.find id if id
   end
+
+  def complete?
+    !winner_id.nil? && !loser_id.nil?
+  end
 end
