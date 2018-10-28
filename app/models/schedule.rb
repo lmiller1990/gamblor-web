@@ -45,7 +45,8 @@ module Schedule
     if games_in_match.count > 1 
       winner_ids = games_in_match.collect { |x| x.winner_id }
       winner_id = winner_ids.max_by { |x| winner_ids.count(x) }
-      loser_id = winner_ids.min_by { |x| winner_ids.count(x) }
+      # loser id is the other team
+      loser_id = winner_id == game.red_side_team_id ? game.blue_side_team_id : game.red_side_team_id
 
       [Team.find(winner_id), Team.find(loser_id)]
     else
