@@ -82,7 +82,7 @@ export default Vue.extend({
 
     resultSymbol(): string {
       if (!this.gameCompleted)
-        return this.odds ? this.odds.toString() : ''
+        return this.odds ? this.odds.toString() : 'TBA'
 
       return this.victory ? '✓' : '✘'
     },
