@@ -62,11 +62,13 @@ export default {
 
   methods: {
     styleCompleteGameByResult(teamId) {
-      if (teamId === this.match.winnerId)
+      if (teamId === this.match.winnerId) {
         return 'winning_team'
+      }
 
-      if (teamId === this.match.loserId)
+      if (teamId === this.match.loserId) {
         return 'losing_team'
+      }
       
       return 'result_pending'
     },
