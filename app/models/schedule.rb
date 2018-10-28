@@ -5,7 +5,7 @@ module Schedule
   def self.most_recently_played(games, num = 5)
     games = games
       .where(game_number: 1)
-      .where('date < ?', Date.today)
+      .where(match_complete: true)
       .order(date: :desc)[0...num]
       .reverse
 
@@ -23,7 +23,7 @@ module Schedule
   def self.upcoming(games, num = 5)
     games = games
       .where(game_number: 1)
-      .where('date >= ?', Date.today)
+      .where(match_complete: false)
       .order(date: :asc, created_at: :asc)[0...num]
 
     games.each do |game|

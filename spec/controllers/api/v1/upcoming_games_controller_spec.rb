@@ -6,7 +6,7 @@ describe Api::V1::UpcomingGamesController, type: :controller do
   let!(:team) { create(:team) }
   let!(:opponent) { create(:team) }
   (1..10).each do |i| 
-    let!("game_#{i}_days_ago".to_sym) { create(:game, date: i.days.ago, winner_id: team.id, loser_id: opponent.id, red_side_team_id: team.id, blue_side_team_id: opponent.id, split: split) }
+    let!("game_#{i}_days_ago".to_sym) { create(:game, date: i.days.ago, winner_id: team.id, loser_id: opponent.id, red_side_team_id: team.id, blue_side_team_id: opponent.id, split: split, match_complete: true) }
   end
 
   (1..10).each do |i| 

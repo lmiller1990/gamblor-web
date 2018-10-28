@@ -11,7 +11,8 @@ class GamesController < ApplicationController
     @game = Game.new
     authorize @game
     @teams = Team.all.order(name: :asc)
-    @league = League.last # ('World Championship')
+    @league = League.last
+    # TODO: don't hard code this?
     @splits = @league.splits
   end
 
@@ -101,7 +102,9 @@ class GamesController < ApplicationController
 
       :winner_id, :loser_id,
 
-      :league_id, :split_id
+      :league_id, :split_id,
+
+      :match_complete
     )
   end
 
