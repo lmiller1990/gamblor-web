@@ -6,14 +6,14 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125733430-1"></script>
 <script>
 <% if Rails.env == 'production' %>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
 
-  gtag('config', 'UA-125733430-1', {
-    'page_title' : 'landing_page',
-    'page_path': '/'
-  });
+gtag('config', 'UA-125733430-1', {
+  'page_title' : 'landing_page',
+  'page_path': '/'
+});
 <% end %>
 </script>
 
@@ -44,33 +44,21 @@
       </p>
 
       <p>
-      Sign up below to get my <span class="color-3">weekly analysis</span> and <span class="color-3">recommendations</span>, as well as progress updates on my platform and your invite to the <span class="color-2">private alpha</span> later this year.
+      Try the alpha by creating an account <a href="/users/sign_up" class="color-2">here</a>.
+
+      Already have an early access account? Log in <a href="/users/sign_in" class="color-1">here</a>.
       </p>
 
       <p>
-        You can also follow my publication on <a href="https://medium.com/lolesports-betting" class="color-1">Medium</a>.
+      You can also follow my publication on <a href="https://medium.com/lolesports-betting" class="color-1">Medium</a>.
       </p>
 
-      <p>
-      Have an early access account? Log in <a href="/users/sign_in" class="color-1">here</a>.
-      </p>
     </div>
 
-    <%= form_for @subscriber do |f| %>
-      <div class="join-field">
-        <%= f.text_field :name, { placeholder: 'Name' } %>
-      </div>
+    <%= image_tag 'app_preview.png', { class: 'app_preview img_1' } %>
 
-      <div class="join-field">
-        <%= f.email_field :email, { placeholder: 'Email' } %>
-      </div>
-
-      <div class="join-btn">
-        <%= f.submit 'Submit', { id: 'submit-btn' } %>
-      </div>
-      <%= image_tag 'computer.png', { class: 'computer' } %>
-    <% end %>
   </div>
+
 </div>
 
 <style>
@@ -82,20 +70,18 @@ html, body {
 }
 
 @media screen and (max-width: 480px) {
-  body {
-  }
 }
 
 .outer { 
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   background-color: black;
   width: 100vw;
-  height: 100%;
 }
 
 .wrapper {
-  display: flex;
   max-width: 800px;
   padding-top: 100px;
 }
@@ -160,50 +146,12 @@ a {
   opacity: 0.5;
 }
 
-.computer {
+.app_preview {
+  border: 3px solid grey;
+}
+
+.img_1 {
   width: 100%;
+  object-fit: scale-down;
 }
 </style>
-
-<script>
-function buildRequest(subscriber, csrfToken) {
-  const headers = new Headers()
-  headers.append('Content-Type', 'application/json')
-  headers.append('X-Requested-With', 'XMLHttpRequest')
-  headers.append('X-CSRF-TOKEN', csrfToken)
-  return new Request('/subscribers', {
-    headers: headers,
-    method: 'POST',
-
-    credentials: 'same-origin',
-    body: JSON.stringify({
-      subscriber
-    })
-  })
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('form')
-  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-  const btn = document.querySelector('#submit-btn')
-
-  form.addEventListener('submit', (e) => {
-    btn.value = 'Submitting...'
-    btn.setAttribute('disabled', true)
-    btn.classList.add('loading')
-    e.preventDefault()
-
-    const subscriber = {
-      name: form.querySelector('#subscriber_name').value,
-      email: form.querySelector('#subscriber_email').value
-    }
-
-    fetch(buildRequest(subscriber, csrfToken))
-      .then(() => {
-        btn.value = 'Submitted ✓'
-        btn.classList.remove('loading')
-        btn.setAttribute('disabled', false)
-      })
-  })
-})
-</script>

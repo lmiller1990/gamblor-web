@@ -17,7 +17,8 @@ const options = ({ title }) => ({
       display: true,
       ticks: {
         min: 0,
-        steps: 1
+        stepSize: 2,
+        fontSize: 10
       }
     }],
     yAxes: [{

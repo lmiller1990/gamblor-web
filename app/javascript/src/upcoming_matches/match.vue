@@ -107,6 +107,7 @@ export default {
   width: 100%;
   font-size: 1.1em;
   font-weight: bold;
+  text-align: center;
 }
 
 .blue_team, .red_team { 
@@ -114,19 +115,7 @@ export default {
   justify-content: center; 
 }
 
-.winning_team::after {
-  position: absolute;
-  content: '';
-
-  height: $img_dim + 20;
-  width: $img_dim + 20;
-  border: 2px dotted gold;
-  border-radius: 50%;
-
-  z-index: -1;
-}
-
 .losing_team {
-  opacity: 0.25;
+  opacity: 0.15;
 }
 </style>
