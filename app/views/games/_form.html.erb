@@ -166,5 +166,10 @@
     <%= f.select :loser_id, @teams, { include_blank: '----' } %>
   </div>
 
+  <div class="first_market">
+    <%= f.label :match_complete %>
+    <%= f.check_box :match_complete %>
+  </div>
+
   <%= f.submit %>
 <% end %>
