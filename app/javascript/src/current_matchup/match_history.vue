@@ -10,7 +10,7 @@
 
     <div class="first_markets">
       <FirstMarketsContainer 
-        v-for="market in markets.slice(0, 2)"
+        v-for="market in markets"
         :key="market"
         :teamId="teamId"
         :teamName="teamName"
@@ -19,7 +19,7 @@
         :market="market"
         />
     </div>
-    <div class="first_markets">
+      <!--
       <FirstMarketsContainer 
         v-for="market in markets.slice(2, 4)"
         :key="market"
@@ -29,84 +29,86 @@
         :side="side"
         :market="market"
       />
-    </div> 
+      -->
 
-    <table>
-      <tr class="header-tr">
-        <td>Date</td>
-        <td>Opponent</td>
-        <td>FB</td>
-        <td>FT</td>
-        <td>FD</td>
-        <td>FBaron</td>
-        <td>Result</td>
-      </tr>
-      <tr>
-        <td class="more_games" colspan="7" @click="showMoreGames">
-          Show {{ NUM_PREV_GAMES }} more previous games
-        </td>
-      </tr>
-      <tr v-for="game in previousGames" :key="game.id">
-        <td>
-          <MatchDate 
-            :id="game.id"
-            :date="game.date"
-            :admin="admin"
+    <div class="history_table">
+      <table>
+        <tr class="header-tr">
+          <td>Date</td>
+          <td>Opponent</td>
+          <td>FB</td>
+          <td>FT</td>
+          <td>FD</td>
+          <td>FBaron</td>
+          <td>Result</td>
+        </tr>
+        <tr>
+          <td class="more_games" colspan="7" @click="showMoreGames">
+            Show {{ NUM_PREV_GAMES }} more previous games
+          </td>
+        </tr>
+        <tr v-for="game in previousGames" :key="game.id">
+          <td>
+            <MatchDate 
+              :id="game.id"
+              :date="game.date"
+              :admin="admin"
+            />
+          </td>
+          <td>{{ getOpponent(game) }}</td>
+          <MatchHistoryRow 
+            :odds="getOddsFor('fb', game)"
+            :victory="didGetFirst('Blood', game)" 
+            :gameCompleted="game.winnerId ? true : false" 
+            :gameId="game.id"
+            :opponentId="getOpponentId(game)"
+            :teamId="teamId"
+            market="fb"
+            @createBet="$emit('createBet')"
           />
-        </td>
-        <td>{{ getOpponent(game) }}</td>
-        <MatchHistoryRow 
-          :odds="getOddsFor('fb', game)"
-          :victory="didGetFirst('Blood', game)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :opponentId="getOpponentId(game)"
-          :teamId="teamId"
-          market="fb"
-          @createBet="$emit('createBet')"
-        />
-        <MatchHistoryRow 
-          :odds="getOddsFor('ft', game)"
-          :victory="didGetFirst('Turret', game)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :teamId="teamId"
-          :opponentId="getOpponentId(game)"
-          market="ft"
-          @createBet="$emit('createBet')"
-        />
-        <MatchHistoryRow 
-          :odds="getOddsFor('fd', game)"
-          :victory="didGetFirst('Dragon', game)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :teamId="teamId"
-          :opponentId="getOpponentId(game)"
-          market="fd"
-          @createBet="$emit('createBet')"
-        />
-        <MatchHistoryRow 
-          :odds="getOddsFor('fbaron', game)"
-          :victory="didGetFirst('Baron', game)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :teamId="teamId"
-          :opponentId="getOpponentId(game)"
-          market="fbaron"
-          @createBet="$emit('createBet')"
-        />
-        <MatchHistoryRow 
-          :odds="getOddsFor('win', game)"
-          :victory="didWin(game.winnerId)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :teamId="teamId"
-          :opponentId="getOpponentId(game)"
-          market="win"
-          @createBet="$emit('createBet')"
-        />
-      </tr>
-    </table>
+          <MatchHistoryRow 
+            :odds="getOddsFor('ft', game)"
+            :victory="didGetFirst('Turret', game)" 
+            :gameCompleted="game.winnerId ? true : false" 
+            :gameId="game.id"
+            :teamId="teamId"
+            :opponentId="getOpponentId(game)"
+            market="ft"
+            @createBet="$emit('createBet')"
+          />
+          <MatchHistoryRow 
+            :odds="getOddsFor('fd', game)"
+            :victory="didGetFirst('Dragon', game)" 
+            :gameCompleted="game.winnerId ? true : false" 
+            :gameId="game.id"
+            :teamId="teamId"
+            :opponentId="getOpponentId(game)"
+            market="fd"
+            @createBet="$emit('createBet')"
+          />
+          <MatchHistoryRow 
+            :odds="getOddsFor('fbaron', game)"
+            :victory="didGetFirst('Baron', game)" 
+            :gameCompleted="game.winnerId ? true : false" 
+            :gameId="game.id"
+            :teamId="teamId"
+            :opponentId="getOpponentId(game)"
+            market="fbaron"
+            @createBet="$emit('createBet')"
+          />
+          <MatchHistoryRow 
+            :odds="getOddsFor('win', game)"
+            :victory="didWin(game.winnerId)" 
+            :gameCompleted="game.winnerId ? true : false" 
+            :gameId="game.id"
+            :teamId="teamId"
+            :opponentId="getOpponentId(game)"
+            market="win"
+            @createBet="$emit('createBet')"
+          />
+        </tr>
+      </table>
+    </div>
 
   </div>
 </template>
@@ -222,6 +224,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .header {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -236,12 +239,19 @@ export default Vue.extend({
 
 .first_markets {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .more_games {
   text-align: center;
   cursor: pointer;
   &:hover { background: silver; }
+}
+
+.history_table {
+  display: flex;
+  justify-content: center;
 }
 
 table {
