@@ -11,3 +11,4 @@ latest.dump
 node/crawlers/better.js
 node/odds
 coverage
+data.csv
