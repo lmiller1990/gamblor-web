@@ -17,7 +17,7 @@
         :games="games" 
         :side="side"
         :market="market"
-        />
+      />
     </div>
     <div class="first_markets">
       <FirstMarketsContainer 
@@ -31,88 +31,19 @@
       />
     </div> 
 
-    <table>
-      <tr class="header-tr">
-        <td>Date</td>
-        <td>Opponent</td>
-        <td>FB</td>
-        <td>FT</td>
-        <td>FD</td>
-        <td>FBaron</td>
-        <td>Result</td>
-      </tr>
-      <tr>
-        <td class="more_games" colspan="7" @click="showMoreGames">
-          Show {{ NUM_PREV_GAMES }} more previous games
-        </td>
-      </tr>
-      <tr v-for="game in previousGames" :key="game.id">
-        <td>
-          <MatchDate 
-            :id="game.id"
-            :date="game.date"
-            :admin="admin"
-          />
-        </td>
-        <td>{{ getOpponent(game) }}</td>
-        <MatchHistoryRow 
-          :odds="getOddsFor('fb', game)"
-          :victory="didGetFirst('Blood', game)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :opponentId="getOpponentId(game)"
-          :teamId="teamId"
-          market="fb"
-          @createBet="$emit('createBet')"
-        />
-        <MatchHistoryRow 
-          :odds="getOddsFor('ft', game)"
-          :victory="didGetFirst('Turret', game)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :teamId="teamId"
-          :opponentId="getOpponentId(game)"
-          market="ft"
-          @createBet="$emit('createBet')"
-        />
-        <MatchHistoryRow 
-          :odds="getOddsFor('fd', game)"
-          :victory="didGetFirst('Dragon', game)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :teamId="teamId"
-          :opponentId="getOpponentId(game)"
-          market="fd"
-          @createBet="$emit('createBet')"
-        />
-        <MatchHistoryRow 
-          :odds="getOddsFor('fbaron', game)"
-          :victory="didGetFirst('Baron', game)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :teamId="teamId"
-          :opponentId="getOpponentId(game)"
-          market="fbaron"
-          @createBet="$emit('createBet')"
-        />
-        <MatchHistoryRow 
-          :odds="getOddsFor('win', game)"
-          :victory="didWin(game.winnerId)" 
-          :gameCompleted="game.winnerId ? true : false" 
-          :gameId="game.id"
-          :teamId="teamId"
-          :opponentId="getOpponentId(game)"
-          market="win"
-          @createBet="$emit('createBet')"
-        />
-      </tr>
-    </table>
-
+    <MatchHistoryTable 
+      :games="previousGames"
+      :teamId="teamId"
+      :canEdit="admin"
+      @showMoreGames="showMoreGames"
+      @createBet="createBet"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
+import MatchHistoryTable from './match_history_table.vue'
 import { Game } from '../types/game'
 import { titlecase } from '../filters/index'
 import FirstMarketsContainer from './first_markets_container.vue'
@@ -141,9 +72,10 @@ export default Vue.extend({
   },
 
   components: {
+    TeamLogo,
+    MatchHistoryTable,
     MatchDate,
     FirstMarketsContainer,
-    TeamLogo,
     MatchHistoryRow
   },
 
@@ -177,43 +109,13 @@ export default Vue.extend({
   },
 
   methods: {
-    showMoreGames() {
-      this.nPreviousGames += this.NUM_PREV_GAMES
+    createBet() {
+      this.$emit('createBet')
     },
 
-    getOddsFor(market, game) {
-      if (this.teamId === game.redSideTeamId)
-        return game[`redSideTeam${titlecase(market)}Odds`]
-
-      if (this.teamId === game.blueSideTeamId)
-        return game[`blueSideTeam${titlecase(market)}Odds`]
-    },
-
-    didWin(winnerId) {
-      if (!winnerId) 
-        return undefined
-
-      return winnerId === this.teamId
-    },
-
-    didGetFirst(market, game) {
-      if (!game[`first${market}TeamId`]) 
-        return undefined
-
-      return game[`first${market}TeamId`] === this.teamId
-    },
-
-    getOpponentId(game): number {
-      const { blueSideTeamId, redSideTeamId } = game  
-
-      return this.teamId === blueSideTeamId ? redSideTeamId : blueSideTeamId
-    },
-
-    getOpponent(game): string {
-      const { blueSideTeamId, redSideTeamId } = game  
-      return this.$store.getters['teams/nameById'](this.teamId === blueSideTeamId
-        ? redSideTeamId
-        : blueSideTeamId)
+    showMoreGames(numGames: number) {
+      // @ts-ignore
+      this.nPreviousGames += numGames
     }
   }
 })
@@ -236,20 +138,5 @@ export default Vue.extend({
 
 .first_markets {
   display: flex;
-}
-
-.more_games {
-  text-align: center;
-  cursor: pointer;
-  &:hover { background: silver; }
-}
-
-table {
-  border-collapse: collapse;
-}
-
-tr, td { 
-  padding: 5px;
-  border: 1px solid black;
 }
 </style>
