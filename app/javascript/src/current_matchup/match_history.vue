@@ -14,14 +14,23 @@
         :key="market"
         :teamId="teamId"
         :teamName="teamName"
-        :games="games" 
+        :games="gamesToDisplay" 
         :side="side"
         :market="market"
       />
     </div>
 
+    <div class="split_select">
+      <span>Filter by split:</span>
+      <LeagueSplitSelector 
+        :selectedId="splitId"
+        :showAllPlaceholder="true"
+        @change="selectSplit"
+      />
+    </div>
+
     <MatchHistoryTable 
-      :games="previousGames"
+      :games="gamesToDisplay"
       :teamId="teamId"
       :canEdit="admin"
       @showMoreGames="showMoreGames"
@@ -33,13 +42,14 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
-import MatchHistoryTable from './match_history_table.vue'
 import { Game } from '../types/game'
 import { titlecase } from '../filters/index'
+import MatchHistoryTable from './match_history_table.vue'
+import LeagueSplitSelector from '../components/league_split_selector.vue'
 import FirstMarketsContainer from './first_markets_container.vue'
-import MatchHistoryRow from './match_history_row.vue'
 import TeamLogo from '../components/team_logo.vue'
-import MatchDate from './match_date.vue'
+
+const N_PREV_GAMES_TO_SHOW = 10
 
 
 export default Vue.extend({
@@ -61,12 +71,18 @@ export default Vue.extend({
     }
   },
 
+  watch: {
+    // if teamId changes, we should reset the nPreviousGames
+    teamId (val) {
+      this.nPreviousGames = N_PREV_GAMES_TO_SHOW
+    }
+  },
+
   components: {
+    LeagueSplitSelector,
     TeamLogo,
     MatchHistoryTable,
-    MatchDate,
-    FirstMarketsContainer,
-    MatchHistoryRow
+    FirstMarketsContainer
   },
 
   filters: {
@@ -75,13 +91,25 @@ export default Vue.extend({
 
   data() {
     return {
+      splitId: undefined, //this.$store.state.leagues.splitId,
       markets: ['Blood', 'Turret', 'Dragon', 'Baron'],
-      nPreviousGames: 10,
-      NUM_PREV_GAMES: 5
+      nPreviousGames: N_PREV_GAMES_TO_SHOW
     }
   },
 
   computed: {
+    gamesToDisplay(): Game[] {
+      if (this.splitId) {
+        return this.gamesBySplit
+      } else {
+        return this.previousGames
+      }
+    },
+
+    gamesBySplit(): Game[] {
+      return this.games.filter(x => x.splitId === this.splitId)
+    },
+
     previousGames(): Game[] {
       if (this.games.length - this.nPreviousGames <= 0)
         return this.games
@@ -99,12 +127,20 @@ export default Vue.extend({
   },
 
   methods: {
+    selectSplit(splitId: number) {
+      if (splitId === 0) {
+        this.splitId = undefined
+        // show all
+      } else {
+        this.splitId = splitId
+      }
+    },
+
     createBet() {
       this.$emit('createBet')
     },
 
     showMoreGames(numGames: number) {
-      // @ts-ignore
       this.nPreviousGames += numGames
     }
   }
@@ -123,11 +159,19 @@ export default Vue.extend({
   margin: 0 10px;
 }
 
+.split_select {
+  margin: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .history {
   margin: 2px;
 }
 
 .first_markets {
+  max-width: 500px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

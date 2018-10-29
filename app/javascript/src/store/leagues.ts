@@ -1,14 +1,20 @@
 import axios from 'axios'
+import { LeaguesState } from './types'
 const flatten = require('lodash/flatten')
 
-export const state = {
+export const state: LeaguesState = {
   all: [],
-  defaultSplit: ''
+  defaultSplit: '', // eg play-off
+  splitId: undefined
 }
 
 export const mutations = {
   SET_LEAGUES(state, { leagues }) {
     state.all = leagues
+  },
+
+  SET_SPLIT_ID(state: LeaguesState, splitId: number) {
+    state.splitId = splitId
   },
 
   SET_DEFAULT_SPLIT(state, { defaultSplit }) {

@@ -4,9 +4,18 @@ const createState = () => Object.assign({}, state)
 const SUMMMER_SPLIT = { name: 'summer split' }
 const SPRING_SPLIT = { name: 'spring split' }
 const WINTER_SPLIT = { name: 'winter split' }
+const SPLIT_ID = 1
 
 describe('leagues store', () => {
   describe('mutations', () => {
+    test('SET_SPLIT_ID assigns an id', () => {
+      const state = createState()
+
+      mutations.SET_SPLIT_ID(state, SPLIT_ID)
+
+      expect(state.splitId).toBe(SPLIT_ID)
+    })
+
     test('SET_DEFAULT_SPLIT', () => {
       const state = createState()
 
