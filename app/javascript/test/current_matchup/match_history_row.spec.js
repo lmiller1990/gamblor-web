@@ -84,5 +84,16 @@ describe('MatchHistoryRow', () => {
         expect(commit).not.toHaveBeenCalled()
       })
     })
+
+    context('odds are null (such case of upcoming ame where are yet to annouced)', () => {
+      it('does nothing', () => {
+        const commit = jest.fn()
+        const wrapper = factory({ gameCompleted: true, odds: null }, { commit })
+
+        wrapper.trigger('click')
+
+        expect(commit).not.toHaveBeenCalled()
+      })
+    })
   })
 })
