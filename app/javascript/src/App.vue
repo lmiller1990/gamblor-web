@@ -55,12 +55,15 @@ export default {
       redSideTeamId: 0,
       blueSideTeamId: 0,
       redSideGames: [],
-      blueSideGames: [],
-      splitId: undefined
+      blueSideGames: []
     }
   },
 
   computed: {
+    splitId(): number {
+      return this.$store.state.leagues.splitId
+    },
+
     currentMatchupSelected(): boolean {
       return (this.blueSideTeamId && this.redSideTeamId) !== 0
     }
@@ -85,7 +88,7 @@ export default {
     },
 
     setSplitId({ id }: { id: number }) {
-      this.splitId = id
+      this.$store.commit('leagues/SET_SPLIT_ID', id)
     },
 
     selectTeam({ teamId, side }: { teamId: string, side: string }) {
@@ -109,8 +112,8 @@ export default {
       this.$store.commit('user/SET_ADMIN', { admin }) 
 
       const defaultSplitId = this.$store.getters['leagues/getSplitByName'](defaultSplit).id
-      this.setSplitId({ id: defaultSplitId })
 
+      this.$store.commit('leagues/SET_SPLIT_ID', defaultSplitId)
     },
 
     async setMatchup({ blueSideTeamId, redSideTeamId }: { blueSideTeamId: number, redSideTeamId: number }) {

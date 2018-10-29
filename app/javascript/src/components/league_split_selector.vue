@@ -7,6 +7,13 @@
     >
       {{ name }}
     </option>
+    <option 
+      v-if="showAllPlaceholder" 
+      value="0"
+      :selected="!selectedId"
+    >
+      All
+    </option>
   </select>
 </template>
 
@@ -20,6 +27,11 @@ export default Vue.extend({
     selectedId: {
       type: Number,
       required: false
+    },
+
+    showAllPlaceholder: {
+      type: Boolean,
+      default: false
     }
   },
 

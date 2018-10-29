@@ -9,10 +9,19 @@ jest.mock('../src/bet_sleeve/bet_sleeve.vue', () => ({
 }))
 
 const SPLIT_ID = 1
+const createMockStore = (commit = () => {}) => ({
+  commit: commit,
+  state: {
+    leagues: {
+      splitId: SPLIT_ID
+    }
+  }
+})
 
 const promiseMock = jest.fn().mockReturnValue(Promise.resolve())
 
-const factory = (...mockFns) => shallowMount(App, {
+const factory = ($store, ...mockFns) => shallowMount(App, {
+  mocks: { $store },
   methods: {
     fetchBets: promiseMock,
     fetchLeaguesAndSplits: promiseMock,
@@ -27,7 +36,7 @@ describe('App', () => {
       const fetchBets = promiseMock
       const fetchLeaguesAndSplits = promiseMock
       const setDefaults = promiseMock
-      const wrapper = factory(fetchBets, fetchLeaguesAndSplits, setDefaults)
+      const wrapper = factory(createMockStore(), fetchBets, fetchLeaguesAndSplits, setDefaults)
 
       await flushPromises()
 
@@ -40,15 +49,18 @@ describe('App', () => {
   })
 
   test('splitId assigns an id', () => {
-    const wrapper = factory()
+    const commit = jest.fn()
+    const mockStore = createMockStore(commit)
+    const wrapper = factory(mockStore)
 
     wrapper.vm.setSplitId({ id: SPLIT_ID })
 
-    expect(wrapper.vm.splitId).toBe(SPLIT_ID)
+    expect(commit).toHaveBeenCalledWith('leagues/SET_SPLIT_ID', SPLIT_ID)
+
   })
 
   test('toggleLeftSticky changes the rendered component', () => {
-    const wrapper = factory()
+    const wrapper = factory(createMockStore())
     wrapper.setData({ loaded: true, loadedBets: true })
 
     expect(wrapper.find(HowToUse).exists()).toBe(true)

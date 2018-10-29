@@ -51,6 +51,10 @@ export default Vue.extend({
   },
 
   watch: {
+    games (val) {
+      this.updateChart()
+    },
+
     teamId (val: number) {
       this.updateChart()
     }
