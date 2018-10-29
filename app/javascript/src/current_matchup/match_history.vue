@@ -162,7 +162,7 @@ export default Vue.extend({
 .split_select {
   margin: 4px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 }
 
@@ -171,6 +171,7 @@ export default Vue.extend({
 }
 
 .first_markets {
+  max-width: 500px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

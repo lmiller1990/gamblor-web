@@ -78,6 +78,7 @@ export default {
 
 .team_history {
   width: 100%;
+  max-width: 1100px;
   padding: 2px;
   display: flex;
   justify-content: space-around;
