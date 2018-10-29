@@ -1,80 +1,82 @@
 <template>
-  <table>
-    <tr class="header-tr">
-      <td>Date</td>
-      <td>Opponent</td>
-      <td>FB</td>
-      <td>FT</td>
-      <td>FD</td>
-      <td>FBaron</td>
-      <td>Result</td>
-    </tr>
-    <tr>
-      <td class="more_games" colspan="7" @click="showMoreGames">
-        Show {{ NUM_PREV_GAMES }} more previous games
-      </td>
-    </tr>
-    <tr v-for="game in games" :key="game.id">
-      <td>
-        <MatchDate 
-          :id="game.id"
-          :date="game.date"
-          :canEdit="canEdit"
+  <div class="history_table">
+    <table>
+      <tr class="header-tr">
+        <td>Date</td>
+        <td>Opponent</td>
+        <td>FB</td>
+        <td>FT</td>
+        <td>FD</td>
+        <td>FBaron</td>
+        <td>Result</td>
+      </tr>
+      <tr>
+        <td class="more_games" colspan="7" @click="showMoreGames">
+          Show {{ NUM_PREV_GAMES }} more previous games
+        </td>
+      </tr>
+      <tr v-for="game in games" :key="game.id">
+        <td>
+          <MatchDate 
+            :id="game.id"
+            :date="game.date"
+            :canEdit="canEdit"
+          />
+        </td>
+        <td>{{ getOpponent(game) }}</td>
+        <MatchHistoryRow 
+          :odds="getOddsFor('fb', game)"
+          :victory="didGetFirst('Blood', game)" 
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :opponentId="getOpponentId(game)"
+          :teamId="teamId"
+          market="fb"
+          @createBet="$emit('createBet')"
         />
-      </td>
-      <td>{{ getOpponent(game) }}</td>
-      <MatchHistoryRow 
-        :odds="getOddsFor('fb', game)"
-        :victory="didGetFirst('Blood', game)" 
-        :gameCompleted="game.winnerId ? true : false" 
-        :gameId="game.id"
-        :opponentId="getOpponentId(game)"
-        :teamId="teamId"
-        market="fb"
-        @createBet="$emit('createBet')"
-      />
-      <MatchHistoryRow 
-        :odds="getOddsFor('ft', game)"
-        :victory="didGetFirst('Turret', game)" 
-        :gameCompleted="game.winnerId ? true : false" 
-        :gameId="game.id"
-        :teamId="teamId"
-        :opponentId="getOpponentId(game)"
-        market="ft"
-        @createBet="$emit('createBet')"
-      />
-      <MatchHistoryRow 
-        :odds="getOddsFor('fd', game)"
-        :victory="didGetFirst('Dragon', game)" 
-        :gameCompleted="game.winnerId ? true : false" 
-        :gameId="game.id"
-        :teamId="teamId"
-        :opponentId="getOpponentId(game)"
-        market="fd"
-        @createBet="$emit('createBet')"
-      />
-      <MatchHistoryRow 
-        :odds="getOddsFor('fbaron', game)"
-        :victory="didGetFirst('Baron', game)" 
-        :gameCompleted="game.winnerId ? true : false" 
-        :gameId="game.id"
-        :teamId="teamId"
-        :opponentId="getOpponentId(game)"
-        market="fbaron"
-        @createBet="$emit('createBet')"
-      />
-      <MatchHistoryRow 
-        :odds="getOddsFor('win', game)"
-        :victory="didWin(game.winnerId)" 
-        :gameCompleted="game.winnerId ? true : false" 
-        :gameId="game.id"
-        :teamId="teamId"
-        :opponentId="getOpponentId(game)"
-        market="win"
-        @createBet="$emit('createBet')"
-      />
-    </tr>
-  </table>
+        <MatchHistoryRow 
+          :odds="getOddsFor('ft', game)"
+          :victory="didGetFirst('Turret', game)" 
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          :opponentId="getOpponentId(game)"
+          market="ft"
+          @createBet="$emit('createBet')"
+        />
+        <MatchHistoryRow 
+          :odds="getOddsFor('fd', game)"
+          :victory="didGetFirst('Dragon', game)" 
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          :opponentId="getOpponentId(game)"
+          market="fd"
+          @createBet="$emit('createBet')"
+        />
+        <MatchHistoryRow 
+          :odds="getOddsFor('fbaron', game)"
+          :victory="didGetFirst('Baron', game)" 
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          :opponentId="getOpponentId(game)"
+          market="fbaron"
+          @createBet="$emit('createBet')"
+        />
+        <MatchHistoryRow 
+          :odds="getOddsFor('win', game)"
+          :victory="didWin(game.winnerId)" 
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :teamId="teamId"
+          :opponentId="getOpponentId(game)"
+          market="win"
+          @createBet="$emit('createBet')"
+        />
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script lang="ts">
@@ -166,6 +168,11 @@ export default Vue.extend({
   text-align: center;
   cursor: pointer;
   &:hover { background: silver; }
+}
+
+.history_table {
+  display: flex;
+  justify-content: center;
 }
 
 table {

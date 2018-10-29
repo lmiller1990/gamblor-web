@@ -10,7 +10,7 @@
 
     <div class="first_markets">
       <FirstMarketsContainer 
-        v-for="market in markets.slice(0, 2)"
+        v-for="market in markets"
         :key="market"
         :teamId="teamId"
         :teamName="teamName"
@@ -19,17 +19,6 @@
         :market="market"
       />
     </div>
-    <div class="first_markets">
-      <FirstMarketsContainer 
-        v-for="market in markets.slice(2, 4)"
-        :key="market"
-        :teamId="teamId"
-        :teamName="teamName"
-        :games="games" 
-        :side="side"
-        :market="market"
-      />
-    </div> 
 
     <MatchHistoryTable 
       :games="previousGames"
@@ -38,6 +27,7 @@
       @showMoreGames="showMoreGames"
       @createBet="createBet"
     />
+
   </div>
 </template>
 
@@ -124,6 +114,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .header {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -138,5 +129,7 @@ export default Vue.extend({
 
 .first_markets {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>
