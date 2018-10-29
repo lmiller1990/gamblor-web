@@ -20,11 +20,14 @@
       />
     </div>
 
-    <LeagueSplitSelector 
-      :selectedId="splitId"
-      :showAllPlaceholder="true"
-      @change="selectSplit"
-    />
+    <div class="split_select">
+      <span>Filter by split:</span>
+      <LeagueSplitSelector 
+        :selectedId="splitId"
+        :showAllPlaceholder="true"
+        @change="selectSplit"
+      />
+    </div>
 
     <MatchHistoryTable 
       :games="gamesToDisplay"
@@ -154,6 +157,13 @@ export default Vue.extend({
 .team_name {
   font-size: 1.4em;
   margin: 0 10px;
+}
+
+.split_select {
+  margin: 4px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .history {
