@@ -3,7 +3,10 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue'
+export default Vue.extend({
+  name: 'TeamLogo',
+
   props: {
     teamName: {
       type: String,
@@ -22,7 +25,7 @@ export default {
       return `/images/${name.replace(/\s/g, '_').toLowerCase()}.png`
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

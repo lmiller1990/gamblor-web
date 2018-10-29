@@ -1,16 +1,17 @@
 <template>
-  <a v-if="admin" :href="`/games/${id}/edit`">
+  <a v-if="canEdit" :href="`/games/${id}/edit`">
     {{ date | shortDate }}
   </a>
-  <div v-else-if="!admin">
+  <div v-else-if="!canEdit">
     {{ date | shortDate }}
   </div>
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { shortDate } from '../filters/index'
 
-export default {
+export default Vue.extend({
   name: 'MatchDate',
 
   filters: {
@@ -28,10 +29,10 @@ export default {
       required: true
     },
     
-    admin: {
+    canEdit: {
       type: Boolean,
       required: true
     }
   }
-}
+})
 </script>

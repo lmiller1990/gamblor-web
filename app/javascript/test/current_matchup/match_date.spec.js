@@ -6,27 +6,27 @@ const context = describe
 const ID = 1
 const DATE = new Date().toString()
 
-const factory = ({ admin }) =>
+const factory = ({ canEdit }) =>
   shallowMount(MatchDate, {
     propsData: {
       id: ID,
       date: DATE,
-      admin
+      canEdit
     }
   })
 
 describe('MatchDate', () => {
-  context('user is non admin', () => {
+  context('user is non canEdit', () => {
     it('renders the date', () => {
-      const wrapper = factory({ admin: false })
+      const wrapper = factory({ canEdit: false })
 
       expect(wrapper.vm.$el.getAttribute('href')).toBe(null)
     })
   })
 
-  context('user is admin', () => {
+  context('user is canEdit', () => {
     it('renders the date with link to edit', () => {
-      const wrapper = factory({ admin: true })
+      const wrapper = factory({ canEdit: true })
 
       expect(wrapper.vm.$el.getAttribute('href')).toBe(`/games/${ID}/edit`)
     })
