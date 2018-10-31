@@ -5,7 +5,7 @@ class Game < ApplicationRecord
 
   belongs_to :league
   belongs_to :split
-  has_many :bets
+  has_many :bets, dependent: :destroy
 
   validates :game_number, presence: true, numericality: { greater_than_or_equal_to: 1 }
 

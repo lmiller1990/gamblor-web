@@ -1,6 +1,7 @@
 <template>
   <div class="bet_window">
     <button @click="toggle">Back</button>
+    <span>Balance: {{ balance | dollars }}</span>
     <SingleBet 
        v-for="id in persistedBetIds" 
        :key="id"
@@ -34,11 +35,14 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { Bet, BetStatus } from '../types/bet'
+import { dollars } from '../filters/index'
 import NewBetForm from './new_bet_form.vue'
 import SingleBet from './single_bet.vue'
 
 export default Vue.extend({
   name: 'BetSleeve',
+
+  filters: { dollars },
 
   components: {
     SingleBet,
@@ -46,6 +50,14 @@ export default Vue.extend({
   },
 
   computed: {
+    balance(): number {
+      return this.$store.state.bankAccount.balanceCents
+    },
+
+    balanceInDollars(): number {
+      return this.$store.getters['bankAccount/balanceInDollars']
+    },
+
     // TODO: Proper types
     // { [bet.id]: Bet }
     bets(): object {

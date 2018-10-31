@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         delete 'session', to: 'session#destroy'
         resources :data, only: [:index]
+        resources :bank_accounts, only: [:index]
         resources :bets
         resources :upcoming_games, only: [:index]
         resources :odds, only: %i(create show)
