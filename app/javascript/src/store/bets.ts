@@ -22,7 +22,7 @@ export const mutations = {
   },
 
   ADD_BET(state: BetsState, { bet }: { bet: Bet } ) {
-    state.ids.push(bet.id)
+    state.ids.unshift(bet.id)
     state.all = {...state.all, [bet.id]: bet}
   },
 

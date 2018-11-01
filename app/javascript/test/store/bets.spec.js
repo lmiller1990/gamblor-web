@@ -4,6 +4,7 @@ const createState = () => Object.assign({}, state)
 const context = describe
 
 const ID = 1
+const ANOTHER_ID = 2
 const GAME_ID = 1
 const PRICE_CENTS = 1000
 
@@ -37,16 +38,21 @@ describe('bets', () => {
 
     }) 
 
-    test('ADD_BET adds a new bet', () => {
+    test('ADD_BET adds a new bet to front of array', () => {
       const state = createState()
+      state.ids = [ANOTHER_ID]
+      state.all = { 
+        [ANOTHER_ID]: { id: ANOTHER_ID, priceCents: PRICE_CENTS } 
+      }
       const bet = { id: ID, priceCents: PRICE_CENTS }
 
       mutations.ADD_BET(state, { bet })
 
       expect(state).toEqual({
-        ids: [ID],
+        ids: [ID, ANOTHER_ID],
         all: {
-          [ID]: { id: ID, priceCents: PRICE_CENTS }
+          [ID]: { id: ID, priceCents: PRICE_CENTS },
+          [ANOTHER_ID]: { id: ANOTHER_ID, priceCents: PRICE_CENTS }
         }
       })
     })

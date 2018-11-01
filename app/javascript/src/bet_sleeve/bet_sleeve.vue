@@ -1,20 +1,9 @@
 <template>
   <div class="bet_window">
-    <button @click="toggle">Back</button>
-    <span>Balance: {{ balance | dollars }}</span>
-    <SingleBet 
-       v-for="id in persistedBetIds" 
-       :key="id"
-       :id="id"
-       :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
-       :priceCents="bets[id].priceCents"
-       :payoutCents="bets[id].payoutCents"
-       :odds="bets[id].odds"
-       :gameTitle="gameTitle(bets[id].gameId)"
-       :market="bets[id].market"
-       :status="bets[id].status"
-     />
-
+    <div class="header">
+      <button @click="toggle">Back</button>
+      <span>Balance: {{ balance | dollars }}</span>
+    </div>
     <NewBetForm 
       v-for="id in tentativeBetIds" 
       :key="id"
@@ -28,6 +17,19 @@
       @submit="priceDollars => createBet({ id, priceDollars })"
       @cancel="cancel({ id })"
     />
+    <SingleBet 
+       v-for="id in persistedBetIds" 
+       :key="id"
+       :id="id"
+       :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
+       :priceCents="bets[id].priceCents"
+       :payoutCents="bets[id].payoutCents"
+       :odds="bets[id].odds"
+       :gameTitle="gameTitle(bets[id].gameId)"
+       :market="bets[id].market"
+       :status="bets[id].status"
+     />
+
   </div>
 </template>
 
@@ -95,6 +97,7 @@ export default Vue.extend({
       }
 
       await this.$store.dispatch('bets/create', { bet })
+      this.$emit('betPlaced')
     },
 
     gameTitle(id: number): string {
@@ -109,6 +112,15 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.header {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  background-color: white;
+  top: 0;
+}
+
 .bet_window {
   border-right: 1px solid silver;
 }
