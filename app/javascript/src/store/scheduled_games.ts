@@ -34,10 +34,7 @@ export const getters = {
   bySplitId: (state) => (splitId) => {
     return state.ids
       .filter(x => state.all[x].splitId === splitId)
-      .sort((x, y) => {
-        // @ts-ignore
-        return new Date(state.all[x].createdAt) - new Date(state.all[y].createdAt)
-      })
+      .sort((x, y) => +new Date(state.all[x].createdAt) - +new Date(state.all[y].createdAt))
   },
 
   byTeamId: (state) => (teamId) => {
