@@ -4,6 +4,11 @@
   }
 }
 
+.btns {
+  display: flex;
+  justify-content: space-between;
+}
+
 .odds {
   margin: 2px 0;
   display: flex;

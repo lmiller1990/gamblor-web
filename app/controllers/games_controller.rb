@@ -1,10 +1,17 @@
 require 'securerandom'
 
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update]
+  before_action :set_game, only: [:show, :edit, :update, :destroy]
 
   def index
     @games = Game.all.order(date: :asc)
+  end
+
+  def destroy
+    authorize @game
+    @game.delete
+
+    redirect_to games_path
   end
 
   def new
