@@ -24,6 +24,7 @@ const factory = ($store, ...mockFns) => shallowMount(App, {
   mocks: { $store },
   methods: {
     fetchBets: promiseMock,
+    fetchBankAccount: promiseMock,
     fetchLeaguesAndSplits: promiseMock,
     setDefaults: jest.fn(),
     ...mockFns,
@@ -34,6 +35,7 @@ describe('App', () => {
   describe('created', () => {
     it('fetches initial data', async () => {
       const fetchBets = promiseMock
+      const fetchBankAccount = promiseMock
       const fetchLeaguesAndSplits = promiseMock
       const setDefaults = promiseMock
       const wrapper = factory(createMockStore(), fetchBets, fetchLeaguesAndSplits, setDefaults)
@@ -41,6 +43,7 @@ describe('App', () => {
       await flushPromises()
 
       expect(fetchBets).toHaveBeenCalled()
+      expect(fetchBankAccount).toHaveBeenCalled()
       expect(fetchLeaguesAndSplits).toHaveBeenCalled()
       expect(setDefaults).toHaveBeenCalled()
       expect(wrapper.vm.loaded).toBe(true)

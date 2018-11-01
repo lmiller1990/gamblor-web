@@ -5,6 +5,7 @@
         v-if="loaded && loadedBets" 
         class="left_sticky_window"
         @toggle="toggleLeftSticky"
+        @betPlaced="fetchBankAccount"
       />
     </transition>
     <CurrentMatchupContainer 
@@ -39,8 +40,10 @@ export default {
     UpcomingMatchesContainer
   },
 
-  async created() {
-    this.fetchBets().then(() => this.loadedBets = true)
+  created() {
+    Promise.all([this.fetchBets(), this.fetchBankAccount()])
+      .then(() => this.loadedBets = true)
+
     this.fetchLeaguesAndSplits().then(() => {
       this.setDefaults()
       this.loaded = true
@@ -79,6 +82,10 @@ export default {
       ? this.leftStickyComponent = BetSleeve
       : this.leftStickyComponent = HowToUse
 
+    },
+
+    fetchBankAccount() {
+      return this.$store.dispatch('bankAccount/getBalance')
     },
 
     async fetchBets() {

@@ -8,11 +8,12 @@ export interface BaseState {
   ids: number[]
 }
 
-export interface GamesState extends BaseState {
+export interface GamesState extends BaseState {}
 
-}
+export interface BetsState extends BaseState {}
 
-export interface BetsState extends BaseState {
+export interface BankAccountState {
+  balanceCents: number
 }
 
 export interface AxiosResponse {

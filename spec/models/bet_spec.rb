@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Bet, type: :model do
   it 'is valid' do
-    expect(build(:bet)).to be_valid
+    user = create(:user)
+    expect(build(:bet, user: user)).to be_valid
   end
 
   it 'is not valid' do

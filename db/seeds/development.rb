@@ -109,6 +109,7 @@ Game.find_or_create_by(
 )
 
 Game.find_or_create_by(
+  split_id: spring_split.id,
   winner_id: c9.id,
   loser_id: clg.id,
   red_side_team_id: c9.id,

@@ -1,19 +1,10 @@
 <template>
   <div class="bet_window">
-    <button @click="toggle">Back</button>
-    <SingleBet 
-       v-for="id in persistedBetIds" 
-       :key="id"
-       :id="id"
-       :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
-       :priceCents="bets[id].priceCents"
-       :payoutCents="bets[id].payoutCents"
-       :odds="bets[id].odds"
-       :gameTitle="gameTitle(bets[id].gameId)"
-       :market="bets[id].market"
-       :status="bets[id].status"
-     />
-
+    <div class="header">
+      <button @click="toggle">Back</button>
+      <span>Balance: {{ balance | dollars }}</span>
+    </div>
+    <span id="top"></span>
     <NewBetForm 
       v-for="id in tentativeBetIds" 
       :key="id"
@@ -27,6 +18,19 @@
       @submit="priceDollars => createBet({ id, priceDollars })"
       @cancel="cancel({ id })"
     />
+    <SingleBet 
+       v-for="id in persistedBetIds" 
+       :key="id"
+       :id="id"
+       :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
+       :priceCents="bets[id].priceCents"
+       :payoutCents="bets[id].payoutCents"
+       :odds="bets[id].odds"
+       :gameTitle="gameTitle(bets[id].gameId)"
+       :market="bets[id].market"
+       :status="bets[id].status"
+     />
+
   </div>
 </template>
 
@@ -34,11 +38,20 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { Bet, BetStatus } from '../types/bet'
+import { dollars } from '../filters/index'
 import NewBetForm from './new_bet_form.vue'
 import SingleBet from './single_bet.vue'
 
 export default Vue.extend({
   name: 'BetSleeve',
+
+  filters: { dollars },
+  
+  watch: {
+    tentativeBetIds() {
+      setTimeout(this.scrollToTop)
+    }
+  },
 
   components: {
     SingleBet,
@@ -46,6 +59,14 @@ export default Vue.extend({
   },
 
   computed: {
+    balance(): number {
+      return this.$store.state.bankAccount.balanceCents
+    },
+
+    balanceInDollars(): number {
+      return this.$store.getters['bankAccount/balanceInDollars']
+    },
+
     // TODO: Proper types
     // { [bet.id]: Bet }
     bets(): object {
@@ -83,6 +104,11 @@ export default Vue.extend({
       }
 
       await this.$store.dispatch('bets/create', { bet })
+      this.$emit('betPlaced')
+    },
+
+    scrollToTop(): void {
+      this.$el.querySelector('#top').scrollIntoView(true)
     },
 
     gameTitle(id: number): string {
@@ -97,6 +123,15 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.header {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  background-color: white;
+  top: 0;
+}
+
 .bet_window {
   border-right: 1px solid silver;
 }

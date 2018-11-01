@@ -4,5 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :bets
+  has_many :bets, dependent: :destroy
+  has_one :bank_account, dependent: :destroy
+
+  before_create :create_bank_account
+
+  def create_bank_account
+    self.build_bank_account(balance_cents: 100000)
+  end
 end

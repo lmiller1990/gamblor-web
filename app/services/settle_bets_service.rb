@@ -11,7 +11,8 @@ class SettleBetsService
       column = MarketBetMapper.map(bet.market)
 
       if bet.team_bet_on_id == @game[column]
-        settle_win(bet) 
+        amount_won = settle_win(bet) 
+        BankAccountManager.new(bet.user.bank_account).credit(amount_won)
       else
         settle_lost(bet)
       end
@@ -20,8 +21,11 @@ class SettleBetsService
 
   def settle_win(bet)
     bet.won = true
-    bet.payout_cents = bet.odds * bet.price_cents
+    amount_won = bet.odds * bet.price_cents
+    bet.payout_cents = amount_won
     bet.save!
+
+    amount_won
   end
 
   def settle_lost(bet)
