@@ -4,6 +4,7 @@
       <button @click="toggle">Back</button>
       <span>Balance: {{ balance | dollars }}</span>
     </div>
+    <span id="top"></span>
     <NewBetForm 
       v-for="id in tentativeBetIds" 
       :key="id"
@@ -45,6 +46,12 @@ export default Vue.extend({
   name: 'BetSleeve',
 
   filters: { dollars },
+  
+  watch: {
+    tentativeBetIds() {
+      setTimeout(this.scrollToTop)
+    }
+  },
 
   components: {
     SingleBet,
@@ -98,6 +105,10 @@ export default Vue.extend({
 
       await this.$store.dispatch('bets/create', { bet })
       this.$emit('betPlaced')
+    },
+
+    scrollToTop(): void {
+      this.$el.querySelector('#top').scrollIntoView(true)
     },
 
     gameTitle(id: number): string {

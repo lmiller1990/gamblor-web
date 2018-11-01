@@ -34,7 +34,7 @@ export const mutations = {
   MOVE_TENTATIVE_BET_TO_CONFIRMED(state: BetsState, { tentativeId, bet }
     : { tentativeId: number, bet: Bet }) {
     state.ids = state.ids.filter(x => x !== tentativeId)
-    state.ids.push(bet.id)
+    state.ids.unshift(bet.id)
     state.all = {...state.all, [bet.id]: {...bet} }
     delete state.all[tentativeId]
   }
