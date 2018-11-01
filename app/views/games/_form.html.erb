@@ -1,7 +1,13 @@
 
-<%= form_with url: game_switch_side_path(@game), method: :put do |form| %>
-  <%= form.submit 'Switch Sides', id: 'switch_sides' %>
-<% end %>
+<div class="btns">
+  <%= form_with url: game_switch_side_path(@game), method: :put do |form| %>
+    <%= form.submit 'Switch Sides', id: 'switch_sides' %>
+  <% end %>
+
+  <%= form_with url: game_path(@game), method: :delete do |f| %>
+    <%= f.submit 'Delete', data: { confirm: 'Are you sure?' }%>
+  <% end %>
+</div>
 
 <%= form_with model: @game do |f| %>
   <div class="first_market">
