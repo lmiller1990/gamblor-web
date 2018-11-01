@@ -8,6 +8,7 @@
       />
     </div>
     <div class="matchup-container border-left border-bottom">
+      <div @click="fetchAllGames">Show All</div>
       <Match
         v-for="matchId in matchIds"
         :key="matchId"
@@ -63,6 +64,14 @@ export default Vue.extend({
   },
 
   methods: {
+    async fetchAllGames() {
+      return this.$store.dispatch('scheduledGames/getUpcomingGames', {
+        splitId: this.splitId,
+        recentlyPlayed: 100, // arbitrarily large number to get all
+        upcoming: 100
+      })
+    },
+
     async selectSplit(splitId) {
       this.$emit('selectSplit', { id: splitId }) 
       await this.fetchGames(splitId)

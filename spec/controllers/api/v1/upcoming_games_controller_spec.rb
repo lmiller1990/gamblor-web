@@ -16,7 +16,11 @@ describe Api::V1::UpcomingGamesController, type: :controller do
   describe 'GET /' do
     context 'split_id is specified' do
       it 'gets past 10 and upcoming 6 games' do
-        get :index, params: { split_id: split.id }
+        get :index, params: { 
+          split_id: split.id, 
+          upcoming: 6,
+          recently_played: 10
+        }
 
         expect(json_response.first['id']).to eq game_10_days_ago.id
         expect(json_response.last['id']).to eq game_6_days_from_now.id

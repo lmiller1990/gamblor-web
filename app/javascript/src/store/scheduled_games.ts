@@ -14,8 +14,16 @@ export const mutations = {
 }
 
 export const actions = {
-  async getUpcomingGames({ commit }, { splitId }) {
-    const response = await axios.get('/api/v1/upcoming_games', { params: { [snakeCase('splitId')]: splitId } })
+  async getUpcomingGames({ commit }, {
+    splitId, upcoming = 6, recentlyPlayed = 10 }
+  ) {
+    const response = await axios.get('/api/v1/upcoming_games', { 
+      params: { 
+        [snakeCase('splitId')]: splitId,
+        [snakeCase('recentlyPlayed')]: recentlyPlayed,
+        [snakeCase('upcoming')]: upcoming,
+      } 
+    })
 
     commit('SET_GAMES', response.data)
     commit('games/SET_GAMES', response.data, { root: true })
