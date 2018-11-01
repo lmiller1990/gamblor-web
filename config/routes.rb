@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/', to: 'join#index'
   root 'join#index'
   resources :subscribers, only: [:create, :index]
+  resources :users, only: [:index]
   resources :app, only: %i(index)
 
   authenticated do
