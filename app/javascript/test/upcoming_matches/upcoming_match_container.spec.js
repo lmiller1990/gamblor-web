@@ -15,6 +15,11 @@ const factory = () =>
   })
 
 describe('UpcomingMatchContainer', () => {
+  xtest('clicking Show All fetches games and updates text accordingly', () => {
+    // need mock store
+    const wrapper = factory()
+  })
+
   it('renders a match', () => {
     const wrapper = factory()
 
