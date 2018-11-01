@@ -1,0 +1,11 @@
+<h2>Users</h2>
+
+<% @users.each do |user| %>
+  <div>
+    Email: <%= user.email %>
+  </div>
+  <div>
+    Joined: <%= user.created_at %>
+  </div>
+  <br>
+<% end %>
