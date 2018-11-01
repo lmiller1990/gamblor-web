@@ -11,11 +11,11 @@ describe Api::V1::BetsController, type: :controller do
     let!(:bet_one) { create(:bet, user: user) }
     let!(:bet_two) { create(:bet, user: user) }
 
-    it 'returns bets for the current user' do
+    it 'returns bets for current user in reverse chronological order' do
       get :index
 
       expect(json_response.count).to be 2
-      expect(json_response.first['game']['id']).to eq bet_one.game.id
+      expect(json_response.first['game']['id']).to eq bet_two.game.id
     end
   end
 

@@ -5,6 +5,7 @@
         v-if="loaded && loadedBets" 
         class="left_sticky_window"
         @toggle="toggleLeftSticky"
+        @betPlaced="fetchBankAccount"
       />
     </transition>
     <CurrentMatchupContainer 
