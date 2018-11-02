@@ -8,6 +8,12 @@
       />
     </div>
     <div class="matchup-container border-left border-bottom">
+      <div 
+        v-if="!allGamesShown"
+        class="show_more" 
+        @click="fetchAllGames">
+        {{ loadingAllGames ? 'Loading...' : 'Show All' }}
+      </div>
       <Match
         v-for="matchId in matchIds"
         :key="matchId"
@@ -48,7 +54,15 @@ export default Vue.extend({
     splitId(val) {
       if (val) {
         this.fetchGamesAndTeams()
+        this.allGamesShown = false
       }
+    }
+  },
+
+  data() {
+    return {
+      allGamesShown: false,
+      loadingAllGames: false
     }
   },
 
@@ -63,6 +77,17 @@ export default Vue.extend({
   },
 
   methods: {
+    async fetchAllGames() {
+      this.loadingAllGames = true
+      await this.$store.dispatch('scheduledGames/getUpcomingGames', {
+        splitId: this.splitId,
+        recentlyPlayed: 100, // arbitrarily large number to get all
+        upcoming: 100
+      })
+      this.allGamesShown = true
+      this.loadingAllGames = false
+    },
+
     async selectSplit(splitId) {
       this.$emit('selectSplit', { id: splitId }) 
       await this.fetchGames(splitId)
@@ -98,6 +123,18 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 $color: silver;
+
+.show_more {
+  display: flex;
+  justify-content: center;
+  
+  cursor: pointer;
+  padding: 4px;
+  
+  &:hover {
+    background-color: rgba(100, 100, 100, 0.2);
+  }
+}
 
 .border-left {
   box-sizing: border-box;
