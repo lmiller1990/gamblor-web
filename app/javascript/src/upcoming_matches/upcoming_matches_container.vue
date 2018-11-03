@@ -10,6 +10,7 @@
     <div class="matchup-container border-left border-bottom">
       <div 
         v-if="!allGamesShown"
+        data-test-more
         class="show_more" 
         @click="fetchAllGames">
         {{ loadingAllGames ? 'Loading...' : 'Show All' }}
