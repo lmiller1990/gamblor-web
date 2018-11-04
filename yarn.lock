@@ -4375,7 +4375,7 @@ lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
 
-lodash.clonedeep@^4.3.2:
+lodash.clonedeep@^4.3.2, lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
 
@@ -7606,6 +7606,12 @@ vue-template-es2015-compiler@^1.6.0:
 vue@^2.5.17:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
+
+vuex-mock-store@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/vuex-mock-store/-/vuex-mock-store-0.0.5.tgz#f079665a5589650f44a6f136ea93eef34c1bc34b"
+  dependencies:
+    lodash.clonedeep "^4.5.0"
 
 vuex@^3.0.1:
   version "3.0.1"
