@@ -1,13 +1,13 @@
 <template>
-  <div class="matchups">
-    <div class="header border-left border-bottom">
+  <div class="matchups_wrapper">
+    <div class="header border-bottom">
       <h2>Schedule</h2>
       <LeagueSplitSelector 
         :selectedId="splitId"
         @change="selectSplit" 
       />
     </div>
-    <div class="matchup-container border-left border-bottom">
+    <div class="matchup-container border-bottom">
       <div 
         v-if="!allGamesShown"
         class="show_more" 
@@ -22,15 +22,11 @@
       />
       <div id="end_of_schedule"></div>
     </div>
-    <div class="status border-left">
-      <SignOutForm />
-    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import SignOutForm from '../components/sign_out_form.vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
 
@@ -39,7 +35,6 @@ export default Vue.extend({
 
   components: {
     Match,
-    SignOutForm,
     LeagueSplitSelector
   },
 
@@ -136,17 +131,12 @@ $color: silver;
   }
 }
 
-.border-left {
-  box-sizing: border-box;
-  border-left: 1px solid $color;
-}
-
 .border-bottom {
   box-sizing: border-box;
   border-bottom: 1px solid $color;
 }
 
-.status, .header {
+.header {
   height: 10vh;
 }
 
@@ -155,6 +145,10 @@ $color: silver;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+.matchups_wrapper {
+  height: 100%;
 }
 
 .matchup-container {

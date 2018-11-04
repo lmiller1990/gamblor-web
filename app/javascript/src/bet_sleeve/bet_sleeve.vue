@@ -78,7 +78,6 @@ export default Vue.extend({
     },
 
     persistedBetIds(): number[] {
-      console.log(this.$store)
       return this.$store.getters['bets/persistedBetIds']
     }
   },

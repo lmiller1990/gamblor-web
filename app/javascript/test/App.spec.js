@@ -1,12 +1,9 @@
 import { shallowMount } from '@vue/test-utils'
+import flushPromises from 'flush-promises'
 import App from '../src/App.vue'
 import HowToUse from '../src/components/how_to_use.vue' 
-import flushPromises from 'flush-promises'
-
-jest.mock('../src/bet_sleeve/bet_sleeve.vue', () => ({
-  name: 'BetSleeve',
-  render: h => h('div')
-}))
+import BetSleeve from '../src/bet_sleeve/bet_sleeve.vue' 
+import UpcomingMatchesContainer from '../src/upcoming_matches/upcoming_matches_container.vue' 
 
 const SPLIT_ID = 1
 const createMockStore = (commit = () => {}) => ({
@@ -62,14 +59,30 @@ describe('App', () => {
 
   })
 
-  test('toggleLeftSticky changes the rendered component', () => {
-    const wrapper = factory(createMockStore())
-    wrapper.setData({ loaded: true, loadedBets: true })
+  test('showBetSleeve sets sidebarComponent = BetSleeve', () => {
+    const mockStore = createMockStore()
+    const wrapper = factory(mockStore)
 
-    expect(wrapper.find(HowToUse).exists()).toBe(true)
+    wrapper.vm.showBetSleeve()
 
-    wrapper.vm.toggleLeftSticky()
+    expect(wrapper.vm.sidebarComponent).toBe(BetSleeve)
+  })
 
-    expect(wrapper.find({ name: 'BetSleeve' }).exists()).toBe(true)
+  test('showHowToUse sets sidebarComponent = HowToUse', () => {
+    const mockStore = createMockStore()
+    const wrapper = factory(mockStore)
+
+    wrapper.vm.showHowToUse()
+
+    expect(wrapper.vm.sidebarComponent).toBe(HowToUse)
+  })
+
+  test('showSchedule sets sidebarComponent = UpcomingMatchesContainer', () => {
+    const mockStore = createMockStore()
+    const wrapper = factory(mockStore)
+
+    wrapper.vm.showSchedule()
+
+    expect(wrapper.vm.sidebarComponent).toBe(UpcomingMatchesContainer)
   })
 })
