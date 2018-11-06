@@ -1,11 +1,15 @@
 <template>
   <div class="controls_wrapper">
     <div class="buttons">
-      <button @click="show('Schedule')" data-test-schedule>
+      <LcsButton @click="show('Schedule')" data-test-schedule>
         Schedule
-      </button>
-      <button @click="show('BetSleeve')">Bet Sleeve</button>
-      <button @click="show('HowToUse')">How To Use</button>
+      </LcsButton>
+      <LcsButton @click="show('BetSleeve')">
+        Bet Sleeve
+      </LcsButton>
+      <LcsButton @click="show('HowToUse')">
+        How To Use
+      </LcsButton>
     </div>
 
     <div class="signout_wrapper">
@@ -18,13 +22,15 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import LcsButton from '../widgets/lcs_button.vue'
 import SignOutForm from './sign_out_form.vue'
 
 export default Vue.extend({
   name: 'SidebarControls',
 
   components: {
-    SignOutForm
+    SignOutForm,
+    LcsButton
   },
 
   methods: {
@@ -35,13 +41,7 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-button {
-  border: 1px solid grey;
-  width: 70px;
-  margin: 2px;
-}
-
+<style lang="scss" scoped>
 .controls_wrapper {
   margin: 10px 36px;
 }

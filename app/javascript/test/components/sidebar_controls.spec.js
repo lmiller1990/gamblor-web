@@ -10,7 +10,7 @@ describe('SidebarControls', () => {
     it('emits an event based on the arg when btn is clicked', () => {
       const wrapper = shallowMount(SidebarControls)
 
-      wrapper.find('[data-test-schedule]').trigger('click')
+      wrapper.find('[data-test-schedule]').vm.$emit('click')
 
       expect(wrapper.emitted().showSchedule).toBeDefined()
     })
