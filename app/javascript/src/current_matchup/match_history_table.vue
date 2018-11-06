@@ -7,11 +7,12 @@
         <td>FB</td>
         <td>FT</td>
         <td>FD</td>
+        <td>FH</td>
         <td>FBaron</td>
         <td>Result</td>
       </tr>
       <tr>
-        <td class="more_games" colspan="7" @click="showMoreGames">
+        <td class="more_games" colspan="8" @click="showMoreGames">
           Show {{ NUM_PREV_GAMES }} more previous games
         </td>
       </tr>
@@ -52,6 +53,16 @@
           :teamId="teamId"
           :opponentId="getOpponentId(game)"
           market="fd"
+          @createBet="$emit('createBet')"
+        />
+        <MatchHistoryRow 
+          :odds="getOddsFor('fh', game)"
+          :victory="didGetFirst('Herald', game)" 
+          :gameCompleted="game.winnerId ? true : false" 
+          :gameId="game.id"
+          :opponentId="getOpponentId(game)"
+          :teamId="teamId"
+          market="fh"
           @createBet="$emit('createBet')"
         />
         <MatchHistoryRow 

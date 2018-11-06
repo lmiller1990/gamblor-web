@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_084243) do
+ActiveRecord::Schema.define(version: 2018_11_06_144957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,10 @@ ActiveRecord::Schema.define(version: 2018_10_31_084243) do
     t.integer "game_number"
     t.string "match_uuid"
     t.boolean "match_complete", default: false, null: false
+    t.integer "first_herald_team_id"
+    t.float "fh_odds"
+    t.float "blue_side_team_fh_odds"
+    t.float "red_side_team_fh_odds"
   end
 
   create_table "leagues", force: :cascade do |t|

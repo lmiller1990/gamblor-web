@@ -93,12 +93,15 @@ class GamesController < ApplicationController
 
       :blue_side_team_fb_odds, :blue_side_team_ft_odds, 
       :blue_side_team_fd_odds, :blue_side_team_fbaron_odds, 
+      :blue_side_team_fh_odds,
 
       :red_side_team_fb_odds, :red_side_team_ft_odds, 
       :red_side_team_fd_odds, :red_side_team_fbaron_odds, 
+      :red_side_team_fh_odds,
 
       :first_blood_team_id, :first_turret_team_id,
       :first_baron_team_id, :first_dragon_team_id,
+      :first_herald_team_id,
 
       :first_turret_type, 
       :first_blood_player_id, :first_turret_player_id,

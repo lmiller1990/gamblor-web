@@ -123,15 +123,22 @@
     <%= f.text_field :red_side_team_fd_odds %>
   </div>
 
+  <h3>First Herald</h3>
   <div class="first_market">
-    <%= f.label :first_dragon_player_id %>
-    <%= f.select :first_dragon_player_id, @players_for_first_dragon, { include_blank: '----' }, data_to_update: 'first_dragon' %>
+    <%= f.label :first_herald_team_id %>
+    <%= f.select :first_herald_team_id, @teams, { include_blank: '----' }, { class: 'first_select', data_select: 'first_herald' } %>
   </div>
 
-  <div class="first_market">
-    <%= f.label :first_dragon_time %>
-    <%= f.time_field :first_dragon_time, { step: 1 } %>
+  <div class="odds">
+    <%= f.label :blue_side_team_fh_odds %>
+    <%= f.text_field :blue_side_team_fh_odds %>
   </div>
+
+  <div class="odds">
+    <%= f.label :red_side_team_fh_odds %>
+    <%= f.text_field :red_side_team_fh_odds %>
+  </div>
+
 
   <h3>First Baron</h3>
   <div class="first_market">

@@ -92,7 +92,7 @@ export default Vue.extend({
   data() {
     return {
       splitId: undefined, //this.$store.state.leagues.splitId,
-      markets: ['Blood', 'Turret', 'Dragon', 'Baron', 'Win'],
+      markets: ['Blood', 'Turret', 'Dragon', 'Herald', 'Baron', 'Win'],
       nPreviousGames: N_PREV_GAMES_TO_SHOW
     }
   },
