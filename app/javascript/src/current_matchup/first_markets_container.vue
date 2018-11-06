@@ -90,11 +90,15 @@ export default Vue.extend({
     },
 
     drawChart(): void {
+      const title = this.market === 'Win'
+        ? 'Running Victories'
+        : `% First ${this.market}`
+
       this.resetChart()
       const ctx: HTMLCanvasElement = <HTMLCanvasElement>this.$el.querySelector('#' + this.chartId)
       new Chart(ctx, {
         type: 'line',
-        options: options({ title: `% First ${this.market}` }),
+        options: options({ title }),
         data: {
           datasets: [this.dataset],
         }
@@ -106,9 +110,13 @@ export default Vue.extend({
     },
 
     getAverageForMarket(market: string): number[] {
+      const theMarket = market === 'Win'
+        ? 'winnerId'
+        : `first${market}TeamId`
+
       const fbs = this.games
         .filter(game => (game.winnerId && game.loserId))
-        .map(x => x[`first${market}TeamId`] == this.teamId ? 1 : 0)
+        .map(x => x[theMarket] == this.teamId ? 1 : 0)
 
       let i = 0
       return fbs.map(x => {

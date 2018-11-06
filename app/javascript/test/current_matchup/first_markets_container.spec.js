@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { shallowMount } from '@vue/test-utils'
 import FirstMarketsContainer from '../../src/current_matchup/first_markets_container.vue'
 
+const context = describe
 const teamId = 1
 const SIDE = 'red'
 const games = [
@@ -19,8 +20,16 @@ const wrapper = factory()
 
 describe('FirstMarketsContainer', () => {
   describe('getAverageForMarket', () => {
-    it('returns the running first average, excluding unplayed games', () => {
-      expect(wrapper.vm.getAverageForMarket('Blood')).toEqual([0, .5, .33])
+    context('market is a first market', () => {
+      it('returns the running first average, excluding unplayed games', () => {
+        expect(wrapper.vm.getAverageForMarket('Blood')).toEqual([0, .5, .33])
+      })
+    })
+
+    context('market is win', () => {
+      it('returns the average wins, excluding unplayed games', () => {
+        expect(wrapper.vm.getAverageForMarket('Win')).toEqual([1, 1, 1])
+      })
     })
   })
 
