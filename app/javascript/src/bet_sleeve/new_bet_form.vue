@@ -17,7 +17,7 @@
           <span> ✕ </span>
         </button>
         <input type="string" v-model="priceDollars">
-        <input type="submit" value="Place Bet">
+        <LcsButton type="submit">Place Bet</LcsButton>
       </form>
     </div>
   </div>
@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import axios from 'axios'
+import LcsButton from '../widgets/lcs_button.vue'
 import { betProps } from './bet_props'
 import { dollars } from '../filters/index'
 
@@ -32,6 +33,10 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'NewBetForm',
+
+  components: {
+    LcsButton
+  },
 
   props: {
     ...betProps,
