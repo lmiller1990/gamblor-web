@@ -139,6 +139,6 @@ export default Vue.extend({
 
 <style scoped>
 .chart {
-  width: 180px;
+  width: 150px;
 }
 </style>
