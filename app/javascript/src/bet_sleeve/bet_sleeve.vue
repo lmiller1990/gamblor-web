@@ -1,7 +1,6 @@
 <template>
   <div class="bet_window">
     <div class="header">
-      <button @click="toggle">Back</button>
       <span>Balance: {{ balance | dollars }}</span>
     </div>
     <span id="top"></span>
@@ -37,6 +36,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
+import LcsButton from '../widgets/lcs_button.vue'
 import { Bet, BetStatus } from '../types/bet'
 import { dollars } from '../filters/index'
 import NewBetForm from './new_bet_form.vue'
@@ -55,7 +55,8 @@ export default Vue.extend({
 
   components: {
     SingleBet,
-    NewBetForm
+    NewBetForm,
+    LcsButton
   },
 
   computed: {
@@ -78,16 +79,11 @@ export default Vue.extend({
     },
 
     persistedBetIds(): number[] {
-      console.log(this.$store)
       return this.$store.getters['bets/persistedBetIds']
     }
   },
 
   methods: {
-    toggle() {
-      this.$emit('toggle')
-    },
-
     cancel({ id }: { id: number }) {
       this.$store.commit('bets/CANCEL', { id })
     },
@@ -126,7 +122,7 @@ export default Vue.extend({
 .header {
   padding: 8px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   position: sticky;
   background-color: white;
   top: 0;
