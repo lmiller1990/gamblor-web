@@ -1,5 +1,5 @@
 <template>
-  <div class="modal_wrapper">
+  <div v-if="show" class="modal_wrapper">
     <component v-if="modal" :is="modal" />
   </div>
 </template>
@@ -12,8 +12,11 @@ export default Vue.extend({
 
   computed: {
     modal(): VueConstructor {
-      console.log(this.$store.state.modal.component)
       return this.$store.state.modal.component
+    },
+
+    show(): boolean {
+      return this.$store.state.modal.show
     }
   }
 })

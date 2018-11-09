@@ -14,7 +14,6 @@ export const mutations: MutationTree<ModalState> = {
   ) {
     state.component = component
     state.show = show
-    console.log(state)
   }
 }
 
