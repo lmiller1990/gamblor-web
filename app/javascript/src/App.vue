@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <ModalManager />
     <CurrentMatchupContainer 
       :currentMatchupSelected="currentMatchupSelected"
       :blueSideGames="blueSideGames"
@@ -38,12 +39,16 @@ import BetSleeve from './bet_sleeve/bet_sleeve.vue'
 import SidebarControls from './components/sidebar_controls.vue'
 import CurrentMatchupContainer from './current_matchup/current_matchup_container.vue'
 import UpcomingMatchesContainer from './upcoming_matches/upcoming_matches_container.vue'
+import ModalManager from './components/modal_manager.vue'
 import Sidebar from './components/sidebar.vue'
+import BankrollContainer from './bankroll_management/bankroll_container.vue'
+import { ModalOptions } from './store/types'
 
 export default {
   name: 'App',
 
   components: {
+    ModalManager,
     CurrentMatchupContainer,
     Sidebar,
     HowToUse,
@@ -53,6 +58,9 @@ export default {
   },
 
   created() {
+    const opts: ModalOptions = { component: BankrollContainer, show: true }
+    // this.$store.commit('modal/SET_MODAL', opts)
+
     Promise.all([this.fetchBets(), this.fetchBankAccount()])
       .then(() => this.loadedBets = true)
 

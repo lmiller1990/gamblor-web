@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import bets from './bets'
+import { modal } from './modal'
 import { bankAccount } from './bank_account'
 import { games } from './games'
 import scheduledGames from './scheduled_games'
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     bankAccount,
     bets,
     games,
+    modal,
     scheduledGames,
     matchups,
     leagues,
