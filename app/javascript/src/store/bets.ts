@@ -8,7 +8,8 @@ import { mapResponseToStore } from './map_response_to_store'
 
 export const state: BetsState = {
   all: {},
-  ids: []
+  ids: [],
+  selectedId: 0
 }
 
 export const mutations = {
@@ -77,7 +78,9 @@ export const getters: GetterTree<BetsState, RootState> = {
 
   persistedBetIds: (state): number[] => state.ids.filter(x => x > 0),
 
-  tentativeBetIds: (state): number[] => state.ids.filter(x => x < 0)
+  tentativeBetIds: (state): number[] => state.ids.filter(x => x < 0),
+
+  selected: state => state.all[state.selectedId]
 }
 
 

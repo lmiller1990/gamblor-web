@@ -10,7 +10,10 @@ export interface BaseState {
 
 export interface GamesState extends BaseState {}
 
-export interface BetsState extends BaseState {}
+export interface BetsState extends BaseState {
+  all: { [id: number]: Bet },
+  selectedId?: number
+}
 
 export interface ModalState {
   component?: VueConstructor
