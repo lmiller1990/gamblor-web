@@ -112,18 +112,18 @@ export default Vue.extend({
         status: BetStatus.AwaitingResult
       }
 
-      if (!this.gameCompleted)
+      if (!this.gameCompleted) {
+        this.$store.commit('bets/SET_SELECTED_BET_EVS', this.calcEvs())
         this.$store.commit('bets/ADD_BET', { bet })
+      }
     },
 
     hideBetWindow() {
       this.showEv = false
     },
 
-    showBetWindow(): void {
-      if (this.gameCompleted) return
-
-      this.evs = [-1, 12, 10, 8, 5].map(nGames => ({
+    calcEvs(): EvProp[] {
+      return [-1, 12, 10, 8, 5].map(nGames => ({
         nLastGames: nGames,
         ev: this.$store.getters['games/evByTeamId']({
           teamId: this.teamId,
@@ -133,7 +133,12 @@ export default Vue.extend({
           odds: this.odds
         })
       }) as EvProp)
+    },
 
+    showBetWindow(): void {
+      if (this.gameCompleted) return
+
+      this.evs = this.calcEvs()
       this.showEv = true
     }
   }

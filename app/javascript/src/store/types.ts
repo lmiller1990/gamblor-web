@@ -14,6 +14,7 @@ export interface BetsState extends BaseState {
   all: { [id: number]: Bet }
   selectedId?: number
   selectedOdds?: number
+  selectedBetEvs: number[]
 }
 
 export interface ModalState {

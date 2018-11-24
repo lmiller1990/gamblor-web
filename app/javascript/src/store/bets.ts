@@ -10,7 +10,8 @@ export const state: BetsState = {
   all: {},
   ids: [],
   selectedId: 0,
-  selectedOdds: null
+  selectedOdds: null,
+  selectedBetEvs: []
 }
 
 export const mutations = {
@@ -21,6 +22,10 @@ export const mutations = {
 
   SET_SELECTED_ODDS(state: BetsState, odds: number) {
     state.selectedOdds = odds
+  },
+
+  SET_SELECTED_BET_EVS(state: BetsState, evs: number[]) {
+    state.selectedBetEvs = evs
   },
 
   SET_BETS(state: BetsState, axiosResponse: AxiosResponse[]) {

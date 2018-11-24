@@ -9,6 +9,7 @@ export function fullKelly(bankroll: number, ev: number, odds: number): number {
 }
 
 export function fractionalKelly(bankroll: number, ev: number, odds: number, fraction: number): number {
+  console.log(arguments)
   return fullKelly(bankroll, ev, odds) * fraction
 }
 
