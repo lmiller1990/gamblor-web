@@ -16,6 +16,14 @@
           @click="cancel">
           <span> ✕ </span>
         </button>
+
+        <button 
+          type="button"
+          data-test="recommend-btn" 
+          @click="getRecommendation">
+          <span>?</span>
+        </button>
+
         <input type="string" v-model="priceDollars">
         <LcsButton type="submit">Place Bet</LcsButton>
       </form>
@@ -55,6 +63,10 @@ export default Vue.extend({
   },
 
   methods: {
+    getRecommendation(): void {
+      this.$emit('recommend', this.odds)
+    },
+
     cancel(): void {
       this.$emit('cancel')
     },

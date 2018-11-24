@@ -9,13 +9,18 @@ import { mapResponseToStore } from './map_response_to_store'
 export const state: BetsState = {
   all: {},
   ids: [],
-  selectedId: 0
+  selectedId: 0,
+  selectedOdds: null
 }
 
 export const mutations = {
   CANCEL(state: BetsState, { id }: { id: number }) {
     state.ids = state.ids.filter(x => x !== id)
     delete state.all[id]
+  },
+
+  SET_SELECTED_ODDS(state: BetsState, odds: number) {
+    state.selectedOdds = odds
   },
 
   SET_BETS(state: BetsState, axiosResponse: AxiosResponse[]) {

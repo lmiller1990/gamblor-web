@@ -3,6 +3,10 @@ import BankrollContainer from '../../src/bankroll_management/bankroll_container.
 
 describe('BankrollContainer', () => {
   it('renders', () => {
-    const wrapper = shallowMount(BankrollContainer)
+    const wrapper = shallowMount(BankrollContainer, {
+      computed: {
+        odds: () => 1.5
+      }
+    })
   })
 })

@@ -1,7 +1,9 @@
 <template>
   <div class="bankroll_wrapper">
     Bankroll Container
-    {{ selectedBet }}
+    {{ odds }}
+    <div>
+    </div>
   </div> 
 </template>
 
@@ -13,8 +15,8 @@ export default Vue.extend({
   name: 'BankrollContainer',
 
   computed: {
-    selectedBet(): Bet {
-      return this.$store.getters['bets/selected']
+    odds(): number {
+      return this.$store.state.bets.selectedOdds
     }
   }
 })

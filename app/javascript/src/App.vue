@@ -59,7 +59,7 @@ export default {
 
   created() {
     const opts: ModalOptions = { component: BankrollContainer, show: true }
-    this.$store.commit('modal/SET_MODAL', opts)
+    // this.$store.commit('modal/SET_MODAL', opts)
 
     Promise.all([this.fetchBets(), this.fetchBankAccount()])
       .then(() => this.loadedBets = true)
