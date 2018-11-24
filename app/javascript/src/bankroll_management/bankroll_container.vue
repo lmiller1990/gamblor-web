@@ -1,11 +1,39 @@
 <template>
   <div class="bankroll_wrapper">
-    Bankroll Container
-    {{ odds }}
-    {{ bankroll }}
-    <div v-for="{ amountInCents, nLastGames } in getRecommendedBets(0.2)">
-      Over last {{ nLastGames }}: {{ amountInCents | dollars }}
+    <div>
+      Odds {{ odds }} 
     </div>
+    <div>
+      Current Bankroll: {{ bankroll | dollars }}
+    </div>
+
+    <br>
+
+    <div>
+      <label for="fraction">Kelly criterion fraction:</label>
+      <input 
+         id="fraction"
+         v-model="fraction" 
+         type="number"
+      >%
+
+    </div>
+
+    <br>
+    
+    <div>
+      Using the odds and your current bankroll, the recommended bet calculated using the <a href="...">Kelly Criterion</a> is:
+    </div>
+
+    <ul v-for="{ amountInCents, nLastGames } in getRecommendedBets">
+      <li>
+        Based on last {{ nLastGames }}: {{ amountInCents | dollars }}
+        <div v-if="amountInCents < 0" class="warning">
+         * This bet has a EV less than 1.0.
+        </div>
+      </li>
+
+    </ul>
   </div> 
 </template>
 
@@ -21,6 +49,12 @@ export default Vue.extend({
 
   filters: { dollars },
 
+  data() {
+    return {
+      fraction: 20
+    }
+  },
+
   computed: {
     odds(): number {
       return this.$store.state.bets.selectedOdds
@@ -32,11 +66,9 @@ export default Vue.extend({
 
     evs(): number {
       return this.$store.state.bets.selectedBetEvs
-    }
-  },
+    },
 
-  methods: {
-    getRecommendedBets(fraction: number): number[] {
+    getRecommendedBets(): number[] {
       const recommendations = []
 
       for (const { ev, nLastGames } of this.evs) {
@@ -44,7 +76,7 @@ export default Vue.extend({
         if (nLastGames > 0) {
           recommendations.push({
             nLastGames,
-            amountInCents: fractionalKelly(this.bankroll, ev, this.odds, fraction)
+            amountInCents: fractionalKelly(this.bankroll, ev, this.odds, this.fraction / 100)
           })
         }
       }
@@ -54,4 +86,11 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.warning {
+  margin-left: 20px;
+  color: red;
+}
+</style>
 
