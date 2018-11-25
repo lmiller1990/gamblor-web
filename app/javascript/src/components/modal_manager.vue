@@ -1,5 +1,9 @@
 <template>
-  <div v-if="show" class="modal_wrapper">
+  <div 
+    v-if="show" 
+    class="modal_wrapper"
+    @click="close"
+  >
     <div class="modal_outer">
       <div class="modal_title">
         {{ title }}
@@ -34,7 +38,7 @@ export default Vue.extend({
     },
 
     title(): string {
-      return this.$store.state.modal.title || 'Title'
+      return this.$store.state.modal.title
     },
 
     show(): boolean {
@@ -43,6 +47,12 @@ export default Vue.extend({
   },
 
   methods: {
+    close(e): void {
+      if (e.target.className === 'modal_wrapper') {
+        this.closeModal()
+      }
+    },
+
     closeModal(): void {
       const opts: ModalOptions = { component: null, show: false }
       this.$store.commit('modal/SET_MODAL', opts)

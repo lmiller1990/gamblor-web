@@ -15,10 +15,23 @@ describe('MatchHistoryRow', () => {
   const factory = 
     ({ victory = undefined, gameCompleted = true, odds = 0.0 }, store = {}) => 
     shallowMount(MatchHistoryRow, {
-      propsData: { victory, gameCompleted, odds, teamId: TEAM_ID, gameId: GAME_ID, market: MARKET },
+      propsData: {
+        victory,
+        gameCompleted,
+        odds,
+        teamId: TEAM_ID,
+        gameId: GAME_ID,
+        market: MARKET
+      },
+
       mocks: { $store: store },
+
       computed: {
-        unusedId: () => UNUSED_ID
+        unusedId: () => UNUSED_ID,
+      },
+
+      methods: {
+        calcEvs: () => [{ nLastGames: 1, odds: ODDS }]
       }
     })
 

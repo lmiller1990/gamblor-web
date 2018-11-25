@@ -43,7 +43,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .controls_wrapper {
-  margin: 10px 36px;
+  box-sizing: border-box;
 }
 
 .buttons {

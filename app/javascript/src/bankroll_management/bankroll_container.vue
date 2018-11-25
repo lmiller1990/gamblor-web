@@ -1,7 +1,7 @@
 <template>
   <div class="bankroll_wrapper">
     <div>
-      Odds {{ odds }} 
+      Odds: {{ odds }} 
     </div>
     <div>
       Current Bankroll: {{ bankroll | dollars }}
@@ -27,7 +27,7 @@
 
     <ul v-for="{ amountInCents, nLastGames } in getRecommendedBets">
       <li>
-        Based on last {{ nLastGames }}: {{ amountInCents | dollars }}
+        Based on last {{ nLastGames }} games: {{ amountInCents | dollars }}
         <div v-if="amountInCents < 0" class="warning">
          * This bet has a EV less than 1.0.
         </div>
@@ -39,6 +39,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { Ev } from '../types/ev'
 import { Bet } from '../types/bet'
 import { dollars } from '../filters'
 
@@ -64,7 +65,7 @@ export default Vue.extend({
       return this.$store.state.bankAccount.balanceCents
     },
 
-    evs(): number {
+    evs(): Ev[] {
       return this.$store.state.bets.selectedBetEvs
     },
 
@@ -91,6 +92,10 @@ export default Vue.extend({
 .warning {
   margin-left: 20px;
   color: red;
+}
+
+#fraction {
+  width: 35px;
 }
 </style>
 

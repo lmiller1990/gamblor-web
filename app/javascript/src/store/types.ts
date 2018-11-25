@@ -17,11 +17,6 @@ export interface BetsState extends BaseState {
   selectedBetEvs: number[]
 }
 
-export interface ModalState {
-  component?: VueConstructor
-  show: boolean
-}
-
 export interface BankAccountState {
   balanceCents: number
 }
@@ -39,4 +34,7 @@ export interface LeaguesState {
 export interface ModalOptions {
   show: boolean
   component?: VueConstructor
+  title?: string
 }
+
+export interface ModalState extends ModalOptions {}

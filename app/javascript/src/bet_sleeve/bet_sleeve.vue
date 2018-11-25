@@ -89,8 +89,8 @@ export default Vue.extend({
   },
 
   methods: {
-    handleRecommend(odds: number) {
-      const opts: ModalOptions = { component: BankrollContainer, show: true }
+    handleRecommend(odds: number, gameTitle: string) {
+      const opts: ModalOptions = { component: BankrollContainer, show: true, title: gameTitle }
       this.$store.commit('bets/SET_SELECTED_ODDS', odds)
       this.$store.commit('modal/SET_MODAL', opts)
     },

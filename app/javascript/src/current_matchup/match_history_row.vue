@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import MatchEvTooltip from './match_ev_tooltip.vue'
-import { EvProp } from './ev_prop'
+import { Ev } from '../types/ev'
 import { Bet, BetStatus } from '../types/bet'
 
 export default Vue.extend({
@@ -67,7 +67,7 @@ export default Vue.extend({
     return {
       showEv: false,
       topOffset: 0,
-      evs: [] as EvProp[]
+      evs: [] as Ev[]
     }
   },
 
@@ -122,7 +122,7 @@ export default Vue.extend({
       this.showEv = false
     },
 
-    calcEvs(): EvProp[] {
+    calcEvs(): Ev[] {
       return [-1, 12, 10, 8, 5].map(nGames => ({
         nLastGames: nGames,
         ev: this.$store.getters['games/evByTeamId']({
@@ -132,7 +132,7 @@ export default Vue.extend({
           nLastGames: nGames,
           odds: this.odds
         })
-      }) as EvProp)
+      }) as Ev)
     },
 
     showBetWindow(): void {
