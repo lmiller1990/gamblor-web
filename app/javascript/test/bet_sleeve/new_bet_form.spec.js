@@ -32,8 +32,15 @@ describe('NewBetForm', () => {
 
   it('emits a cancel when X button clicked', () => {
     const wrapper = factory()
-    wrapper.find('[data-test="cancel-btn"]').trigger('click')
+    wrapper.find('[data-test="cancel-btn"]').vm.$emit('click')
 
     expect(wrapper.emitted().cancel).toBeDefined()
+  })
+
+  it('emits recommend event when btn is clicked', () => {
+    const wrapper = factory()
+    wrapper.find('[data-test="recommend-btn"]').vm.$emit('click')
+
+    expect(wrapper.emitted().recommend).toBeDefined()
   })
 })

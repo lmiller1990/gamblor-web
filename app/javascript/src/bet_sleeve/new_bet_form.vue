@@ -10,19 +10,23 @@
       </div>
       <div class="stake"></div>
       <form @submit.prevent="createBet">
-        <button 
+        <LcsButton 
           data-test="cancel-btn" 
+          width="20px"
           type="button" 
-          @click="cancel">
-          <span> ✕ </span>
-        </button>
+          @click="cancel"
+        >
+          X
+        </LcsButton>
 
-        <button 
+        <LcsButton 
           type="button"
+          width="50px"
           data-test="recommend-btn" 
-          @click="getRecommendation">
-          <span>?</span>
-        </button>
+          @click="getRecommendation"
+        >
+          Help
+        </LcsButton>
 
         <input type="string" v-model="priceDollars">
         <LcsButton type="submit">Place Bet</LcsButton>
