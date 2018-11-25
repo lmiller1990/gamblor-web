@@ -1,13 +1,13 @@
 <template>
   <div class="controls_wrapper">
     <div class="buttons">
-      <LcsButton @click="show('Schedule')" data-test-schedule>
+      <LcsButton width="100%" @click="show('Schedule')" data-test-schedule>
         Schedule
       </LcsButton>
-      <LcsButton @click="show('BetSleeve')">
+      <LcsButton width="100%" @click="show('BetSleeve')">
         Bet Sleeve
       </LcsButton>
-      <LcsButton @click="show('HowToUse')">
+      <LcsButton width="100%" @click="show('HowToUse')">
         How To Use
       </LcsButton>
     </div>
@@ -43,7 +43,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .controls_wrapper {
-  margin: 10px 36px;
+  box-sizing: border-box;
 }
 
 .buttons {

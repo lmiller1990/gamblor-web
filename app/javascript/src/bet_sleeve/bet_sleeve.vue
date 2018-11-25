@@ -16,6 +16,7 @@
       :status="bets[id].status"
       @submit="priceDollars => createBet({ id, priceDollars })"
       @cancel="cancel({ id })"
+      @recommend="handleRecommend"
     />
     <SingleBet 
        v-for="id in persistedBetIds" 
@@ -36,10 +37,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
-import LcsButton from '../widgets/lcs_button.vue'
+
+import { ModalOptions } from '../store/types'
 import { Bet, BetStatus } from '../types/bet'
 import { dollars } from '../filters/index'
+
 import NewBetForm from './new_bet_form.vue'
+import LcsButton from '../widgets/lcs_button.vue'
+import BankrollContainer from '../bankroll_management/bankroll_container.vue'
 import SingleBet from './single_bet.vue'
 
 export default Vue.extend({
@@ -84,6 +89,12 @@ export default Vue.extend({
   },
 
   methods: {
+    handleRecommend(odds: number, gameTitle: string) {
+      const opts: ModalOptions = { component: BankrollContainer, show: true, title: gameTitle }
+      this.$store.commit('bets/SET_SELECTED_ODDS', odds)
+      this.$store.commit('modal/SET_MODAL', opts)
+    },
+
     cancel({ id }: { id: number }) {
       this.$store.commit('bets/CANCEL', { id })
     },

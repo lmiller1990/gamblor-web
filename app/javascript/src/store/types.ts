@@ -10,11 +10,11 @@ export interface BaseState {
 
 export interface GamesState extends BaseState {}
 
-export interface BetsState extends BaseState {}
-
-export interface ModalState {
-  component?: VueConstructor
-  show: boolean
+export interface BetsState extends BaseState {
+  all: { [id: number]: Bet }
+  selectedId?: number
+  selectedOdds?: number
+  selectedBetEvs: number[]
 }
 
 export interface BankAccountState {
@@ -34,4 +34,7 @@ export interface LeaguesState {
 export interface ModalOptions {
   show: boolean
   component?: VueConstructor
+  title?: string
 }
+
+export interface ModalState extends ModalOptions {}

@@ -36,6 +36,7 @@ $color: silver;
 
 .main-item {
   height: 90vh;
+  overflow-y: scroll;
 }
 
 .fade-enter-active, .fade-leave-active {

@@ -7,6 +7,7 @@ const ID = 1
 const ANOTHER_ID = 2
 const GAME_ID = 1
 const PRICE_CENTS = 1000
+const BET = { id: ID }
 
 const mockMath = Object.create(global.Math)
 global.Math = mockMath
@@ -48,17 +49,23 @@ describe('bets', () => {
 
       mutations.ADD_BET(state, { bet })
 
-      expect(state).toEqual({
-        ids: [ID, ANOTHER_ID],
-        all: {
-          [ID]: { id: ID, priceCents: PRICE_CENTS },
-          [ANOTHER_ID]: { id: ANOTHER_ID, priceCents: PRICE_CENTS }
-        }
-      })
+      expect(state.ids).toEqual([ID, ANOTHER_ID])
+      expect(state.all[ID]).toEqual({ id: ID, priceCents: PRICE_CENTS })
     })
   })
 
   describe('getters', () => {
+    describe('selected', () => {
+      it('returns currently selected bet', () => {
+        const state = createState()
+        state.ids = [ID]
+        state.selectedId = ID
+        state.all = { [ID]: BET }
+
+        expect(getters.selected(state)).toBe(BET)
+      })
+    })
+
     describe('persistedBetIds', () => {
       it('returns bets with positive ids', () => {
         const state = createState()

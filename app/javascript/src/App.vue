@@ -22,7 +22,7 @@
         :splitId="splitId"
         @matchupSelected="setMatchup" 
         @selectSplit="setSplitId"
-      />
+        />
       <SidebarControls 
         slot="controls" 
         @showBetSleeve="showBetSleeve"
