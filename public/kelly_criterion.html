@@ -1,0 +1,114 @@
+<div class="outer">
+<div class="wrapper">
+
+<h2 id="thekellycriterion">The Kelly Criterion</h2>
+
+<p>Once you identify a good market, the next step is deciding how much you want to bet. We use the <em>expected value</em> to get a mathematical edige in identifying good markets - and we want a similar edge when it comes to placing a bet. Queue the <em>kelly criterion</em>.</p>
+
+<p>The idea of the kelly criterion is to determine what percentage of your bankroll to bet, taking into account the probability of winning and the value of the odds with respect ot that probability. This value is called the <em>overlay</em>. Let's see an example, using real data from the 2018 World Championship final.</p>
+
+<h2 id="fnaticfncvsinvictusgamingigforfirstturret">Fnatic (FNC) vs Invictus Gaming (IG) for first turret</h2>
+
+<p>Odds are: </p>
+
+<ul>
+<li>FNC: 2.0</li>
+
+<li>IG: 1.72 </li>
+</ul>
+
+<p>The EV works out to FNC @ 1.08 and IG @ 0.79, taking into considering their previous 12 games prior to the finals.  Let's say our bankroll is $1000. I got these odds on LCS Tracking, of course:</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ZQdpil3vm41GgNVKDaiRYg.png" alt="" /></p>
+
+<p>First, we calculate the overlay. This is calcuated using the formula EV - 1. So it works out to:</p>
+
+<ul>
+<li>FNC: 0.08</li>
+
+<li>IG: -0.21</li>
+</ul>
+
+<p>Now we have the overlay, we can calculate the kelly criterion by the following formula: bankroll * (overlay / (odds - 1)). So we get:</p>
+
+<ul>
+<li>FNC: (1000 * (0.08 / (2-1)) = $80</li>
+
+<li>IG: (1000 * (-0.21 / (1.72-1)) = -$291</li>
+</ul>
+
+<p>Obviously since IG's EV was already below 1, we wouldn't consider this bet. The recommended bet for FNC is $80.</p>
+
+<p>An implementation in code would look something like this:</p>
+
+<pre><code class="ts language-ts">function fullKelly(bankroll: number, ev: number, odds: number): number {
+  const overlay = calcOverlay(ev)
+  return Math.ceil(bankroll * (overlay / (odds - 1)))
+}
+
+export function calcOverlay(ev: number): number {
+  return parseFloat((ev - 1).toFixed(2))
+}
+</code></pre>
+
+<p>The kelly criterion has it's problems, though. The main one is the recommendations are pretty signficant portions of your bankroll - considering FNC did not get FT in any of the three games, you would have lost $240 - a quarter of your payroll. Another disadvantage is if you want to bet on many markets, you may end up betting most of your payroll at the same time.</p>
+
+<p>The kelly criterion we used here is the <em>full kelly</em>. The <em>fractional kelly</em> is another safer alternative, that addresses some of the above criticisms.</p>
+
+<h2 id="thefractionalkelly">The Fractional Kelly</h2>
+
+<p>The fraction kelly is basically just percentage of a full kelly. I like to go with 20%. So that means our above bet on FNC now becomes $16. Much more reasonable - we can afford to lose $16, and it fees up our bankroll to bet on other makrets at the same time. We can recycle the above code, and write a <code>fractionalKelly</code> function:</p>
+
+<pre><code class="ts language-ts">function fractionalKelly(bankroll: number, ev: number, odds: number, fraction: number): number {
+  return fullKelly(bankroll, ev, odds) * fraction
+}
+</code></pre>
+
+<p>The fraction kelly reduces your risk, and also allows you to bet on many markets at once. </p>
+
+<h2 id="thefractionalkellyinlcstracking">The Fractional Kelly in LCS Tracking</h2>
+
+<p>I recently updated my web app, <a href="https://lcs-tracking.herokuapp.com/">LCS Tracking</a> to automatically calculate a fractionally kelly over based on a team's game history. You can even change the percentage you want to use - I find 20% is a good default. Once you simulate a bet, you can click help:</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*v-rhysjcZ-9PHlZ7zTSpuA.png" alt="" /></p>
+
+<p>And you a presented with a modal, giving you the approximate bets for a 20% fractional kelly, as well as some helpful messages and the ability to set your own fraction:</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*cu0crWjNSPrj_sCSJzoUaw.png" alt="" /></p>
+
+<p>As always, the more data you have on a team, the better.</p>
+
+</div>
+</div>
+
+<style>
+body {
+  font-size: 1.05em
+}
+.outer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+  font-weight: bold;
+}
+
+img {
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  display: flex;
+  margin: 0 auto;
+}
+
+.wrapper {
+  max-width: 780px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+</style>
