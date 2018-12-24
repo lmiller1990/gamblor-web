@@ -1,0 +1,7 @@
+<h2><%= @league.name %></h2>
+
+<h3>Splits</h3>
+
+<% @league.splits.each do |split| %>
+  <div><%= split.name %></div>
+<% end %>

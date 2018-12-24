@@ -1,0 +1,23 @@
+<h3>Leagues</h3>
+
+<% @leagues.each do |league| %>
+  <div class="league">
+    <div>
+      <%= league.name %>
+    </div>
+    <div>
+      <%= form_with model: league, :method => :delete do |f| %>
+        <%= f.submit 'Delete' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<style>
+.league {
+  margin: 5px;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
