@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :players
     resources :articles
     resources :splits
+    resources :leagues, only: %i(destroy create new index edit show)
 
     resources :teams do
       resources :games, only: [:index], controller: 'teams/games'
