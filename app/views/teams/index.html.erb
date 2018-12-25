@@ -3,5 +3,13 @@
 <% @teams.each do |team| %>
   <div>
     <%= team.id %> <%= link_to team.name, team %>
+    <img src="<%= "/images/#{team.name.gsub(' ', '_').downcase}.png" %>">
   </div>
 <% end %>
+
+<style>
+img {
+  width: 20px;
+  height: 20px;
+}
+</style>
