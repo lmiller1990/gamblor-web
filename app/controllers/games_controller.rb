@@ -17,6 +17,7 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     authorize @game
+    @game.game_number = 1
     @teams = Team.all.order(name: :asc)
     @league = League.last
     # TODO: don't hard code this?

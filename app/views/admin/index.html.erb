@@ -1,6 +1,26 @@
 <h3>Admin Page</h3>
 
 <div>
-  <%= link_to "Create Game", new_game_path %>
-  <%= link_to "Find Game", games_path %>
+  <%= link_to "New Game", new_game_path %>
+</div>
+
+<div>
+  <%= link_to "New Team", new_game_path %> (Make sure the team doesn't exist already with a slightly different name. Check existing teams <%= link_to "here", teams_path %>).
+</div>
+
+
+<div>
+  <%= link_to "All Games", games_path %>
+</div>
+
+<div>
+  <%= link_to "Main App", app_index_path %>
+</div>
+
+<div>
+  <%= link_to "New League", new_league_path %>
+</div>
+
+<div>
+  <%= link_to "New Split", new_split_path %>
 </div>
