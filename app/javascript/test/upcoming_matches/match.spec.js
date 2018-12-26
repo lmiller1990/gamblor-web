@@ -40,7 +40,7 @@ describe('styleCompleteGameByResult', () => {
   context('team won game', () => {
     const localThis = { match: { winnerId: 1 } }
 
-    const result = subject.call(localThis, 1)
+    const result = subject.call(localThis, { id: 1 })
 
     expect(result).toBe('winning_team')
   })
@@ -48,7 +48,7 @@ describe('styleCompleteGameByResult', () => {
   context('team lost game', () => {
     const localThis = { match: { loserId: 1 } }
 
-    const result = subject.call(localThis, 1)
+    const result = subject.call(localThis, { id: 1 })
 
     expect(result).toBe('losing_team')
   })
@@ -56,7 +56,15 @@ describe('styleCompleteGameByResult', () => {
   context('game is pending, team neither won nor lost', () => {
     const localThis = { match: {} }
 
-    const result = subject.call(localThis, 1)
+    const result = subject.call(localThis, { id: 1 })
+
+    expect(result).toBe('result_pending')
+  })
+
+  context('team is null for whatever reason, probably a bug', () => {
+    const localThis = { match: {} }
+
+    const result = subject.call(localThis, undefined)
 
     expect(result).toBe('result_pending')
   })

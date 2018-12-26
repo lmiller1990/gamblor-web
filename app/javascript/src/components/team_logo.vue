@@ -10,7 +10,7 @@ export default Vue.extend({
   props: {
     teamName: {
       type: String,
-      required: true
+      default: ''
     }
   },
 

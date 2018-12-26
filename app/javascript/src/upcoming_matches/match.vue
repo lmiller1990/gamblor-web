@@ -5,10 +5,11 @@
     <div class="matchup">
       <div 
         class="team_and_name blue_team"
-        :class="styleCompleteGameByResult(blueTeam.id)">
-        <TeamLogo :teamName="blueTeam.name" />
+        :class="styleCompleteGameByResult(blueTeam)">
+        <TeamLogo :teamName="blueTeam && blueTeam.name" />
         <div class="blue_team team_name">
-          {{ blueTeam.name }}
+          <!-- hack for what appears to be a race condition -->
+          {{ blueTeam && blueTeam.name }}
         </div>
       </div>
 
@@ -16,10 +17,11 @@
 
       <div 
         class="team_and_name red_team"
-        :class="styleCompleteGameByResult(redTeam.id)">
-        <TeamLogo :teamName="redTeam.name" />
+        :class="styleCompleteGameByResult(redTeam)">
+        <TeamLogo :teamName="redTeam && redTeam.name" />
         <div class="red_team team_name">
-          {{ redTeam.name }}
+          <!-- hack for what appears to be a race condition -->
+          {{ redTeam && redTeam.name }}
         </div>
       </div>
     </div>
@@ -61,12 +63,17 @@ export default {
   },
 
   methods: {
-    styleCompleteGameByResult(teamId) {
-      if (teamId === this.match.winnerId) {
+    styleCompleteGameByResult(team) {
+      console.log(team === undefined)
+      if (team === undefined) {
+        return 'result_pending'
+      }
+
+      if (team.id === this.match.winnerId) {
         return 'winning_team'
       }
 
-      if (teamId === this.match.loserId) {
+      if (team.id === this.match.loserId) {
         return 'losing_team'
       }
       
