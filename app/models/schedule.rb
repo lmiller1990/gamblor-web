@@ -10,7 +10,7 @@ module Schedule
       .reverse
 
     games.each do |game|
-      if game.winner_id && game.loser_id
+      if game.winner_id and game.loser_id and game.match_complete
         winner, loser = match_overall_result(game)
         game.winner_id = winner.id
         game.loser_id = loser.id
@@ -26,14 +26,6 @@ module Schedule
       .where(match_complete: false)
       .order(date: :asc, created_at: :asc)[0...num]
 
-    games.each do |game|
-      if game.winner_id && game.loser_id
-        winner, loser = match_overall_result(game)
-        game.winner_id = winner.id
-        game.loser_id = loser.id
-      end
-    end
-
     games
   end
 
@@ -48,7 +40,10 @@ module Schedule
       # loser id is the other team
       loser_id = winner_id == game.red_side_team_id ? game.blue_side_team_id : game.red_side_team_id
 
-      [Team.find(winner_id), Team.find(loser_id)]
+      [
+        Team.find(winner_id), 
+        Team.find(loser_id)
+      ]
     else
       [game.winner, game.loser]
     end
