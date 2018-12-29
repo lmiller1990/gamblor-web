@@ -42,6 +42,8 @@ import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
 import LcsButton from '../widgets/lcs_button.vue'
 
+const favoriteSplitId = 'favoriteSplitId'
+
 export default Vue.extend({
   name: 'UpcomingMatchContainer',
 
@@ -72,7 +74,7 @@ export default Vue.extend({
     return {
       allGamesShown: false,
       loadingAllGames: false,
-      onFavoriteSplit: JSON.parse(localStorage.getItem('favoriteSplitId')) == this.splitId
+      onFavoriteSplit: JSON.parse(localStorage.getItem(favoriteSplitId)) == this.splitId
     }
   },
 
@@ -88,17 +90,19 @@ export default Vue.extend({
 
   methods: {
     updateFavouriteSplit() {
-      const splitId = JSON.parse(localStorage.getItem('favoriteSplitId'))
+      const splitId = JSON.parse(localStorage.getItem(favoriteSplitId))
 
       this.onFavoriteSplit = this.splitId === splitId
     },
 
     setFavorite() {
-      if (this.favouriteSplitId === this.splitId) {
+      const splitId = JSON.parse(localStorage.getItem(favoriteSplitId))
+      console.log(splitId, this.splitId)
+      if (splitId === this.splitId) {
         this.onFavoriteSplit = false
-        localStorage.removeItem('favouriteSplitId')
+        localStorage.removeItem(favoriteSplitId)
       } else {
-        localStorage.setItem('favouriteSplitId', this.splitId)
+        localStorage.setItem(favoriteSplitId, this.splitId)
         this.onFavoriteSplit = true
       }
     },
