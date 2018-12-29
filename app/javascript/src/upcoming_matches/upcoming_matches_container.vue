@@ -2,10 +2,20 @@
   <div class="matchups_wrapper">
     <div class="header border-bottom">
       <h2>Schedule</h2>
-      <LeagueSplitSelector 
-        :selectedId="splitId"
-        @change="selectSplit" 
-      />
+      <span class="league-selector">
+        <LeagueSplitSelector 
+          :selectedId="splitId"
+          @change="selectSplit" 
+        />
+        <LcsButton 
+          @click="setFavorite"
+          width="40px"
+        >
+          <div v-if="onFavoriteSplit">★</div>
+          <div v-else>☆</div>
+        </LcsButton>
+        
+      </span>
     </div>
     <div class="matchup-container border-bottom">
       <div 
@@ -30,13 +40,15 @@
 import Vue from 'vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import Match from './match.vue'
+import LcsButton from '../widgets/lcs_button.vue'
 
 export default Vue.extend({
   name: 'UpcomingMatchContainer',
 
   components: {
     Match,
-    LeagueSplitSelector
+    LeagueSplitSelector,
+    LcsButton
   },
 
   props: {
@@ -52,13 +64,15 @@ export default Vue.extend({
         this.fetchGamesAndTeams()
         this.allGamesShown = false
       }
+      this.updateFavouriteSplit()
     }
   },
 
   data() {
     return {
       allGamesShown: false,
-      loadingAllGames: false
+      loadingAllGames: false,
+      onFavoriteSplit: JSON.parse(localStorage.getItem('favoriteSplitId')) == this.splitId
     }
   },
 
@@ -73,6 +87,22 @@ export default Vue.extend({
   },
 
   methods: {
+    updateFavouriteSplit() {
+      const splitId = JSON.parse(localStorage.getItem('favoriteSplitId'))
+
+      this.onFavoriteSplit = this.splitId === splitId
+    },
+
+    setFavorite() {
+      if (this.favouriteSplitId === this.splitId) {
+        this.onFavoriteSplit = false
+        localStorage.removeItem('favouriteSplitId')
+      } else {
+        localStorage.setItem('favouriteSplitId', this.splitId)
+        this.onFavoriteSplit = true
+      }
+    },
+
     async fetchAllGames() {
       this.loadingAllGames = true
       await this.$store.dispatch('scheduledGames/getUpcomingGames', {
@@ -145,6 +175,11 @@ $color: silver;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+}
+
+.league-selector {
+  display: flex;
   align-items: center;
 }
 

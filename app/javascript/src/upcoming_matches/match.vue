@@ -64,7 +64,6 @@ export default {
 
   methods: {
     styleCompleteGameByResult(team) {
-      console.log(team === undefined)
       if (team === undefined) {
         return 'result_pending'
       }
