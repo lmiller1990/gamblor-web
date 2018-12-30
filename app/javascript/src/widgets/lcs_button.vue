@@ -1,6 +1,6 @@
 <template>
   <button 
-    :style="{ width: width }"
+    :style="{ width }"
     @click="$emit('click')"
   >
     <slot />

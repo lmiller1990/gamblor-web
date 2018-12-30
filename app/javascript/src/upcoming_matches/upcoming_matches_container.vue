@@ -2,10 +2,14 @@
   <div class="matchups_wrapper">
     <div class="header border-bottom">
       <h2>Schedule</h2>
-      <LeagueSplitSelector 
-        :selectedId="splitId"
-        @change="selectSplit" 
-      />
+      <span class="league-selector">
+        <LeagueSplitSelector 
+          :selectedId="splitId"
+          @change="selectSplit" 
+        />
+        <FavoriteMatchButton :splitId="splitId" />
+        
+      </span>
     </div>
     <div class="matchup-container border-bottom">
       <div 
@@ -29,6 +33,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
+import FavoriteMatchButton from './favorite_match_button.vue'
 import Match from './match.vue'
 
 export default Vue.extend({
@@ -36,7 +41,8 @@ export default Vue.extend({
 
   components: {
     Match,
-    LeagueSplitSelector
+    LeagueSplitSelector,
+    FavoriteMatchButton
   },
 
   props: {
@@ -145,6 +151,11 @@ $color: silver;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+}
+
+.league-selector {
+  display: flex;
   align-items: center;
 }
 
