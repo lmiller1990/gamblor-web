@@ -7,13 +7,7 @@
           :selectedId="splitId"
           @change="selectSplit" 
         />
-        <LcsButton 
-          @click="setFavorite"
-          width="40px"
-        >
-          <div v-if="onFavoriteSplit">★</div>
-          <div v-else>☆</div>
-        </LcsButton>
+        <FavoriteMatchButton :splitId="splitId" />
         
       </span>
     </div>
@@ -39,10 +33,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
+import FavoriteMatchButton from './favorite_match_button.vue'
 import Match from './match.vue'
 import LcsButton from '../widgets/lcs_button.vue'
-
-const favoriteSplitId = 'favoriteSplitId'
 
 export default Vue.extend({
   name: 'UpcomingMatchContainer',
@@ -50,7 +43,8 @@ export default Vue.extend({
   components: {
     Match,
     LeagueSplitSelector,
-    LcsButton
+    LcsButton,
+    FavoriteMatchButton
   },
 
   props: {
@@ -66,15 +60,13 @@ export default Vue.extend({
         this.fetchGamesAndTeams()
         this.allGamesShown = false
       }
-      this.updateFavouriteSplit()
     }
   },
 
   data() {
     return {
       allGamesShown: false,
-      loadingAllGames: false,
-      onFavoriteSplit: JSON.parse(localStorage.getItem(favoriteSplitId)) == this.splitId
+      loadingAllGames: false
     }
   },
 
@@ -89,24 +81,6 @@ export default Vue.extend({
   },
 
   methods: {
-    updateFavouriteSplit() {
-      const splitId = JSON.parse(localStorage.getItem(favoriteSplitId))
-
-      this.onFavoriteSplit = this.splitId === splitId
-    },
-
-    setFavorite() {
-      const splitId = JSON.parse(localStorage.getItem(favoriteSplitId))
-      console.log(splitId, this.splitId)
-      if (splitId === this.splitId) {
-        this.onFavoriteSplit = false
-        localStorage.removeItem(favoriteSplitId)
-      } else {
-        localStorage.setItem(favoriteSplitId, this.splitId)
-        this.onFavoriteSplit = true
-      }
-    },
-
     async fetchAllGames() {
       this.loadingAllGames = true
       await this.$store.dispatch('scheduledGames/getUpcomingGames', {

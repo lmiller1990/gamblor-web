@@ -63,13 +63,4 @@ describe('UpcomingMatchContainer', () => {
       expect(fetchGames).toHaveBeenCalledWith(SPLIT_ID)
     })
   })
-
-  describe('onFavoriteSplit', () => {
-    it('returns false when splitId not equal favoriteSplitId from localStorage', () => {
-      const wrapper = factory()
-      wrapper.setProps({ splitId: -1 })
-
-      expect(wrapper.vm.onFavoriteSplit).toBe(false)
-    })
-  })
 })
