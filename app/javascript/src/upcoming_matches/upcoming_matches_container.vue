@@ -35,7 +35,6 @@ import Vue from 'vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import FavoriteMatchButton from './favorite_match_button.vue'
 import Match from './match.vue'
-import LcsButton from '../widgets/lcs_button.vue'
 
 export default Vue.extend({
   name: 'UpcomingMatchContainer',
@@ -43,7 +42,6 @@ export default Vue.extend({
   components: {
     Match,
     LeagueSplitSelector,
-    LcsButton,
     FavoriteMatchButton
   },
 
