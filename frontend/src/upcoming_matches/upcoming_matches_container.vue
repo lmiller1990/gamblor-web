@@ -34,6 +34,7 @@
 import Vue from 'vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import FavoriteMatchButton from './favorite_match_button.vue'
+// import SplitStatsModalContainer from 'components/modals/split_stats_modal/split_stats_modal_container.vue'
 import Match from './match.vue'
 
 export default Vue.extend({

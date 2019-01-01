@@ -42,7 +42,7 @@ import UpcomingMatchesContainer from './upcoming_matches/upcoming_matches_contai
 import ModalManager from './components/modal_manager.vue'
 import Sidebar from './components/sidebar.vue'
 import BankrollContainer from './bankroll_management/bankroll_container.vue'
-import { ModalOptions } from './store/types'
+// import { ModalOptions } from './store/types'
 
 export default {
   name: 'App',
@@ -137,7 +137,9 @@ export default {
 
     setDefaults(): void {
       const dataSettings =  <HTMLDivElement>document.querySelector('#settings')
-      const { defaultSplitId, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
+      // const { defaultSplitId, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
+      const defaultSplitId = 9
+      const admin = true
 
       this.$store.commit('user/SET_ADMIN', { admin }) 
 
@@ -176,6 +178,8 @@ export default {
   }
 }
 </script>
+
+<style src="./global_style.css"></style>
 
 <style lang="scss" scoped>
 #app {

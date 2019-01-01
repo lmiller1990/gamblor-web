@@ -1,5 +1,6 @@
-import Vue, { VueConstructor } from 'vue'
+import { VueConstructor } from 'vue'
 import { Bet } from '../types/bet'
+import { ILeague } from '../types/league'
 
 export interface RootState {}
 
@@ -26,7 +27,7 @@ export interface AxiosResponse {
 }
 
 export interface LeaguesState {
-  all: string[]
+  all: ILeague[]
   defaultSplit: string
   splitId?: number
 }

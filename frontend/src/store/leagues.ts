@@ -9,7 +9,7 @@ export const state: LeaguesState = {
 }
 
 export const mutations = {
-  SET_LEAGUES(state, { leagues }) {
+  SET_LEAGUES(state: LeaguesState, { leagues }) {
     state.all = leagues
   },
 
@@ -17,7 +17,7 @@ export const mutations = {
     state.splitId = splitId
   },
 
-  SET_DEFAULT_SPLIT(state, { defaultSplit }) {
+  SET_DEFAULT_SPLIT(state: LeaguesState, { defaultSplit }) {
     state.defaultSplit = defaultSplit
   }
 }
@@ -30,12 +30,12 @@ export const actions = {
 }
 
 export const getters = {
-  getSplitByName: (state) => (name) => {
+  getSplitByName: (state: LeaguesState) => (name) => {
     const splits = flatten(state.all.map(x => x.splits))
     return splits.find(x => x.name === name)
   },
 
-  splits: ({ all }) => {
+  splits: ({ all }: LeaguesState) => {
     const splits = []
     for (const league of all) {
       for (const split of league.splits) {
