@@ -17,8 +17,12 @@ class SplitStatsService
   #   :fb => { underdog: 15, favorite: -60 }
   # }
   def call
+    defaults = { underdog: 0, favorite: 0 }
+    results = { fb: defaults, ft: defaults, fd: defaults, fbaron: defaults, win: defaults }
+
     games = @split.games
-    results = {}
+
+    return results if games.count == 0
 
     @markets.each do |market|
       market, market_full = market
