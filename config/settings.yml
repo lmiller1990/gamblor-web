@@ -1,8 +1,8 @@
 development:
-  default_split: 'Play-offs'
+  default_split: 'All Games'
 
 test:
-  default_split: 'Play-offs'
+  default_split: 'All Games'
 
 production:
-  default_split: 'Play-offs'
+  default_split: 'All Games'
