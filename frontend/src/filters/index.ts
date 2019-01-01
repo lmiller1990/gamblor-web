@@ -1,11 +1,11 @@
-export const titlecase = (val) => 
+export const titlecase = (val: string) => 
   val
     .split(' ')
     .map(x => x.slice(0, 1).toUpperCase() + x.slice(1, x.length))
     .join(' ')
 
 
-export const shortDate = (date) => 
+export const shortDate = (date: string) => 
   new Date(date)
     .toDateString()
     .split(' ')

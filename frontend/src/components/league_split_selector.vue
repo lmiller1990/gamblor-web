@@ -43,7 +43,7 @@ export default Vue.extend({
   
   methods: {
     handleChange(e: Event) {
-      this.$emit('change', parseInt(((<HTMLSelectElement>e.target).value)))
+      this.$emit('change', parseInt(((e.target as HTMLSelectElement).value)))
     }
   }
 })

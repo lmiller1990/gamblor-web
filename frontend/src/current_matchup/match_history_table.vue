@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropOptions } from 'vue'
+import Vue from 'vue'
 import { Game } from '../types/game'
 
 import { titlecase } from '../filters/index'
@@ -101,7 +101,7 @@ export default Vue.extend({
       required: true
     },
 
-    games: <PropOptions<object[]>> {
+    games: {
       required: true
     },
 

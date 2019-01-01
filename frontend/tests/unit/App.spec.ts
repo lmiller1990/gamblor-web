@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
-import App from '../src/App.vue'
-import HowToUse from '../src/components/how_to_use.vue' 
-import BetSleeve from '../src/bet_sleeve/bet_sleeve.vue' 
-import UpcomingMatchesContainer from '../src/upcoming_matches/upcoming_matches_container.vue' 
+import App from '@/App.vue'
+import HowToUse from '@/components/how_to_use.vue' 
+import BetSleeve from '@/bet_sleeve/bet_sleeve.vue' 
+import UpcomingMatchesContainer from '@/upcoming_matches/upcoming_matches_container.vue' 
 
 const SPLIT_ID = 1
 const createMockStore = (commit = () => {}) => ({
@@ -17,7 +17,8 @@ const createMockStore = (commit = () => {}) => ({
 
 const promiseMock = jest.fn().mockReturnValue(Promise.resolve())
 
-const factory = ($store, ...mockFns) => shallowMount(App, {
+// @ts-ignore
+const factory = ($store: object, ...mockFns: Function[]) => shallowMount(App, {
   mocks: { $store },
   methods: {
     fetchBets: promiseMock,

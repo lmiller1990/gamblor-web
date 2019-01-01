@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropOptions } from 'vue'
+import Vue from 'vue'
 import { Game } from '../types/game'
 import { titlecase } from '../filters/index'
 import MatchHistoryTable from './match_history_table.vue'
@@ -50,7 +50,6 @@ import FirstMarketsContainer from './first_markets_container.vue'
 import TeamLogo from '../components/team_logo.vue'
 
 const N_PREV_GAMES_TO_SHOW = 10
-
 
 export default Vue.extend({
   name: 'MatchHistory',
@@ -61,7 +60,8 @@ export default Vue.extend({
       required: true
     },
 
-    games: <PropOptions<object[]>> {
+    games: {
+      type: Array,
       required: true
     },
 

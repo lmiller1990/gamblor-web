@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropOptions } from 'vue'
+import Vue from 'vue'
 import Chart from 'chart.js'
-import { options } from '../teams/chart_options.js'
-import { rgbFromStringHash } from '../utils.js'
+import { options } from '../teams/chart_options'
+import { rgbFromStringHash } from '../utils'
 
 export default Vue.extend({
   name: 'FirstMarketContainer',
@@ -19,8 +19,8 @@ export default Vue.extend({
       required: true
     },
 
-    games: <PropOptions<object[]>> {
-      type: Array,
+    games: {
+      type: Object,
       required: true
     },
 
@@ -90,10 +90,13 @@ export default Vue.extend({
     },
 
     drawChart(): void {
+      // @ts-ignore
       this.resetChart()
-      const ctx: HTMLCanvasElement = <HTMLCanvasElement>this.$el.querySelector('#' + this.chartId)
+      // @ts-ignore
+      const ctx: HTMLCanvasElement = this.$el.querySelector('#' + this.chartId) as HTMLCanvasElement
       new Chart(ctx, {
         type: 'line',
+        // @ts-ignore
         options: options({ title: `% First ${this.market}` }),
         data: {
           datasets: [this.dataset],

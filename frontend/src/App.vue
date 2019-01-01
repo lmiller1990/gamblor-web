@@ -34,6 +34,7 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import HowToUse from './components/how_to_use.vue'
 import BetSleeve from './bet_sleeve/bet_sleeve.vue'
 import SidebarControls from './components/sidebar_controls.vue'
@@ -44,7 +45,7 @@ import Sidebar from './components/sidebar.vue'
 import BankrollContainer from './bankroll_management/bankroll_container.vue'
 // import { ModalOptions } from './store/types'
 
-export default {
+export default Vue.extend({
   name: 'App',
 
   components: {
@@ -58,9 +59,6 @@ export default {
   },
 
   created(): void {
-    const opts: ModalOptions = { component: BankrollContainer, show: true }
-    // this.$store.commit('modal/SET_MODAL', opts)
-
     Promise.all([this.fetchBets(), this.fetchBankAccount()])
       .then(() => this.loadedBets = true)
 
@@ -136,7 +134,7 @@ export default {
     },
 
     setDefaults(): void {
-      const dataSettings =  <HTMLDivElement>document.querySelector('#settings')
+      const dataSettings =  document.querySelector('#settings') as HTMLDivElement
       // const { defaultSplitId, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
       const defaultSplitId = 9
       const admin = true
@@ -176,7 +174,7 @@ export default {
       this.redSideGames = gamesForSecondTeam
     }
   }
-}
+})
 </script>
 
 <style src="./global_style.css"></style>

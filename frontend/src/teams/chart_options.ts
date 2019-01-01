@@ -1,4 +1,4 @@
-const options = ({ title }) => ({
+const options = ({ title }: { title: string }) => ({
   title: {
     text: title,
     display: true
