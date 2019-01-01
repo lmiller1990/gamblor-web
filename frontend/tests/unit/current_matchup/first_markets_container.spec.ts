@@ -1,6 +1,5 @@
-import Vue from 'vue'
 import { shallowMount } from '@vue/test-utils'
-import FirstMarketsContainer from '../../src/current_matchup/first_markets_container.vue'
+import FirstMarketsContainer from '@/current_matchup/first_markets_container.vue'
 
 const teamId = 1
 const SIDE = 'red'
@@ -20,6 +19,7 @@ const wrapper = factory()
 describe('FirstMarketsContainer', () => {
   describe('getAverageForMarket', () => {
     it('returns the running first average, excluding unplayed games', () => {
+      // @ts-ignore
       expect(wrapper.vm.getAverageForMarket('Blood')).toEqual([0, .5, .33])
     })
   })
@@ -27,6 +27,7 @@ describe('FirstMarketsContainer', () => {
   describe('generateDataset', () => {
     it('adds a linear x axis to a 1d dataset', () => {
       const data = [1, 1, 0]
+      // @ts-ignore
       const actual = wrapper.vm.generateDataset(data)
 
       expect(actual).toEqual([
@@ -39,6 +40,7 @@ describe('FirstMarketsContainer', () => {
 
   describe('chartId', () => {
     it('returns an id', () => {
+      // @ts-ignore
       expect(wrapper.vm.chartId).toBe(`${SIDE}_chart`)
     })
   })

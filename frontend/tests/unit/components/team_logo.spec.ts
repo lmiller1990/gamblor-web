@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import TeamLogo from '../../src/components/team_logo.vue'
+import TeamLogo from '@/components/team_logo.vue'
 
 describe('TeamLogo', () => {
   describe('teamLogo', () => {
@@ -10,7 +10,8 @@ describe('TeamLogo', () => {
         }
       })
 
-      expect(wrapper.findAll('img').at(0).element.src.includes('/images/counter_logic_gaming.png')).toBe(true)
+      expect((wrapper.findAll('img').at(0).element as HTMLImageElement)
+        .src.includes('/images/counter_logic_gaming.png')).toBe(true)
     })
   })
 })

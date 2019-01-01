@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import BankrollContainer from '../../src/bankroll_management/bankroll_container.vue'
+import BankrollContainer from '@/bankroll_management/bankroll_container.vue'
 
 const factory = () => shallowMount(BankrollContainer, {
   computed: {

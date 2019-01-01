@@ -5,7 +5,9 @@
     </div>
     <div 
       class="ev"
-      v-for="{ ev, nLastGames } in evs">
+      v-for="{ ev, nLastGames } in evs"
+      :key="nLastGames"
+    >
       {{ gameCount(nLastGames) }}: {{ ev.toFixed(2) }}
     </div>
   </div>

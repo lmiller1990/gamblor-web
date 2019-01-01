@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils'
-import { BetStatus } from '../../src/types/bet'
-import MatchHistoryRow from '../../src/current_matchup/match_history_row.vue'
+import { BetStatus } from '@/types/bet'
+import MatchHistoryRow from '@/current_matchup/match_history_row.vue'
 
 const context = describe
-const createMockStore = (commit) => ({ commit })
+const createMockStore = (commit: Function) => ({ commit })
 
 const UNUSED_ID = 1
 const GAME_ID = 2
@@ -13,7 +13,7 @@ const ODDS = 1.5
 
 describe('MatchHistoryRow', () => {
   const factory = 
-    ({ victory = undefined, gameCompleted = true, odds = 0.0 }, store = {}) => 
+    (gameCompleted: boolean , odds?: number, victory?: boolean, store = {}) => 
     shallowMount(MatchHistoryRow, {
       propsData: {
         victory,
@@ -38,7 +38,7 @@ describe('MatchHistoryRow', () => {
   context('game is completed', () => {
     context('team won the market', () => {
       it('renders O marker and sets victory class', () => {
-        const wrapper = factory({ victory: true })
+        const wrapper = factory(true, undefined, true)
 
         expect(wrapper.classes()).toContain('victory')
         expect(wrapper.text()).toBe('✓')
@@ -47,7 +47,7 @@ describe('MatchHistoryRow', () => {
 
     context('team lost the market', () => {
       it('renders marker and styles based on result', () => {
-        const wrapper = factory({ victory: false })
+        const wrapper = factory(true, undefined, false)
 
         expect(wrapper.classes()).toContain('defeat')
         expect(wrapper.text()).toBe('✘')
@@ -57,7 +57,7 @@ describe('MatchHistoryRow', () => {
 
   context('game has not been played', () => {
     it('does not render marker or give victory/defeat class', () => {
-      const wrapper = factory({ gameCompleted: false, odds: ODDS })
+      const wrapper = factory(false, ODDS, undefined)
 
       expect(wrapper.classes()).not.toContain('defeat')
       expect(wrapper.classes()).not.toContain('victory')
@@ -70,7 +70,7 @@ describe('MatchHistoryRow', () => {
     context('game has not been played', () => {
       it('commits a ADD_BET mutation when clicked', () => {
         const commit = jest.fn()
-        const wrapper = factory({ gameCompleted: false, odds: ODDS }, { commit })
+        const wrapper = factory(false, ODDS, undefined, { commit })
         const bet = {
           id: UNUSED_ID * -1,
           priceCents: 0,
@@ -90,7 +90,7 @@ describe('MatchHistoryRow', () => {
     context('game has been played', () => {
       it('does nothing', () => {
         const commit = jest.fn()
-        const wrapper = factory({ gameCompleted: true, odds: ODDS }, { commit })
+        const wrapper = factory(true, ODDS, undefined, { commit })
 
         wrapper.trigger('click')
 
@@ -101,7 +101,7 @@ describe('MatchHistoryRow', () => {
     context('odds are null (such case of upcoming ame where are yet to annouced)', () => {
       it('does nothing', () => {
         const commit = jest.fn()
-        const wrapper = factory({ gameCompleted: true, odds: null }, { commit })
+        const wrapper = factory(true, undefined, undefined, { commit })
 
         wrapper.trigger('click')
 

@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import LeagueSplitSelector from '../../src/components/league_split_selector.vue'
+import LeagueSplitSelector from '@/components/league_split_selector.vue'
 
 const NA_LCS = { id: 1, name: 'na lcs' }
 const EU_LCS = { id: 2, name: 'eu lcs' }

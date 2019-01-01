@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import SignOutForm from '../../src/components/sign_out_form.vue'
+import SignOutForm from '@/components/sign_out_form.vue'
 
 describe('SignOutForm', () => {
   it('renders', () => {

@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import SidebarControls from '../../src/components/sidebar_controls.vue'
+import SidebarControls from '@/components/sidebar_controls.vue'
 
 describe('SidebarControls', () => {
   it('renders', () => {

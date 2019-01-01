@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
-import SingleBet from '../../src/bet_sleeve/single_bet.vue'
-import { BetStatus } from '../../src/types/bet'
+import SingleBet from '@/bet_sleeve/single_bet.vue'
+import { BetStatus } from '@/types/bet'
 
 const id = 1
 const teamBetOn = 'TSM'

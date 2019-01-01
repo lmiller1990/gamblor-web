@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils'
-import ModalManager from '../../src/components/modal_manager.vue'
+import ModalManager from '@/components/modal_manager.vue'
 
 const Comp = {
   name: 'Comp',
-  render: h => h('span')
+  render: (h: Function) => h('span')
 }
 
 const $store = {

@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import TeamSelector from '../../src/components/team_selector.vue'
+import TeamSelector from '@/components/team_selector.vue'
 
 describe('TeamSelector', () => {
   const teamId = 1
@@ -33,6 +33,7 @@ describe('TeamSelector', () => {
   it('sets a selected option using props', () => { 
     const wrapper = factory(anotherTeamId)
 
-    expect(wrapper.find(`[value="${anotherTeamId}"]`).element.selected).toBe(true)
+    expect((wrapper.find(`[value="${anotherTeamId}"]`).element as HTMLOptionElement)
+      .selected).toBe(true)
   })
 })

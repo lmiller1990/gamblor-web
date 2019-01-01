@@ -20,7 +20,7 @@ export default Vue.extend({
     },
 
     games: {
-      type: Object,
+      type: Array as () => Array<Object>,
       required: true
     },
 

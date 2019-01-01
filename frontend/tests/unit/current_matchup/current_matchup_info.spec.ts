@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import CurrentMatchupInfo from '../../src/current_matchup/current_matchup_info.vue'
+import CurrentMatchupInfo from '@/current_matchup/current_matchup_info.vue'
 
 const defaultProps = {
   redSideTeamId: 1,
@@ -23,6 +23,7 @@ describe('CurrentMatchupInfo', () => {
   describe('teamChanged', () => {
     it('emits a change event with correct args', () => {
       const teamId = 1
+      // @ts-ignore
       const subject = CurrentMatchupInfo.methods.teamChanged
       const $emit = jest.fn()
 

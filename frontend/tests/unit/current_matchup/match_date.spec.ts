@@ -1,12 +1,12 @@
 import { shallowMount } from '@vue/test-utils'
-import MatchDate from '../../src/current_matchup/match_date.vue'
+import MatchDate from '@/current_matchup/match_date.vue'
 
 const context = describe
 
 const ID = 1
 const DATE = new Date().toString()
 
-const factory = ({ canEdit }) =>
+const factory = ({ canEdit }: { canEdit: boolean }) =>
   shallowMount(MatchDate, {
     propsData: {
       id: ID,

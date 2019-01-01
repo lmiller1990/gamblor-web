@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import MatchEvTooltip from '../../src/current_matchup/match_ev_tooltip.vue'
+import MatchEvTooltip from '@/current_matchup/match_ev_tooltip.vue'
 
 const OFFSET = 100
 const EV_ALL = { nLastGames: -1, ev: 1.12 }
@@ -26,6 +26,7 @@ describe('MatchEvTooltip', () => {
   it('calculates and assigns style offset from bottom', () => {
     const wrapper = factory()
 
+    // @ts-ignore
     expect(wrapper.vm.offset).toEqual({ bottom: `${OFFSET}px` })
   })
 })

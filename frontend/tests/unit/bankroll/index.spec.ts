@@ -2,7 +2,7 @@ import {
   fullKelly,
   calcOverlay,
   fractionalKelly
-} from '../../src/bankroll'
+} from '@/bankroll'
 
 const EV = 1.2
 const ODDS = 2.4
