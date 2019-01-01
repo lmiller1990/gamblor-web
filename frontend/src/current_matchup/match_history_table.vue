@@ -90,6 +90,7 @@ import MatchDate from './match_date.vue'
 
 export default Vue.extend({
   name: 'MatchHistoryTable',
+
   components: {
     MatchDate,
     MatchHistoryRow
@@ -102,7 +103,8 @@ export default Vue.extend({
     },
 
     games: {
-      required: true
+      required: true,
+      type: Array as () => Array<Object>,
     },
 
     teamId: {
@@ -163,7 +165,7 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .more_games {
   text-align: center;
   cursor: pointer;

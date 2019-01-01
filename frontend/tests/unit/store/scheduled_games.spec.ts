@@ -1,5 +1,4 @@
-import { mutations, getters } from '../../src/store/scheduled_games'
-import { index } from '../fixtures/upcoming_games_api.js'
+import { mutations, getters } from '@/store/scheduled_games'
 
 const createState = () => ({ ids: [], all: {} })
 
@@ -39,6 +38,7 @@ describe('getters', () => {
   describe('bySplitId', () => {
     it('returns games by split id', () => {
       const state = createState()
+      // @ts-ignore
       state.ids = [GAME_ID_3, GAME_ID_1, GAME_ID_2]
       state.all = {
         [GAME_ID_1]: summerSplitGameWk1,
@@ -54,6 +54,7 @@ describe('getters', () => {
   describe('byTeamId', () => {
     it('returns games by a team id', () => {
       const state = createState()
+      // @ts-ignore
       state.ids = [GAME_ID_1, GAME_ID_2, GAME_ID_3]
       state.all = {
         [GAME_ID_1]: { blueSideTeamId: TEAM_ID_1, redSideTeamId: 2 },
@@ -63,6 +64,7 @@ describe('getters', () => {
 
       const actual = getters.byTeamId(state)(TEAM_ID_1)
 
+      // @ts-ignore
       expect(actual).toEqual([ state.all[GAME_ID_1], state.all[GAME_ID_2] ])
     })
   })

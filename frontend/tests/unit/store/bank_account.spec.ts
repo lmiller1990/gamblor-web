@@ -1,4 +1,4 @@
-import { getters, state, mutations } from '../../src/store/bank_account'
+import { state, mutations } from '@/store/bank_account'
 
 const createState = () => Object.assign({}, state)
 const BALANCE = 10022

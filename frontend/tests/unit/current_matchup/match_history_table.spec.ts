@@ -1,10 +1,11 @@
 import { shallowMount } from '@vue/test-utils'
-import MatchHistoryTable from '../../src/current_matchup/match_history_table.vue'
+import MatchHistoryTable from '@/current_matchup/match_history_table.vue'
 
 const TEAM_ID = 1
 const OPPONENT_ID = 2
 
 const factory = () => 
+  // @ts-ignore
   shallowMount(MatchHistoryTable, {
     props: {
       canEdit: true,

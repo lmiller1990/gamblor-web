@@ -1,9 +1,11 @@
-import { state, mutations, getters } from '../../src/store/leagues'
+import { state, mutations, getters } from '@/store/leagues'
+import { LeaguesState } from '@/store/types'
 
-const createState = () => Object.assign({}, state)
-const SUMMMER_SPLIT = { name: 'summer split' }
-const SPRING_SPLIT = { name: 'spring split' }
-const WINTER_SPLIT = { name: 'winter split' }
+const createState = (): LeaguesState => Object.assign({}, state)
+const splitData = { id: 0, leagueId: 1 }
+const SUMMMER_SPLIT = { ...splitData, name: 'summer split' }
+const SPRING_SPLIT = { ...splitData, name: 'spring split' }
+const WINTER_SPLIT = { ...splitData, name: 'winter split' }
 const SPLIT_ID = 1
 
 describe('leagues store', () => {
@@ -43,8 +45,8 @@ describe('leagues store', () => {
           id: 0, 
           name: 'worlds',
           splits: [
-            { id: 1, name: 'playin' },
-            { id: 2, name: 'groups' }
+            { id: 1, name: 'playin', leagueId: 1 },
+            { id: 2, name: 'groups', leagueId: 1 }
           ]
         }]
 
@@ -61,8 +63,8 @@ describe('leagues store', () => {
       it('gets a split by name', () => {
         const state = createState()
         state.all = [
-          { splits: [SUMMMER_SPLIT, SPRING_SPLIT] },
-          { splits: [WINTER_SPLIT] },
+          { id: 0, name: 'League 0', splits: [SUMMMER_SPLIT, SPRING_SPLIT] },
+          { id: 1, name: 'League 1', splits: [WINTER_SPLIT] },
         ]
 
         const actual = getters.getSplitByName(state)(WINTER_SPLIT.name)

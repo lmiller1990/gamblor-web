@@ -1,4 +1,4 @@
-import { state, mutations, getters } from '../../src/store/bets'
+import { state, mutations, getters } from '@/store/bets'
 
 const createState = () => Object.assign({}, state)
 const context = describe

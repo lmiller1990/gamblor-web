@@ -1,5 +1,4 @@
-import { Game } from '../../src/types/game'
-import { state, mutations, getters } from '../../src/store/games.ts'
+import { state, getters } from '@/store/games.ts'
 
 const context = describe
 
@@ -25,8 +24,8 @@ const games = [
 
 const createState = () => Object.assign({}, state)
 const rootGetters = {
-  'teams/nameById': (id) => id === BLUE_TEAM_ID ? 'blue' : 'red',
-  'historicalGames/byTeamId': (id) => games
+  'teams/nameById': (id: number) => id === BLUE_TEAM_ID ? 'blue' : 'red',
+  'historicalGames/byTeamId': (id: number) => games
 }
 
 describe('getters', () => {
@@ -52,7 +51,7 @@ describe('getters', () => {
       state.all = { [GAME_ID]: games[1] }
       state.ids = [GAME_ID]
 
-      const actual = getters.oddsForMarket(state)({
+      const actual = getters.oddsForMarket(state, undefined, {}, undefined)({
         gameId: GAME_ID, market: 'fb', teamId: BLUE_TEAM_ID
       })
 
@@ -62,7 +61,7 @@ describe('getters', () => {
   })
 
   describe('evByTeamId', () => {
-    const subject = ({ nLastGames }) =>
+    const subject = ({ nLastGames }: { nLastGames: number }) =>
       getters.evByTeamId({}, getters, {}, rootGetters)({
         teamId: BLUE_TEAM_ID,
         opponentId: RED_TEAM_ID,

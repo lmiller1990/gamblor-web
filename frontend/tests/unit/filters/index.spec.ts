@@ -1,7 +1,7 @@
 import {
   titlecase,
   dollars
-} from '../../src/filters/index'
+} from '@/filters/index'
 
 describe('titlecase', () => {
   it('capitalizes every word', () => {

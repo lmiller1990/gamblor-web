@@ -1,8 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import { Store } from 'vuex-mock-store'
-import Match from '../../src/upcoming_matches/match.vue'
-import UpcomingMatchContainer from '../../src/upcoming_matches/upcoming_matches_container.vue'
-
+import Match from '@/upcoming_matches/match.vue'
+import UpcomingMatchContainer from '@/upcoming_matches/upcoming_matches_container.vue'
 
 // TODO: This should probably gameId, not matchId in the entire component.
 const MATCH_ID = 1
@@ -57,6 +56,7 @@ describe('UpcomingMatchContainer', () => {
       const fetchGames = jest.fn()
       wrapper.setMethods({ fetchGames, scrollToBottomOfContainer: () => {} })
 
+      // @ts-ignore
       await wrapper.vm.selectSplit(SPLIT_ID)
 
       expect(wrapper.emitted().selectSplit[0][0]).toEqual({ id: SPLIT_ID })

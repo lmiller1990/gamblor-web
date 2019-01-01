@@ -1,4 +1,4 @@
-import { state, mutations } from '../../src/store/modal'
+import { state, mutations } from '@/store/modal'
 
 const createState = () => Object.assign({}, state)
 

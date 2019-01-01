@@ -1,5 +1,7 @@
 import axios from 'axios'
+import { ActionContext } from 'vuex'
 import { LeaguesState } from './types'
+import { ILeague } from '@/types/league'
 const flatten = require('lodash/flatten')
 
 export const state: LeaguesState = {
@@ -9,7 +11,7 @@ export const state: LeaguesState = {
 }
 
 export const mutations = {
-  SET_LEAGUES(state: LeaguesState, { leagues }) {
+  SET_LEAGUES(state: LeaguesState, { leagues }: { leagues: ILeague[] }) {
     state.all = leagues
   },
 
@@ -17,20 +19,20 @@ export const mutations = {
     state.splitId = splitId
   },
 
-  SET_DEFAULT_SPLIT(state: LeaguesState, { defaultSplit }) {
+  SET_DEFAULT_SPLIT(state: LeaguesState, { defaultSplit }: { defaultSplit: string }) {
     state.defaultSplit = defaultSplit
   }
 }
 
 export const actions = {
-  async getLeagues({ commit }) {
+  async getLeagues({ commit }: ActionContext<LeaguesState, {}>) {
     const res = await axios.get('/api/v1/leagues')
     commit('SET_LEAGUES', { leagues: res.data })
   }
 }
 
 export const getters = {
-  getSplitByName: (state: LeaguesState) => (name) => {
+  getSplitByName: (state: LeaguesState) => (name: string) => {
     const splits = flatten(state.all.map(x => x.splits))
     return splits.find(x => x.name === name)
   },

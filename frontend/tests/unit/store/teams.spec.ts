@@ -1,6 +1,6 @@
-import { mutations, getters } from '../../src/store/teams.ts'
+import { mutations, getters } from '@/store/teams.ts'
 
-const createState = () => ({ ids: [], all: {} })
+const createState = (): { ids: number[], all: object } => ({ ids: [], all: {} })
 
 const response = [
   { id: 1, name: 'Cloud 9' },

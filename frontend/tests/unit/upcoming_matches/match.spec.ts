@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
-import Match from '../../src/upcoming_matches/match.vue'
-import TeamLogo from '../../src/components/team_logo.vue'
+import Match from '@/upcoming_matches/match.vue'
+import TeamLogo from '@/components/team_logo.vue'
 
 const context = describe
 
@@ -35,6 +35,7 @@ describe('Match', () => {
 })
 
 describe('styleCompleteGameByResult', () => {
+  // @ts-ignore
   const subject = Match.methods.styleCompleteGameByResult
 
   context('team won game', () => {

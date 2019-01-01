@@ -1,6 +1,6 @@
-import { getters } from '../../src/store/historical_games'
+import { getters } from '@/store/historical_games'
 
-const createState = () => ({ ids: [], all: {} })
+const createState = (): { ids: number[], all: object } => ({ ids: [], all: {} })
 
 const GAME_ID_1 = 1
 const GAME_ID_2 = 2
@@ -21,6 +21,7 @@ describe('historicalGames', () => {
 
         const actual = getters.byTeamId(state)(1)
 
+        // @ts-ignore
         expect(actual).toEqual([ state.all['1'], state.all['2'] ])
       })
     })

@@ -20,9 +20,9 @@ export const actions: ActionTree<BankAccountState, RootState> = {
 }
 
 export const getters: GetterTree<BankAccountState, RootState> = {
-}
-  balanceInDollars: state =>
+  balanceInDollars: (state) =>
     parseFloat((state.balanceCents / 100).toFixed(2))
+}
 
 export const bankAccount: Module<BankAccountState, RootState> = {
   namespaced: true,
