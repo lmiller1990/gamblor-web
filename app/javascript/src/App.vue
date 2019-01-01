@@ -57,7 +57,7 @@ export default {
     SidebarControls
   },
 
-  created() {
+  created(): void {
     const opts: ModalOptions = { component: BankrollContainer, show: true }
     // this.$store.commit('modal/SET_MODAL', opts)
 
@@ -118,11 +118,11 @@ export default {
       await this.$store.dispatch('games/getByIds', gameIds)
     },
 
-    setSplitId({ id }: { id: number }) {
+    setSplitId({ id }: { id: number }): void {
       this.$store.commit('leagues/SET_SPLIT_ID', id)
     },
 
-    selectTeam({ teamId, side }: { teamId: string, side: string }) {
+    selectTeam({ teamId, side }: { teamId: string, side: string }): void {
       if (side === 'blue')
         this.setMatchup({ blueSideTeamId: parseInt(teamId), redSideTeamId: this.redSideTeamId })
 
@@ -131,28 +131,20 @@ export default {
     },
 
     // Set default settings declared on server side in config/settings.yml
-    fetchLeaguesAndSplits() {
+    fetchLeaguesAndSplits(): Promise<any> {
       return this.$store.dispatch('leagues/getLeagues')
     },
 
-    setDefaults() {
+    setDefaults(): void {
       const dataSettings =  <HTMLDivElement>document.querySelector('#settings')
-      const { defaultSplit, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
+      const { defaultSplitId, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
 
       this.$store.commit('user/SET_ADMIN', { admin }) 
 
-      // unfortunately I decided to save the 'default' split using a name
-      // instead of an ID... smart. So in the case we are using the default,
-      // we get the name and use a getter to get the id, then commit that.
-      // if they used the new "favorite" split feature, which saves an id
-      // to localStorage, we just grab that and commit it to the store.
-      // Sorry about that
       if (localStorage.getItem('favoriteSplitId')) {
         const id =  JSON.parse(localStorage.getItem('favoriteSplitId')) 
         this.$store.commit('leagues/SET_SPLIT_ID', id)
       } else {
-        this.$store.commit('leagues/SET_DEFAULT_SPLIT', { defaultSplit })
-        const defaultSplitId = this.$store.getters['leagues/getSplitByName'](defaultSplit).id
         this.$store.commit('leagues/SET_SPLIT_ID', defaultSplitId)
       }
     },
@@ -171,7 +163,7 @@ export default {
       this.fetchCurrentMatchup()
     },
 
-    fetchCurrentMatchup() {
+    fetchCurrentMatchup(): void {
       const { firstTeamId, secondTeamId } = this.$store.state.matchups
       const gamesForFirstTeam = this.$store.getters['historicalGames/byTeamId'](firstTeamId)
       const gamesForSecondTeam = this.$store.getters['historicalGames/byTeamId'](secondTeamId)
