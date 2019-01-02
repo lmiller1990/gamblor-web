@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { Module, GetterTree } from 'vuex'
-import { keysToSnake } from '../utils.js'
+import { ActionContext, GetterTree } from 'vuex'
+import { keysToSnake } from '../utils'
 import { Game } from '../../src/types/game'
 import { Bet, setBetStatus } from '../../src/types/bet'
 import { BetsState, AxiosResponse, RootState } from './types'
@@ -10,7 +10,7 @@ export const state: BetsState = {
   all: {},
   ids: [],
   selectedId: 0,
-  selectedOdds: null,
+  selectedOdds: undefined,
   selectedBetEvs: []
 }
 
@@ -52,7 +52,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async create({ commit }, { bet }: { commit: Function, bet: Bet }) {
+  async create({ commit }: ActionContext<BetsState, {}>, { bet }: { bet: Bet }) {
     const tentativeId = bet.id
     const res = await axios.post('/api/v1/bets', keysToSnake(bet))
 
@@ -63,10 +63,10 @@ export const actions = {
     })
   },
 
-  async getBets({ commit }) {
+  async getBets({ commit }: ActionContext<BetsState, {}>) {
     const res = await axios.get('/api/v1/bets')
     const games: Game[] = res.data.map((bet: Bet) => bet.game)
-    const bets: Bet[] = res.data.map(x => ({...x, status: setBetStatus(x.won) }))
+    const bets: Bet[] = res.data.map((x: Bet) => ({...x, status: setBetStatus(x.won) }))
     
     commit('SET_BETS', bets)
     commit('games/SET_GAMES', games, { root: true })
@@ -90,9 +90,11 @@ export const getters: GetterTree<BetsState, RootState> = {
 
   tentativeBetIds: (state): number[] => state.ids.filter(x => x < 0),
 
-  selected: state => state.all[state.selectedId]
+  selected: (state: BetsState): Bet | undefined => {
+    if (state.selectedId)
+      return state.all[state.selectedId]
+  }
 }
-
 
 export default {
   namespaced: true,
