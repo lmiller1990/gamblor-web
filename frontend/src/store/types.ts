@@ -2,6 +2,7 @@ import { VueConstructor } from 'vue'
 import { Bet } from '../types/bet'
 import { Game } from '../types/game'
 import { ILeague } from '../types/league'
+import { ITeam } from '@/types/team'
 
 export interface RootState {}
 
@@ -33,6 +34,11 @@ export interface IScheduledGamesState extends BaseState {
   }
 }
 
+export interface ITeamsState extends BaseState {
+  all: {
+    [key: number]: Team
+  }
+}
 
 export interface BankAccountState {
   balanceCents: number
