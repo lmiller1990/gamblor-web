@@ -89,7 +89,11 @@ export default Vue.extend({
     titlecase
   },
 
-  data() {
+  data(): {
+    splitId?: number,
+    markets: ['Blood', 'Turret', 'Dragon', 'Baron'],
+    nPreviousGames: number
+  } {
     return {
       splitId: undefined, //this.$store.state.leagues.splitId,
       markets: ['Blood', 'Turret', 'Dragon', 'Baron'],
@@ -129,9 +133,11 @@ export default Vue.extend({
   methods: {
     selectSplit(splitId: number) {
       if (splitId === 0) {
+        // @ts-ignore
         this.splitId = undefined
         // show all
       } else {
+        // @ts-ignore
         this.splitId = splitId
       }
     },
@@ -141,6 +147,7 @@ export default Vue.extend({
     },
 
     showMoreGames(numGames: number) {
+        // @ts-ignore
       this.nPreviousGames += numGames
     }
   }

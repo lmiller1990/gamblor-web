@@ -36,7 +36,7 @@ export interface IScheduledGamesState extends BaseState {
 
 export interface ITeamsState extends BaseState {
   all: {
-    [key: number]: Team
+    [key: number]: ITeam
   }
 }
 

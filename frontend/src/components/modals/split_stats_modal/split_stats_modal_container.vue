@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { LeaguesState } from '@/store/types'
+import { LeaguesState } from '../../../store/types'
 
 export default Vue.extend({
   name: 'SplitStatsModalContainer',
@@ -15,7 +15,7 @@ export default Vue.extend({
 
   computed: {
     currentSplitId(): number {
-
+      return 1
     }
   }
 })
