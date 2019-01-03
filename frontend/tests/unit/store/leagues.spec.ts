@@ -3,6 +3,7 @@ import { LeaguesState } from '@/store/types'
 
 const createState = (): LeaguesState => Object.assign({}, state)
 const splitData = { id: 0, leagueId: 1 }
+const leagueData = { id: 0, name: 'Some league' }
 const SUMMMER_SPLIT = { ...splitData, name: 'summer split' }
 const SPRING_SPLIT = { ...splitData, name: 'spring split' }
 const WINTER_SPLIT = { ...splitData, name: 'winter split' }
@@ -27,8 +28,8 @@ describe('leagues store', () => {
     })
 
     test('SET_LEAGUES assigns league to state', () => {
-      const split = { id: 0, name: 'summer' }
-      const league = { splits: [split] }
+      const split = { id: 0, leagueId: 1, name: 'summer' }
+      const league = { ...leagueData, splits: [split] }
       const state = createState()
 
       mutations.SET_LEAGUES(state, { leagues: [league] })

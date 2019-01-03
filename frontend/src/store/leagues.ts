@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { ActionContext } from 'vuex'
+const flatten = require('lodash/flatten')
+
 import { LeaguesState } from './types'
 import { ILeague } from '@/types/league'
-const flatten = require('lodash/flatten')
+import { ISplit } from '@/types/split'
 
 export const state: LeaguesState = {
   all: [],
@@ -34,7 +36,7 @@ export const actions = {
 export const getters = {
   getSplitByName: (state: LeaguesState) => (name: string) => {
     const splits = flatten(state.all.map(x => x.splits))
-    return splits.find(x => x.name === name)
+    return splits.find((x : ISplit) => x.name === name)
   },
 
   splits: ({ all }: LeaguesState) => {
