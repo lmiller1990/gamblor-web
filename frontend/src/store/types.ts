@@ -27,6 +27,13 @@ export interface HistoricalGamesState extends BaseState {
   }
 }
 
+export interface IScheduledGamesState extends BaseState {
+  all: {
+    [key: number]: Game
+  }
+}
+
+
 export interface BankAccountState {
   balanceCents: number
 }
