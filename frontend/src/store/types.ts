@@ -21,6 +21,12 @@ export interface BetsState extends BaseState {
   selectedBetEvs: number[]
 }
 
+export interface HistoricalGamesState extends BaseState {
+  all: {
+    [key: number]: Game
+  }
+}
+
 export interface BankAccountState {
   balanceCents: number
 }
