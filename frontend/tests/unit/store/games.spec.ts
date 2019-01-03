@@ -8,6 +8,7 @@ const RED_TEAM_ID = 2
 const ODDS = 2
 const teamIds = { blueSideTeamId: BLUE_TEAM_ID, redSideTeamId: RED_TEAM_ID }
 const winLoseIds = { winnerId: BLUE_TEAM_ID, loserId: RED_TEAM_ID }
+const otherData = { id: 0, createdAt: new Date(), updatedAt: new Date(), date: new Date() }
 
 const games = [
   { id: 0, ...winLoseIds, ...teamIds, firstBloodTeamId: BLUE_TEAM_ID },
@@ -35,7 +36,7 @@ describe('getters', () => {
       state.ids = [BLUE_TEAM_ID]
       state.all = { 
         '1': { 
-          blueSideTeamId: BLUE_TEAM_ID, redSideTeamId: RED_TEAM_ID
+          ...otherData, blueSideTeamId: BLUE_TEAM_ID, redSideTeamId: RED_TEAM_ID
         }
       }
 
@@ -48,7 +49,7 @@ describe('getters', () => {
   describe('oddsForMarket', () => {
     it('returns in game by team and market', () => {
       const state = createState()
-      state.all = { [GAME_ID]: games[1] }
+      state.all = { [GAME_ID]: {...otherData, ...games[1]} }
       state.ids = [GAME_ID]
 
       const actual = getters.oddsForMarket(state, undefined, {}, undefined)({
@@ -62,7 +63,7 @@ describe('getters', () => {
 
   describe('evByTeamId', () => {
     const subject = ({ nLastGames }: { nLastGames: number }) =>
-      getters.evByTeamId({}, getters, {}, rootGetters)({
+      getters.evByTeamId(createState(), getters, {}, rootGetters)({
         teamId: BLUE_TEAM_ID,
         opponentId: RED_TEAM_ID,
         market: 'fb',

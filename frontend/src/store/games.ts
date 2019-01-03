@@ -33,7 +33,7 @@ const actions: ActionTree<GamesState, RootState> = {
 }
 
 export const getters: GetterTree<GamesState, RootState> = {
-  titleById: (state, getters, rootState, rootGetters) => (id: number): string => {
+  titleById: (state: GamesState, getters, rootState, rootGetters) => (id: number): string => {
     const game = state.all[id]
     const blueTeam: string  = rootGetters['teams/nameById'](game.blueSideTeamId)
     const redTeam: string = rootGetters['teams/nameById'](game.redSideTeamId)
@@ -46,6 +46,7 @@ export const getters: GetterTree<GamesState, RootState> = {
     const game = state.all[gameId]
     const side = game.blueSideTeamId === teamId ? 'blue' : 'red'
 
+    // @ts-ignore
     return game[`${side}SideTeam${capitalize(market)}Odds`]
   },
 
@@ -59,7 +60,7 @@ export const getters: GetterTree<GamesState, RootState> = {
       nLastGames: number, 
       odds: number 
     }): number => {
-      const getCompletedGames = id => 
+      const getCompletedGames = (id: number) => 
         rootGetters['historicalGames/byTeamId'](id)
           .filter((x: Game) => x.winnerId && x.loserId)
 
@@ -72,7 +73,8 @@ export const getters: GetterTree<GamesState, RootState> = {
       const nTeamLastGames = nTeamGames(nLastGames, teamGames)
       const nOpponentLastGames = nTeamGames(nLastGames, opponentGames)
 
-      const gamesWonMarket = (games, id) => games.filter((x: Game) => x[`${mapperAppendTeam[market]}Id`] === id)
+      // @ts-ignore
+      const gamesWonMarket = (games: Game[], id: number) => games.filter((x: Game) => x[`${mapperAppendTeam[market]}Id`] === id)
       const teamGamesWonMarket = gamesWonMarket(nTeamLastGames, teamId)
       const opponentGamesWonMarket = gamesWonMarket(nOpponentLastGames, opponentId)
 

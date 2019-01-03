@@ -1,5 +1,6 @@
 import { VueConstructor } from 'vue'
 import { Bet } from '../types/bet'
+import { Game } from '../types/game'
 import { ILeague } from '../types/league'
 
 export interface RootState {}
@@ -9,7 +10,9 @@ export interface BaseState {
   ids: number[]
 }
 
-export interface GamesState extends BaseState {}
+export interface GamesState extends BaseState {
+  all: { [key: number]: Game }
+}
 
 export interface BetsState extends BaseState {
   all: { [id: number]: Bet }
