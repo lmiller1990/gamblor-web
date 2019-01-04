@@ -1,7 +1,5 @@
-<%= stylesheet_pack_tag 'hello_vue' %>
-<%= javascript_pack_tag 'hello_vue' %>
-
-<%= content_tag :div, id: 'settings', data_settings: @settings do %><% end %>
+<%= content_tag :div, id: 'settings', data_settings: @settings do %>
+  <% end %>
 
 <script>
 <% if Rails.env == 'production' %>
@@ -16,3 +14,12 @@
   })
 <% end %>
 </script>
+
+<link href=/dist/css/app.9c15fdd9.css rel=preload as=style>
+<link href=/dist/js/app.7ebbce0a.js rel=preload as=script>
+<link href=/dist/js/chunk-vendors.d9bf9193.js rel=preload as=script>
+<link href=/dist/css/app.9c15fdd9.css rel=stylesheet>
+
+<div id=app></div>
+<script src=/dist/js/chunk-vendors.d9bf9193.js> </script> 
+<script src=/dist/js/app.7ebbce0a.js> </script>

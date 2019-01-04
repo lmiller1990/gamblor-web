@@ -1,4 +1,4 @@
-import { state, mutations } from '@/store/user'
+import { state, mutations } from '../../../src/store/user'
 
 const createState = () => Object.assign({}, state)
 

@@ -1,6 +1,7 @@
-import { mutations, getters } from '@/store/teams.ts'
+import { mutations, getters } from '../../../src/store/teams'
+import { ITeamsState } from '../../../src/store/types'
 
-const createState = (): { ids: number[], all: object } => ({ ids: [], all: {} })
+const createState = (): ITeamsState => ({ ids: [], all: {} })
 
 const response = [
   { id: 1, name: 'Cloud 9' },
@@ -27,7 +28,7 @@ describe('getters', () => {
       state.all = { '1': { name: 'tsm' } }
       state.ids = [1]
 
-      expect(getters.nameById(state)(1)).toBe('tsm')
+      expect(getters.nameById(state, {}, {}, {})(1)).toBe('tsm')
 
     })
   })

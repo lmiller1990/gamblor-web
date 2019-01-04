@@ -1,11 +1,14 @@
-import { getters } from '@/store/historical_games'
+import { getters } from '../../../src/store/historical_games'
+import { HistoricalGamesState } from '../../../src/store/types'
 
-const createState = (): { ids: number[], all: object } => ({ ids: [], all: {} })
+const createState = (): HistoricalGamesState => ({ ids: [], all: {} })
 
 const GAME_ID_1 = 1
 const GAME_ID_2 = 2
 const SPLIT_ID_1 = 1
 const SPLIT_ID_2 = 2
+
+const data = { redSideTeamId: 1, blueSideTeamId: 2, id: 0, createdAt: new Date(), updatedAt: new Date(), date: new Date() }
 
 describe('historicalGames', () => {
   describe('getters', () => {
@@ -14,9 +17,9 @@ describe('historicalGames', () => {
         const state = createState()
         state.ids = [2, 1, 3]
         state.all = {
-          '1': { blueSideTeamId: 1, redSideTeamId: 2 },
-          '2': { blueSideTeamId: 1, redSideTeamId: 3 },
-          '3': { blueSideTeamId: 2, redSideTeamId: 4 },
+          '1': { ...data, blueSideTeamId: 1, redSideTeamId: 2 },
+          '2': { ...data, blueSideTeamId: 1, redSideTeamId: 3 },
+          '3': { ...data, blueSideTeamId: 2, redSideTeamId: 4 },
         }
 
         const actual = getters.byTeamId(state)(1)
@@ -31,8 +34,8 @@ describe('historicalGames', () => {
         const state = createState()
         state.ids = [GAME_ID_1, GAME_ID_2]
         state.all = {
-          [GAME_ID_1]: { splitId: SPLIT_ID_1 },
-          [GAME_ID_2]: { splitId: SPLIT_ID_2 }
+          [GAME_ID_1]: { ...data, splitId: SPLIT_ID_1 },
+          [GAME_ID_2]: { ...data, splitId: SPLIT_ID_2 }
         }
 
         const actual = getters.gameIdsbySplitId(state)(SPLIT_ID_1)

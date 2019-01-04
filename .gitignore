@@ -12,5 +12,6 @@ node/crawlers/better.js
 node/odds
 coverage
 data.csv
+frontend/dist
 
 scripts/cp*
