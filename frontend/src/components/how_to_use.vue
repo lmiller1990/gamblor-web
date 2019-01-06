@@ -19,7 +19,7 @@
 
     <div class="">
       <div>
-        Select a matchup on the right to view historical stats and compare teams.
+        Select a matchup to view historical stats and compare teams.
       </div>
 
       <hr>
