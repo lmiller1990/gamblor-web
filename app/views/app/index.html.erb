@@ -1,14 +1,4 @@
-<script>
-<% if Rails.env == 'production' %>
-  const username = "<%= current_user.email %>"
-
-  gtag('event', 'view_app', {
-    'event_category': 'view',
-    'event_label': username,
-    'value': username
-  })
-<% end %>
-</script><head><link href=/dist/css/app.f14595e9.css rel=preload as=style><link href=/dist/js/app.954c87a4.js rel=preload as=script><link href=/dist/js/chunk-vendors.d9bf9193.js rel=preload as=script><link href=/dist/css/app.f14595e9.css rel=stylesheet></head><div id=app></div><script src=/dist/js/chunk-vendors.d9bf9193.js></script><script src=/dist/js/app.954c87a4.js></script><script>
+<head><link href=/dist/css/app.f14595e9.css rel=preload as=style><link href=/dist/js/app.954c87a4.js rel=preload as=script><link href=/dist/js/chunk-vendors.d9bf9193.js rel=preload as=script><link href=/dist/css/app.f14595e9.css rel=stylesheet></head><div id=app></div><script src=/dist/js/chunk-vendors.d9bf9193.js></script><script src=/dist/js/app.954c87a4.js></script><script>
 <% if Rails.env == 'production' %>
   const username = "<%= current_user.email %>"
 
