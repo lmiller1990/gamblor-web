@@ -70,7 +70,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test && rspec spec"
+      "pre-commit": "rspec spec && cd frontend && yarn test:unit && cd .."
     }
   }
 }

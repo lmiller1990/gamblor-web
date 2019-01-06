@@ -1,0 +1,11 @@
+<script>
+<% if Rails.env == 'production' %>
+  const username = "<%= current_user.email %>"
+
+  gtag('event', 'view_app', {
+    'event_category': 'view',
+    'event_label': username,
+    'value': username
+  })
+<% end %>
+</script>

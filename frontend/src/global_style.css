@@ -1,0 +1,23 @@
+header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+header > a {
+  margin: 0 0 0 10px;
+}
+
+html, body {
+  height: 100%;
+}
+
+h2 {
+  margin: 0;
+}
+
+body {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 12px;
+  margin: 0px;
+  padding: 0px;
+}

@@ -60,6 +60,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem "chromedriver-helper"
   gem 'pry-rails'
+  gem 'rack-cors'
 end
 
 group :development do

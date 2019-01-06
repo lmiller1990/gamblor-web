@@ -1,5 +1,15 @@
 import axios from 'axios'
-import { keysToSnake } from '../../src/utils.js'
+const snakeCase = require('lodash/snakeCase')
+
+const keysToSnake = (obj) => {
+  const snakeCased = {}
+  for (const k of Object.keys(obj)) {
+    // @ts-ignore
+    snakeCased[snakeCase(k)] = obj[k]
+  }
+
+  return snakeCased
+}
 
 class GameMarketOdds {
   constructor(market, t1, t2, t1Odds, t2Odds) {
