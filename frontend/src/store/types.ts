@@ -48,7 +48,7 @@ export interface AxiosResponse {
   id: number
 }
 
-export interface LeaguesState {
+export interface ILeaguesState {
   all: ILeague[]
   defaultSplit: string
   splitId?: number
