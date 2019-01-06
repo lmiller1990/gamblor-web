@@ -9,6 +9,7 @@ import scheduledGames from './scheduled_games'
 import historicalGames from './historical_games'
 import leagues from './leagues'
 import matchups from './matchups'
+import { settings } from '@/store/settings'
 import teams from './teams'
 import user from './user'
 import { RootState } from './types'
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     scheduledGames,
     matchups,
     leagues,
+    settings,
     teams,
     historicalGames,
     user

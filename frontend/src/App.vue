@@ -59,11 +59,16 @@ export default Vue.extend({
   },
 
   created(): void {
-    Promise.all([this.fetchBets(), this.fetchBankAccount()])
+    Promise.all([
+      this.fetchBets(), 
+      this.fetchBankAccount(),
+      this.$store.dispatch('settings/getSettings')
+      ]
+    )
       .then(() => this.loadedBets = true)
 
     this.fetchLeaguesAndSplits().then(() => {
-      this.setDefaults()
+      this.setDefaultSplitId()
       this.loaded = true
     })
   },
@@ -133,19 +138,10 @@ export default Vue.extend({
       return this.$store.dispatch('leagues/getLeagues')
     },
 
-    setDefaults(): void {
-      const dataSettings =  document.querySelector('#settings') as HTMLDivElement
-      // const { defaultSplitId, admin } = JSON.parse(dataSettings.getAttribute('data_settings') as string)
-      const defaultSplitId = 9
-      const admin = true
-
-      this.$store.commit('user/SET_ADMIN', { admin }) 
-
+    setDefaultSplitId(): void {
       if (localStorage.getItem('favoriteSplitId')) {
         const id =  JSON.parse(localStorage.getItem('favoriteSplitId')) 
         this.$store.commit('leagues/SET_SPLIT_ID', id)
-      } else {
-        this.$store.commit('leagues/SET_SPLIT_ID', defaultSplitId)
       }
     },
 

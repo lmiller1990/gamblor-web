@@ -6,7 +6,8 @@ import BetSleeve from '@/bet_sleeve/bet_sleeve.vue'
 import UpcomingMatchesContainer from '@/upcoming_matches/upcoming_matches_container.vue' 
 
 const SPLIT_ID = 1
-const createMockStore = (commit = () => {}) => ({
+const createMockStore = (commit = () => {}, dispatch = () => {}) => ({
+  dispatch: dispatch,
   commit: commit,
   state: {
     leagues: {
@@ -24,7 +25,6 @@ const factory = ($store: object, ...mockFns: Function[]) => shallowMount(App, {
     fetchBets: promiseMock,
     fetchBankAccount: promiseMock,
     fetchLeaguesAndSplits: promiseMock,
-    setDefaults: jest.fn(),
     ...mockFns,
   }
 })
@@ -32,18 +32,20 @@ const factory = ($store: object, ...mockFns: Function[]) => shallowMount(App, {
 describe('App', () => {
   describe('created', () => {
     it('fetches initial data', async () => {
+      const dispatchMock = jest.fn()
       const fetchBets = promiseMock
       const fetchBankAccount = promiseMock
       const fetchLeaguesAndSplits = promiseMock
-      const setDefaults = promiseMock
-      const wrapper = factory(createMockStore(), fetchBets, fetchLeaguesAndSplits, setDefaults)
+      const setDefaultSplitId = promiseMock
+      const wrapper = factory(createMockStore(() => {}, dispatchMock), fetchBets, fetchLeaguesAndSplits, setDefaultSplitId)
 
       await flushPromises()
 
       expect(fetchBets).toHaveBeenCalled()
       expect(fetchBankAccount).toHaveBeenCalled()
       expect(fetchLeaguesAndSplits).toHaveBeenCalled()
-      expect(setDefaults).toHaveBeenCalled()
+      expect(dispatchMock).toHaveBeenCalledWith('settings/getSettings')
+      expect(setDefaultSplitId).toHaveBeenCalled()
       expect(wrapper.vm.loaded).toBe(true)
 
     })

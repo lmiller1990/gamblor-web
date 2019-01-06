@@ -7,7 +7,7 @@ describe('user store', () => {
     test('SET_ADMIN', () => {
       const state = createState()
 
-      mutations.SET_ADMIN(state, { admin: true })
+      mutations.SET_ADMIN(state, true)
 
       expect(state.admin).toBe(true)
     })

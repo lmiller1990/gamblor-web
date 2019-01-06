@@ -2,5 +2,8 @@ module.exports = {
   devServer: {
     proxy: 'http://localhost:3000'
   },
-  baseUrl: '/dist'
+  baseUrl: process.env.NODE_ENV === 'production'
+  ? '/dist'
+  : '/',
+  outputDir: '../public/dist'
 }

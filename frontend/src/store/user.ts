@@ -1,15 +1,15 @@
-import { Module } from 'vuex'
+import { Module, MutationTree } from 'vuex'
 
 interface IUserState {
   admin: boolean
 }
 
-export const state: IUserState = {
-  admin: false
+const state: IUserState = {
+  admin: false 
 }
 
-export const mutations = {
-  SET_ADMIN(state: IUserState, { admin }: { admin: boolean }) {
+const mutations: MutationTree<IUserState> = {
+  SET_ADMIN(state: IUserState, admin: boolean) {
     state.admin = admin
   }
 }
@@ -22,3 +22,5 @@ const user: Module<IUserState, {}> = {
 
 
 export default user
+
+export { state, mutations }
