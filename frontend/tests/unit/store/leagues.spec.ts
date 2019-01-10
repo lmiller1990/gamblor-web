@@ -1,7 +1,7 @@
 import { state, mutations, getters } from '@/store/leagues'
-import { LeaguesState } from '@/store/types'
+import { ILeaguesState } from '@/store/types'
 
-const createState = (): LeaguesState => Object.assign({}, state)
+const createState = (): ILeaguesState => Object.assign({}, state)
 const splitData = { id: 0, leagueId: 1 }
 const leagueData = { id: 0, name: 'Some league' }
 const SUMMMER_SPLIT = { ...splitData, name: 'summer split' }
