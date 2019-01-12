@@ -2,7 +2,7 @@ module Api
   module V1
     class GamesController < ActionController::API
       def create
-        Game.create!(game_params)
+        render json: Game.create!(game_params)
       end
 
       def update

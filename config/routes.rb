@@ -36,7 +36,7 @@ Rails.application.routes.draw do
         resources :upcoming_games, only: [:index]
         resources :odds, only: %i(create show)
         resources :scrapers, only: %i(create index)
-        resources :splits, only: %i(show) do
+        resources :splits, only: %i(show index) do
           resources :stats, only: %i(index), controller: 'splits/stats'
         end
 
