@@ -25,7 +25,7 @@
       <hr>
 
       <div>
-        Mouse over an upcoming game's market to see the approximate<a target="_blank" href="/expected_value.html"> Expected Value (EV). </a>
+        Mouse over an upcoming game's market to see the approximate <a target="_blank" href="/expected_value.html">Expected Value (EV). </a>
       </div> 
       <img src="/how_to_2.png">
       Select a matchup on the right.
@@ -45,7 +45,7 @@
       </div>
       <div>
 
-        <span class="link" @click="toggle">Click here to see your bets.</span>
+        <span>Click "Bet Sleeve" to see your bets.</span>
       </div>
       <hr>
 

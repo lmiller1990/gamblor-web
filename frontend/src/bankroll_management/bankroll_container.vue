@@ -22,7 +22,7 @@
     <br>
     
     <div>
-      Using the odds and your current bankroll, the recommended bet calculated using the <a href="...">Kelly Criterion</a> is:
+      Using the odds and your current bankroll, the recommended bet calculated using the <a href="/kelly_criterion">Kelly Criterion</a> is:
     </div>
 
     <ul v-for="{ amountInCents, nLastGames } in getRecommendedBets">

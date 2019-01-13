@@ -179,6 +179,7 @@ export default Vue.extend({
 
 table {
   border-collapse: collapse;
+  font-size: 12px;
 }
 
 tr, td { 
