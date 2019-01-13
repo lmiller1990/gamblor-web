@@ -8,7 +8,9 @@
           @change="selectSplit" 
         />
         <FavoriteMatchButton :splitId="splitId" />
-        
+      </span>
+      <span class="split-stats">
+        <LcsButton @click="showStatsModal">Stats</LcsButton>
       </span>
     </div>
     <div class="matchup-container border-bottom">
@@ -32,15 +34,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import LcsButton from '../widgets/lcs_button.vue'
 import LeagueSplitSelector from '../components/league_split_selector.vue'
 import FavoriteMatchButton from './favorite_match_button.vue'
-// import SplitStatsModalContainer from 'components/modals/split_stats_modal/split_stats_modal_container.vue'
 import Match from './match.vue'
+import SplitStatsModalContainer from '@/components/modals/split_stats_modal/split_stats_modal_container.vue'
+import { ModalOptions } from '@/store/types'
 
 export default Vue.extend({
   name: 'UpcomingMatchContainer',
 
   components: {
+    LcsButton,
     Match,
     LeagueSplitSelector,
     FavoriteMatchButton
@@ -80,6 +85,15 @@ export default Vue.extend({
   },
 
   methods: {
+    showStatsModal() {
+      const opts: ModalOptions = {
+        show: true,
+        component: SplitStatsModalContainer,
+        title: 'Underdog/Favorite Statistics'
+      }
+      this.$store.commit('modal/SET_MODAL', opts)
+    },
+
     async fetchAllGames() {
       this.loadingAllGames = true
       await this.$store.dispatch('scheduledGames/getUpcomingGames', {

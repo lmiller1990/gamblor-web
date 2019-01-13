@@ -43,7 +43,8 @@ import UpcomingMatchesContainer from './upcoming_matches/upcoming_matches_contai
 import ModalManager from './components/modal_manager.vue'
 import Sidebar from './components/sidebar.vue'
 import BankrollContainer from './bankroll_management/bankroll_container.vue'
-// import { ModalOptions } from './store/types'
+import SplitStatsModalContainer from './components/modals/split_stats_modal/split_stats_modal_container.vue'
+import { ModalOptions } from './store/types'
 
 export default Vue.extend({
   name: 'App',
@@ -180,3 +181,30 @@ export default Vue.extend({
   display: flex;
 }
 </style>
+
+<style>
+body {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 12px;
+  margin: 0px;
+  padding: 0px;
+}
+  header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+header > a {
+  margin: 0 0 0 10px;
+}
+
+html, body {
+  height: 100%;
+}
+
+h2 {
+  margin: 0;
+}
+
+</style>
+
