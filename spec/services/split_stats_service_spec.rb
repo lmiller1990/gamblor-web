@@ -12,6 +12,19 @@ describe SplitStatsService do
             blue_side_team_ft_odds: 1.5,
             red_side_team_id: red_side_team.id,
             blue_side_team_id: blue_side_team.id,
+            winner_id: blue_side_team.id,
+            loser_id: red_side_team.id,
+            split: split
+            ) }
+    let!(:incomplete_game) { 
+      create(:game, 
+            first_turret_team_id: red_side_team.id,
+            red_side_team_ft_odds: 1.5,
+            blue_side_team_ft_odds: 1.5,
+            red_side_team_id: red_side_team.id,
+            blue_side_team_id: blue_side_team.id,
+            winner_id: nil,
+            loser_id: nil,
             split: split
             ) }
 

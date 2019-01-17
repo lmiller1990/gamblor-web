@@ -20,7 +20,7 @@ class SplitStatsService
     defaults = { underdog: 0, favorite: 0 }
     results = { fb: defaults, ft: defaults, fd: defaults, fbaron: defaults, win: defaults }
 
-    games = @split.games
+    games = @split.games.where.not(games: { winner_id: nil, loser_id: nil })
 
     return results if games.count == 0
 
