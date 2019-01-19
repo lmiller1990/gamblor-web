@@ -3,11 +3,13 @@ import * as fs from 'fs'
 import { ITeam } from '../../frontend/src/types/team'
 import { getTeamByName } from './createGameUtils'
 import { ISplit } from '../../frontend/src/types/split'
+import * as moment from 'moment'
 
 type TMarket = 'fb' | 'ft' | 'fd' | 'fbaron'
 
 interface INewGame {
   gameNumber: number
+  date: string
 
   splitId: number
   leagueId: number
@@ -63,6 +65,7 @@ function getGames(): INewGame[] {
     } else {
       const data = crawledData[i].split(',')
       const game: INewGame = {
+        date: moment().format(),
         gameNumber: 1,
         redSideTeamId: 0,
         blueSideTeamId: 0,
@@ -89,6 +92,7 @@ function csvToGames(split: ISplit, teams: ITeam[]): INewGame[] {
 
     const newGame: INewGame = {
       gameNumber: 1,
+      date: moment().format(),
       splitId: split.id,
       leagueId: split.leagueId,
       redSideTeamId: redTeam.id,
