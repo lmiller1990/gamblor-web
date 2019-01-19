@@ -36,22 +36,23 @@ interface IGameData {
 }
 
 function readData(market: TMarket): IGameData[] {
-  console.log(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'))
-  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'), 'utf8').split('\n')
+  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', market,  'bet365.csv'), 'utf8').split('\n')
   const games: IGameData[] = []
   for (let i = 0; i < crawledData.length; i++) {
     if (i === 0) {
       // skip - team_1,team_2,team_1_odds,team_2_odds
     } else {
       const data = crawledData[i].split(',')
-      const gameData: IGameData = {
-        team1: data[0],
-        team2: data[1],
-        team1odds: parseFloat(data[2]),
-        team2odds: parseFloat(data[3])
-      }
+      if (data.length === 4) {
+        const gameData: IGameData = {
+          team1: data[0],
+          team2: data[1],
+          team1odds: parseFloat(data[2]),
+          team2odds: parseFloat(data[3])
+        }
 
-      games.push(gameData)
+        games.push(gameData)
+      }
     }
   }
 
@@ -59,23 +60,25 @@ function readData(market: TMarket): IGameData[] {
 }
 
 function getGames(): INewGame[] {
-  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'), 'utf8').split('\n')
+  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb', 'bet365.csv'), 'utf8').split('\n')
   const games: INewGame[] = []
   for (let i = 0; i < crawledData.length; i++) {
     if (i === 0) {
       // skip - team_1,team_2,team_1_odds,team_2_odds
     } else {
       const data = crawledData[i].split(',')
-      const game: INewGame = {
-        date: moment().format(),
-        gameNumber: 1,
-        redSideTeamId: 0,
-        blueSideTeamId: 0,
-        leagueId: 0,
-        splitId: 0
-      }
+      if (data.length === 4) {
+        const game: INewGame = {
+          date: moment().format(),
+          gameNumber: 1,
+          redSideTeamId: 0,
+          blueSideTeamId: 0,
+          leagueId: 0,
+          splitId: 0
+        }
 
-      games.push(game)
+        games.push(game)
+      }
     }
   }
 

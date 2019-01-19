@@ -34,14 +34,19 @@ async function main() {
   const leagueName = argv.league
   const splitName = argv.split
 
+  console.log(`Creating games for ${leagueName} - ${splitName}`)
+
   // get the required data
   const [gamesResponse, teamsResponse, leaguesResponse] = await getInitialData()
 
   // get the split using command line params (split name and league name)
   // need to know the split id in the database
+  console.log('Getting split...')
   const split: ISplit = getSplit(leaguesResponse.data, splitName, leagueName)
+  console.log(`Split is ${split.leagueId} - ${split.name}`)
 
   // read the schedule from the csv
+  console.log('Processing schedule...')
   const gamesToPost: INewGame[] = csvToGames(split, teamsResponse.data)
 
   // for each market, get the odds and assign them to the
@@ -49,10 +54,13 @@ async function main() {
   // we know the games array and marekts array are the same length
   // since they were constructed using the same data
   for (const market of markets) {
+    console.log(`Market: ${market}`)
     const odds = readData(market)
 
     for (const game of gamesToPost) {
+
       for (let i = 0; i < odds.length; i++) {
+        console.log(`${odds[i].team1} vs ${odds[i].team2}`)
         switch (market) {
           case 'fb':
             game.blueSideTeamFbOdds = odds[i].team1odds
