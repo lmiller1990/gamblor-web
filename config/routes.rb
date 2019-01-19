@@ -6,6 +6,14 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
   resources :app, only: %i(index)
 
+  namespace :api do 
+    namespace :v1 do
+      resources :games, only: %i(index create)
+      resources :teams, only: %i(index)
+      resources :leagues, only: %i(index)
+    end
+  end
+
   authenticated do
     get 'admin', to: 'admin#index'
 
@@ -43,7 +51,7 @@ Rails.application.routes.draw do
         resources :teams, only: [:show, :index] do
           resources :first_markets, only: [:index, :show], controller: 'teams/first_markets'
         end
-        resources :games, only: [:show, :index, :create, :update]
+        resources :games, only: [:show, :index, :update]
 
         resources :leagues do
           resources :splits, only: %i(index), controller: 'leagues/splits'

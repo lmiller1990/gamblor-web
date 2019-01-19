@@ -63,7 +63,7 @@ function getTeams(el: Element): string[] {
  * 
  * So we want to get the team names from the previous element
  * 
- * @returns teams {Array<string} array containing the two teams
+ * @returns teams {string[]} containing the two teams
  */
 function getTeamsForOverUnder(el: HTMLElement): Array<string> {
   const tableHeader = el.previousElementSibling as HTMLTableHeaderCellElement
