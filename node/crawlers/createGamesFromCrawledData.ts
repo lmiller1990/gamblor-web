@@ -81,11 +81,13 @@ async function main() {
   const ifNewGame = (game: INewGame) => isNewGame(game, gamesResponse.data)
   const newGames = gamesToPost.filter(ifNewGame)
 
+  let count = 0;
   for (const newGame of newGames) {
     await axios.post(`${API_ROUTE}/games`, { game: newGame })
+    count += 1
   }
 
-  console.log('Done!')
+  console.log(`Done. Created ${count} games.`)
 }
 
 main()

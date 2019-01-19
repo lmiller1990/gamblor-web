@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import * as path from 'path'
 
 import { ITeam } from '../../frontend/src/types/team'
 import { getTeamByName } from './createGameUtils'
@@ -35,7 +36,8 @@ interface IGameData {
 }
 
 function readData(market: TMarket): IGameData[] {
-  const crawledData: string[] = fs.readFileSync(`./node/odds/${market}/bet365.csv`, 'utf8').split('\n')
+  console.log(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'))
+  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'), 'utf8').split('\n')
   const games: IGameData[] = []
   for (let i = 0; i < crawledData.length; i++) {
     if (i === 0) {
@@ -57,7 +59,7 @@ function readData(market: TMarket): IGameData[] {
 }
 
 function getGames(): INewGame[] {
-  const crawledData: string[] = fs.readFileSync('./node/odds/fb/bet365.csv', 'utf8').split('\n')
+  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'), 'utf8').split('\n')
   const games: INewGame[] = []
   for (let i = 0; i < crawledData.length; i++) {
     if (i === 0) {
