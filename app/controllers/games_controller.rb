@@ -105,9 +105,6 @@ class GamesController < ApplicationController
       :first_blood_player_id, :first_turret_player_id,
       :first_baron_player_id, :first_dragon_player_id,
 
-      :first_baron_time, :first_blood_time,
-      :first_turret_time, :first_dragon_time,
-
       :winner_id, :loser_id,
 
       :league_id, :split_id,

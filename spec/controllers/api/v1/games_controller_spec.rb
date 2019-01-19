@@ -21,13 +21,42 @@ describe Api::V1::GamesController do
     end
   end
 
-  describe '#show' do
+  describe '/:id' do
     it 'gets a game with teams' do
       game = create(:game, :with_teams)
 
       get :show, params: { id: game.id }
 
       expect(json_response['teams'].count).to be 2
+    end
+  end
+
+  describe '/' do
+    context 'start and end params provided' do
+      it 'gets games between the specified interval' do
+        game_tomorrow = create(:game, :with_teams, date: 1.day.from_now)
+        last_week = create(:game, date: 2.week.ago)
+        two_weeks_ago = create(:game, date: 2.weeks.ago)
+
+        get :index, params: {
+          start: 1.week.ago,
+          end: 1.week.from_now,
+        }
+
+        expect(json_response[0]['id']).to be game_tomorrow.id
+      end
+    end
+
+    context 'no params provided' do
+      it 'returns all teams' do
+        game_tomorrow = create(:game, :with_teams, date: 1.day.from_now)
+        last_week = create(:game, date: 2.week.ago)
+        two_weeks_ago = create(:game, date: 2.weeks.ago)
+
+        get :index
+
+        expect(json_response.count).to eq 3
+      end
     end
   end
 end
