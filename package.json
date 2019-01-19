@@ -2,7 +2,8 @@
   "license": "MIT",
   "scripts": {
     "test": "yarn jest --verbose",
-    "start": "node app/javascript/index.js"
+    "start": "node app/javascript/index.js",
+    "build_schedule": "tsc node/crawlers/createGamesFromCrawledData.ts --outDir post_games"
   },
   "dependencies": {
     "@rails/webpacker": "3.5",
