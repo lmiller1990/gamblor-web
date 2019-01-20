@@ -18,8 +18,8 @@ function getInitialData() {
   return Promise.all([
     axios.get<IGamesResponse>(`${API_ROUTE}/games`, {
       params: {
-        start: moment().add(-1, 'week').format(),
-        end: moment().add('1', 'week').format()
+        start: moment().add(-2, 'week').format(),
+        end: moment().add('2', 'week').format()
       }
     }),
     axios.get(`${API_ROUTE}/teams`),
@@ -48,6 +48,7 @@ async function main() {
   // read the schedule from the csv
   console.log('Processing schedule...')
   const gamesToPost: INewGame[] = csvToGames(split, teamsResponse.data)
+  console.log(`Games Count: ${gamesToPost.length}`)
 
   // for each market, get the odds and assign them to the
   // relevant property on the new game
@@ -60,7 +61,6 @@ async function main() {
     for (const game of gamesToPost) {
 
       for (let i = 0; i < odds.length; i++) {
-        console.log(`${odds[i].team1} vs ${odds[i].team2}`)
         switch (market) {
           case 'fb':
             game.blueSideTeamFbOdds = odds[i].team1odds
@@ -83,6 +83,9 @@ async function main() {
     }
   }
 
+  for (const game of gamesToPost) {
+    console.log(`${game.date} - ${game.blueTeamName} (${game.blueSideTeamId}) vs ${game.redTeamName} (${game.redSideTeamId})`)
+  }
   // see if it is a new game or not
   // if it is already in the database we will not created it,
   // but we should probably update the odds at some point.
