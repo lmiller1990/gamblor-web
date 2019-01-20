@@ -6,7 +6,7 @@ module Games
       @game = switch_red_blue_teams(@game)
       @game.save!
 
-      render 'games/show'
+      redirect_to edit_game_url(@game)
     end
 
     private
