@@ -18,8 +18,8 @@ function getInitialData() {
   return Promise.all([
     axios.get<IGamesResponse>(`${API_ROUTE}/games`, {
       params: {
-        start: moment().add(-1, 'week').format(),
-        end: moment().add('1', 'week').format()
+        start: moment().add(-2, 'week').format(),
+        end: moment().add('2', 'week').format()
       }
     }),
     axios.get(`${API_ROUTE}/teams`),
@@ -34,21 +34,29 @@ async function main() {
   const leagueName = argv.league
   const splitName = argv.split
 
+  console.log(`Creating games for ${leagueName} - ${splitName}`)
+
   // get the required data
   const [gamesResponse, teamsResponse, leaguesResponse] = await getInitialData()
 
   // get the split using command line params (split name and league name)
   // need to know the split id in the database
+  console.log('Getting split...')
   const split: ISplit = getSplit(leaguesResponse.data, splitName, leagueName)
+  console.log(`Split is ${split.leagueId} - ${split.name}`)
 
   // read the schedule from the csv
+  console.log('Processing schedule...')
   const gamesToPost: INewGame[] = csvToGames(split, teamsResponse.data)
+  console.log(`Games Count: ${gamesToPost.length}`)
+
 
   // for each market, get the odds and assign them to the
   // relevant property on the new game
   // we know the games array and marekts array are the same length
   // since they were constructed using the same data
   for (const market of markets) {
+    console.log(`Market: ${market}`)
     const odds = readData(market)
 
     for (const game of gamesToPost) {
@@ -73,6 +81,10 @@ async function main() {
         }
       }
     }
+  }
+
+  for (const game of gamesToPost) {
+    console.log(`${game.date} - ${game.blueTeamName} (${game.blueSideTeamId}) vs ${game.redTeamName} (${game.redSideTeamId})`)
   }
 
   // see if it is a new game or not

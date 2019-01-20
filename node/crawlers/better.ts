@@ -2,6 +2,7 @@ import * as fs from "fs"
 import { options } from "./launch-options"
 import * as puppeteer from "puppeteer"
 import * as path from "path"
+import * as moment from 'moment'
 import * as minimist from "minimist" 
 import { removeDupMatches } from "./utils";
 
@@ -12,6 +13,7 @@ export interface Match {
   secondTeamName: string
   firstTeamOdds: number
   secondTeamOdds: number
+  closeDate: string
 }
 
 const theEvent = args.event
@@ -43,8 +45,18 @@ function clearPreviouslyScrapedData() {
 
   fs.appendFileSync(
     path.join(__dirname, "..", "odds", outputDirectory, outputFile), 
-    "team_1,team_2,team_1_odds,team_2_odds"
+    "team_1,team_2,team_1_odds,team_2_odds,close_date"
   )
+}
+
+/**
+ * Get the closing time for the game
+ */
+function getBookCloseDate(el: Element): string {
+  console.log(el)
+  const closeDate: string = (el.previousElementSibling as HTMLDivElement).innerText.split('Book Closes')[1].trim()
+
+  return closeDate
 }
 
 function getTeams(el: Element): string[] {
@@ -101,6 +113,7 @@ const main = (async function main() {
   await page.mainFrame().waitForSelector(".sm-MarketGroup_GroupName ")
   await attachToWindow(page, 'theMarket', JSON.stringify(theMarket))
   await attachToWindow(page, 'theEvent', JSON.stringify(theEvent))
+  await attachToWindow(page, 'getBookCloseDate', getBookCloseDate)
 
   // console.log(theEvent, theMarket)
   await page.$$eval(".sm-MarketGroup_GroupName ", (divs) => {
@@ -144,13 +157,16 @@ const main = (async function main() {
     for (const tableRow of tableRows) {
       Promise.all([
         teamGetter(tableRow as HTMLElement), // getTeams(tableRow as HTMLElement),
-        getOdds(tableRow as HTMLElement)
-      ]).then(([ teams, odds ]) => {
+        getOdds(tableRow as HTMLElement),
+        getBookCloseDate(tableRow)
+      ]).then(([ teams, odds, closeDate ]) => {
         const match: Match = {
           firstTeamName: teams[0].toLowerCase(),
           secondTeamName: teams[1].toLowerCase(),
           firstTeamOdds: parseFloat(odds[0].toLowerCase()),
-          secondTeamOdds: parseFloat(odds[1].toLowerCase())
+          secondTeamOdds: parseFloat(odds[1].toLowerCase()),
+          // @ts-ignore
+          closeDate: closeDate
         } 
 
         results.push(match)      
@@ -163,7 +179,7 @@ const main = (async function main() {
   for (const match of removeDupMatches(matches)) {
     fs.appendFileSync(
       path.join(__dirname, "..", "odds", outputDirectory, outputFile), 
-      `\n${match.firstTeamName},${match.secondTeamName},${match.firstTeamOdds},${match.secondTeamOdds}`
+      `\n${match.firstTeamName},${match.secondTeamName},${match.firstTeamOdds},${match.secondTeamOdds},${match.closeDate}`
     )
   }
   

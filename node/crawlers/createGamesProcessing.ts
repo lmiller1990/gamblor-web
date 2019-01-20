@@ -26,6 +26,9 @@ interface INewGame {
   redSideTeamFtOdds?: number
   redSideTeamFdOdds?: number
   redSideTeamFbaronOdds?: number
+
+  blueTeamName?: string
+  redTeamName?: string
 }
 
 interface IGameData {
@@ -33,25 +36,29 @@ interface IGameData {
   team2: string
   team1odds: number
   team2odds: number
+  closeDate: string
 }
 
 function readData(market: TMarket): IGameData[] {
-  console.log(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'))
-  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'), 'utf8').split('\n')
+  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', market, 'bet365.csv'), 'utf8').split('\n')
   const games: IGameData[] = []
+
   for (let i = 0; i < crawledData.length; i++) {
     if (i === 0) {
-      // skip - team_1,team_2,team_1_odds,team_2_odds
+      // skip - team_1,team_2,team_1_odds,team_2_odds,date
     } else {
       const data = crawledData[i].split(',')
-      const gameData: IGameData = {
-        team1: data[0],
-        team2: data[1],
-        team1odds: parseFloat(data[2]),
-        team2odds: parseFloat(data[3])
-      }
+      if (data.length === 5) {
+        const gameData: IGameData = {
+          team1: data[0],
+          team2: data[1],
+          team1odds: parseFloat(data[2]),
+          team2odds: parseFloat(data[3]),
+          closeDate: moment(data[4], 'D MMM HH:mm').format()
+        }
 
-      games.push(gameData)
+        games.push(gameData)
+      }
     }
   }
 
@@ -59,23 +66,26 @@ function readData(market: TMarket): IGameData[] {
 }
 
 function getGames(): INewGame[] {
-  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb',  'bet365.csv'), 'utf8').split('\n')
+  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb', 'bet365.csv'), 'utf8').split('\n')
+
   const games: INewGame[] = []
   for (let i = 0; i < crawledData.length; i++) {
     if (i === 0) {
       // skip - team_1,team_2,team_1_odds,team_2_odds
     } else {
       const data = crawledData[i].split(',')
-      const game: INewGame = {
-        date: moment().format(),
-        gameNumber: 1,
-        redSideTeamId: 0,
-        blueSideTeamId: 0,
-        leagueId: 0,
-        splitId: 0
-      }
+      if (data.length === 5) {
+        const game: INewGame = {
+          date: moment(data[4], 'D MMM HH:mm').format(),
+          gameNumber: 1,
+          redSideTeamId: 0,
+          blueSideTeamId: 0,
+          leagueId: 0,
+          splitId: 0
+        }
 
-      games.push(game)
+        games.push(game)
+      }
     }
   }
 
@@ -84,6 +94,7 @@ function getGames(): INewGame[] {
 
 function csvToGames(split: ISplit, teams: ITeam[]): INewGame[] {
   const gamesFromCsv = readData('fb')
+  console.log(`Found ${gamesFromCsv.length} in csv`)
 
   const gamesToPost: INewGame[] = []
 
@@ -94,11 +105,13 @@ function csvToGames(split: ISplit, teams: ITeam[]): INewGame[] {
 
     const newGame: INewGame = {
       gameNumber: 1,
-      date: moment().format(),
+      date: game.closeDate,
       splitId: split.id,
       leagueId: split.leagueId,
       redSideTeamId: redTeam.id,
-      blueSideTeamId: blueTeam.id
+      blueSideTeamId: blueTeam.id,
+      blueTeamName: blueTeam.name,
+      redTeamName: redTeam.name
     }
 
     gamesToPost.push(newGame)
