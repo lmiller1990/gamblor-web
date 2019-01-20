@@ -50,6 +50,7 @@ async function main() {
   const gamesToPost: INewGame[] = csvToGames(split, teamsResponse.data)
   console.log(`Games Count: ${gamesToPost.length}`)
 
+
   // for each market, get the odds and assign them to the
   // relevant property on the new game
   // we know the games array and marekts array are the same length
@@ -59,7 +60,6 @@ async function main() {
     const odds = readData(market)
 
     for (const game of gamesToPost) {
-
       for (let i = 0; i < odds.length; i++) {
         switch (market) {
           case 'fb':
@@ -86,6 +86,7 @@ async function main() {
   for (const game of gamesToPost) {
     console.log(`${game.date} - ${game.blueTeamName} (${game.blueSideTeamId}) vs ${game.redTeamName} (${game.redSideTeamId})`)
   }
+
   // see if it is a new game or not
   // if it is already in the database we will not created it,
   // but we should probably update the odds at some point.

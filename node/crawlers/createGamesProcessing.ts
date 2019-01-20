@@ -35,12 +35,12 @@ interface IGameData {
   team1: string
   team2: string
   team1odds: number
-  team2odds: number,
+  team2odds: number
   closeDate: string
 }
 
 function readData(market: TMarket): IGameData[] {
-  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', market,  'bet365.csv'), 'utf8').split('\n')
+  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', market, 'bet365.csv'), 'utf8').split('\n')
   const games: IGameData[] = []
 
   for (let i = 0; i < crawledData.length; i++) {
@@ -67,6 +67,7 @@ function readData(market: TMarket): IGameData[] {
 
 function getGames(): INewGame[] {
   const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb', 'bet365.csv'), 'utf8').split('\n')
+
   const games: INewGame[] = []
   for (let i = 0; i < crawledData.length; i++) {
     if (i === 0) {
