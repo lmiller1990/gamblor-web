@@ -8,22 +8,20 @@ import { ISplit } from '../../frontend/src/types/split'
 import { Game } from '../../frontend/src/types/game'
 
 
-const API_ROUTE = 'http://localhost:3000/api/v1'
-
 interface IGamesResponse {
   games: Game[]
 }
 
-function getInitialData() { 
+function getInitialData(apiRoute: string) { 
   return Promise.all([
-    axios.get<IGamesResponse>(`${API_ROUTE}/games`, {
+    axios.get<IGamesResponse>(`${apiRoute}/games`, {
       params: {
         start: moment().add(-2, 'week').format(),
         end: moment().add('2', 'week').format()
       }
     }),
-    axios.get(`${API_ROUTE}/teams`),
-    axios.get(`${API_ROUTE}/leagues`)
+    axios.get(`${apiRoute}/teams`),
+    axios.get(`${apiRoute}/leagues`)
   ])
 }
 
@@ -33,17 +31,18 @@ async function main() {
 
   const leagueName = argv.league
   const splitName = argv.split
+  const apiRoute = argv.api
 
   console.log(`Creating games for ${leagueName} - ${splitName}`)
 
   // get the required data
-  const [gamesResponse, teamsResponse, leaguesResponse] = await getInitialData()
+  const [gamesResponse, teamsResponse, leaguesResponse] = await getInitialData(apiRoute)
 
   // get the split using command line params (split name and league name)
   // need to know the split id in the database
   console.log('Getting split...')
   const split: ISplit = getSplit(leaguesResponse.data, splitName, leagueName)
-  console.log(`Split is ${split.leagueId} - ${split.name}`)
+  console.log(`Split is ${split.name}`)
 
   // read the schedule from the csv
   console.log('Processing schedule...')
@@ -56,7 +55,6 @@ async function main() {
   // we know the games array and marekts array are the same length
   // since they were constructed using the same data
   for (const market of markets) {
-    console.log(`Market: ${market}`)
     const odds = readData(market)
 
     for (const game of gamesToPost) {
@@ -83,8 +81,10 @@ async function main() {
     }
   }
 
+  console.log(`\nProcessed games:\n==================\n`)
   for (const game of gamesToPost) {
-    console.log(`${game.date} - ${game.blueTeamName} (${game.blueSideTeamId}) vs ${game.redTeamName} (${game.redSideTeamId})`)
+    const isNew = isNewGame(game, gamesResponse.data) ? '- (New) -' : '-'
+    console.log(`${game.date} ${isNew} ${game.blueTeamName} (${game.blueSideTeamId}) vs ${game.redTeamName} (${game.redSideTeamId})`)
   }
 
   // see if it is a new game or not
@@ -93,9 +93,12 @@ async function main() {
   const ifNewGame = (game: INewGame) => isNewGame(game, gamesResponse.data)
   const newGames = gamesToPost.filter(ifNewGame)
 
+  console.log(`\nPosting new games:\n==================\n`)
+  
   let count = 0;
   for (const newGame of newGames) {
-    await axios.post(`${API_ROUTE}/games`, { game: newGame })
+    console.log(`Posting ${newGame.blueTeamName} vs ${newGame.redTeamName}...`)
+    await axios.post(`${apiRoute}/games`, { game: newGame })
     count += 1
   }
 
