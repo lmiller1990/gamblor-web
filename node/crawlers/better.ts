@@ -1,8 +1,8 @@
 import * as fs from "fs"
 import { options } from "./launch-options"
-import * as moment from 'moment'
 import * as puppeteer from "puppeteer"
 import * as path from "path"
+import * as moment from 'moment'
 import * as minimist from "minimist" 
 import { removeDupMatches } from "./utils";
 
@@ -45,7 +45,7 @@ function clearPreviouslyScrapedData() {
 
   fs.appendFileSync(
     path.join(__dirname, "..", "odds", outputDirectory, outputFile), 
-    "team_1,team_2,team_1_odds,team_2_odds"
+    "team_1,team_2,team_1_odds,team_2_odds,close_date"
   )
 }
 
@@ -113,15 +113,16 @@ const main = (async function main() {
   await page.mainFrame().waitForSelector(".sm-MarketGroup_GroupName ")
   await attachToWindow(page, 'theMarket', JSON.stringify(theMarket))
   await attachToWindow(page, 'theEvent', JSON.stringify(theEvent))
+  await attachToWindow(page, 'getBookCloseDate', getBookCloseDate)
 
   // console.log(theEvent, theMarket)
   await page.$$eval(".sm-MarketGroup_GroupName ", (divs) => {
-    // console.log(divs.length)
+    console.log(divs.length)
     const theLeague: HTMLElement = Array.from(divs)
       .filter((x: HTMLElement) => { 
-        // console.log('innertext', x.innerText, 'theEvent', theEvent)
+        console.log('innertext', x.innerText, 'theEvent', theEvent)
         if (x.innerText.toLowerCase().includes(theEvent)) {
-          // console.log('found it', x)
+          console.log('found it', x)
           return x
         }
       })[0] as HTMLElement
@@ -129,11 +130,11 @@ const main = (async function main() {
     // console.log("Finding for ", theEvent, theMarket) 
     // the table containing all the markets
     //
-    // console.log(theLeague)
+    console.log(theLeague)
     const table: HTMLElement = theLeague.parentElement.parentElement
     const market = (Array.from(table.querySelectorAll(".sm-CouponLink_Label "))
       .find(function (x: HTMLElement) : any { 
-        // console.log(x.innerText)
+        console.log(x.innerText)
         return x.innerText.toLowerCase().includes(theMarket) 
       }) as HTMLElement
     )
@@ -145,7 +146,6 @@ const main = (async function main() {
   await page.waitForSelector(".cm-CouponMarketGroupButton_Title")
   await attachToWindow(page, 'getTeams', getTeams)
   await attachToWindow(page, 'getOdds', getOdds)
-  await attachToWindow(page, 'getBookCloseDate', getBookCloseDate)
   await attachToWindow(page, 'getTeamsForOverUnder', getTeamsForOverUnder) 
 
   const matches: Match[] = await page.$eval(".gl-MarketGroup", (marketGroup) => {
@@ -177,11 +177,9 @@ const main = (async function main() {
   })
 
   for (const match of removeDupMatches(matches)) {
-    console.log(match)
-    const formattedDate = moment(match.closeDate, 'D MMM HH:mm').format()
     fs.appendFileSync(
       path.join(__dirname, "..", "odds", outputDirectory, outputFile), 
-      `\n${match.firstTeamName},${match.secondTeamName},${match.firstTeamOdds},${match.secondTeamOdds},${formattedDate}`
+      `\n${match.firstTeamName},${match.secondTeamName},${match.firstTeamOdds},${match.secondTeamOdds},${match.closeDate}`
     )
   }
   
