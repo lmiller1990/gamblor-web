@@ -33,6 +33,7 @@ interface IGameData {
   team2: string
   team1odds: number
   team2odds: number
+  date: string
 }
 
 function readData(market: TMarket): IGameData[] {
@@ -48,7 +49,8 @@ function readData(market: TMarket): IGameData[] {
           team1: data[0],
           team2: data[1],
           team1odds: parseFloat(data[2]),
-          team2odds: parseFloat(data[3])
+          team2odds: parseFloat(data[3]),
+          date: moment(data[4], 'D MMM HH:mm').format()
         }
 
         games.push(gameData)
@@ -69,7 +71,7 @@ function getGames(): INewGame[] {
       const data = crawledData[i].split(',')
       if (data.length === 4) {
         const game: INewGame = {
-          date: moment().format(),
+          date: moment(data[4], 'D MMM HH:mm').format(),
           gameNumber: 1,
           redSideTeamId: 0,
           blueSideTeamId: 0,
@@ -97,7 +99,7 @@ function csvToGames(split: ISplit, teams: ITeam[]): INewGame[] {
 
     const newGame: INewGame = {
       gameNumber: 1,
-      date: moment().format(),
+      date: moment(game.date, 'D MMM HH:mm').format(),
       splitId: split.id,
       leagueId: split.leagueId,
       redSideTeamId: redTeam.id,
