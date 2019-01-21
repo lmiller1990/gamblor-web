@@ -2,10 +2,11 @@ import axios from 'axios'
 import * as moment from 'moment'
 
 import { TMarket, readData, INewGame, csvToGames } from './createGamesProcessing'
-import { getSplit, isNewGame } from './createGameUtils'
+import { getSplit, isNewGame, getGameId } from './createGameUtils'
 
 import { ISplit } from '../../frontend/src/types/split'
 import { Game } from '../../frontend/src/types/game'
+import { getMaxListeners } from 'cluster';
 
 
 interface IGamesResponse {
@@ -54,29 +55,31 @@ async function main() {
   // relevant property on the new game
   // we know the games array and marekts array are the same length
   // since they were constructed using the same data
+
+
   for (const market of markets) {
     const odds = readData(market)
 
-    for (const game of gamesToPost) {
-      for (let i = 0; i < odds.length; i++) {
-        switch (market) {
-          case 'fb':
-            game.blueSideTeamFbOdds = odds[i].team1odds
-            game.redSideTeamFbOdds = odds[i].team2odds
-            break
-          case 'ft':
-            game.blueSideTeamFtOdds = odds[i].team1odds
-            game.redSideTeamFtOdds = odds[i].team2odds
-            break
-          case 'fd':
-            game.blueSideTeamFdOdds = odds[i].team1odds
-            game.redSideTeamFdOdds = odds[i].team2odds
-            break
-          case 'fbaron':
-            game.blueSideTeamFbaronOdds = odds[i].team1odds
-            game.redSideTeamFbaronOdds = odds[i].team2odds
-            break
-        }
+    if (odds.length !== gamesToPost.length) {
+      throw Error('Games and Odds are not matching.')
+    }
+
+    for (let i = 0; i < gamesToPost.length; i++) {
+      if (market === 'fb') {
+        gamesToPost[i].blueSideTeamFbOdds = odds[i].team1odds
+        gamesToPost[i].redSideTeamFbOdds = odds[i].team2odds
+      }
+      if (market === 'ft') {
+        gamesToPost[i].blueSideTeamFtOdds = odds[i].team1odds
+        gamesToPost[i].redSideTeamFtOdds = odds[i].team2odds
+      }
+      if (market === 'fd') {
+        gamesToPost[i].blueSideTeamFdOdds = odds[i].team1odds
+        gamesToPost[i].redSideTeamFdOdds = odds[i].team2odds
+      }
+      if (market === 'fbaron') {
+        gamesToPost[i].blueSideTeamFbaronOdds = odds[i].team1odds
+        gamesToPost[i].redSideTeamFbaronOdds = odds[i].team2odds
       }
     }
   }
@@ -93,16 +96,35 @@ async function main() {
   const ifNewGame = (game: INewGame) => isNewGame(game, gamesResponse.data)
   const newGames = gamesToPost.filter(ifNewGame)
 
+  const ifOldGame = (game: INewGame) => !isNewGame(game, gamesResponse.data)
+  const previousGames = gamesToPost.filter(ifOldGame)
+
   console.log(`\nPosting new games:\n==================\n`)
   
-  let count = 0;
+  let createdGames = 0;
   for (const newGame of newGames) {
-    console.log(`Posting ${newGame.blueTeamName} vs ${newGame.redTeamName}...`)
+    console.log(`Creating ${newGame.blueTeamName} vs ${newGame.redTeamName}...`)
+
     await axios.post(`${apiRoute}/games`, { game: newGame })
-    count += 1
+
+    createdGames += 1
   }
 
-  console.log(`Done. Created ${count} games.`)
+  console.log(`\nCreated ${createdGames} games.\n`)
+
+  console.log(`\Updating existing games:\n==================\n`)
+
+  let updatedGames = 0;
+  for (const game of previousGames) {
+    console.log(`Updating ${game.blueTeamName} vs ${game.redTeamName}...`)
+
+    const theGameWithId = getGameId(game, gamesResponse.data)
+    await axios.put(`${apiRoute}/games/${theGameWithId.id}`, { game: theGameWithId })
+
+    updatedGames += 1
+  }
+
+  console.log(`\nUpdated ${updatedGames} games.`)
 }
 
 main()

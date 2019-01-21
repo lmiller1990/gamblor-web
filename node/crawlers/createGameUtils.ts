@@ -54,8 +54,26 @@ function isNewGame(theGame: INewGame, games: Game[]): boolean {
   return true
 }
 
+/**
+ * Given a game that already exists, find the id
+ */
+function getGameId(theGame: INewGame, games: Game[]): INewGame {
+  for (const game of games) {
+    // @ts-ignore
+    if ([game.redSideTeamId, game.blueSideTeamId].includes(theGame.redSideTeamId)) {
+      // @ts-ignore
+      if ([game.redSideTeamId, game.blueSideTeamId].includes(theGame.blueSideTeamId)) {
+        return { ...theGame, id: game.id }
+      }
+    }
+  }
+
+  return theGame
+}
+
 export {
   getSplit,
   isNewGame,
+  getGameId,
   getTeamByName
 }

@@ -9,6 +9,7 @@ import * as moment from 'moment'
 type TMarket = 'fb' | 'ft' | 'fd' | 'fbaron'
 
 interface INewGame {
+  id?: number
   gameNumber: number
   date: string
 
