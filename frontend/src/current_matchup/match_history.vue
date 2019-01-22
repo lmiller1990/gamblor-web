@@ -111,14 +111,20 @@ export default Vue.extend({
     },
 
     gamesBySplit(): Game[] {
-      return this.games.filter(x => x.splitId === this.splitId)
+      return this.games
+        .filter((x: Game) => x.splitId === this.splitId)
+        .sort((x: Game, y: Game) => +new Date(y.date) - +new Date(x.date))
     },
 
     previousGames(): Game[] {
       if (this.games.length - this.nPreviousGames <= 0)
         return this.games
+          .sort((x: Game, y: Game) => +new Date(y.date) - +new Date(x.date))
+          .reverse()
       else
         return this.games.slice(this.games.length - this.nPreviousGames)
+          .sort((x: Game, y: Game) => +new Date(y.date) - +new Date(x.date))
+          .reverse()
     },
 
     admin(): boolean {

@@ -49,7 +49,7 @@
       </div>
       <hr>
 
-      Send feedback or suggestions to <a href="mailto:lcstracker@outlook.com">lcstracker@outlook.com</a>.
+      Send feedback or suggestions to <a href="mailto:admin@loltrack.app">admin@loltrack.app</a>.
     </div>
   </div>
 </template>
