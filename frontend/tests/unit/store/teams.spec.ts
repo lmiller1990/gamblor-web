@@ -24,8 +24,13 @@ describe('mutations', () => {
 describe('getters', () => {
   describe('nameById', () => {
     it('returns a team name by the id', () => {
-      const state = createState()
-      state.all = { '1': { name: 'tsm' } }
+      const state: ITeamsState = createState()
+      state.all = {
+        '1': {
+          id: 1,
+          name: 'tsm'
+        }
+      }
       state.ids = [1]
 
       expect(getters.nameById(state, {}, {}, {})(1)).toBe('tsm')
