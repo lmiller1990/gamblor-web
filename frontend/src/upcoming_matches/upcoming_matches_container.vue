@@ -62,6 +62,7 @@ export default Vue.extend({
     splitId(val) {
       if (val) {
         this.fetchGamesAndTeams()
+        this.fetchAllGames()
         this.allGamesShown = false
       }
     }

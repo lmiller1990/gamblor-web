@@ -25,7 +25,8 @@ export const mutations = {
 
 export const actions = {
   async getUpcomingGames({ commit }: ActionContext<IScheduledGamesState, {}>, {
-    splitId, upcoming = 6, recentlyPlayed = 10 }: IGetUpcomingGamesPayload) {
+    splitId, upcoming = 6, recentlyPlayed = 5 }: IGetUpcomingGamesPayload) {
+      console.log(upcoming, recentlyPlayed)
 
     const response = await axios.get('/api/v1/upcoming_games', { 
       params: { 

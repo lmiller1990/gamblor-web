@@ -132,14 +132,31 @@ const main = (async function main() {
     //
     console.log(theLeague)
     const table: HTMLElement = theLeague.parentElement.parentElement
-    const market = (Array.from(table.querySelectorAll(".sm-CouponLink_Label "))
-      .find(function (x: HTMLElement) : any { 
-        console.log(x.innerText)
-        return x.innerText.toLowerCase().includes(theMarket) 
-      }) as HTMLElement
-    )
-      
-    market.click()
+
+    for (const marketRow of Array.from(table.querySelectorAll('.sm-Market'))) {
+      const el = marketRow as HTMLElement
+      console.log(el.innerText)
+      if (el.innerText.toLowerCase().includes('match markets')) {
+        console.log('clicking', el, el.firstElementChild)
+        // @ts-ignore
+        el.firstElementChild.click()
+      }
+    }
+
+
+    setTimeout(() => {
+
+      const market = (Array.from(table.querySelectorAll(".sm-CouponLink_Label "))
+        .find(function (x: HTMLElement): any {
+          console.log(x.innerText)
+          return x.innerText.toLowerCase().includes(theMarket)
+        }) as HTMLElement
+      )
+
+      window.console.log('market', market)
+      market.click()
+
+    }, 1500)
     
   })
 
