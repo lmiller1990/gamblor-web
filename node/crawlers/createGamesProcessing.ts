@@ -99,7 +99,9 @@ function csvToGames(split: ISplit, teams: ITeam[]): INewGame[] {
 
   const gamesToPost: INewGame[] = []
 
+  let count = 0
   for (const g in gamesFromCsv) {
+    console.log(`Finding teams for game ${count}`)
     const game = gamesFromCsv[g]
     const blueTeam = getTeamByName(game.team1, teams)
     const redTeam = getTeamByName(game.team2, teams)
@@ -116,6 +118,7 @@ function csvToGames(split: ISplit, teams: ITeam[]): INewGame[] {
     }
 
     gamesToPost.push(newGame)
+    count += 1
   }
 
   return gamesToPost
