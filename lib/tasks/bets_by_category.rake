@@ -22,6 +22,6 @@ task :bets_by_category, [] => :environment do |t, args|
 
     percent = (((payout - amount_spent.to_f) / amount_spent) * 100).round(2)
 
-    print "Count: #{by_market.count}. \nSpent #{amount_spent / 2}. \nPaid out: #{payout / 2}. \nTotal Profit: #{(payout - amount_spent)/2}. (#{percent}%)"
+    print "Count: #{by_market.count}. \nSpent $#{amount_spent / 100}. \nPaid out: $#{payout / 100}. \nTotal Profit: $#{(payout - amount_spent)/100}. (#{percent}%)"
   end
 end
