@@ -123,7 +123,7 @@ export default Vue.extend({
     },
 
     calcEvs(): Ev[] {
-      return [-1, 12, 10, 8, 5].map(nGames => ({
+      return [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map(nGames => ({
         nLastGames: nGames,
         ev: this.$store.getters['games/evByTeamId']({
           teamId: this.teamId,
