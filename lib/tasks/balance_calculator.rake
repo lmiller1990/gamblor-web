@@ -7,17 +7,10 @@ task :balance_calculator, [] => :environment do |t, args|
   tied = 0
 
   bets.each do |bet|
-    if bet.won == nil
-      sum -= bet.price_cents
-    end
+    sum -= bet.price_cents
 
     if bet.won == true
-      puts bet.payout_cents
       sum += bet.payout_cents
-    end
-
-    if bet.won == false
-      sum -= bet.price_cents
     end
   end
 
