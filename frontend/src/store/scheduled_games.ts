@@ -55,7 +55,7 @@ export const actions = {
 
     const teams = response.data.map(game => game.teams)
     commit('teams/SET_TEAMS', flatten(teams), { root: true })
-    commit('scheduledGames/SET_GAMES', response.data, { root: true })
+    commit('SET_GAMES', response.data)
   }
 }
 
