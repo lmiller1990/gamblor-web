@@ -2,6 +2,9 @@
   <div 
     class="matchup_wrapper"
     @click="$emit('selected', { matchId })">
+
+    <div class="matchup-date">{{ match.date | datetime }}</div>
+
     <div class="matchup">
       <div 
         class="team_and_name blue_team"
@@ -29,9 +32,20 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 import TeamLogo from '../components/team_logo.vue'
 
 export default {
+  filters: {
+    datetime(val): string {
+      const d = new Date(val).toDateString().split(' ')
+      const t = new Date(val).toTimeString().split(':')
+      
+      return `${d[0]} ${d[1]} ${d[2]} ${t[0]}:${t[1]}`
+    }
+  },
+
   components: {
     TeamLogo
   },
@@ -44,7 +58,6 @@ export default {
   },
 
   computed: {
-    // returns the winning side color - blue or red
     match() {
       return this.$store.state.scheduledGames.all[this.matchId]
     },
@@ -77,8 +90,7 @@ export default {
       }
       
       return 'result_pending'
-    },
-
+    }
   }
 }
 </script>
@@ -125,5 +137,11 @@ export default {
 
 .losing_team {
   opacity: 0.15;
+}
+
+.matchup-date {
+  text-align: right;
+  font-size: 0.5rem;
+  padding: 0 0 5px 0;
 }
 </style>

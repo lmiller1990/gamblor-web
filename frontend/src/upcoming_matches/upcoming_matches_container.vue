@@ -9,9 +9,12 @@
         />
         <FavoriteMatchButton :splitId="splitId" />
       </span>
+
       <span class="split-stats">
-        <LcsButton @click="showStatsModal">Stats</LcsButton>
+        <LcsButton @click="showStatsModal">Split Stats</LcsButton>
+        <LcsButton @click="showUpcoming" width="90px">All Upcoming</LcsButton>
       </span>
+
     </div>
     <div class="matchup-container border-bottom">
       <div 
@@ -64,6 +67,7 @@ export default Vue.extend({
         this.fetchGamesAndTeams()
         this.fetchAllGames()
         this.allGamesShown = false
+        this.allUpcoming = false
       }
     }
   },
@@ -71,12 +75,17 @@ export default Vue.extend({
   data() {
     return {
       allGamesShown: false,
-      loadingAllGames: false
+      loadingAllGames: false,
+      allUpcoming: false
     }
   },
 
   computed: {
     matchIds(): number[] {
+      if (this.allUpcoming)  {
+        return this.$store.getters['scheduledGames/orderedByDate']
+      }
+
       return this.$store.getters['scheduledGames/bySplitId'](this.splitId)
     },
 
@@ -86,6 +95,15 @@ export default Vue.extend({
   },
 
   methods: {
+    showUpcoming(): void {
+      this.$store.dispatch('scheduledGames/getByTimePeriod', {
+        start: new Date(),
+        end: new Date(3000, 1, 1)
+      }).then(() => {
+        this.allUpcoming = !this.allUpcoming
+      })
+    },
+
     showStatsModal() {
       const opts: ModalOptions = {
         show: true,
@@ -182,5 +200,9 @@ $color: silver;
 .matchup-container {
   height: 80vh;
   overflow-y: scroll;
+}
+
+.split-stats {
+  display: flex;
 }
 </style>

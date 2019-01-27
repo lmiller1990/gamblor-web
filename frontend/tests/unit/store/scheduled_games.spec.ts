@@ -72,4 +72,21 @@ describe('getters', () => {
       expect(actual).toEqual([ state.all[GAME_ID_1], state.all[GAME_ID_2] ])
     })
   })
+
+  describe('orderedByDate', () => {
+    it('returns a list of all matches ordered by date', () => {
+      const state = createState()
+      // @ts-ignore
+      state.ids = [GAME_ID_1, GAME_ID_2, GAME_ID_3]
+      state.all = {
+        [GAME_ID_2]: { ...data, gameNumber: 1, date: new Date(2018, 1, 1, 21) },
+        [GAME_ID_1]: { ...data, gameNumber: 1, date: new Date(2018, 1, 1, 20) },
+        [GAME_ID_3]: { ...data, gameNumber: 2 }
+      }
+
+      const actual = getters.orderedByDate(state, {}, {}, {})
+
+      expect(actual).toEqual([ GAME_ID_1, GAME_ID_2 ])
+    })
+  })
 })

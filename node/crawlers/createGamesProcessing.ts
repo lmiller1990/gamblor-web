@@ -1,10 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import * as moment from 'moment'
 
 import { ITeam } from '../../frontend/src/types/team'
 import { getTeamByName } from './createGameUtils'
 import { ISplit } from '../../frontend/src/types/split'
-import * as moment from 'moment'
 
 type TMarket = 'fb' | 'ft' | 'fd' | 'fbaron'
 

@@ -3,11 +3,8 @@ import * as moment from 'moment'
 
 import { TMarket, readData, INewGame, csvToGames } from './createGamesProcessing'
 import { getSplit, isNewGame, getGameId } from './createGameUtils'
-
 import { ISplit } from '../../frontend/src/types/split'
 import { Game } from '../../frontend/src/types/game'
-import { getMaxListeners } from 'cluster';
-
 
 interface IGamesResponse {
   games: Game[]

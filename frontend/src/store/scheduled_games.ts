@@ -1,4 +1,5 @@
 import axios from 'axios'
+import flatten from 'lodash/flatten'
 import { ActionContext, GetterTree } from 'vuex'
 const snakeCase = require('lodash/snakeCase')
 
@@ -6,13 +7,18 @@ import { mapResponseToStore } from './map_response_to_store'
 import { Game } from '@/types/game'
 import { IScheduledGamesState, AxiosResponse } from '@/store/types'
 
+interface IGetByTimePeriodPayload {
+  start: Date
+  end: Date
+}
+
 interface IGetUpcomingGamesPayload {
   splitId: number
   upcoming: number
   recentlyPlayed: number
 }
 
-const state = {
+const state: IScheduledGamesState = {
   ids: [],
   all: {}
 }
@@ -26,7 +32,6 @@ export const mutations = {
 export const actions = {
   async getUpcomingGames({ commit }: ActionContext<IScheduledGamesState, {}>, {
     splitId, upcoming = 6, recentlyPlayed = 5 }: IGetUpcomingGamesPayload) {
-      console.log(upcoming, recentlyPlayed)
 
     const response = await axios.get('/api/v1/upcoming_games', { 
       params: { 
@@ -38,6 +43,19 @@ export const actions = {
 
     commit('SET_GAMES', response.data)
     commit('games/SET_GAMES', response.data, { root: true })
+  },
+
+  async getByTimePeriod({ commit }, payload: IGetByTimePeriodPayload): Promise<any> {
+    const response = await axios.get('api/v1/games', {
+      params: {
+        start: payload.start,
+        end: payload.end
+      }
+    })
+
+    const teams = response.data.map(game => game.teams)
+    commit('teams/SET_TEAMS', flatten(teams), { root: true })
+    commit('scheduledGames/SET_GAMES', response.data, { root: true })
   }
 }
 
@@ -58,6 +76,12 @@ export const getters: GetterTree<IScheduledGamesState, {}> = {
     const ids = state.ids.filter(gameId => inGame(teamId, state.all[gameId]))
 
     return ids.map(x => state.all[x])
+  },
+
+  orderedByDate: (state: IScheduledGamesState): number[] => {
+    return state.ids
+      .sort((x, y) => +new Date(state.all[x].date) - +new Date(state.all[y].date))
+      .filter(x => state.all[x].gameNumber === 1 && !state.all[x].winnerId)
   }
 }
 

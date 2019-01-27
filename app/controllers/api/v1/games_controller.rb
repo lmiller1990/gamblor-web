@@ -9,6 +9,7 @@ module Api
           games = Game.all
             .where('date > ?', period_start)
             .where('date < ?', period_end)
+            .to_json(methods: [:teams])
 
           render json: games
         else
