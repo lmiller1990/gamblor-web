@@ -1,8 +1,20 @@
 Rails.application.configure do
+  if Rails.env.development?
+    Rails.application.config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '/api/games/*', headers: :any, methods: %i(get post put patch)
+      end
+    end
+  end
+
+
+
+
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = true
   # Verifies that versions and hashed value of the package contents in the project's package.json
-    config.webpacker.check_yarn_integrity = true
+  config.webpacker.check_yarn_integrity = true
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

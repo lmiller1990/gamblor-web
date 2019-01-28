@@ -24,6 +24,8 @@ module Api
       def update
         game = Game.find(params[:id])
         game.update_attributes!(game_params)
+
+        render json: Game.find(params[:id])
       end
 
       def show
@@ -37,6 +39,8 @@ module Api
           :id,
           :first_blood_team_id,
           :first_turret_team_id,
+          :first_dragon_team_id,
+          :first_baron_team_id,
           :winner_id,
           :loser_id,
           :red_side_team_id,

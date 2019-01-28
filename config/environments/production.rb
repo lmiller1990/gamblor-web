@@ -1,4 +1,13 @@
 Rails.application.configure do
+  if Rails.env.production?
+    Rails.application.config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '/api/games/*', headers: :any, methods: %i(get post put patch)
+      end
+    end
+  end
+
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
   # Verifies that versions and hashed value of the package contents in the project's package.json
