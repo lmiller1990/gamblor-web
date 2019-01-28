@@ -3,7 +3,7 @@ Rails.application.configure do
     Rails.application.config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '/api/games/*', headers: :any, methods: %i(get post put patch)
+        resource '/api/*', headers: :any, methods: %i(get post put patch)
       end
     end
   end
