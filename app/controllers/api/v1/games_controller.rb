@@ -25,6 +25,9 @@ module Api
         game = Game.find(params[:id])
         game.update_attributes!(game_params)
 
+        # Settle bets if game is complete
+        SettleBetsService.new(game).call if game.complete?
+
         render json: Game.find(params[:id])
       end
 
