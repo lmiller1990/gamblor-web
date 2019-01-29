@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as moment from 'moment'
 
-import { TMarket, readData, INewGame, csvToGames } from './createGamesProcessing'
+import { TMarket, readData, INewGame, csvToGames, IGameData } from './createGamesProcessing'
 import { getSplit, isNewGame, getGameId } from './createGameUtils'
 import { ISplit } from '../../frontend/src/types/split'
 import { Game } from '../../frontend/src/types/game'
@@ -10,7 +10,19 @@ interface IGamesResponse {
   games: Game[]
 }
 
-function getInitialData(apiRoute: string) { 
+function findOddsForGame(game: INewGame, allOdds: IGameData[]): IGameData | null {
+  return allOdds.find(odd => {
+    if (odd.team1 === game.blueTeamName.toLowerCase()) {
+      if (odd.team2 === game.redTeamName.toLocaleLowerCase()) {
+        return true
+      }
+    }
+
+    return false
+  })
+}
+
+function getInitialData(apiRoute: string) {
   return Promise.all([
     axios.get<IGamesResponse>(`${apiRoute}/games`, {
       params: {
@@ -57,26 +69,38 @@ async function main() {
   for (const market of markets) {
     const odds = readData(market)
 
-    if (odds.length !== gamesToPost.length) {
-      throw Error('Games and Odds are not matching.')
-    }
-
     for (let i = 0; i < gamesToPost.length; i++) {
+
       if (market === 'fb') {
-        gamesToPost[i].blueSideTeamFbOdds = odds[i].team1odds
-        gamesToPost[i].redSideTeamFbOdds = odds[i].team2odds
+        const oddsForGame = findOddsForGame(gamesToPost[i], odds)
+        if (oddsForGame) {
+          gamesToPost[i].blueSideTeamFbOdds = oddsForGame.team1odds
+          gamesToPost[i].redSideTeamFbOdds = oddsForGame.team2odds
+        }
       }
+
       if (market === 'ft') {
-        gamesToPost[i].blueSideTeamFtOdds = odds[i].team1odds
-        gamesToPost[i].redSideTeamFtOdds = odds[i].team2odds
+        const oddsForGame = findOddsForGame(gamesToPost[i], odds)
+        if (oddsForGame) {
+          gamesToPost[i].blueSideTeamFtOdds = oddsForGame.team1odds
+          gamesToPost[i].redSideTeamFtOdds = oddsForGame.team2odds
+        }
       }
+
       if (market === 'fd') {
-        gamesToPost[i].blueSideTeamFdOdds = odds[i].team1odds
-        gamesToPost[i].redSideTeamFdOdds = odds[i].team2odds
+        const oddsForGame = findOddsForGame(gamesToPost[i], odds)
+        if (oddsForGame) {
+          gamesToPost[i].blueSideTeamFdOdds = oddsForGame.team1odds
+          gamesToPost[i].redSideTeamFdOdds = oddsForGame.team2odds
+        }
       }
+
       if (market === 'fbaron') {
-        gamesToPost[i].blueSideTeamFbaronOdds = odds[i].team1odds
-        gamesToPost[i].redSideTeamFbaronOdds = odds[i].team2odds
+        const oddsForGame = findOddsForGame(gamesToPost[i], odds)
+        if (oddsForGame) {
+          gamesToPost[i].blueSideTeamFbaronOdds = oddsForGame.team1odds
+          gamesToPost[i].redSideTeamFbaronOdds = oddsForGame.team2odds
+        }
       }
     }
   }
@@ -97,7 +121,7 @@ async function main() {
   const previousGames = gamesToPost.filter(ifOldGame)
 
   console.log(`\nPosting new games:\n==================\n`)
-  
+
   let createdGames = 0;
   for (const newGame of newGames) {
     console.log(`Creating ${newGame.blueTeamName} vs ${newGame.redTeamName}...`)
