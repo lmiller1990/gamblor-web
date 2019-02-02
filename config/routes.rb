@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :upcoming_games, only: %i(index)
       resources :teams, only: %i(index)
       resources :leagues, only: %i(index)
+      resources :switch_sides, only: %i(update)
     end
   end
 
