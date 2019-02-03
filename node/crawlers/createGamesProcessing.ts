@@ -67,7 +67,7 @@ function readData(market: TMarket): IGameData[] {
 }
 
 function getGames(): INewGame[] {
-  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fb', 'bet365.csv'), 'utf8').split('\n')
+  const crawledData: string[] = fs.readFileSync(path.join(process.cwd(), 'node', 'odds', 'fbaron', 'bet365.csv'), 'utf8').split('\n')
 
   const games: INewGame[] = []
   for (let i = 0; i < crawledData.length; i++) {
@@ -94,7 +94,7 @@ function getGames(): INewGame[] {
 }
 
 function csvToGames(split: ISplit, teams: ITeam[]): INewGame[] {
-  const gamesFromCsv = readData('fb')
+  const gamesFromCsv = readData('fbaron')
   console.log(`Found ${gamesFromCsv.length} in csv`)
 
   const gamesToPost: INewGame[] = []

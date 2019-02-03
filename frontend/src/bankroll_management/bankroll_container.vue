@@ -4,7 +4,12 @@
       Odds: {{ odds }} 
     </div>
     <div>
-      Current Bankroll: {{ bankroll | dollars }}
+      Current bankroll: $
+      <input 
+        class="bankroll" 
+        type="number" 
+        v-model="bankrollInDollars"
+      >
     </div>
 
     <br>
@@ -25,7 +30,10 @@
       Using the odds and your current bankroll, the recommended bet calculated using the <a href="/kelly_criterion">Kelly Criterion</a> is:
     </div>
 
-    <ul v-for="{ amountInCents, nLastGames } in getRecommendedBets">
+    <ul 
+      v-for="{ amountInCents, nLastGames } in getRecommendedBets"
+      :key="nLastGames"
+    >
       <li>
         Based on last {{ nLastGames }} games: {{ amountInCents | dollars }}
         <div v-if="amountInCents < 0" class="warning">
@@ -50,10 +58,19 @@ export default Vue.extend({
 
   filters: { dollars },
 
-  data() {
+  data(): {
+    fraction: number, bankrollInDollars: number
+  } {
     return {
-      fraction: 20
+      fraction: 20,
+      bankrollInDollars: 0
     }
+  },
+
+  created() {
+    const currentBankroll: number = this.$store.state.bankAccount.balanceCents
+
+    this.bankrollInDollars = currentBankroll / 100
   },
 
   computed: {
@@ -61,15 +78,12 @@ export default Vue.extend({
       return this.$store.state.bets.selectedOdds
     },
 
-    bankroll(): number {
-      return this.$store.state.bankAccount.balanceCents
-    },
-
     evs(): Ev[] {
       return this.$store.state.bets.selectedBetEvs
     },
 
     getRecommendedBets(): number[] {
+      const bankrollInCents = this.bankrollInDollars * 100
       const recommendations = []
 
       for (const { ev, nLastGames } of this.evs) {
@@ -77,7 +91,7 @@ export default Vue.extend({
         if (nLastGames > 0) {
           recommendations.push({
             nLastGames,
-            amountInCents: fractionalKelly(this.bankroll, ev, this.odds, this.fraction / 100)
+            amountInCents: fractionalKelly(bankrollInCents, ev, this.odds, this.fraction / 100)
           })
         }
       }
@@ -96,6 +110,10 @@ export default Vue.extend({
 
 #fraction {
   width: 35px;
+}
+
+.bankroll {
+  width: 65px;
 }
 </style>
 
