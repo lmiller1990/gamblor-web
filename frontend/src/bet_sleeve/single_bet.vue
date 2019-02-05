@@ -1,7 +1,12 @@
 <template>
   <div class="bet" :class="betStatus">
     <div class="header">
-      <div data-bet-title>{{ teamBetOn }} to get {{ format(market) }}</div>
+      <div 
+        data-bet-title
+        :title="`ID: ${id}`"
+      >
+        {{ teamBetOn }} to get {{ format(market) }}
+      </div>
       <div>{{ odds.toFixed(2) }}</div>
     </div>
     <div class="info">
