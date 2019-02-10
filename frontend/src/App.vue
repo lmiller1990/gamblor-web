@@ -117,7 +117,7 @@ export default Vue.extend({
     },
 
     async fetchBets() {
-      await this.$store.dispatch('bets/getBets')
+      await this.$store.dispatch('bets/getUnsettledBets')
       const gameIds = this.$store.getters['bets/gameIdsForAllBets']
       await this.$store.dispatch('games/getByIds', gameIds)
     },

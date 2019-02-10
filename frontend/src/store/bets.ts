@@ -63,6 +63,15 @@ export const actions = {
     })
   },
 
+  async getUnsettledBets({ commit }: ActionContext<BetsState, {}>) {
+    const res = await axios.get('/api/v1/unsettled_bets')
+    const games: Game[] = res.data.map((bet: Bet) => bet.game)
+    const bets: Bet[] = res.data.map((x: Bet) => ({...x, status: setBetStatus(x.won) }))
+    
+    commit('SET_BETS', bets)
+    commit('games/SET_GAMES', games, { root: true })
+  },
+
   async getBets({ commit }: ActionContext<BetsState, {}>) {
     const res = await axios.get('/api/v1/bets')
     const games: Game[] = res.data.map((bet: Bet) => bet.game)

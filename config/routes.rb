@@ -44,6 +44,7 @@ Rails.application.routes.draw do
         resources :bank_accounts, only: [:index]
         resources :settings, only: %i(index)
         resources :bets
+        resources :unsettled_bets, only: %(index)
         resources :upcoming_games, only: [:index]
         resources :odds, only: %i(create show)
         resources :scrapers, only: %i(create index)

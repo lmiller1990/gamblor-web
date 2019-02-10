@@ -4,9 +4,20 @@ module Api
       before_action :authenticate_user!
 
       def index
-        render json: current_user.bets
+        bets = current_user.bets
           .order(created_at: :desc)
           .to_json(methods: [:game])
+
+        render json: bets
+      end
+
+      def unsettled_only
+        bets = current_user.bets
+          .order(created_at: :desc)
+          .where.not(won: nil)
+          .to_json(methods: [:game])
+
+        render json: bets
       end
 
       def create 

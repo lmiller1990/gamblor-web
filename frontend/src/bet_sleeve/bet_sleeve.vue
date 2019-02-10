@@ -1,7 +1,16 @@
 <template>
   <div class="bet_window">
     <div class="header">
-      <span>Balance: {{ balance | dollars }}</span>
+      <LcsButton 
+        width="110px"
+        @click="getAllBets"
+      >
+        Show Past Bets
+      </LcsButton>
+
+      <span>
+        Balance: {{ balance | dollars }}
+      </span>
     </div>
     <span id="top"></span>
     <NewBetForm 
@@ -95,6 +104,11 @@ export default Vue.extend({
       this.$store.commit('modal/SET_MODAL', opts)
     },
 
+    getAllBets(): void {
+      this.$store.dispatch('bets/getBets')
+    },
+
+
     cancel({ id }: { id: number }) {
       this.$store.commit('bets/CANCEL', { id })
     },
@@ -133,7 +147,8 @@ export default Vue.extend({
 .header {
   padding: 8px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   position: sticky;
   background-color: white;
   top: 0;
