@@ -1,4 +1,3 @@
-require 'pry'
 module Api
   module V1
     class BetsController < ::ActionController::API
@@ -22,7 +21,6 @@ module Api
       end
 
       def create 
-        binding.pry
         game = Game.find(bets_params[:game_id])
         odds = game.odds_for_team_in_market(
           bets_params[:team_bet_on_id].to_i, bets_params[:market])
