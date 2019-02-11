@@ -14,6 +14,7 @@ export interface Bet {
   priceCents: number
   payoutCents?: number
   odds: number
+  estimatedValue?: number,
   gameId: number
   game?: Game
   won?: boolean

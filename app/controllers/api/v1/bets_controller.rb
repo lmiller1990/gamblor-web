@@ -41,7 +41,8 @@ module Api
           :price_cents,
           :market,
           :game_id,
-          :team_bet_on_id
+          :team_bet_on_id,
+          :estimated_value
         )
       end
     end

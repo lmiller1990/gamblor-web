@@ -68,7 +68,7 @@ export default Vue.extend({
 
   methods: {
     getRecommendation(): void {
-      this.$emit('recommend', this.odds, this.gameTitle)
+      this.$emit('recommend')
     },
 
     cancel(): void {
