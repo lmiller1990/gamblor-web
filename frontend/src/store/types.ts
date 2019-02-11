@@ -57,7 +57,8 @@ export interface ILeaguesState {
 export interface ModalOptions {
   show: boolean
   component?: VueConstructor
-  title?: string
+  title?: string,
+  extra?: {}
 }
 
 export interface ModalState extends ModalOptions {}

@@ -5,17 +5,19 @@ import { RootState, ModalState, ModalOptions } from './types'
 export const state: ModalState = {
   component: undefined,
   show: false,
-  title: ''
+  title: '',
+  extra: {}
 }
 
 export const mutations: MutationTree<ModalState> = {
   SET_MODAL(
     state: ModalState, 
-    { show = false, component, title }: ModalOptions 
+    { show = false, component, title, extra }: ModalOptions 
   ) {
     state.component = component
     state.show = show
     state.title = title
+    state.extra = {...state.extra, ...extra}
   }
 }
 

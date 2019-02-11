@@ -1,7 +1,7 @@
 <template>
   <div class="bet_window">
     <div class="header">
-      <LcsButton 
+      <LcsButton
         width="110px"
         @click="getAllBets"
       >
@@ -13,8 +13,8 @@
       </span>
     </div>
     <span id="top"></span>
-    <NewBetForm 
-      v-for="id in tentativeBetIds" 
+    <NewBetForm
+      v-for="id in tentativeBetIds"
       :key="id"
       :id="id"
       :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
@@ -23,12 +23,23 @@
       :gameTitle="gameTitle(bets[id].gameId)"
       :market="bets[id].market"
       :status="bets[id].status"
-      @submit="priceDollars => createBet({ id, priceDollars })"
+      @submit="priceDollars => 
+        createBet({
+          id,
+          priceDollars,
+        })"
       @cancel="cancel({ id })"
-      @recommend="handleRecommend"
+      @recommend="() => handleRecommend(
+        id,
+        bets[id].odds,
+        bets[id].gameId,
+        bets[id].teamBetOnId,
+        bets[id].market
+      )"
     />
-    <SingleBet 
-       v-for="id in persistedBetIds" 
+
+    <SingleBet
+       v-for="id in persistedBetIds"
        :key="id"
        :id="id"
        :teamBetOn="teamBetOn(bets[id].teamBetOnId)"
@@ -60,7 +71,7 @@ export default Vue.extend({
   name: 'BetSleeve',
 
   filters: { dollars },
-  
+
   watch: {
     tentativeBetIds() {
       setTimeout(this.scrollToTop)
@@ -98,8 +109,25 @@ export default Vue.extend({
   },
 
   methods: {
-    handleRecommend(odds: number, gameTitle: string) {
-      const opts: ModalOptions = { component: BankrollContainer, show: true, title: gameTitle }
+    handleRecommend(
+      id: number,
+      odds: number, 
+      gameId: number,
+      teamId: number,
+      market: string
+    ) {
+      const opts: ModalOptions = {
+        component: BankrollContainer,
+        show: true,
+        title: this.gameTitle(gameId),
+        extra: {
+          betId: id,
+          teamBetOnId: teamId,
+          market,
+          gameId
+        }
+      }
+
       this.$store.commit('bets/SET_SELECTED_ODDS', odds)
       this.$store.commit('modal/SET_MODAL', opts)
     },
