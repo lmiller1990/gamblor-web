@@ -90,4 +90,9 @@ export default Vue.extend({
   margin: 5px;
   font-size: 1.3em;
 }
+
+.modal_component {
+  max-height: 80vh;
+  overflow-y: scroll;
+}
 </style>

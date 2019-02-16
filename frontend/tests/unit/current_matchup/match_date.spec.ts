@@ -20,7 +20,7 @@ describe('MatchDate', () => {
     it('renders the date', () => {
       const wrapper = factory({ canEdit: false })
 
-      expect(wrapper.vm.$el.getAttribute('href')).toBe(null)
+      expect(wrapper.vm.$el.querySelector('div').getAttribute('href')).toBe(null)
     })
   })
 
@@ -28,7 +28,7 @@ describe('MatchDate', () => {
     it('renders the date with link to edit', () => {
       const wrapper = factory({ canEdit: true })
 
-      expect(wrapper.vm.$el.getAttribute('href')).toBe(`/games/${ID}/edit`)
+      expect(wrapper.vm.$el.querySelector('a').getAttribute('href')).toBe(`/games/${ID}/edit`)
     })
   })
 })

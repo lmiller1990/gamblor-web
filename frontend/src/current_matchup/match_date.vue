@@ -1,10 +1,13 @@
 <template>
-  <a v-if="canEdit" :href="`/games/${id}/edit`">
-    {{ date | shortDate }}
-  </a>
-  <div v-else-if="!canEdit">
-    {{ date | shortDate }}
-  </div>
+  <span>
+    <slot />
+    <a v-if="canEdit" :href="`/games/${id}/edit`">
+      {{ date | shortDate }}
+    </a>
+    <div v-else-if="!canEdit">
+      {{ date | shortDate }}
+    </div>
+  </span>
 </template>
 
 <script lang="ts">

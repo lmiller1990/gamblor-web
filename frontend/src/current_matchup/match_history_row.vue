@@ -123,7 +123,24 @@ export default Vue.extend({
     },
 
     calcEvs(): Ev[] {
-      return [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map(nGames => ({
+      const splitId = this.$store.state.leagues.splitId
+      const allTeamGameIds = this.$store.getters['historicalGames/byTeamId'](this.teamId)
+        .map(x => x.id)
+      const splitGameIds = this.$store.getters['historicalGames/gameIdsbySplitId'](splitId)
+
+      const gameIdsThisSplit = splitGameIds.filter(x => -1 !== allTeamGameIds.indexOf(x))
+
+      const gamesCount = gameIdsThisSplit.reduce((acc, curr) => {
+        if (this.$store.state.historicalGames.all[curr].winnerId) {
+          acc += 1
+        }
+
+        return acc
+      }, 0)
+
+      const nLast = new Array(gamesCount).fill(0).map((_, idx) => gamesCount - idx)
+
+      return nLast.map(nGames => ({
         nLastGames: nGames,
         ev: this.$store.getters['games/evByTeamId']({
           teamId: this.teamId,
