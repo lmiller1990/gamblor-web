@@ -9,7 +9,7 @@ public/packs-test
 latest.dump
 
 node/crawlers/better.js
-node/odds
+node/**/*.csv
 coverage
 data.csv
 frontend/dist
