@@ -1,6 +1,6 @@
 function compile() {
   echo "Compiling..."
-  tsc node/crawlers/better.ts
+  yarn tsc node/crawlers/better.ts
 }
 
 function crawl() {
