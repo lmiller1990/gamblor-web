@@ -16,7 +16,7 @@ export interface Match {
   closeDate: string
 }
 
-const theEvent = args.event
+const theEvent = args.event.replace("_", " ")
 const theMarket = args.market
 const outputFile = args.outputFile
 const outputDirectory = args.outputDirectory  
@@ -120,9 +120,9 @@ const main = (async function main() {
     console.log(divs.length)
     const theLeague: HTMLElement = Array.from(divs)
       .filter((x: HTMLElement) => { 
-        console.log('innertext', x.innerText, 'theEvent', theEvent)
+      // console.log('innertext', x.innerText, 'theEvent', theEvent)
         if (x.innerText.toLowerCase().includes(theEvent)) {
-          console.log('found it', x)
+          console.log('Found it', x)
           return x
         }
       })[0] as HTMLElement

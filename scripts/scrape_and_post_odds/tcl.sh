@@ -1,5 +1,5 @@
 function scrape() {
-  ./scripts/all_markets.sh tcl
+  ./scripts/all_markets.sh "tcl_winter"
 }
 
 function post() {
