@@ -8,8 +8,9 @@ Rails.application.routes.draw do
 
   namespace :api do 
     namespace :v1 do
-      resources :games, only: %i(index create update)
-      resources :duplicate, only: %i(create), controller: 'games/duplicate'
+      resources :games, only: %i(index create update) do
+        resources :duplicate, controller: 'games/duplicate'
+      end
       resources :uncollected_games, only: %i(index)
       resources :upcoming_games, only: %i(index)
       resources :teams, only: %i(index)

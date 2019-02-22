@@ -3,9 +3,10 @@ module Api
     module Games
       class DuplicateController < ActionController::API
         def create
-          game = Game.find params[:game_id].dup
-          game.update_attributes!(
-            game_number: game.game_number + 1,
+          game = Game.find params[:game_id]
+          dup_game = game.dup
+          dup_game.update_attributes!(
+            game_number: dup_game.game_number + 1,
             first_blood_team_id: nil,
             first_turret_team_id: nil,
             first_dragon_team_id: nil,
@@ -14,7 +15,7 @@ module Api
             loser_id: nil
           )
 
-          render json: game
+          render json: dup_game
         end
       end
     end
