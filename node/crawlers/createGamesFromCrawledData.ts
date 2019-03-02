@@ -26,7 +26,7 @@ function getInitialData(apiRoute: string) {
   return Promise.all([
     axios.get<IGamesResponse>(`${apiRoute}/games`, {
       params: {
-        start: moment().add(-10, 'days').format(),
+        start: moment().add(-7, 'days').format(),
         end: moment().add('10', 'days').format()
       }
     }),
