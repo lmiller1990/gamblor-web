@@ -46,7 +46,10 @@ async function main() {
   console.log(`Creating games for ${leagueName} - ${splitName}`)
 
   // get the required data
-  const [gamesResponse, teamsResponse, leaguesResponse] = await getInitialData(apiRoute)
+  const [gamesRes, teamsResponse, leaguesResponse] = await getInitialData(apiRoute)
+  const gamesResponse: { data: Game[] } = {
+    data: (gamesRes.data as Game[]).filter(game => !game.winnerId && !game.loserId)
+  }
 
   // get the split using command line params (split name and league name)
   // need to know the split id in the database

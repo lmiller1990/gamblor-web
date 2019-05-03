@@ -17,6 +17,8 @@ export interface Match {
 }
 
 const theEvent = args.event.replace("_", " ")
+console.log(args)
+console.log('event', theEvent)
 const theMarket = args.market
 const outputFile = args.outputFile
 const outputDirectory = args.outputDirectory  
