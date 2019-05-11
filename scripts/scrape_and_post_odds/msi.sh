@@ -1,5 +1,5 @@
 function scrape() {
-  ./scripts/all_markets.sh play-in
+  ./scripts/all_markets.sh msi
 }
 
 function post() {
