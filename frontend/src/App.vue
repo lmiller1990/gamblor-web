@@ -8,15 +8,10 @@
       :redSideTeamId="redSideTeamId"
       :redSideGames="redSideGames"
       @teamSelected="selectTeam"
-      @createBet="showBetSleeve"
     />
 
     <Sidebar>
       <HowToUse v-if="sidebarComponent === HowToUse" />
-      <BetSleeve 
-        v-if="sidebarComponent === BetSleeve && (loaded && loadedBets)" 
-        @betPlaced="fetchBankAccount"
-      />
       <UpcomingMatchesContainer 
         v-if="sidebarComponent === UpcomingMatchesContainer"
         :splitId="splitId"
@@ -25,7 +20,6 @@
         />
       <SidebarControls 
         slot="controls" 
-        @showBetSleeve="showBetSleeve"
         @showHowToUse="showHowToUse"
         @showSchedule="showSchedule"
       />
@@ -36,7 +30,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import HowToUse from './components/how_to_use.vue'
-import BetSleeve from './bet_sleeve/bet_sleeve.vue'
 import SidebarControls from './components/sidebar_controls.vue'
 import CurrentMatchupContainer from './current_matchup/current_matchup_container.vue'
 import UpcomingMatchesContainer from './upcoming_matches/upcoming_matches_container.vue'
@@ -54,7 +47,6 @@ export default Vue.extend({
     CurrentMatchupContainer,
     Sidebar,
     HowToUse,
-    BetSleeve,
     UpcomingMatchesContainer,
     SidebarControls
   },
@@ -79,7 +71,6 @@ export default Vue.extend({
       sidebarComponent: UpcomingMatchesContainer,
       UpcomingMatchesContainer,
       HowToUse,
-      BetSleeve,
       loadedBets: false,
       loaded: false,
       redSideTeamId: 0,
@@ -100,10 +91,6 @@ export default Vue.extend({
   },
 
   methods: {
-    showBetSleeve(): void {
-      this.sidebarComponent = BetSleeve
-    },
-
     showSchedule(): void {
       this.sidebarComponent = UpcomingMatchesContainer
     },

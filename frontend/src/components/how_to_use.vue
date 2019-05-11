@@ -36,21 +36,6 @@
     </div>
 
     <hr>
-
-    <div>
-      <div>
-        It's still a work in progress, but you can simulate bets using LCS Tracking, too! 
-        <hr>
-        Place a bet by clicking on an upcoming market, and entering a stake.
-      </div>
-      <div>
-
-        <span>Click "Bet Sleeve" to see your bets.</span>
-      </div>
-      <hr>
-
-      Send feedback or suggestions to <a href="mailto:admin@loltrack.app">admin@loltrack.app</a>.
-    </div>
   </div>
 </template>
 

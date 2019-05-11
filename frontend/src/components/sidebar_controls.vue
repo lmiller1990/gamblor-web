@@ -4,9 +4,6 @@
       <LcsButton width="100%" @click="show('Schedule')" data-test-schedule>
         Schedule
       </LcsButton>
-      <LcsButton width="100%" @click="show('BetSleeve')">
-        Bet Sleeve
-      </LcsButton>
       <LcsButton width="100%" @click="show('HowToUse')">
         How To Use
       </LcsButton>
