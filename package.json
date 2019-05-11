@@ -70,10 +70,5 @@
       "json",
       "node"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "rspec spec && cd frontend && yarn test:unit && cd .."
-    }
   }
 }
