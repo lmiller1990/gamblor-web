@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
   resources :app, only: %i(index)
 
+  get '/.well-known/acme-challenge/:id' => 'pages#letsencrypt'
+
+
   namespace :api do 
     namespace :v1 do
       resources :games, only: %i(index create update) do
