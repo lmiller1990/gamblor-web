@@ -1,4 +1,24 @@
 require 'csv'
+require 'pry'
+
+markets_map = {
+  blood: {
+    short: 'fb',
+    long: 'blood'
+  },
+  turret: {
+    short: 'ft',
+    long: 'turret'
+  },
+  dragon: {
+    short: 'fd',
+    long: 'dragon'
+  },
+  baron: {
+    short: 'fbaron',
+    long: 'baron'
+  }
+}
 
 def game_title(game)
   game.teams.map { |x| x.name }.join ' vs '
@@ -8,7 +28,7 @@ def print_progress?
   false 
 end
 
-BET = :
+BET = 10
 write_results = true
 
 task :bets_above_threshold, [] => :environment do |t, args|
@@ -30,18 +50,17 @@ task :bets_above_threshold, [] => :environment do |t, args|
 
       total = 0.0
       market = 'blood' # blood baron dragon
-      fb = 'fb'
+      short = markets_map[market.to_sym][:short]
       bet_count = 0
       win_count = 0.0
-
 
       games.each do |game|
         row = {}
         row[:game_id] = game.id
         did_bet = false
 
-        red_side_odds = game["red_side_team_#{fb}_odds"]
-        blue_side_odds = game["blue_side_team_#{fb}_odds"]
+        red_side_odds = game["red_side_team_#{short}_odds"]
+        blue_side_odds = game["blue_side_team_#{short}_odds"]
 
         if red_side_odds == nil or blue_side_odds == nil
           next
