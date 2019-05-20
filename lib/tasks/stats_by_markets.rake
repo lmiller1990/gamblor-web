@@ -1,5 +1,5 @@
 task :stats_by_markets, [:vals] => :environment do |t, args|
-  event = 'World Championship'
+  event = 'MSI 2019'
   markets = [
     [event, 'fb', 'first_blood_team'],
     [event, 'ft', 'first_turret_team'],
