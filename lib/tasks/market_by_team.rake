@@ -82,9 +82,10 @@ task :market_by_team, [] => :environment do |t, args|
 
   results = results.sort_by { |x| x[:profit] }.reverse
 
+  puts "| Team | Win/Loss | Profit |"
+  puts "|------|--------|------------|"
+
   results.each do |r|
-    puts "| Team | Win/Loss | Profit |"
-    puts "------------------------------"
     puts "| #{r[:team]} | #{r[:wins]}/#{r[:wins] + r[:losses]} | #{r[:profit]} |"
   end
 end
