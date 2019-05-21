@@ -28,12 +28,10 @@ def print_progress?
   false 
 end
 
-BET = 10
+BET = 1
 write_results = true
 
 task :bets_above_threshold, [] => :environment do |t, args|
-  # bets = User.find_by_email('lachlan.miller.1990@outlook.com').bets.where.not(won: nil)
-
   splits = Split.where(id: 4)
   grand_total = 0
 
@@ -46,10 +44,10 @@ task :bets_above_threshold, [] => :environment do |t, args|
       .where('created_at > ?', Date.new(2019, 01, 01))
       .where(split_id: split.id)
 
-    [1.7].each do |threshold|
+    [1.8].each do |threshold|
 
       total = 0.0
-      market = 'blood' # blood baron dragon
+      market = 'dragon' # blood baron dragon
       short = markets_map[market.to_sym][:short]
       bet_count = 0
       win_count = 0.0

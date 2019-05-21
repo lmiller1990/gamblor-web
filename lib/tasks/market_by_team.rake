@@ -19,48 +19,72 @@ markets_map = {
   }
 }
 
+def show_result?
+  false
+end
+
+teams = ['Team Liquid', 'Team SoloMid', 'Clutch Gaming', 'Echo Fox', 'Optic Gaming', 'Cloud9', 'Counter Logic Gaming', 'Flyquest', 'Golden Guardians', '100 Thieves']
+
 task :market_by_team, [] => :environment do |t, args|
-  team_name = 'Team SoloMid'
-  team = Team.find_by_name(team_name)
-  games = team.games.where(split_id: 4)
-  market = 'blood'
-  short = markets_map[market.to_sym][:short]
-  total = 0
-  market_name = "first_#{market}_team_id"
-  wins = 0
-  losses = 0
+  results = []
 
-  puts "#{team_name} for first #{market}"
-  puts "========================================="
+  teams.each do |team_name|
+    team = Team.find_by_name(team_name)
+    games = team.games.where(split_id: 4)
+    market = 'baron'
+    short = markets_map[market.to_sym][:short]
+    total = 0
+    market_name = "first_#{market}_team_id"
+    wins = 0
+    losses = 0
 
-  games.each do |game|
-    next if game["blue_side_team_#{short}_odds"] == nil or game["red_side_team_#{short}_odds"] == nil
+    # puts "#{team_name} for first #{market}"
 
-    is_blue_side = game.blue_side_team_id == team.id
+    games.each do |game|
+      next if game["blue_side_team_#{short}_odds"] == nil or game["red_side_team_#{short}_odds"] == nil
 
-    if game[market_name] == team.id
-      wins += 1
-
-      if is_blue_side
-        print "Win at ", game["blue_side_team_#{short}_odds"], " vs #{game.red_side_team.name}\n"
-        total += game["blue_side_team_#{short}_odds"]
-      else
-        print "Win at ", game["red_side_team_#{short}_odds"], " vs #{game.blue_side_team.name}\n"
-        total += game["red_side_team_#{short}_odds"]
-      end
-    else
-      losses += 1
+      is_blue_side = game.blue_side_team_id == team.id
       total -= 1
 
-      if is_blue_side
-        puts "Lose"
-      else
-        puts "Lose"
-      end
+      if game[market_name] == team.id
+        wins += 1
 
+        if is_blue_side
+
+          print "#{game.date_only}: Win at ", game["blue_side_team_#{short}_odds"], " vs #{game.red_side_team.name}\n" if show_result?
+          total += game["blue_side_team_#{short}_odds"]
+        else
+          print "#{game.date_only} Win at ", game["red_side_team_#{short}_odds"], " vs #{game.blue_side_team.name}\n" if show_result?
+          total += game["red_side_team_#{short}_odds"]
+        end
+      else
+        if is_blue_side
+          # puts "#{game.date_only} Lose to #{game.red_side_team.name}." if show_result?
+          losses += 1
+
+        else
+          # puts "#{game.date_only} Lose to #{game.blue_side_team.name}." if show_result?
+          losses += 1
+        end
+      end
     end
+
+    results << {
+      team: team_name,
+      profit: total.round(1),
+      wins: wins,
+      losses: losses
+    }
+
+    # puts "Total profit: #{total}"
+    # puts "Wins: #{wins} / #{wins + losses}"
   end
 
-  puts total
-  puts "Wins: #{wins} / #{wins + losses}"
+  results = results.sort_by { |x| x[:profit] }.reverse
+
+  results.each do |r|
+    puts "| Team | Win/Loss | Profit |"
+    puts "------------------------------"
+    puts "| #{r[:team]} | #{r[:wins]}/#{r[:wins] + r[:losses]} | #{r[:profit]} |"
+  end
 end

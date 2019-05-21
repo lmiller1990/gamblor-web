@@ -3,7 +3,7 @@ def percent(num, total)
 end
 
 task :side_market, [] => :environment do |t, args|
-  games = Game.where.not(winner_id: nil)
+  games = Game.where.not(winner_id: nil).where(split_id: 4)
 
   ['blood', 'turret', 'dragon', 'baron'].each do |market|
     blue_side = 0.0
