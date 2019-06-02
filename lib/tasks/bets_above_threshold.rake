@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 
 markets_map = {
   blood: {
