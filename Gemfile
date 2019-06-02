@@ -59,7 +59,6 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem "chromedriver-helper"
-  gem 'pry-rails'
 end
 
 group :development, :test, :production do
