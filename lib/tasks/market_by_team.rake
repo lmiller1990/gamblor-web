@@ -38,7 +38,7 @@ task :market_by_team, [] => :environment do |t, args|
     wins = 0
     losses = 0
 
-    # puts "#{team_name} for first #{market}"
+     puts "#{team_name} for first #{market}"
 
     games.each do |game|
       next if game["blue_side_team_#{short}_odds"] == nil or game["red_side_team_#{short}_odds"] == nil

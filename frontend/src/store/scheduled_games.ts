@@ -41,6 +41,7 @@ export const actions = {
       } 
     })
 
+    window.console.log(response.data)
     commit('SET_GAMES', response.data)
     commit('games/SET_GAMES', response.data, { root: true })
   },

@@ -86,7 +86,12 @@ export default Vue.extend({
         return this.$store.getters['scheduledGames/orderedByDate']
       }
 
-      return this.$store.getters['scheduledGames/bySplitId'](this.splitId)
+      const ids = (this.$store.getters['scheduledGames/bySplitId'](this.splitId)
+        .sort((x, y) => +new Date(this.matches[x].date) - +new Date(this.matches[y].date))
+      )
+
+      ids.forEach(id => console.log(this.matches[id].date))
+      return ids
     },
 
     matches(): object[] {
