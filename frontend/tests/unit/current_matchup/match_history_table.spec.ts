@@ -19,14 +19,6 @@ describe('MatchHistoryTable', () => {
     const wrapper = factory()
   })
 
-  test('createBet emits a createBet event', () => {
-    const wrapper = factory()
-
-    wrapper.vm.createBet()
-
-    expect(wrapper.emitted().createBet).not.toBeFalsy()
-  })
-
   test('didWin returns true if team won', () => {
     const subject = factory().vm.$options.methods.didWin
 
