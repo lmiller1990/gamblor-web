@@ -20,21 +20,11 @@
       />
     </div>
 
-    <div class="split_select">
-      <span>Filter by split:</span>
-      <LeagueSplitSelector 
-        :selectedId="splitId"
-        :showAllPlaceholder="true"
-        @change="selectSplit"
-      />
-    </div>
-
     <MatchHistoryTable 
       :games="gamesToDisplay"
       :teamId="teamId"
       :canEdit="admin"
       @showMoreGames="showMoreGames"
-      @createBet="createBet"
     />
 
   </div>
@@ -49,7 +39,7 @@ import LeagueSplitSelector from '../components/league_split_selector.vue'
 import FirstMarketsContainer from './first_markets_container.vue'
 import TeamLogo from '../components/team_logo.vue'
 
-const N_PREV_GAMES_TO_SHOW = 10
+const N_PREV_GAMES_TO_SHOW = 15
 
 export default Vue.extend({
   name: 'MatchHistory',
@@ -90,12 +80,10 @@ export default Vue.extend({
   },
 
   data(): {
-    splitId?: number,
     markets: ['Blood', 'Turret', 'Dragon', 'Baron'],
     nPreviousGames: number
   } {
     return {
-      splitId: undefined, //this.$store.state.leagues.splitId,
       markets: ['Blood', 'Turret', 'Dragon', 'Baron'],
       nPreviousGames: N_PREV_GAMES_TO_SHOW
     }
@@ -103,17 +91,7 @@ export default Vue.extend({
 
   computed: {
     gamesToDisplay(): Game[] {
-      if (this.splitId) {
-        return this.gamesBySplit
-      } else {
-        return this.previousGames
-      }
-    },
-
-    gamesBySplit(): Game[] {
-      return this.games
-        .filter((x: Game) => x.splitId === this.splitId)
-        .sort((x: Game, y: Game) => +new Date(y.date) - +new Date(x.date))
+      return this.previousGames
     },
 
     previousGames(): Game[] {
@@ -137,21 +115,6 @@ export default Vue.extend({
   },
 
   methods: {
-    selectSplit(splitId: number) {
-      if (splitId === 0) {
-        // @ts-ignore
-        this.splitId = undefined
-        // show all
-      } else {
-        // @ts-ignore
-        this.splitId = splitId
-      }
-    },
-
-    createBet() {
-      this.$emit('createBet')
-    },
-
     showMoreGames(numGames: number) {
         // @ts-ignore
       this.nPreviousGames += numGames

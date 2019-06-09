@@ -90,7 +90,6 @@ export default Vue.extend({
         .sort((x, y) => +new Date(this.matches[x].date) - +new Date(this.matches[y].date))
       )
 
-      ids.forEach(id => console.log(this.matches[id].date))
       return ids
     },
 

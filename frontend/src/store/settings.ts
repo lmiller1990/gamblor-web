@@ -1,5 +1,7 @@
-import { ActionTree, Module } from 'vuex'
+import { Module } from 'vuex'
 import axios from 'axios'
+
+import { HARDCODED_DEFAULT_SPLIT_ID } from '@/constants'
 
 interface ISettingsResponse {
   admin: boolean
@@ -15,7 +17,7 @@ const settings: Module<{}, {}> = {
       const { admin, defaultSplitId } = response.data
 
       commit('user/SET_ADMIN', admin, { root: true })
-      commit('leagues/SET_SPLIT_ID', defaultSplitId, { root: true })
+      commit('leagues/SET_SPLIT_ID', HARDCODED_DEFAULT_SPLIT_ID, { root: true })
     }
   }
 }

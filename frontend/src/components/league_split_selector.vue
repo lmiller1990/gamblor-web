@@ -4,6 +4,7 @@
       v-for="{id, name} in splits" :key="id"
       :value="id"
       :selected="id === selectedId"
+      :disabled="!defaultSplit(id)"
     >
       {{ name }}
     </option>
@@ -19,6 +20,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+
+import { HARDCODED_DEFAULT_SPLIT_ID } from '../constants'
 
 export default Vue.extend({
   name: 'LeagueSplitSelector',
@@ -42,6 +45,10 @@ export default Vue.extend({
   },
   
   methods: {
+    defaultSplit(id: number): boolean {
+      return id === HARDCODED_DEFAULT_SPLIT_ID
+    },
+
     handleChange(e: Event) {
       this.$emit('change', parseInt(((e.target as HTMLSelectElement).value)))
     }

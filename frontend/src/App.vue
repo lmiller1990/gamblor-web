@@ -52,14 +52,7 @@ export default Vue.extend({
   },
 
   created(): void {
-    Promise.all([
-      this.fetchBets(), 
-      this.fetchBankAccount(),
-      this.$store.dispatch('settings/getSettings')
-      ]
-    )
-      .then(() => this.loadedBets = true)
-
+    this.$store.dispatch('settings/getSettings')
     this.fetchLeaguesAndSplits().then(() => {
       this.setDefaultSplitId()
       this.loaded = true
@@ -71,7 +64,6 @@ export default Vue.extend({
       sidebarComponent: UpcomingMatchesContainer,
       UpcomingMatchesContainer,
       HowToUse,
-      loadedBets: false,
       loaded: false,
       redSideTeamId: 0,
       blueSideTeamId: 0,
@@ -99,16 +91,6 @@ export default Vue.extend({
       this.sidebarComponent = HowToUse
     },
 
-    fetchBankAccount() {
-      return this.$store.dispatch('bankAccount/getBalance')
-    },
-
-    async fetchBets() {
-      await this.$store.dispatch('bets/getUnsettledBets')
-      const gameIds = this.$store.getters['bets/gameIdsForAllBets']
-      await this.$store.dispatch('games/getByIds', gameIds)
-    },
-
     setSplitId({ id }: { id: number }): void {
       this.$store.commit('leagues/SET_SPLIT_ID', id)
     },
@@ -128,7 +110,7 @@ export default Vue.extend({
 
     setDefaultSplitId(): void {
       if (localStorage.getItem('favoriteSplitId')) {
-        const id =  JSON.parse(localStorage.getItem('favoriteSplitId')) 
+        const id = JSON.parse(localStorage.getItem('favoriteSplitId')) 
         this.$store.commit('leagues/SET_SPLIT_ID', id)
       }
     },
@@ -154,6 +136,7 @@ export default Vue.extend({
 
       this.blueSideTeamId = firstTeamId
       this.redSideTeamId = secondTeamId
+      console.log(gamesForFirstTeam)
       this.blueSideGames = gamesForFirstTeam
       this.redSideGames = gamesForSecondTeam
     }

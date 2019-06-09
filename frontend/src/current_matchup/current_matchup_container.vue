@@ -8,7 +8,6 @@
       :redSideTeamId="redSideTeamId"
       :redSideGames="redSideGames"
       @change="selectTeam" 
-      @createBet="$emit('createBet')"
     />
 
     <div 

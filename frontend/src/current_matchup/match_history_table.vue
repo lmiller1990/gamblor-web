@@ -36,7 +36,6 @@
           :opponentId="getOpponentId(game)"
           :teamId="teamId"
           market="fb"
-          @createBet="$emit('createBet')"
         />
         <MatchHistoryRow 
           :odds="getOddsFor('ft', game)"
@@ -46,7 +45,6 @@
           :teamId="teamId"
           :opponentId="getOpponentId(game)"
           market="ft"
-          @createBet="$emit('createBet')"
         />
         <MatchHistoryRow 
           :odds="getOddsFor('fd', game)"
@@ -56,7 +54,6 @@
           :teamId="teamId"
           :opponentId="getOpponentId(game)"
           market="fd"
-          @createBet="$emit('createBet')"
         />
         <MatchHistoryRow 
           :odds="getOddsFor('fbaron', game)"
@@ -66,7 +63,6 @@
           :teamId="teamId"
           :opponentId="getOpponentId(game)"
           market="fbaron"
-          @createBet="$emit('createBet')"
         />
         <MatchHistoryRow 
           :odds="getOddsFor('win', game)"
@@ -76,7 +72,6 @@
           :teamId="teamId"
           :opponentId="getOpponentId(game)"
           market="win"
-          @createBet="$emit('createBet')"
         />
       </tr>
     </table>
@@ -124,10 +119,6 @@ export default Vue.extend({
   },
 
   methods: {
-    createBet() {
-      this.$emit('createBet')
-    },
-
     didWin(winnerId) {
       if (!winnerId) 
         return undefined
