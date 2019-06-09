@@ -136,7 +136,6 @@ export default Vue.extend({
 
       this.blueSideTeamId = firstTeamId
       this.redSideTeamId = secondTeamId
-      console.log(gamesForFirstTeam)
       this.blueSideGames = gamesForFirstTeam
       this.redSideGames = gamesForSecondTeam
     }
