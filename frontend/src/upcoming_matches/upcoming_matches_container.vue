@@ -121,8 +121,8 @@ export default Vue.extend({
       this.loadingAllGames = true
       await this.$store.dispatch('scheduledGames/getUpcomingGames', {
         splitId: this.splitId,
-        recentlyPlayed: 100, // arbitrarily large number to get all
-        upcoming: 100
+        recentlyPlayed: 25, // arbitrarily large number to get all
+        upcoming: 25
       })
       this.allGamesShown = true
       this.loadingAllGames = false

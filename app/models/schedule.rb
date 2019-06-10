@@ -24,7 +24,7 @@ module Schedule
     games = games
       .where(game_number: 1)
       .where(match_complete: false)
-      .order(date: :asc, created_at: :asc)[0...num]
+      .order(date: :asc)[0...num]
 
     games
   end
