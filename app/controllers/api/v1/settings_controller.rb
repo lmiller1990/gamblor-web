@@ -4,7 +4,7 @@ module Api
       def index
         settings = {
           defaultSplitId: default_split_id,
-          admin: current_user.admin?
+          admin: current_user && current_user.admin?
         }.to_json
 
         render json: settings
