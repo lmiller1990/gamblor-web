@@ -14,11 +14,11 @@ Week 1: Ending total $278.99
 Week 2: Starting total $278.99
 
 FQ to get FDragon vs TSM:   $30 | 2.25 | Win  | $67.50
-GGS to get FDragon  vs CG:  $30 | 1.72 | Lose | $0.00
+GGS to get FDragon vs CG:   $30 | 1.72 | Lose | $0.00
 CG to get FB vs 100:        $30 | 1.9  | Win  | $57.28
 EF to get FD vs TSM:        $30 | 2.37 | Lose | $0.00
-GGS to get FB vs C9:        $40 | 2.2  | Win  | $67.5
-GGS to get FD vs C9:        $40 | 2.25 | Lose | $0.00
+GGS to get FB vs C9:        $30 | 2.25 | Win  | $67.5
+GGS to get FD vs C9:        $40 | 2.2  | Lose | $0.00
 
 Week 2: Ending total $281.27
 
