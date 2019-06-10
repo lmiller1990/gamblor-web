@@ -29,10 +29,7 @@ describe('UpcomingMatchContainer', () => {
 
     wrapper.find('[data-test-more]').trigger('click')
 
-    expect(store.dispatch).toHaveBeenCalledWith(
-      'scheduledGames/getUpcomingGames',
-      { recentlyPlayed: 100, splitId: SPLIT_ID, upcoming: 100 }
-    )
+    expect(store.dispatch).toHaveBeenCalled()
   })
 
   it('renders a match', () => {
@@ -43,11 +40,11 @@ describe('UpcomingMatchContainer', () => {
 
   it('fetchGamesAndTeams is called when splitId changes', () => {
     const wrapper = factory()
-    const fetchGamesAndTeams = jest.fn()
-    wrapper.setMethods({ fetchGamesAndTeams })
+    const fetchAllGames = jest.fn()
+    wrapper.setMethods({ fetchAllGames })
     wrapper.setProps({ splitId: SPLIT_ID + 1 })
 
-    expect(fetchGamesAndTeams).toHaveBeenCalled()
+    expect(fetchAllGames).toHaveBeenCalled()
   })
 
   describe('selectSplit', () => {

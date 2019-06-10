@@ -11,8 +11,13 @@
       </span>
 
       <span class="split-stats">
-        <LcsButton @click="showStatsModal">Split Stats</LcsButton>
-        <LcsButton @click="showUpcoming" width="90px">All Upcoming</LcsButton>
+        <LcsButton @click="showUpcoming" width="120px">
+          {{ this.allUpcoming ? 'Show Past Games' : 'All Upcoming' }}
+        </LcsButton>
+        <LcsButton 
+          width="90px"
+          @click="showStatsModal">[BETA] Stats
+      </LcsButton>
       </span>
 
     </div>
@@ -64,7 +69,6 @@ export default Vue.extend({
   watch: {
     splitId(val) {
       if (val) {
-        this.fetchGamesAndTeams()
         this.fetchAllGames()
         this.allGamesShown = false
         this.allUpcoming = false
@@ -99,13 +103,13 @@ export default Vue.extend({
   },
 
   methods: {
+    fetchGames(splitId: number) {
+      return this.$store.dispatch('scheduledGames/getUpcomingGames', { splitId })
+    },
+
     showUpcoming(): void {
-      this.$store.dispatch('scheduledGames/getByTimePeriod', {
-        start: new Date(),
-        end: new Date(3000, 1, 1)
-      }).then(() => {
-        this.allUpcoming = !this.allUpcoming
-      })
+      this.allUpcoming = !this.allUpcoming
+      setTimeout(this.scrollToBottomOfContainer, 100)
     },
 
     showStatsModal() {
@@ -119,13 +123,25 @@ export default Vue.extend({
 
     async fetchAllGames() {
       this.loadingAllGames = true
-      await this.$store.dispatch('scheduledGames/getUpcomingGames', {
+
+      await Promise.all([
+        this.$store.dispatch('teams/getTeams'),
+
+        this.$store.dispatch('scheduledGames/getUpcomingGames', {
         splitId: this.splitId,
-        recentlyPlayed: 25, // arbitrarily large number to get all
-        upcoming: 25
-      })
+          recentlyPlayed: 25, // arbitrarily large number to get all
+          upcoming: 25
+        }),
+
+        this.$store.dispatch('scheduledGames/getByTimePeriod', {
+          start: new Date(),
+          end: new Date(3000, 1, 1)
+        })
+      ])
       this.allGamesShown = true
       this.loadingAllGames = false
+
+      setTimeout(this.scrollToBottomOfContainer, 100)
     },
 
     async selectSplit(splitId) {
@@ -141,22 +157,9 @@ export default Vue.extend({
       })
     },
 
-    fetchGames(splitId: number) {
-      return this.$store.dispatch('scheduledGames/getUpcomingGames', { splitId })
-    },
-    
     scrollToBottomOfContainer() {
       this.$el.querySelector('#end_of_schedule').scrollIntoView()
     },
-
-    async fetchGamesAndTeams() {
-      await Promise.all([
-        this.fetchGames(this.splitId),
-        this.$store.dispatch('teams/getTeams')
-      ])
-
-      setTimeout(this.scrollToBottomOfContainer)
-    }
   }
 })
 </script>
