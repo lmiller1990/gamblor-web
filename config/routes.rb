@@ -21,23 +21,25 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'admin', to: 'admin#index'
+  authenticated do
+    get 'admin', to: 'admin#index'
 
-  get 'admin/odds_scraper', to: 'admin/odds_scraper#index'
+    get 'admin/odds_scraper', to: 'admin/odds_scraper#index'
 
-  resources :games do
-    resources :duplicate, only: [:create], controller: 'games/duplicate'
-    put 'switch_side', controller: 'games/switch_side'
-  end
+    resources :games do
+      resources :duplicate, only: [:create], controller: 'games/duplicate'
+      put 'switch_side', controller: 'games/switch_side'
+    end
 
-  resources :contracts
-  resources :players
-  resources :articles
-  resources :splits
-  resources :leagues, only: %i(destroy create new index edit show)
+    resources :contracts
+    resources :players
+    resources :articles
+    resources :splits
+    resources :leagues, only: %i(destroy create new index edit show)
 
-  resources :teams do
-    resources :games, only: [:index], controller: 'teams/games'
+    resources :teams do
+      resources :games, only: [:index], controller: 'teams/games'
+    end
   end
 
   namespace :api do
