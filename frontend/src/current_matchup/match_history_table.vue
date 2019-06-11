@@ -15,17 +15,13 @@
           Show {{ NUM_PREV_GAMES }} more previous games
         </td>
       </tr>
-      <tr v-for="(game, idx) in games" :key="game.id">
+      <tr v-for="game in games" :key="game.id">
         <td>
           <MatchDate 
             :id="game.id"
             :date="game.date"
             :canEdit="canEdit"
-          >
-            <span v-if="game.winnerId">
-            {{ games.filter(x => x.winnerId).length - idx }}.
-            </span>
-          </MatchDate>
+          />
         </td>
         <td>{{ getOpponent(game) }}</td>
         <MatchHistoryRow 
