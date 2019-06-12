@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :games, only: %i(index create update) do
         resources :duplicate, controller: 'games/duplicate'
       end
+      resources :markets_with_ev, only: %i(index)
       resources :uncollected_games, only: %i(index)
       resources :upcoming_games, only: %i(index)
       resources :teams, only: %i(index)
