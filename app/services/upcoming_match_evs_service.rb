@@ -1,18 +1,20 @@
 class UpcomingMatchEvsService
-  def initialize(games)
+  def initialize(games, last_n_games = 15.0)
     @games = games
+    @last_n_games = last_n_games
   end
 
   def call
     markets = %w(fb ft fd fbaron)
     bets = []
+    id = 1
 
     @games.each do |game|
       blue_team = game.blue_side_team
       red_team = game.red_side_team
 
-      blue_games = blue_team.games.where.not(winner_id: nil).last(15)
-      red_games = red_team.games.where.not(winner_id: nil).last(15)
+      blue_games = blue_team.games.where.not(winner_id: nil).last(@last_n_games)
+      red_games = red_team.games.where.not(winner_id: nil).last(@last_n_games)
 
       markets.each do |mkt|
         market = MarketBetMapper.map(mkt)
@@ -29,13 +31,16 @@ class UpcomingMatchEvsService
 
         odds = game["blue_side_team_#{mkt}_odds"]
         bet = { 
+          :id => id,
           :team => blue_team.name,
+          :percentage => (team_got_count / @last_n_games) * 100,
           :opponent => red_team.name,
           :market => mkt, 
           :odds => odds,
-          :ev => (((team_got_count/15.0) + (other_team_wont_get_count/15.0)) / 2) * odds
+          :ev => (((team_got_count/@last_n_games) + (other_team_wont_get_count/@last_n_games)) / 2) * odds
         }
-        # binding.pry
+
+        id += 1
         bets << bet
 
         team_got_count = red_games.reduce(0) do |acc, curr| 
@@ -50,12 +55,15 @@ class UpcomingMatchEvsService
 
         odds = game["red_side_team_#{mkt}_odds"]
         bet = { 
+          :id => id,
           :team => red_team.name,
+          :percentage => (team_got_count / @last_n_games) * 100,
           :opponent => blue_team.name,
           :market => mkt, 
           :odds => odds,
-          :ev => (((team_got_count/15.0) + (other_team_wont_get_count/15.0)) / 2) * odds
+          :ev => (((team_got_count/@last_n_games) + (other_team_wont_get_count/@last_n_games)) / 2) * odds
         }
+        id += 1
         bets << bet
       end
     end

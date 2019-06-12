@@ -11,13 +11,21 @@
       </span>
 
       <span class="split-stats">
-        <LcsButton @click="showUpcoming" width="120px">
+        <LcsButton @click="showUpcoming" width="110px">
           {{ this.allUpcoming ? 'Show Past Games' : 'All Upcoming' }}
         </LcsButton>
         <LcsButton 
           width="90px"
-          @click="showStatsModal">[BETA] Stats
-      </LcsButton>
+          @click="showStatsModal"
+        >
+        [BETA] Stats
+        </LcsButton>
+        <LcsButton 
+          width="90px"
+          @click="showBestBetsModal"
+        >
+          Rank EVs
+        </LcsButton>
       </span>
 
     </div>
@@ -47,6 +55,7 @@ import LeagueSplitSelector from '../components/league_split_selector.vue'
 import FavoriteMatchButton from './favorite_match_button.vue'
 import Match from './match.vue'
 import SplitStatsModalContainer from '@/components/modals/split_stats_modal/split_stats_modal_container.vue'
+import RankedBetsModal from '@/components/modals/ranked_bets_modal.vue'
 import { ModalOptions } from '@/store/types'
 
 export default Vue.extend({
@@ -103,6 +112,15 @@ export default Vue.extend({
   },
 
   methods: {
+    showBestBetsModal() {
+      const opts: ModalOptions = {
+        show: true,
+        component: RankedBetsModal,
+        title: 'Recommended Bets'
+      }
+      this.$store.commit('modal/SET_MODAL', opts)
+    },
+    
     fetchGames(splitId: number) {
       return this.$store.dispatch('scheduledGames/getUpcomingGames', { splitId })
     },

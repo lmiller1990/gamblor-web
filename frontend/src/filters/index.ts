@@ -5,6 +5,10 @@ export const titlecase = (val: string) =>
     .join(' ')
 
 
+export const rounded = (val: number): string => {
+  return val.toFixed(2)
+}
+
 export const shortDate = (date: string) => 
   new Date(date)
     .toDateString()
