@@ -11,6 +11,19 @@ class Game < ApplicationRecord
 
   scope :complete, -> { where.not(winner_id: nil, loser_id: nil) }
 
+  def self.upcoming_game_with_teams(t1, t2)
+    one = where(blue_side_team_id: t1.id, red_side_team_id: t2.id, winner_id: nil)
+    another = where(blue_side_team_id: t2.id, red_side_team_id: t1.id, winner_id: nil)
+
+    if one.count > 0
+      return one.first
+    elsif another.count > 0
+      return another.first
+    else
+      throw "Did not find game for #{t1.name} vs #{t2.name}"
+    end
+  end
+
   def date_only
     date.to_s.split(' ').first
   end
