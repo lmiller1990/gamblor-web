@@ -8,7 +8,19 @@ module MarketBetMapper
     win: 'winner_id'
   }
 
+  SHORT_NAME_TO_PRETTY = {
+    fb: 'First Blood',
+    ft: 'First Turret',
+    fd: 'First Dragon',
+    fbaron: 'First Baron',
+    win: 'winner_id'
+  }
+
   def self.map(market)
     SHORT_NAME_TO_GAME_COLUMN[market.to_sym]
+  end
+
+  def self.prettify(market_short_name)
+    SHORT_NAME_TO_PRETTY[market_short_name.to_sym]
   end
 end
