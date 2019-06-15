@@ -15,9 +15,8 @@ class MatchupBetSummaryService
     @last_n_games = options[:last_n_games]
   end
 
-  def get_success_rate(to_get, team)
+  def get_success_rate(to_get, team, games)
     mkt = MarketBetMapper.map(@to_get)
-    games = team.games.where.not(winner_id: nil).last(@last_n_games)
 
     count = games.reduce(0) do |acc, curr|
       acc += 1 if curr[mkt] == team.id 
@@ -27,22 +26,48 @@ class MatchupBetSummaryService
     count / @last_n_games
   end
 
+  def get_historical_success(team, games)
+  end
+
   def call
-    team_success = get_success_rate(@to_get, @team)
-    against_success = get_success_rate(@to_get, @against)
+    market_id = MarketBetMapper.map(@to_get) # eg first_blood_team_id
+
+    games = @team.games.where.not(winner_id: nil).last(@last_n_games)
+    team_success = get_success_rate(@to_get, @team, games)
+    team_historical_results = games.map do |game| 
+      { 
+        success: game[market_id] == @team.id,
+        opponent: game.red_side_team.id == @team.id ? game.blue_side_team.name : game.red_side_team.name,
+        date: game.date
+      }
+    end
+
+    games = @against.games.where.not(winner_id: nil).last(@last_n_games)
+    against_success = get_success_rate(@to_get, @against, games)
+    against_historical_results = games.map do |game| 
+      { 
+        success: game[market_id] == @against.id,
+        opponent: game.red_side_team.id == @against.id ? game.blue_side_team.name : game.red_side_team.name,
+        date: game.date
+      }
+    end
+
     upcoming_game = Game.upcoming_game_with_teams(@team, @against)
 
     side = upcoming_game.blue_side_team_id == @team.id ? 'blue' : 'red'
-    market = "#{side}_side_team_#{@to_get}_odds"
+    odds = "#{side}_side_team_#{@to_get}_odds"
 
-    ((team_success + (1 - against_success)) / 2.0) * upcoming_game[market]
+    ev = ((team_success + (1 - against_success)) / 2.0) * upcoming_game[odds]
 
     {
       team: @team.name,
       against: @against.name,
+      ev: ev,
+      odds: upcoming_game[odds],
+      pretty_market: MarketBetMapper.prettify(@to_get),
       to_get: @to_get,
-      team_historical_results: [],
-      against_historical_results: []
+      team_historical_results: team_historical_results,
+      against_historical_results: against_historical_results
     }
   end
 end

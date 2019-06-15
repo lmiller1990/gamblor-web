@@ -5,6 +5,88 @@
   <title></title>
 </head>
 <body>
-  <h3>Flyquest to get First Blood vs Team Liquid</h3>
+
+  <style>
+    .summaries {
+      display: flex;
+    }
+
+    .team-summary {
+      margin-right: 10px;
+    }
+
+    .result {
+      text-align: center;
+    }
+    .success { 
+      background-color: lightblue;
+    }
+    .fail { 
+      background-color: red;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    tr, td { 
+      padding: 5px;
+      border: 1px solid black;
+    }
+  </style>
+
+  <h3><%= summary[:team] %> to get <%= summary[:pretty_market] %> against <%= summary[:against] %></h3>
+  <div>EV: <b><%= summary[:ev] %></b></div>
+  <div>Odds: <b><%= summary[:odds] %></b></div>
+
+  <div class="summaries">
+    <div class="team-summary">
+      <h4><%= summary[:team] %> <%= summary[:pretty_market] %></h4>
+      <table>
+        <tr>
+          <td>Date</td>
+          <td>Opponent</td>
+          <td><%= summary[:pretty_market] %></td>
+        </tr>
+        <% summary[:team_historical_results].each do |game| %>
+          <tr>
+            <td><%= game[:date].to_formatted_s(:short).split(' ')[0..1].join(' ') %></td>
+            <td><%= game[:opponent] %></td>
+
+
+            <td class="<%= game[:success] ? 'result success' : 'result fail' %>">
+              <%= game[:success] ? '✓' : '✘' %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
+    <div>
+      <h4><%= summary[:against] %> <%= summary[:pretty_market] %></h4>
+      <table>
+        <tr>
+          <td>Date</td>
+          <td>Opponent</td>
+          <td><%= summary[:pretty_market] %></td>
+        </tr>
+        <% summary[:against_historical_results].each do |game| %>
+          <tr>
+            <td><%= game[:date].to_formatted_s(:short).split(' ')[0..1].join(' ') %></td>
+            <td><%= game[:opponent] %></td>
+
+
+            <td class="<%= game[:success] ? 'result success' : 'result fail' %>">
+              <%= game[:success] ? '✓' : '✘' %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
 </body>
 </html>
