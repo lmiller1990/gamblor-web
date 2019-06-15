@@ -23,10 +23,7 @@ class MatchupBetSummaryService
       acc
     end
 
-    count / @last_n_games
-  end
-
-  def get_historical_success(team, games)
+    count / @last_n_games.to_f
   end
 
   def call
@@ -42,8 +39,12 @@ class MatchupBetSummaryService
       }
     end
 
+    binding.pry
+
+
     games = @against.games.where.not(winner_id: nil).last(@last_n_games)
     against_success = get_success_rate(@to_get, @against, games)
+    binding.pry
     against_historical_results = games.map do |game| 
       { 
         success: game[market_id] == @against.id,
@@ -58,11 +59,12 @@ class MatchupBetSummaryService
     odds = "#{side}_side_team_#{@to_get}_odds"
 
     ev = ((team_success + (1 - against_success)) / 2.0) * upcoming_game[odds]
+    binding.pry
 
     {
       team: @team.name,
       against: @against.name,
-      ev: ev,
+      ev: ev.round(2),
       odds: upcoming_game[odds],
       pretty_market: MarketBetMapper.prettify(@to_get),
       to_get: @to_get,
