@@ -1,4 +1,3 @@
-require 'pry'
 # This service gets a bet by matchup
 # Eg "TSM and CLG for First Blood"
 # And show the historical success rates and EV w/ odds!
@@ -39,12 +38,10 @@ class MatchupBetSummaryService
       }
     end
 
-    binding.pry
 
 
     games = @against.games.where.not(winner_id: nil).last(@last_n_games)
     against_success = get_success_rate(@to_get, @against, games)
-    binding.pry
     against_historical_results = games.map do |game| 
       { 
         success: game[market_id] == @against.id,
@@ -59,7 +56,6 @@ class MatchupBetSummaryService
     odds = "#{side}_side_team_#{@to_get}_odds"
 
     ev = ((team_success + (1 - against_success)) / 2.0) * upcoming_game[odds]
-    binding.pry
 
     {
       team: @team.name,

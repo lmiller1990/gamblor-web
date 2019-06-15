@@ -1,4 +1,3 @@
-require 'pry'
 require 'erb'
 
 task :newsletter, [] => :environment do |t, args|
