@@ -2,6 +2,7 @@ require 'erb'
 
 task :newsletter, [] => :environment do |t, args|
 
+  title = 'Week 3 | 2019 LCS Sprint Split'
   desired_summaries = [
     { team_name: 'Counter Logic Gaming', against: 'Echo Fox', to_get: 'fb', last_n_games: 20 },
     { team_name: 'Golden Guardians', against: '100 Thieves', to_get: 'fd', last_n_games: 20 },
