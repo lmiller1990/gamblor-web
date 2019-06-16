@@ -17,7 +17,7 @@ FQ to get FD vs TSM:        $30 | 2.25 | Win  | $67.50
 GGS to get FD vs CG:        $30 | 1.72 | Lose | $0.00
 CG to get FB vs 100:        $30 | 1.9  | Win  | $57.28
 EF to get FD vs TSM:        $30 | 2.37 | Lose | $0.00
-GGS to get FB vs C9:        $30 | 2.25 | Win  | $67.5
+GS to get FB vs C9:         $30 | 2.25 | Win  | $67.5
 GGS to get FD vs C9:        $40 | 2.2  | Lose | $0.00
 
 Week 2: Ending total $281.27
@@ -26,11 +26,11 @@ Week 2: Ending total $281.27
 Week 3: Starting total $281.27
 
 
-CLG to get FB vs EF:        $30 | 1.83 |   |  | 55%
-GGS to get FD vs 100:       $40 | 1.61 |   |  | 70%
+CLG to get FB vs EF:        $30 | 1.83 | Win  | $55.00 | 55%
+GGS to get FD vs 100:       $40 | 1.61 | Win  | $64.62 | 70%
 
 C9 to get FD vs TSM:        $30 | 1.83 |   |  | 65%
 C9 to get FBaron vs TSM:    $50 | 1.83 |   |  | 80%
 TL to get FT vs Optic       $50 | 1.57 |   |  | 75%
 CG to get FB vs FQ:         $50 | 1.83 |   |  | 70%
-GGS to get FD vs CLG:       $XX | 1.72 |   |  | 70%
+GGS to get FD vs CLG:       $40 | 1.72 |   |  | 75%
