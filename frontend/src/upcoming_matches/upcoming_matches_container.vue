@@ -30,13 +30,6 @@
 
     </div>
     <div class="matchup-container border-bottom">
-      <div 
-        v-if="!allGamesShown"
-        data-test-more
-        class="show_more" 
-        @click="fetchAllGames">
-        {{ loadingAllGames ? 'Loading...' : 'Show All' }}
-      </div>
       <Match
         v-for="matchId in matchIds"
         :key="matchId"
@@ -79,7 +72,6 @@ export default Vue.extend({
     splitId(val) {
       if (val) {
         this.fetchAllGames()
-        this.allGamesShown = false
         this.allUpcoming = false
       }
     }
@@ -87,7 +79,6 @@ export default Vue.extend({
 
   data() {
     return {
-      allGamesShown: false,
       loadingAllGames: false,
       allUpcoming: false
     }
@@ -145,18 +136,11 @@ export default Vue.extend({
       await Promise.all([
         this.$store.dispatch('teams/getTeams'),
 
-        this.$store.dispatch('scheduledGames/getUpcomingGames', {
-        splitId: this.splitId,
-          recentlyPlayed: 25, // arbitrarily large number to get all
-          upcoming: 25
-        }),
-
         this.$store.dispatch('scheduledGames/getByTimePeriod', {
-          start: new Date(),
+          start: new Date(new Date().setDate(new Date().getDate() - 10)),
           end: new Date(3000, 1, 1)
         })
       ])
-      this.allGamesShown = true
       this.loadingAllGames = false
 
       setTimeout(this.scrollToBottomOfContainer, 100)
@@ -184,18 +168,6 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 $color: silver;
-
-.show_more {
-  display: flex;
-  justify-content: center;
-  
-  cursor: pointer;
-  padding: 4px;
-  
-  &:hover {
-    background-color: rgba(100, 100, 100, 0.2);
-  }
-}
 
 .border-bottom {
   box-sizing: border-box;

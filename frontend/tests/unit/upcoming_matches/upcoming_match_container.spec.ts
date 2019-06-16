@@ -22,16 +22,6 @@ const factory = (store = {}) =>
   })
 
 describe('UpcomingMatchContainer', () => {
-  test('clicking Show All fetches games and updates text accordingly', () => {
-    // need mock store
-    const store = new Store()
-    const wrapper = factory(store)
-
-    wrapper.find('[data-test-more]').trigger('click')
-
-    expect(store.dispatch).toHaveBeenCalled()
-  })
-
   it('renders a match', () => {
     const wrapper = factory()
 
