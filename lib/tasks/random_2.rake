@@ -13,7 +13,7 @@ end
 
 task :random_2, [] => :environment do |t, args|
   train = Game.where('date > ? and date < ?', Date.new(2019, 1, 1), Date.new(2019, 5, 1)).where(split_id: 4)
-  test = Game.where('date > ? and date < ?', Date.new(2019, 5, 30), Date.new(2020, 6, 4))
+  test = Game.where('date > ? and date < ?', Date.new(2019, 5, 30), Date.new(2020, 6, 4)).where.not(winner_id: nil)
 
   markets = ['fb', 'ft', 'fd', 'fbaron']
   recommendations = []
@@ -33,8 +33,11 @@ task :random_2, [] => :environment do |t, args|
       blue_ev = ((blue_percent + (1 - red_percent)) / 2) * blue_odds
       red_ev = ((red_percent + (1 - blue_percent)) / 2) * red_odds
 
-      EV = 1.1
-      if blue_ev > EV
+      lower = 0
+      upper = 10
+
+      ev = 1.2
+      if blue_ev > ev and blue_odds > lower and blue_odds < upper
         recommendations << { 
           game: game,
           date: game.date, 
@@ -45,7 +48,7 @@ task :random_2, [] => :environment do |t, args|
         }
       end
 
-      if red_ev > EV
+      if red_ev > ev and red_odds > lower and red_odds < upper
         recommendations << { 
           game: game,
           date: game.date, 
@@ -59,6 +62,7 @@ task :random_2, [] => :environment do |t, args|
   end
 
   bank = 10
+  wins = 0
 
   puts "Initial bankroll: $10"
 
@@ -70,6 +74,7 @@ task :random_2, [] => :environment do |t, args|
     if r[:game][MarketBetMapper.map(r[:market])] == r[:team][:id]
       puts "Won $#{(10 * r[:odds]).round(2)}"
       bank += (10 * r[:odds])
+      wins += 1
     else
       puts "Lost $10"
     end
@@ -77,4 +82,5 @@ task :random_2, [] => :environment do |t, args|
   end
 
   puts "Closing balance after #{recommendations.count} bets: #{bank.round(2)}"
+  puts "Wins: #{wins} / #{recommendations.count}"
 end
