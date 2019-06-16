@@ -24,6 +24,15 @@ class Game < ApplicationRecord
     end
   end
 
+  # given a game a team, get the other (not given) team
+  def opposing_team(first_team)
+    if blue_side_team_id == first_team.id
+      return red_side_team
+    end
+
+    blue_side_team
+  end
+
   def date_only
     date.to_s.split(' ').first
   end
