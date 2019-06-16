@@ -29,8 +29,8 @@ Week 3: Starting total $281.27
 CLG to get FB vs EF:        $30 | 1.83 | Win  | $55.00 | 55%
 GGS to get FD vs 100:       $40 | 1.61 | Win  | $64.62 | 70%
 
-C9 to get FD vs TSM:        $30 | 1.83 |   |  | 65%
+TL to get FT vs Optic       $50 | 1.57 | Win  | $78.58 | 75%
+C9 to get FD vs TSM:        $30 | 1.83 | Win  | $55.00 | 65%
 C9 to get FBaron vs TSM:    $50 | 1.83 |   |  | 80%
-TL to get FT vs Optic       $50 | 1.57 |   |  | 75%
 CG to get FB vs FQ:         $50 | 1.83 |   |  | 70%
 GGS to get FD vs CLG:       $40 | 1.72 |   |  | 75%
