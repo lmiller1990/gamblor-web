@@ -28,12 +28,14 @@ class UpcomingMatchEvsService
           acc += 1 if curr[market] != red_team.id 
           acc
         end
+        other_team_got_count = red_games.count - other_team_wont_get_count
 
         odds = game["blue_side_team_#{mkt}_odds"]
         bet = { 
           :id => id,
           :team => blue_team.name,
           :percentage => (team_got_count / @last_n_games) * 100,
+          :opponent_percentage => (other_team_got_count / @last_n_games) * 100,
           :opponent => red_team.name,
           :market => mkt, 
           :odds => odds,
@@ -52,12 +54,14 @@ class UpcomingMatchEvsService
           acc += 1 if curr[market] != blue_team.id 
           acc
         end
+        other_team_got_count = blue_games.count - other_team_wont_get_count
 
         odds = game["red_side_team_#{mkt}_odds"]
         bet = { 
           :id => id,
           :team => red_team.name,
           :percentage => (team_got_count / @last_n_games) * 100,
+          :opponent_percentage => (other_team_got_count / @last_n_games) * 100,
           :opponent => blue_team.name,
           :market => mkt, 
           :odds => odds,
