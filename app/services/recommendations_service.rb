@@ -1,4 +1,5 @@
-require 'pry'
+require 'securerandom'
+
 class RecommendationsService
   # options is a hash containing:
   # min_ev: the ev must be at least this much to bet. 
@@ -76,6 +77,7 @@ class RecommendationsService
 
   def build_recommendation(game, ev, team, opponent, odds, team_success, opponent_success, market)
     {
+      id: SecureRandom.uuid,
       game: game,
       date: game.date, 
       ev: ev.round(2),

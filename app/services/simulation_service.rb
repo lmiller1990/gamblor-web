@@ -1,3 +1,5 @@
+require_relative './simulation_result'
+
 class SimulationService
   # options is hash of
   # initial_bankroll
@@ -38,8 +40,8 @@ class SimulationService
         # puts "Lost $#{bet_amt}"
       end
       # puts "Balance: #{bank.round(2)}\n\n"
-
       outcomes << SimulationResult.new(
+        r[:id],
         r[:date],
         r[:team],
         r[:opponent],

@@ -1,4 +1,5 @@
 class SimulationResult < Struct.new(
+  :id,
   :date, 
   :team,
   :opponent,
