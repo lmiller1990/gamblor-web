@@ -60,6 +60,10 @@ class SimulationService
     # puts "Wins: #{wins} / #{recommendations.count}"
     # puts "% Profit: #{percent_profit.round(1)}%"
 
-    outcomes
+    { 
+      outcomes: outcomes,
+      accuracy: wins / recommendations.count,
+      percent_profit: percent_profit
+    }
   end
 end

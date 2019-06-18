@@ -2,12 +2,21 @@ module Api
   module V1
     class SimulationController < ::ActionController::API
       def index
+        markets = params[:markets].split(',')
+        min_ev = params[:min_ev].to_f
+        min_diff = params[:min_diff].to_f / 100
+
+        if markets.count == 0
+          return {
+            recommendations: []
+          }
+        end
+
         train = Game.where('date > ? and date < ?', Date.new(2019, 1, 1), Date.new(2019, 5, 1)).where(split_id: 4)
         test = Game.where('date > ? and date < ?', Date.new(2019, 5, 30), Date.new(2020, 6, 4)).where.not(winner_id: nil)
 
-        markets = ['fb'] #, 'ft', 'fd', 'fbaron']
         recommendations = []
-        options = { :min_ev => 1.0, :min_success_percentage_diff => 0.2 } 
+        options = { :min_ev => min_ev, :min_success_percentage_diff => min_diff } 
 
         markets.each do |market|
           recommendations += RecommendationsService.new(
