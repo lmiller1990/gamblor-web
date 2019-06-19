@@ -1,50 +1,92 @@
 <template>
   <div>
-    <form @submit.prevent="handleSubmit">
-      <input type="submit" value="submit">
-
-      <label for="fb">FB</label>
-      <input 
-        type="checkbox" 
-        id="fb" 
-        v-model="fb"
+    <div class="options">
+      <form 
+        class="customize"
+        @submit.prevent="handleSubmit"
       >
+        <input 
+          type="checkbox" 
+          id="fb" 
+          v-model="fb"
+        >
+        <label for="fb">FB</label>
 
-      <label for="ft">FT</label>
-      <input 
-        type="checkbox" 
-        id="ft" 
-        v-model="ft"
-      >
+        <input 
+          type="checkbox" 
+          id="ft" 
+          v-model="ft"
+        >
+        <label for="ft">FT</label>
 
-      <label for="fd">FD</label>
-      <input 
-        type="checkbox" 
-        id="fd" 
-        v-model="fd"
-      >
+        <input 
+          type="checkbox" 
+          id="fd" 
+          v-model="fd"
+        >
+        <label for="fd">FD</label>
 
-      <label for="fbaron">FBaron</label>
-      <input 
-        type="checkbox" 
-        id="fbaron" 
-        v-model="fbaron"
-      >
+        <input 
+          type="checkbox" 
+          id="fbaron" 
+          v-model="fbaron"
+        >
+        <label for="fbaron">FBaron</label>
 
-      <label for="min-ev">Min EV to bet on:</label>
-      <input 
-        id="min-ev" 
-        v-model="minEv"
-      >
+        <br />
+        <label for="min-ev">Min EV:</label>
+        <input 
+          id="min-ev" 
+          v-model="minEv"
+          style="width: 98px"
+        >
 
-      <label for="min-diff">Min % diff:</label>
-      <input 
-        id="min-diff" 
-        v-model="minDiff"
-      >
+        <br />
+        <label for="min-diff">Min Diff: (%) </label>
+        <input 
+          id="min-diff" 
+          v-model="minDiff"
+          style="width: 60px"
+        >
+        <br />
+        <LcsButton
+          width="147px"
+        >
+          Submit
+        </LcsButton>
+        
 
+      </form>
 
-    </form>
+      <div class="details">
+        <table class="initial">
+          <tr>
+            <td>Initial Bankroll</td>
+            <td>$100</td>
+          </tr>
+          <tr>
+            <td>Bet</td>
+            <td>$30</td>
+          </tr>
+          <tr>
+            <td>Expected Value</td>
+            <td>${{ rounded(expectedValue) }}</td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td>Final Bankroll</td>
+            <td>${{ rounded(finalBankroll) }}</td>
+          </tr>
+          <tr>
+            <td>Profit (%)</td>
+            <td>{{ rounded(percentProfit) }}%</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
     <div class="table">
       <table>
         <tr>
@@ -88,12 +130,16 @@
 import Vue from 'vue'
 import axios from 'axios'
 
+import LcsButton from '../../widgets/lcs_button.vue'
 import { rounded, shortDate } from '../../filters'
 import { Game } from '../../types/game'
 import { ITeam } from '../../types/team';
 
 interface IData {
   recommendations: IRecommendation[]
+  percentProfit: number
+  expectedValue: number
+  finalBankroll: number
   outcomes: IBetSimulation[]
   fb: boolean
   ft: boolean
@@ -101,6 +147,7 @@ interface IData {
   minEv: string
   minDiff: string
   fbaron: boolean
+  rounded: (val: number) => string
 }
 
 interface IRecommendation {
@@ -131,7 +178,9 @@ interface IBetSimulation {
 interface ISimulationPayload {
   simulation: {
     outcomes: IBetSimulation[]
+    finalBankroll: number
     percentProfit: number
+    expectedValue: number
     accuracy: number
   }
   recommendations: IRecommendation[]
@@ -145,14 +194,22 @@ export default Vue.extend({
     shortDate
   },
 
+  components: {
+    LcsButton
+  },
+
   data(): IData {
     return {
+      rounded,
       fb: true,
       fd: true,
+      finalBankroll: 0,
       ft: true,
       fbaron: false,
       recommendations: [],
       outcomes: [],
+      percentProfit: 0,
+      expectedValue: 0,
       minEv: '1.2',
       minDiff: '20'
     }
@@ -191,6 +248,9 @@ export default Vue.extend({
       this.recommendations = response.data.recommendations.sort((x, y) =>
         +new Date(x.date) - +new Date(y.date)
       )
+      this.percentProfit = response.data.simulation.percentProfit
+      this.finalBankroll = response.data.simulation.finalBankroll
+      this.expectedValue = response.data.simulation.expectedValue
     }
   }
 })
@@ -198,6 +258,23 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.customize {
+  width: 250px;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.initial {
+  margin-right: 5px;
+}
+
+.details {
+  display: flex;
+}
+
 .table {
   display: flex;
   justify-content: center;
@@ -215,5 +292,9 @@ tr, td {
 
 label {
   margin-left: 5px;
+}
+
+input {
+  margin-bottom: 5px;
 }
 </style>

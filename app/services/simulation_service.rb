@@ -20,24 +20,20 @@ class SimulationService
     wins = 0
     bet_amt = bet_amount
     outcomes = []
+    expected_value = 0
 
     recommendations.each do |r|
       bank -= bet_amt
-
-      # puts "#{r[:date].strftime('%F')}: Bet $#{bet_amt} on #{r[:team][:name]} to get #{r[:market]} vs #{r[:opponent][:name]} @ #{r[:odds]}. Normalized EV: #{r[:ev]}"
-
       result = nil
-
       won = r[:game][MarketBetMapper.map(r[:market])] == r[:team][:id]
+      expected_value += r[:ev] * bet_amt
 
       if r[:game][MarketBetMapper.map(r[:market])] == r[:team][:id]
-        # puts "Won $#{(bet_amt * r[:odds]).round(2)}"
         bank += (bet_amt * r[:odds])
         wins += 1
         result = 1
       else
         result = 0
-        # puts "Lost $#{bet_amt}"
       end
       # puts "Balance: #{bank.round(2)}\n\n"
       outcomes << SimulationResult.new(
@@ -63,7 +59,9 @@ class SimulationService
     { 
       outcomes: outcomes,
       accuracy: wins / recommendations.count,
-      percent_profit: percent_profit
+      final_bankroll: bank,
+      percent_profit: percent_profit,
+      expected_value: expected_value
     }
   end
 end

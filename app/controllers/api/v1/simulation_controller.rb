@@ -29,7 +29,7 @@ module Api
 
         simulation = SimulationService.new(
           recommendations,
-          { initial_bankroll: 200, bet_amount: 30 }
+          { initial_bankroll: 100, bet_amount: 30 }
         ).call
 
         render json: { 
