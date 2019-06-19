@@ -81,7 +81,7 @@ export default Vue.extend({
   justify-content: center;
 
   padding: 15px;
-  max-width: 600px;
+  max-width: 800px;
 
   background-color: white;
 }

@@ -14,12 +14,23 @@
         <LcsButton @click="showUpcoming" width="110px">
           {{ this.allUpcoming ? 'Show Past Games' : 'All Upcoming' }}
         </LcsButton>
+
+        <!--
+          <LcsButton 
+            width="90px"
+            @click="showStatsModal"
+          >
+          [BETA] Stats
+          </LcsButton>
+        -->
+
         <LcsButton 
-          width="90px"
-          @click="showStatsModal"
+          width="110px"
+          @click="showSimulateModal"
         >
-        [BETA] Stats
+          Simulate [BETA]
         </LcsButton>
+
         <LcsButton 
           width="90px"
           @click="showBestBetsModal"
@@ -49,6 +60,7 @@ import FavoriteMatchButton from './favorite_match_button.vue'
 import Match from './match.vue'
 import SplitStatsModalContainer from '@/components/modals/split_stats_modal/split_stats_modal_container.vue'
 import RankedBetsModal from '@/components/modals/ranked_bets_modal.vue'
+import SimulateBetsModal from '@/components/modals/simulate_bets_modal.vue'
 import { ModalOptions } from '@/store/types'
 
 export default Vue.extend({
@@ -103,6 +115,15 @@ export default Vue.extend({
   },
 
   methods: {
+    showSimulateModal() {
+      const opts: ModalOptions = {
+        show: true,
+        component: SimulateBetsModal,
+        title: 'Simulate Bets'
+      }
+      this.$store.commit('modal/SET_MODAL', opts)
+    },
+    
     showBestBetsModal() {
       const opts: ModalOptions = {
         show: true,
