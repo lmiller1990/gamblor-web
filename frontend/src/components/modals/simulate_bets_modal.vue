@@ -65,18 +65,26 @@
             <td>$100</td>
           </tr>
           <tr>
-            <td>Bet</td>
+            <td>Single Bet</td>
             <td>$30</td>
           </tr>
           <tr>
-            <td>Expected Value</td>
-            <td>${{ rounded(expectedValue) }}</td>
+            <td>Mean Expected Value</td>
+            <td>{{ rounded(meanExpectedValue) }}</td>
           </tr>
         </table>
 
         <table>
           <tr>
-            <td>Final Bankroll</td>
+            <td>Total Bet ($30 * # bets)</td>
+            <td>${{ rounded(totalMoneyBet) }}</td>
+          </tr>
+          <tr>
+            <td>Exp. Final Bankroll</td>
+            <td>${{ rounded(expectedFinalBankroll) }}</td>
+          </tr>
+          <tr>
+            <td>Actual Final Bankroll</td>
             <td>${{ rounded(finalBankroll) }}</td>
           </tr>
           <tr>
@@ -138,8 +146,10 @@ import { ITeam } from '../../types/team';
 interface IData {
   recommendations: IRecommendation[]
   percentProfit: number
-  expectedValue: number
+  meanExpectedValue: number
+  expectedFinalBankroll: number
   finalBankroll: number
+  totalMoneyBet: number
   outcomes: IBetSimulation[]
   fb: boolean
   ft: boolean
@@ -178,9 +188,11 @@ interface IBetSimulation {
 interface ISimulationPayload {
   simulation: {
     outcomes: IBetSimulation[]
+    expectedFinalBankroll: number
+    totalMoneyBet: number
     finalBankroll: number
     percentProfit: number
-    expectedValue: number
+    meanExpectedValue: number
     accuracy: number
   }
   recommendations: IRecommendation[]
@@ -201,15 +213,17 @@ export default Vue.extend({
   data(): IData {
     return {
       rounded,
+      totalMoneyBet: 0,
       fb: true,
       fd: true,
+      expectedFinalBankroll: 0,
       finalBankroll: 0,
       ft: true,
       fbaron: false,
       recommendations: [],
       outcomes: [],
       percentProfit: 0,
-      expectedValue: 0,
+      meanExpectedValue: 0,
       minEv: '1.2',
       minDiff: '20'
     }
@@ -250,7 +264,9 @@ export default Vue.extend({
       )
       this.percentProfit = response.data.simulation.percentProfit
       this.finalBankroll = response.data.simulation.finalBankroll
-      this.expectedValue = response.data.simulation.expectedValue
+      this.meanExpectedValue = response.data.simulation.meanExpectedValue
+      this.totalMoneyBet = response.data.simulation.totalMoneyBet
+      this.expectedFinalBankroll = response.data.simulation.expectedFinalBankroll
     }
   }
 })
@@ -278,6 +294,7 @@ export default Vue.extend({
 .table {
   display: flex;
   justify-content: center;
+  margin-top: 5px;
 }
 
 table {

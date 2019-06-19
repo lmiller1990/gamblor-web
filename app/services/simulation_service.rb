@@ -20,13 +20,15 @@ class SimulationService
     wins = 0
     bet_amt = bet_amount
     outcomes = []
-    expected_value = 0
+    total_money_bet = 0
+    sum_exp_value = 0
 
     recommendations.each do |r|
+      sum_exp_value += r[:ev]
       bank -= bet_amt
       result = nil
       won = r[:game][MarketBetMapper.map(r[:market])] == r[:team][:id]
-      expected_value += r[:ev] * bet_amt
+      total_money_bet += bet_amt
 
       if r[:game][MarketBetMapper.map(r[:market])] == r[:team][:id]
         bank += (bet_amt * r[:odds])
@@ -35,7 +37,7 @@ class SimulationService
       else
         result = 0
       end
-      # puts "Balance: #{bank.round(2)}\n\n"
+
       outcomes << SimulationResult.new(
         r[:id],
         r[:date],
@@ -49,19 +51,17 @@ class SimulationService
       )
     end
 
-    # puts "Initial bankroll: $#{bank_init}"
-
     percent_profit = ((bank.round(2) - bank_init) / bank_init) * 100
-    # puts "Closing balance after #{recommendations.count} bets: #{bank.round(2)}"
-    # puts "Wins: #{wins} / #{recommendations.count}"
-    # puts "% Profit: #{percent_profit.round(1)}%"
 
+    mean_expected_value = recommendations.count > 0 ? sum_exp_value / recommendations.count : 0 
     { 
       outcomes: outcomes,
-      accuracy: wins / recommendations.count,
+      accuracy: recommendations.count > 0 ? wins / recommendations.count : 0,
       final_bankroll: bank,
       percent_profit: percent_profit,
-      expected_value: expected_value
+      mean_expected_value: mean_expected_value,
+      expected_final_bankroll: recommendations.count > 0 ? (sum_exp_value / recommendations.count) * recommendations.count * bet_amount : 0,
+      total_money_bet: total_money_bet
     }
   end
 end
