@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<body>
+
+  <style>
+    .summaries {
+      display: flex;
+    }
+
+    .team-summary {
+      margin-right: 10px;
+    }
+
+    .result {
+      text-align: center;
+    }
+    .success { 
+      background-color: lightblue;
+    }
+    .fail { 
+      background-color: red;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    tr, td { 
+      padding: 5px;
+      border: 1px solid black;
+      height: 15px;
+    }
+  </style>
+
+  <% summaries.each do |summary| %>
+    <%= summary %>
+  <% end %>
+
+</body>
+</html>

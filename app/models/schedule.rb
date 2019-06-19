@@ -5,7 +5,7 @@ module Schedule
   def self.most_recently_played(games, num = 5)
     games = games
       .where(game_number: 1)
-      .where(match_complete: true)
+      .where.not(winner_id: nil)
       .order(date: :desc)[0...num]
       .reverse
 

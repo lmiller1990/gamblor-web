@@ -25,6 +25,7 @@
           <td>EV</td>
           <td>Odds</td>
           <td>Success Rate</td>
+          <td>Opp. Success Rate</td>
         </tr>
 
         <tr
@@ -37,6 +38,7 @@
           <td>{{ bet.ev | rounded }}</td>      
           <td>{{ bet.odds }}</td>      
           <td>{{ bet.percentage | rounded }}%</td>
+          <td>{{ bet.opponentPercentage | rounded }}%</td>
         </tr>
       </table>
     </div>
@@ -54,6 +56,7 @@ interface IBetWithEv {
   ev: number
   market: 'fb' | 'ft' | 'fd' | 'fbaron'
   percentage: number
+  opponentPercentage: number
   odds: number
   team: string
   opponent: string

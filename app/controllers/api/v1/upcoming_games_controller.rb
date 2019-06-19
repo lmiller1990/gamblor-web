@@ -8,10 +8,11 @@ module Api
         split_id = upcoming_games_params[:split_id]
         upcoming = upcoming_count
         recently_played = recently_played_count
-
         games = Split.find(split_id).games
 
-        render json: Schedule.most_recently_played(games, recently_played) + Schedule.upcoming(games, upcoming)
+        schedule_games = Schedule.most_recently_played(games, recently_played) + Schedule.upcoming(games, upcoming)
+
+        render json: schedule_games
       end
 
       private 
