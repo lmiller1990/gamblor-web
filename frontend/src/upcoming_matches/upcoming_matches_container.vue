@@ -25,10 +25,10 @@
         -->
 
         <LcsButton 
-          width="90px"
+          width="110px"
           @click="showSimulateModal"
         >
-          Simulate
+          Simulate [BETA]
         </LcsButton>
 
         <LcsButton 
