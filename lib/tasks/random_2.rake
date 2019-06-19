@@ -1,5 +1,3 @@
-require_relative './simulation_result'
-
 def get_success_at_given_date(team, market, date)
   games = team.games.where('date < ?', date)
   success = 0.0
