@@ -37,6 +37,10 @@ Week 3: Ending total $363.57
 
 Week 4 (Jun 23rd): Starting total $363.57
 
+CHF to get FD	vs ORD	      $30 | 1.66 | ???  | $30.00 | 80% | 25%
+BOM to get FD	vs GRA	      $20 | 1.57 | ???  | $20.00 | 70% | 20%
+BOM to get FT	vs GRA	      $20 | 1.50 | ???  | $20.00 | 85% | 30%
+
 FQ  to get FD vs CLG:       $XX | 2.10 | ???  | $40.00 | 60% | 35%
 CG  to get FB vs FOX:       $XX | 1.72 | ???  | $60.00 | 70% | 25%
 

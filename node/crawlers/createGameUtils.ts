@@ -23,9 +23,9 @@ function getTeamByName(name: string, teams: ITeam[]): ITeam | null {
  */
 function getSplit(leagues: ILeague[], splitName: string, leagueName: string): ISplit | null {
   for (const league of leagues) {
-    if (league.name === leagueName) {
+    if (league.name.toLowerCase() === leagueName.toLowerCase()) {
       for (const split of league.splits) {
-        if (split.name === splitName) {
+        if (split.name.toLowerCase() === splitName.toLowerCase()) {
           return split
         }
       }
