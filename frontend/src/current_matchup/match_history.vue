@@ -106,7 +106,7 @@ export default Vue.extend({
     },
 
     admin(): boolean {
-      return this.$store.state.user.admin
+      return this.$store.state.user.admin || false
     },
 
     teamName(): string {

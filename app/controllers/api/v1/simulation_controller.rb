@@ -12,8 +12,8 @@ module Api
           }
         end
 
-        train = Game.where('date > ? and date < ?', Date.new(2019, 1, 1), Date.new(2019, 5, 1)).where(split_id: 4)
-        test = Game.where('date > ? and date < ?', Date.new(2019, 5, 30), Date.new(2020, 6, 4)).where.not(winner_id: nil)
+        train = Game.where('date > ? and date < ?', Date.new(2019, 1, 1), DateTime.now).where(split_id: 4)
+        test = Game.where('date > ?', DateTime.now)
 
         recommendations = []
         options = { :min_ev => min_ev, :min_success_percentage_diff => min_diff } 

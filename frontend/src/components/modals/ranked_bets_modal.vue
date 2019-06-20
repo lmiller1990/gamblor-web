@@ -1,19 +1,48 @@
 <template>
   <div>
     <p>
-      This modal ranks bets for the upcoming games based on their EV over the last 15 games.
+      This modal ranks bets for the upcoming games based on their EV over the last N games.
     </p>
     <p>
       You can change the number of past games considered when ranking the bets. Make sure both teams have at least
       that many games, or you may get inaccuarte data.
     </p>
 
-    <form @submit.prevent="fetchBets">
-      <input
-        v-model="lastNGames"
-      />
-      <button>Submit</button>
-    </form>
+    <div class="forms">
+
+      <form @submit.prevent="fetchBets">
+        <div>
+          <label for="last-n-games">Last N Games:{{' '}}</label>
+          <input
+            id="last-n-games"
+            v-model="lastNGames"
+          />
+        </div>
+
+        <LcsButton>
+          Submit
+        </LcsButton>
+      </form>
+
+      <form>
+        <div class="filters">
+          <label for="min-ev">Min EV:{{' '}}</label>
+          <input
+            id="min-ev"
+            v-model="minEv"
+          />
+        </div>
+
+        <div class="filters">
+          <label for="min-ev">Min Success Rate Diff (%):{{' '}}</label>
+          <input
+            id="minDiff"
+            v-model="minDiff"
+          />
+        </div>
+      </form>
+
+    </div>
     <br />
 
     <div class="table">
@@ -29,7 +58,7 @@
         </tr>
 
         <tr
-          v-for="bet in bets"
+          v-for="bet in filteredBets"
           :key="bet.id"
         >
           <td>{{ bet.team }}</td>      
@@ -48,6 +77,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
+import LcsButton from '../../widgets/lcs_button.vue'
 
 import { rounded } from '../../filters'
 
@@ -65,11 +95,17 @@ interface IBetWithEv {
 interface IData {
   bets: IBetWithEv[]
   lastNGames: number
+  minEv: number
+  minDiff: number
 }
 
 
 export default Vue.extend({
   name: 'RankedBetsModal',
+
+  components: {
+    LcsButton
+  },
 
   filters: {
     rounded
@@ -78,12 +114,24 @@ export default Vue.extend({
   data(): IData {
     return {
       bets: [],
-      lastNGames: 15
+      lastNGames: 20,
+      minDiff: 10,
+      minEv: 1.1,
+
     }
   },
 
   created() {
     this.fetchBets()
+  },
+
+  computed: {
+    filteredBets(): IBetWithEv[] {
+      return this.bets.filter((bet: IBetWithEv) => {
+        return  bet.percentage - bet.opponentPercentage > this.minDiff &&
+          bet.ev > this.minEv
+      })
+    }
   },
 
   methods: {
@@ -97,6 +145,20 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+form > div {
+  display: flex;
+}
+
+.forms {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .table {
   display: flex;
   justify-content: center;
