@@ -37,8 +37,8 @@ Week 3: Ending total $363.57
 
 Week 4 (Jun 23rd): Starting total $363.57
 
-FQ  to get FD vs CLG:       $XX | 2.10 | ???  | $40.00 | 60% | 35%
-CG  to get FB vs FOX:       $XX | 1.72 | ???  | $60.00 | 70% | 25%
+FQ  to get FD vs CLG:       $40 | 2.10 | Lose | $00.00  | 60% | 35%
+CG  to get FB vs FOX:       $60 | 1.72 | Win  | $103.63 | 70% | 25%
 
 GGS to get FD vs TSM:       $XX | 2.10 | ???  | $60.00 | 75% | 25%
 FQ  to get FD vs 100:       $XX | 1.80 | ???  | $40.00 | 60% | 35%
