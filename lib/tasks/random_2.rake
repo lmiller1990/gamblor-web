@@ -83,22 +83,22 @@ def run_simulation(options, recommendations)
   recommendations.each do |r|
     bank -= bet_amt
 
-    # puts "#{r[:date].strftime('%F')}: Bet $#{bet_amt} on #{r[:team][:name]} to get #{r[:market]} vs #{r[:opponent][:name]} @ #{r[:odds]}. Normalized EV: #{r[:ev]}"
+    puts "#{r[:date].strftime('%F')}: Bet $#{bet_amt} on #{r[:team][:name]} to get #{r[:market]} vs #{r[:opponent][:name]} @ #{r[:odds]}. Normalized EV: #{r[:ev]}"
 
     result = nil
 
     won = r[:game][MarketBetMapper.map(r[:market])] == r[:team][:id]
 
     if r[:game][MarketBetMapper.map(r[:market])] == r[:team][:id]
-      # puts "Won $#{(bet_amt * r[:odds]).round(2)}"
+      puts "Won $#{(bet_amt * r[:odds]).round(2)}"
       bank += (bet_amt * r[:odds])
       wins += 1
       result = 1
     else
       result = 0
-      # puts "Lost $#{bet_amt}"
+      puts "Lost $#{bet_amt}"
     end
-    # puts "Balance: #{bank.round(2)}\n\n"
+    puts "Balance: #{bank.round(2)}\n\n"
 
     outcomes << SimulationResult.new(
       r[:date],
@@ -112,27 +112,50 @@ def run_simulation(options, recommendations)
     )
   end
 
-  # puts "Initial bankroll: $#{bank_init}"
+  puts "Initial bankroll: $#{bank_init}"
 
   percent_profit = ((bank.round(2) - bank_init) / bank_init) * 100
-  # puts "Closing balance after #{recommendations.count} bets: #{bank.round(2)}"
-  # puts "Wins: #{wins} / #{recommendations.count}"
-  # puts "% Profit: #{percent_profit.round(1)}%"
+  puts "Closing balance after #{recommendations.count} bets: #{bank.round(2)}"
+  puts "Wins: #{wins} / #{recommendations.count}"
+  puts "% Profit: #{percent_profit.round(1)}%"
 
-  outcomes
+  return {
+    :percent_profit => percent_profit,
+    :bets => recommendations.count
+  }
+  # outcomes
 end
 
 task :random_2, [] => :environment do |t, args|
-  train = Game.where('date > ? and date < ?', Date.new(2019, 1, 1), Date.new(2019, 5, 1)).where(split_id: 4)
-  test = Game.where('date > ? and date < ?', Date.new(2019, 5, 30), Date.new(2020, 6, 4)).where.not(winner_id: nil)
+  train = Game.where('date > ? and date < ?', Date.new(2019, 1, 1), Date.new(2019, 6, 1)).where(split_id: 4)
+  test = Game.where('date > ? and date < ?', Date.new(2019, 6, 1), Date.new(2020, 7, 1)).where.not(winner_id: nil)
 
-  markets = ['fb', 'ft', 'fd', 'fbaron']
-  recommendations = []
+  evs = [1.0, 1.05, 1.10, 1.15, 1.20]
+  diffs = [0.0, 0.10, 0.15, 0.20]
+  results = []
 
-  markets.each do |market|
-    recommendations += get_reccomendations(
-      test, train, market, { :min_ev => 1.0, :min_success_percentage_diff => 0.2 })
+  evs.each do |ev|
+    diffs.each do |diff|
+
+      markets = ['fb', 'ft', 'fd', 'fbaron']
+      recommendations = []
+
+      markets.each do |market|
+        recommendations += get_reccomendations(
+          test, train, market, { :min_ev => ev, :min_success_percentage_diff => diff })
+      end
+
+      sim_results = run_simulation({ :bankroll => 197, :bet_amt => 30 }, recommendations)
+      sim_results[:ev] = ev
+      sim_results[:diff] = diff
+      results << sim_results
+    end
   end
 
-  sim_results = run_simulation({ :bankroll => 197, :bet_amt => 30 }, recommendations)
+  results.sort! { |a, b| b[:percent_profit] <=> a[:percent_profit] }
+  puts "| EV \t Diff \t Bets \t Profit \t"
+  puts "--------------------------------"
+  results.each do |res|
+    puts "| #{res[:ev]} \t #{res[:diff]} \t #{res[:bets]} #{res[:bets] < 10 ? ' ' : ''}  \t #{res[:percent_profit].round(0)}"
+  end
 end
