@@ -73,7 +73,7 @@ end
 # opponent: opponent
 #
 # A simuation has the following:
-def run_simulation(options, recommendations)
+def run_simulation(options, recommendations, weigh)
   bank = options[:bankroll]
   bank_init = bank
   wins = 0
@@ -81,7 +81,19 @@ def run_simulation(options, recommendations)
   outcomes = []
 
   recommendations.each do |r|
-    bank -= bet_amt
+    modded_bet_amount = bet_amt
+
+    if weigh
+      if r[:ev] > 1 && r[:ev] < 1.1
+        modded_bet_amount = bet_amt * 1
+      elsif r[:ev] > 1.1 && r[:ev] < 1.2
+        modded_bet_amount = 40 # bet_amt * 1.1
+      elsif r[:ev] > 1.2
+        modded_bet_amount = 50 #bet_amt * 1.2
+      end
+    end
+
+    bank -= modded_bet_amount
 
     puts "#{r[:date].strftime('%F')}: Bet $#{bet_amt} on #{r[:team][:name]} to get #{r[:market]} vs #{r[:opponent][:name]} @ #{r[:odds]}. Normalized EV: #{r[:ev]}"
 
@@ -91,12 +103,12 @@ def run_simulation(options, recommendations)
 
     if r[:game][MarketBetMapper.map(r[:market])] == r[:team][:id]
       puts "Won $#{(bet_amt * r[:odds]).round(2)}"
-      bank += (bet_amt * r[:odds])
+      bank += (modded_bet_amount * r[:odds])
       wins += 1
       result = 1
     else
       result = 0
-      puts "Lost $#{bet_amt}"
+      puts "Lost $#{modded_bet_amount}"
     end
     puts "Balance: #{bank.round(2)}\n\n"
 
@@ -107,7 +119,7 @@ def run_simulation(options, recommendations)
       r[:market],
       r[:ev],
       r[:odds],
-      bet_amt,
+      modded_bet_amount,
       won
     )
   end
@@ -145,7 +157,7 @@ task :random_2, [] => :environment do |t, args|
           test, train, market, { :min_ev => ev, :min_success_percentage_diff => diff })
       end
 
-      sim_results = run_simulation({ :bankroll => 197, :bet_amt => 30 }, recommendations)
+      sim_results = run_simulation({ :bankroll => 197, :bet_amt => 30 }, recommendations, true)
       sim_results[:ev] = ev
       sim_results[:diff] = diff
       results << sim_results
