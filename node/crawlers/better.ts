@@ -63,7 +63,7 @@ function getBookCloseDate(el: Element): string {
 
 function getTeams(el: Element): string[] {
   const teams: string[] = []
-  for (const elm of Array.from(el.querySelectorAll(".gl-Participant_Name"))) {
+  for (const elm of Array.from(el.querySelectorAll(".gll-Participant_Name"))) {
     teams.push(elm.innerHTML)
   }
  
@@ -88,7 +88,7 @@ function getTeamsForOverUnder(el: HTMLElement): Array<string> {
 
 function getOdds(el: HTMLElement): string[] {
   const odds: string[] = []
-  for (const elm of Array.from(el.querySelectorAll(".gl-Participant_Odds"))) {
+  for (const elm of Array.from(el.querySelectorAll(".gll-Participant_Odds"))) {
     odds.push(elm.innerHTML)
   }
   return odds
@@ -167,11 +167,12 @@ const main = (async function main() {
   await attachToWindow(page, 'getOdds', getOdds)
   await attachToWindow(page, 'getTeamsForOverUnder', getTeamsForOverUnder) 
 
-  const matches: Match[] = await page.$eval(".gl-MarketGroup", (marketGroup) => {
+  const matches: Match[] = await page.$eval(".gll-MarketGroup", (marketGroup) => {
     const results: Match[] = []
 
-    const tableRows: Array<Element> = Array.from(marketGroup.querySelectorAll(".gl-Market_General"))
+    const tableRows: Array<Element> = Array.from(marketGroup.querySelectorAll(".gll-Market_General"))
 
+    // await page.$eval('asdf', (val) => {})
     const teamGetter = theMarket.includes("total") ? getTeamsForOverUnder : getTeams
     for (const tableRow of tableRows) {
       Promise.all([
