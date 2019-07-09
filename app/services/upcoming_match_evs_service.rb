@@ -1,3 +1,4 @@
+require 'pry'
 class UpcomingMatchEvsService
   def initialize(games, last_n_games = 15.0)
     @games = games
@@ -31,6 +32,7 @@ class UpcomingMatchEvsService
         other_team_got_count = red_games.count - other_team_wont_get_count
 
         odds = game["blue_side_team_#{mkt}_odds"]
+
         bet = { 
           :id => id,
           :team => blue_team.name,
@@ -39,7 +41,7 @@ class UpcomingMatchEvsService
           :opponent => red_team.name,
           :market => mkt, 
           :odds => odds,
-          :ev => (((team_got_count/@last_n_games) + (other_team_wont_get_count/@last_n_games)) / 2) * odds
+          :ev => odds ? (((team_got_count/@last_n_games) + (other_team_wont_get_count/@last_n_games)) / 2) * odds : 0
         }
 
         id += 1
@@ -65,7 +67,7 @@ class UpcomingMatchEvsService
           :opponent => blue_team.name,
           :market => mkt, 
           :odds => odds,
-          :ev => (((team_got_count/@last_n_games) + (other_team_wont_get_count/@last_n_games)) / 2) * odds
+          :ev => odds ? (((team_got_count/@last_n_games) + (other_team_wont_get_count/@last_n_games)) / 2) * odds : 0
         }
         id += 1
         bets << bet
