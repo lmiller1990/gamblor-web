@@ -22,7 +22,6 @@
           >
           [BETA] Stats
           </LcsButton>
-        -->
 
         <LcsButton 
           width="110px"
@@ -30,6 +29,8 @@
         >
           Simulate [BETA]
         </LcsButton>
+
+      -->
 
         <LcsButton 
           width="90px"
