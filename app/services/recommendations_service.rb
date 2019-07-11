@@ -23,16 +23,10 @@ class RecommendationsService
     min_success_percentage_diff = options[:min_success_percentage_diff]
     recommendations = []
 
-    first = true
-
     test.each do |game|
       team_1, team_2, red = game.teams
       blue = game.blue_side_team_id == team_1.id ? team_1 : team_2
       red = blue == team_1 ? team_2 : team_1
-
-      if first
-        # binding.pry
-      end
 
       blue_train = train.where(id: blue.games.select { |x| x.id })
       blue_percent = get_success_at_given_date(blue_train, blue, market, game.date)

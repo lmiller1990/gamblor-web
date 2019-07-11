@@ -1,4 +1,3 @@
-require 'pry'
 class UpcomingMatchEvsService
   def initialize(games, last_n_games = 15.0)
     @games = games
