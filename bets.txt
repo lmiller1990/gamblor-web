@@ -56,10 +56,11 @@ Week 5: Ending total $490.74
 
 Week 6 (Jul 14): Starting total $490.74
 
-C9  to get FD vs TSM:       $50 | 1.83 | ???  | $?? | 68% | 28%
-EF  to get FD vs 100:       $30 | 2.10 | ???  | $?? | 52% | 36%
-C9  to get FBaron vs TSM:   $50 | 1.80 | ???  | $?? | 76% | 44%
-GGS to get FT vs CLG:       $40 | 2.00 | ???  | $?? | 60% | 40%
-CG  to get FT vs OPT:       $40 | 2.00 | ???  | $?? | 56% | 40%
-CG  to get FB vs OPT:       $40 | 1.90 | ???  | $?? | 68% | 48%
+C9  to get FD vs TSM:       $50 | 1.83 | Lose  | $00.00 | 68% | 28%
+EF  to get FD vs 100:       $30 | 2.10 | Win  | $63.00 | 52% | 36%
+C9  to get FBaron vs TSM:   $50 | 1.80 | Lose  | $00.00 | 76% | 44%
+GGS to get FT vs CLG:       $40 | 2.00 | Lose  | $00.00 | 60% | 40%
+CG  to get FT vs OPT:       $40 | 2.00 | Win  | $80.00 | 56% | 40%
+CG  to get FB vs OPT:       $40 | 1.90 | Lose  | $00.00 | 68% | 48%
 
+Week 6: Ending total $383.74
