@@ -64,3 +64,14 @@ CG  to get FT vs OPT:       $40 | 2.00 | Win  | $80.00 | 56% | 40%
 CG  to get FB vs OPT:       $40 | 1.90 | Lose  | $00.00 | 68% | 48%
 
 Week 6: Ending total $383.74
+
+
+Last 20
+
+GGS  to get FD vs TSM:      $40 | 2.37 | | $00.00 | 60% | 40%
+EF   to get FD vs  CG:      $40 | 2.22 | | $00.00 | 60% | 40%
+EF   to get FD vs OPT:      $40 | 2.10 | | $00.00 | 60% | 40%
+CG   to get FB vs  EF:      $40 | 1.66 | | $00.00 | 65% | 15%
+FQ   to get FD vs 100:      $40 | 1.90 | | $00.00 | 50% | 30%
+
+Last 12
