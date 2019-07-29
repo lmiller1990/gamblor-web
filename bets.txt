@@ -76,3 +76,11 @@ EF   to get FD vs  CG:      $40 | 2.22 | Lose | $00.00 | 60% | 40%
 Week 7: Ending total $406.78
 
 Week 8: Starting total $406.78
+
+TSM  to get FB vs EF:       $40 | 1.61 | Lose | $00.00 | 60% | 10%
+CLG  to get FB vs EF:       $40 | 1.61 | Win  | $64.62 | 50% | 10%
+FQ   to get FB vs C9:       $40 | 2.20 | Win  | $88.00 | 78% | 57%
+CG   to get FT vs FQ:       $40 | 1.72 | Win  | $69.10 | 65% | 25%
+TL   to get FD vs C9:       $40 | 1.61 | Win  | $64.62 | 57% | 28%
+
+Week 8: Starting total $493.12
