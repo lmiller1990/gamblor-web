@@ -24,7 +24,7 @@ Week 3 (Jun 16th): Starting total $281.27
 
 CLG to get FB vs FOX:       $30 | 1.83 | Win  | $55.00 | 55% | 30%
 GGS to get FD vs 100:       $40 | 1.61 | Win  | $64.62 | 70% | 30%
-TL  to get FT vs OPT        $50 | 1.57 | Win  | $78.58 | 75% | 35%
+TL  to get FT vs OPT:       $50 | 1.57 | Win  | $78.58 | 75% | 35%
 C9  to get FD vs TSM:       $30 | 1.83 | Win  | $55.00 | 65% | 25%
 C9  to get FBaron vs TSM:   $50 | 1.83 | N/A  | $55.00 | 80% | 45%
 CG  to get FB vs FQ:        $50 | 1.83 | Lose | $0.00  | 70% | 35%
@@ -92,3 +92,12 @@ CLG  to get FD vs OPT:      $50 | 1.80 | Win  | $90.00 | 68% | 43%
 TL   to get FD vs TSM:      $50 | 1.61 | Win  | $80.77 | 81% | 43%
 
 Week 9: Ending total $559.73
+
+Playoffs: Starting total $559.73
+
+CG  to get FT vs TSM:       $75 | 2.25 | | $ | 77% | 38%
+CG  to get FT vs TSM:       $75 | 2.25 | | $ | 77% | 38%
+CG  to get FT vs TSM:       $75 | 2.25 | | $ | 77% | 38%
+CLG to get FD vs OPT:       $40 | 1.72 | | $ | 72% | 33%
+CLG to get FD vs OPT:       $40 | 1.72 | | $ | 72% | 33%
+CLG to get FD vs OPT:       $40 | 1.72 | | $ | 72% | 33%
