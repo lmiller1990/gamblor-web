@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :split do
-    name 'summer split'
-    start_date "2018-10-01 23:55:11"
-    end_date "2018-10-01 23:55:11"
+    name do 'summer split' end
+    start_date do "2018-10-01 23:55:11" end
+    end_date do "2018-10-01 23:55:11" end
     association :league 
   end
 end

@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :user do
-    email 'test@test.com'
-    password 'password'    
-    password_confirmation 'password'    
+    email do 'test@test.com' end
+    password do 'password'     end
+    password_confirmation do 'password'     end
   end
 
   factory :admin, class: 'User' do
-    email 'admin@test.com'
-    admin true
-    password 'password'    
-    password_confirmation 'password'    
+    email do 'admin@test.com' end
+    admin do true end
+    password do 'password'     end
+    password_confirmation do 'password'     end
   end
 end

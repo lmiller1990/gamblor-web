@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :position do
-    name "adc"
+    name do "adc" end
   end
 end

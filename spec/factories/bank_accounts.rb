@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :bank_account do
-    balance_cents 100000
+    balance_cents do 100000 end
   end
 end

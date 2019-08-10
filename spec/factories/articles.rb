@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :article do
-    title 'title'
-    body 'body'
+    title do 'title' end
+    body do 'body' end
   end
 end

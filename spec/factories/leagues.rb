@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :league do
-    name 'nalcs'
+    name do 'nalcs' end
   end
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :subscriber do
-    name "MyString"
-    email "MyString"
+    name do "MyString" end
+    email do "MyString" end
   end
 end

@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :player do
-    name 'Sneaky'
-    position
+    name do 'Sneaky' end
   end
 end

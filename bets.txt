@@ -93,6 +93,10 @@ TL   to get FD vs TSM:      $50 | 1.61 | Win  | $80.77 | 81% | 43%
 
 Week 9: Ending total $559.73
 
+SK   to get FD vs VIT:      $40 | 2.10 | | $ | 57% | 21%
+SK   to get FT vs VIT:      $30 | 2.20 | | $ | 50% | 21%
+SK   to get FD vs VIT:      $30 | 2.10 | | $ | 50% | 21%
+
 Playoffs: Starting total $559.73
 
 CG  to get FT vs TSM:       $75 | 2.25 | | $ | 77% | 38%

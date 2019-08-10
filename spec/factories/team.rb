@@ -1,15 +1,15 @@
 FactoryBot.define do
   factory :team, class: Team do
-    name 'clg'
+    name do 'clg' end
   end
 
   factory :red_side_team, class: Team do
-    id 1
-    name 'red team'
+    id do 1 end
+    name do 'red team' end
   end
 
   factory :blue_side_team, class: Team do
-    id 2
-    name 'blue team'
+    id do 2 end
+    name do 'blue team' end
   end
 end

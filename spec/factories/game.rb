@@ -3,12 +3,12 @@ FactoryBot.define do
     association :league
     association :split
 
-    date 100.years.ago
-    winner_id 1  
-    loser_id 1
-    blue_side_team_id 1
-    red_side_team_id 2
-    game_number 1
+    date do 100.years.ago end
+    winner_id do 1 end
+    loser_id do 1 end
+    blue_side_team_id do 1 end
+    red_side_team_id do 2 end
+    game_number do 1 end
   end
 
   trait :with_teams do
