@@ -4,10 +4,10 @@ FactoryBot.define do
     start 1.year.ago
     player
 
-    trait :no_end_date { end_date nil }
+    trait :no_end_date do end_date nil end
 
-    trait :future_end_date { end_date 1.year.from_now }
+    trait :future_end_date do end_date 1.year.from_now end
 
-    trait :past_date { end_date 1.year.ago }
+    trait :past_date do end_date 1.year.ago end
   end
 end
