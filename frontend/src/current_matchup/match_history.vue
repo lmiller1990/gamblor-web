@@ -95,14 +95,16 @@ export default Vue.extend({
     },
 
     previousGames(): Game[] {
-      if (this.games.length - this.nPreviousGames <= 0)
-        return this.games
+      if (this.games.length - this.nPreviousGames <= 0) {
+      return this.games
           .sort((x: Game, y: Game) => +new Date(y.date) - +new Date(x.date))
           .reverse()
-      else
-        return this.games.slice(this.games.length - this.nPreviousGames)
-          .sort((x: Game, y: Game) => +new Date(y.date) - +new Date(x.date))
-          .reverse()
+      }
+
+      return this.games
+        .sort((x: Game, y: Game) => +new Date(y.date) - +new Date(x.date))
+        .reverse()
+        .slice(this.games.length - this.nPreviousGames)
     },
 
     admin(): boolean {
