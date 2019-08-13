@@ -110,6 +110,6 @@ Playoffs: Starting total $559.73
 CG  to get FT vs TSM:       $75 | 2.25 | Win  | $168.75 | 77% | 38%
 CG  to get FT vs TSM:       $75 | 2.25 | Win  | $168.75 | 77% | 38%
 CG  to get FT vs TSM:       $75 | 2.25 | Win  | $168.75 | 77% | 38%
-CLG to get FD vs OPT:       $40 | 1.72 | | $ | 72% | 33%
-CLG to get FD vs OPT:       $40 | 1.72 | | $ | 72% | 33%
-CLG to get FD vs OPT:       $40 | 1.72 | | $ | 72% | 33%
+CLG to get FD vs OPT:       $40 | 1.72 | Lose | $00.00  | 72% | 33%
+CLG to get FD vs OPT:       $40 | 1.72 | Lose | $00.00  | 72% | 33%
+CLG to get FD vs OPT:       $40 | 1.72 | Win  | $69.10  | 72% | 33%
