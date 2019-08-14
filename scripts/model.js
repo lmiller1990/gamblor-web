@@ -7,29 +7,46 @@ const extractData = d => {
   const staked = parseFloat(betData[0].replace("$", "").trim())
   const rewarded = parseFloat(betData[3].replace("$", "").trim())
 
+  // ugh... above regexp counts FBaron as FB
+  // TODO: Get better at regexp, this will do for now
+  const actualMarket = !fields[0].includes("FB")
+    ? market
+    : fields[0].includes("Baron") 
+      ? "FBaron" 
+      : "FB"
+
   return {
-    market,
+    market: actualMarket,
     staked,
     rewarded,
   }
 }
 
-const data = fs.readFileSync("./bets.txt", "utf8")
-  .split("\n")
-  .filter(x => x.includes("Win") || x.includes("Lose"))
-  .map(extractData)
+const summarizeBets = filename => {
+  const data = fs.readFileSync(filename, "utf8")
+    .split("\n")
+    .filter(x => x.includes("Win") || x.includes("Lose"))
+    .map(extractData)
 
-const result = data.reduce((acc, curr) => {
-  const d = {
-    staked: acc.staked += curr.staked,
-    rewarded: acc.rewarded += curr.rewarded,
-    totalBets: acc.totalBets += 1
-  }
+  return data.reduce((acc, curr) => {
+    const d = {
+      staked: acc.staked += curr.staked,
+      rewarded: acc.rewarded += curr.rewarded,
+      totalBets: acc.totalBets += 1,
+      bets: [...acc.bets, curr]
+    }
 
-  return {
-    ...d,
-    profitPerDollar: parseFloat(((d.rewarded / d.staked) - 1).toFixed(2))
-  }
-}, { staked: 0, rewarded: 0, profitPerDollar: 0, totalBets: 0 })
+    return {
+      ...d,
+      profitPerDollar: parseFloat(((d.rewarded / d.staked) - 1).toFixed(2)),
+    }
+  }, { staked: 0, rewarded: 0, profitPerDollar: 0, totalBets: 0, bets: [] })
+}
 
-console.log(result)
+if (!module.parent) {
+  console.log(summarizeBets("./bets.txt"))
+}
+
+module.exports = {
+  summarizeBets
+}
