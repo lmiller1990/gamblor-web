@@ -1,4 +1,4 @@
-Week 1 (Jun 2nd): Starting total $197.15
+Week 1: Starting total $197.15
 
 TL  to get FD vs TSM:       $20 | 1.83 | Win  | $36.67 | 66% | 20%
 CG  to get FB vs OPT:       $20 | 2.0  | Lose | $0.00  | 73% | 23%
@@ -9,7 +9,7 @@ CLG to get FD vs TSM:       $20 | 2.37 | Win  | $47.50 | 33% | 20%
 
 Week 1: Ending total $278.99
 
-Week 2 (Jun 9th): Starting total $278.99
+Week 2: Starting total $278.99
 
 FQ  to get FD vs TSM:       $30 | 2.25 | Win  | $67.50 | 50% | 20%
 GGS to get FD vs CG:        $30 | 1.72 | Lose | $00.00 | 65% | 40%
@@ -20,7 +20,7 @@ GGS to get FD vs C9:        $40 | 2.2  | Lose | $00.00 | 65% | 70%
 
 Week 2: Ending total $281.27
 
-Week 3 (Jun 16th): Starting total $281.27
+Week 3: Starting total $281.27
 
 CLG to get FB vs FOX:       $30 | 1.83 | Win  | $55.00 | 55% | 30%
 GGS to get FD vs 100:       $40 | 1.61 | Win  | $64.62 | 70% | 30%
@@ -33,7 +33,7 @@ GGS to get FD vs CLG:       $40 | 1.72 | Win  | $69.10 | 75% | 35%
 Week 3: Ending total $363.57
 
 
-Week 4 (Jun 23rd): Starting total $363.57
+Week 4: Starting total $363.57
 
 FQ  to get FD vs CLG:       $40 | 2.10 | Lose | $00.00  | 60% | 35%
 CG  to get FB vs FOX:       $60 | 1.72 | Win  | $103.63 | 70% | 25%
@@ -42,7 +42,7 @@ FQ  to get FD vs 100:       $40 | 1.80 | Win  | $72.00  | 60% | 35%
 
 Week 4: Ending total $339.21
 
-Week 5 (Jul 07): Starting total $339.21
+Week 5: Starting total $339.21
 
 C9  to get FBaron vs TL:    $50 | 2.62 | Win  | $131.25 | 76% | 52%
 FQ  to get FB vs EF:        $40 | 1.83 | Win  | $73.34  | 48% | 24%
@@ -51,7 +51,7 @@ GGS to get FB vs EF:        $30 | 1.61 | Win  | $48.47  | 60% | 24%
 
 Week 5: Ending total $490.74
 
-Week 6 (Jul 14): Starting total $490.74
+Week 6: Starting total $490.74
 
 C9  to get FD vs TSM:       $50 | 1.83 | Lose | $00.00 | 68% | 28%
 EF  to get FD vs 100:       $30 | 2.10 | Win  | $63.00 | 52% | 36%
@@ -93,7 +93,7 @@ TL   to get FD vs TSM:      $50 | 1.61 | Win  | $80.77 | 81% | 43%
 
 Week 9: Ending total $559.73
 
-Week 9: Ending total $559.73
+Week 10: Starting total $559.73
 
 SK   to get FB vs VIT:      $40 | 2.10 | Win  | $84.00 | 57% | 21%
 SK   to get FT vs VIT:      $30 | 2.20 | Win  | $66.00 | 50% | 21%
@@ -104,8 +104,9 @@ XL   to get FBaron vs OG:   $20 | 2.75 | Lose | $00.00 | 53% | 26%
 VIT  to get FD vs FNC:      $30 | 2.20 | Lose | $00.00 | 66% | 33%
 RGE  to get FB vs S04:      $30 | 2.10 | Win  | $63.00 | 60% | 33%
 
+Week 10: Ending total $572.73
 
-Playoffs: Starting total $559.73
+Playoffs Quarters: Starting total $572.73
 
 CG  to get FT vs TSM:       $75 | 2.25 | Win  | $168.75 | 77% | 38%
 CG  to get FT vs TSM:       $75 | 2.25 | Win  | $168.75 | 77% | 38%
@@ -113,3 +114,13 @@ CG  to get FT vs TSM:       $75 | 2.25 | Win  | $168.75 | 77% | 38%
 CLG to get FD vs OPT:       $40 | 1.72 | Lose | $00.00  | 72% | 33%
 CLG to get FD vs OPT:       $40 | 1.72 | Lose | $00.00  | 72% | 33%
 CLG to get FD vs OPT:       $40 | 1.72 | Win  | $69.10  | 72% | 33%
+
+Playoffs Quarters: Ending total $803.08
+
+Playoffs Semis: Starting total $803.08
+
+SK  to get FD vs OG:        $30 | 2.20 | .... | $000.00 | 56% | 31% | 1.38
+SK  to get FB vs OG:        $30 | 2.10 | .... | $000.00 | 56% | 31% | 1.31
+MSF to get FB vs VIT:       $30 | 2.10 | .... | $000.00 | 56% | 31% | 1.31
+RGE to get FB vs OG:        $30 | 2.00 | .... | $000.00 | 62% | 31% | 1.31
+

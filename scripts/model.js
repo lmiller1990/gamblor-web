@@ -1,5 +1,3 @@
-// RGE  to get FB vs S04:      $30 | 2.10 | Win  | $63.00 | 60% | 33%
-
 const fs = require('fs')
 
 const extractData = d => {
@@ -25,12 +23,13 @@ const result = data.reduce((acc, curr) => {
   const d = {
     staked: acc.staked += curr.staked,
     rewarded: acc.rewarded += curr.rewarded,
+    totalBets: acc.totalBets += 1
   }
 
   return {
     ...d,
     profitPerDollar: parseFloat(((d.rewarded / d.staked) - 1).toFixed(2))
   }
-}, { staked: 0, rewarded: 0, profitPerDollar: 0 })
+}, { staked: 0, rewarded: 0, profitPerDollar: 0, totalBets: 0 })
 
 console.log(result)
