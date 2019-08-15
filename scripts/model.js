@@ -7,6 +7,7 @@ const extractData = (d, idx) => {
   const market = fields[0].match(/(F(B|D|T|Baron))/)[0]
   const betData = fields[1].split("|")
   const staked = parseFloat(betData[0].replace("$", "").trim())
+  const odds = parseFloat(betData[1].trim())
   const rewarded = parseFloat(betData[3].replace("$", "").trim())
 
   // ugh... above regexp counts FBaron as FB
@@ -23,6 +24,7 @@ const extractData = (d, idx) => {
     isDup: false,
     t2,
     market: actualMarket,
+    odds,
     staked,
     rewarded,
   }
@@ -76,9 +78,9 @@ const flagDuplicates = results => {
 if (!module.parent) {
   const results = summarizeBets("./tmp/bets.txt")
   const flagged = flagDuplicates(results)
-  let str = 'id,market,t1,t2,staked,rewarded,isDup\n'
+  let str = 'id,market,t1,t2,staked,rewarded,odds,isDup\n'
   for (const b of flagged) {
-    str += [b.id, b.market, b.t1, b.t2, b.staked, b.rewarded, b.isDup].join(',') + '\n'
+    str += [b.id, b.market, b.t1, b.t2, b.staked, b.rewarded, b.odds, b.isDup].join(',') + '\n'
   }
 
   fs.writeFileSync("./tmp/flagged_bets.txt", str)

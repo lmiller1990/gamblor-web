@@ -9,10 +9,26 @@ class Game(BaseModel):
     from schema.league import League
 
     id = PrimaryKeyField()
-    red_side_team_id = ForeignKeyField(Team)
     red_side_team = ForeignKeyField(Team, column_name='red_side_team_id')
     blue_side_team = ForeignKeyField(Team, column_name='blue_side_team_id')
-    blue_side_team_id = ForeignKeyField(Team)
+
+    red_side_team_id = IntegerField(Team)
+    blue_side_team_id = IntegerField(Team)
+    first_blood_team_id = IntegerField(Team)
+    first_turret_team_id = IntegerField(Team)
+    first_dragon_team_id = IntegerField(Team)
+    first_baron_team_id = IntegerField(Team)
+
+    blue_side_team_fb_odds = DoubleField()
+    blue_side_team_fd_odds = DoubleField()
+    blue_side_team_ft_odds = DoubleField()
+    blue_side_team_fbaron_odds = DoubleField()
+
+    red_side_team_fb_odds = DoubleField()
+    red_side_team_fd_odds = DoubleField()
+    red_side_team_ft_odds = DoubleField()
+    red_side_team_fbaron_odds = DoubleField()
+
     date = DateTimeField()
     split = ForeignKeyField(Split)
     league = ForeignKeyField(League)
@@ -21,24 +37,34 @@ class Game(BaseModel):
         table_name = 'games'
 
     @classmethod
-    def find_game_with_teams(cls, t1, t2, earliest=True):
-        from schema.teams import Team
-        ids = [t1.id, t2.id]
-
-        games = (cls
-                .select()
-                .where(
-                    (cls.red_side_team_id == ids[0])
-                # & (cls.blue_side_team.id.in_(ids))
-                # & (cls.date > datetime(2019, 6, 1))
-                # & (cls.date < datetime(2019, 8, 8))
+    def previous_n_regular_season_games_for_team(cls, team, n, game_date):
+        games =  [
+                g for g in (cls
+                    .select()
+                    .where(
+                        (
+                            (cls.blue_side_team_id == team.id) |
+                            (cls.red_side_team_id == team.id)
+                        ) &
+                        (
+                            Game.date < game_date
+                        ) &
+                        (
+                            (
+                                (Game.date > datetime(2019, 1, 1))
+                                # remove to exclude playoff games from prev. split
+                                & (Game.date < datetime(2019, 3, 30))
+                            ) |
+                            (
+                                (Game.date > datetime(2019, 6, 1)) &
+                                (Game.date < datetime(2019, 8, 8))
+                            )
+                        )
                     )
-                )
+                    .limit(n)
+                    .order_by(cls.date.desc())
+                    )
+                ]
 
-        if len(games) == 0:
-            raise 'Game for ' + t1.name + ' and ' + t2.name + ' not found!'
-
-        if len(games) != 2:
-            raise 'Instead of 2 games ' + len(games) + ' games found!'
-
+        games.reverse()
         return games
