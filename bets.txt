@@ -121,9 +121,11 @@ Playoffs Semis: Starting total $803.08
 
 MSF to get FB vs VIT:       $30 | 2.10 | Win  | $63.00  | 56% | 31%
 RGE to get FB vs OG:        $30 | 2.00 | Lose | $00.00  | 62% | 31%
-SK  to get FD vs OG:        $30 | 2.20 | .... | $000.00 | 56% | 31%
-SK  to get FB vs OG:        $30 | 2.10 | .... | $000.00 | 56% | 31%
+SK  to get FD vs OG:        $30 | 2.20 | Lose | $000.00 | 56% | 31%
+SK  to get FB vs OG:        $30 | 2.10 | Win  | $63.00  | 56% | 31%
 
-CLG to get FD vs C9:        $40 | 2.00 | .... | ....    | 66% | 44% 
-CLG to get FD vs C9:        $40 | 2.00 | .... | ....    | 66% | 44% 
-CLG to get FD vs C9:        $40 | 2.00 | .... | ....    | 66% | 44% 
+CLG to get FD vs C9:        $25 | 2.00 | Lose | $00.00  | 66% | 44% 
+CLG to get FD vs C9:        $25 | 2.00 | Lose | $00.00  | 66% | 44% 
+CLG to get FD vs C9:        $25 | 2.00 | Lose | $00.00  | 66% | 44% 
+
+Playoffs Semis: Ending total $749.08

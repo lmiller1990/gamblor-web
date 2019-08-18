@@ -13,10 +13,10 @@ const extractData = (d, idx) => {
   // ugh... above regexp counts FBaron as FB
   // TODO: Get better at regexp, this will do for now
   const actualMarket = !fields[0].includes("FB")
-    ? market
+    ? market.toLowerCase()
     : fields[0].includes("Baron") 
-      ? "FBaron" 
-      : "FB"
+      ? "fbaron" 
+      : "fb"
 
   return {
     id: idx,
@@ -44,11 +44,29 @@ const summarizeBets = filename => {
       bets: [...acc.bets, curr]
     }
 
+    acc.markets[curr.market].total += 1
+    if (curr.rewarded > 0) {
+      acc.markets[curr.market].won += 1
+    }
+
     return {
       ...d,
+      markets: acc.markets,
       profitPerDollar: parseFloat(((d.rewarded / d.staked) - 1).toFixed(2)),
     }
-  }, { staked: 0, rewarded: 0, profitPerDollar: 0, totalBets: 0, bets: [] })
+  }, { 
+    markets: { 
+      fb: { won: 0, total: 0 }, 
+      fd: { won: 0, total: 0 },
+      ft: { won: 0, total: 0 },
+      fbaron: { won: 0, total: 0 }, 
+    }, 
+    staked: 0, 
+    rewarded: 0, 
+    profitPerDollar: 0, 
+    totalBets: 0, 
+    bets: [] 
+  })
 }
 
 const flagDuplicates = results => {
@@ -75,6 +93,7 @@ const flagDuplicates = results => {
 }
 
 
+/*
 if (!module.parent) {
   const results = summarizeBets("./tmp/bets.txt")
   const flagged = flagDuplicates(results)
@@ -85,6 +104,13 @@ if (!module.parent) {
 
   fs.writeFileSync("./tmp/flagged_bets.txt", str)
 }
+*/
+
+const { bets, ...rest } = summarizeBets('./bets.txt')
+
+console.log(
+  rest
+)
 
 module.exports = {
   summarizeBets,
