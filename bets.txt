@@ -129,3 +129,15 @@ CLG to get FD vs C9:        $25 | 2.00 | Lose | $00.00  | 66% | 44%
 CLG to get FD vs C9:        $25 | 2.00 | Lose | $00.00  | 66% | 44% 
 
 Playoffs Semis: Ending total $749.08
+
+Playoffs Finals: Starting total  $749.08
+
+CG  to get FT vs CLG:        $75 | 1.90 | | $143.19  | 77% | 55% 
+CG  to get FT vs CLG:        $75 | 1.90 | | $143.19  | 77% | 55% 
+CG  to get FT vs CLG:        $75 | 1.90 | | $00.00   | 77% | 55% 
+
+VIT  to get FT vs S04:       $50 | 2.10 | | $105.00 | 72% | 44% 
+VIT  to get FT vs S04:       $50 | 2.10 | | $00.00  | 72% | 44% 
+VIT  to get FT vs S04:       $50 | 2.10 | | $00.00  | 72% | 44% 
+
+Playoffs Finals: Ending total  $765.46
