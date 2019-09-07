@@ -141,3 +141,8 @@ VIT  to get FT vs S04:       $50 | 2.10 | | $00.00  | 72% | 44%
 VIT  to get FT vs S04:       $50 | 2.10 | | $00.00  | 72% | 44% 
 
 Playoffs Finals: Ending total  $765.46
+
+Gauntlet: Starting total  $765.46
+
+CG   to get FT vs FLY:       $40 | 1.57 | Win  | $62.86  | 73% | 14% 
+FLY  to get FB vs CG:        $30 | 2.10 | Win  | $63.00  | 64% | 18% 
