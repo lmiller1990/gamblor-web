@@ -2,9 +2,11 @@ task :add_short_names, [] => :environment do |t, args|
   ActiveRecord::Base.transaction do
     def update_short(team, name)
       begin
-        puts "updating #{name}"
-        team.update_attributes!({ short_name: name })
-        puts "Updated #{team.name}"
+        if team
+          puts "updating #{name}"
+          team.update_attributes!({ short_name: name })
+          puts "Updated #{team.name}"
+        end
       rescue
         "Failed for team #{short_name}"
       end
