@@ -36,6 +36,13 @@ const summarizeBets = filename => {
     .filter(x => x.includes("Win") || x.includes("Lose"))
     .map(extractData)
 
+  const defaults = { staked: 0, 
+    rewarded: 0, 
+    betsWon: 0, 
+    betsPlaced: 0, 
+    profitPerDollar: 0 
+  }
+
   return data.reduce((acc, curr) => {
     const d = {
       staked: acc.staked += curr.staked,
@@ -44,22 +51,30 @@ const summarizeBets = filename => {
       bets: [...acc.bets, curr]
     }
 
-    acc.markets[curr.market].total += 1
+    acc.markets[curr.market].betsPlaced += 1
+    acc.markets[curr.market].staked += curr.staked
     if (curr.rewarded > 0) {
-      acc.markets[curr.market].won += 1
+      acc.markets[curr.market].betsWon += 1
+      acc.markets[curr.market].rewarded += curr.rewarded
     }
 
     return {
       ...d,
-      markets: acc.markets,
+      markets: {
+        ...acc.markets,
+        [curr.market]: {
+          ...acc.markets[curr.market],
+          profitPerDollar: parseFloat(((acc.markets[curr.market].rewarded / acc.markets[curr.market].staked) - 1).toFixed(2)),
+        }
+      },
       profitPerDollar: parseFloat(((d.rewarded / d.staked) - 1).toFixed(2)),
     }
   }, { 
     markets: { 
-      fb: { won: 0, total: 0 }, 
-      fd: { won: 0, total: 0 },
-      ft: { won: 0, total: 0 },
-      fbaron: { won: 0, total: 0 }, 
+      fb: {...defaults},
+      fd: {...defaults},
+      ft: {...defaults},
+      fbaron: {...defaults},
     }, 
     staked: 0, 
     rewarded: 0, 
