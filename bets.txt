@@ -146,3 +146,8 @@ Gauntlet: Starting total  $765.46
 
 CG   to get FT vs FLY:       $40 | 1.57 | Win  | $62.86  | 73% | 14% 
 FLY  to get FB vs CG:        $30 | 2.10 | Win  | $63.00  | 64% | 18% 
+
+
+FNC  to get FB vs G2:        $120 | 2.10 | Win  | $63.00  | 78% | 44% 
+FNC  to get FB vs G2:        $120 | 2.10 | Win  | $63.00  | 78% | 44% 
+FNC  to get FB vs G2:        $120 | 2.10 | Win  | $63.00  | 78% | 44% 
