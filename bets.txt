@@ -4,7 +4,7 @@ TL  to get FD vs TSM:       $20 | 1.83 | Win  | $36.67 | 66% | 20%
 CG  to get FB vs OPT:       $20 | 2.0  | Lose | $0.00  | 73% | 23%
 GGS to get FB vs FOX:       $20 | 1.8  | Win  | $36.00 | 66% | 33%
 CG  to get FB vs C9:        $20 | 2.25 | Win  | $45.00 | 73% | 46%
-GGS to get FD vs FLY:        $20 | 1.83 | Win  | $36.67 | 73% | 53%
+GGS to get FD vs FLY:       $20 | 1.83 | Win  | $36.67 | 73% | 53%
 CLG to get FD vs TSM:       $20 | 2.37 | Win  | $47.50 | 33% | 20%
 
 Week 1: Ending total $278.99
@@ -54,7 +54,7 @@ Week 5: Ending total $490.74
 Week 6: Starting total $490.74
 
 C9  to get FD vs TSM:       $50 | 1.83 | Lose | $00.00 | 68% | 28%
-FOX  to get FD vs 100:       $30 | 2.10 | Win  | $63.00 | 52% | 36%
+FOX  to get FD vs 100:      $30 | 2.10 | Win  | $63.00 | 52% | 36%
 C9  to get FBaron vs TSM:   $50 | 1.80 | Lose | $00.00 | 76% | 44%
 GGS to get FT vs CLG:       $40 | 2.00 | Lose | $00.00 | 60% | 40%
 CG  to get FT vs OPT:       $40 | 2.00 | Win  | $80.00 | 56% | 40%
@@ -65,7 +65,7 @@ Week 6: Ending total $383.74
 Week 7: Starting total $383.74
 
 CG   to get FB vs  FOX:      $40 | 1.66 | Win  | $66.67 | 65% | 15%
-100  to get FT vs C9:       $40 | 2.37 | Lose | $00.00 | 58% | 33%
+100  to get FT vs C9:        $40 | 2.37 | Lose | $00.00 | 58% | 33%
 FLY   to get FB vs 100:      $40 | 2.00 | Win  | $80.00 | 75% | 33%
 100  to get FT vs FLY:       $50 | 1.72 | Win  | $86.37 | 58% | 16%
 FOX   to get FD vs  CG:      $40 | 2.22 | Lose | $00.00 | 60% | 40%
@@ -78,14 +78,14 @@ TSM  to get FB vs FOX:       $40 | 1.61 | Lose | $00.00 | 60% | 10%
 CLG  to get FB vs FOX:       $40 | 1.61 | Win  | $64.62 | 50% | 10%
 FLY   to get FB vs C9:       $40 | 2.20 | Win  | $88.00 | 78% | 57%
 CG   to get FT vs FLY:       $40 | 1.72 | Win  | $69.10 | 65% | 25%
-TL   to get FD vs C9:       $40 | 1.61 | Win  | $64.62 | 57% | 28%
+TL   to get FD vs C9:        $40 | 1.61 | Win  | $64.62 | 57% | 28%
 
 Week 8: Ending total $493.12
 
 Week 9: Starting total $493.12
 
 GGS  to get FT vs C9:       $50 | 2.25 | Win  | $112.5 | 62% | 37%
-FLY   to get FB vs TSM:      $50 | 2.10 | Lose | $00.00 | 81% | 50%
+FLY   to get FB vs TSM:     $50 | 2.10 | Lose | $00.00 | 81% | 50%
 GGS  to get FD vs C9:       $50 | 2.20 | Lose | $00.00 | 56% | 31%
 CLG  to get FD vs 100:      $50 | 1.66 | Win  | $83.34 | 68% | 31%
 CLG  to get FD vs OPT:      $50 | 1.80 | Win  | $90.00 | 68% | 43%
@@ -132,13 +132,13 @@ Playoffs Semis: Ending total $749.08
 
 Playoffs Finals: Starting total  $749.08
 
-CG  to get FT vs CLG:        $75 | 1.90 | | $143.19  | 77% | 55% 
-CG  to get FT vs CLG:        $75 | 1.90 | | $143.19  | 77% | 55% 
-CG  to get FT vs CLG:        $75 | 1.90 | | $00.00   | 77% | 55% 
+CG  to get FT vs CLG:        $75 | 1.90 | Win  | $143.19  | 77% | 55% 
+CG  to get FT vs CLG:        $75 | 1.90 | Win  | $143.19  | 77% | 55% 
+CG  to get FT vs CLG:        $75 | 1.90 | Lose | $00.00   | 77% | 55% 
 
-VIT  to get FT vs S04:       $50 | 2.10 | | $105.00 | 72% | 44% 
-VIT  to get FT vs S04:       $50 | 2.10 | | $00.00  | 72% | 44% 
-VIT  to get FT vs S04:       $50 | 2.10 | | $00.00  | 72% | 44% 
+VIT  to get FT vs S04:       $50 | 2.10 | Win  | $105.00 | 72% | 44% 
+VIT  to get FT vs S04:       $50 | 2.10 | Lose | $00.00  | 72% | 44% 
+VIT  to get FT vs S04:       $50 | 2.10 | Lose | $00.00  | 72% | 44% 
 
 Playoffs Finals: Ending total  $765.46
 
@@ -148,6 +148,12 @@ CG   to get FT vs FLY:       $40 | 1.57 | Win  | $62.86  | 73% | 14%
 FLY  to get FB vs CG:        $30 | 2.10 | Win  | $63.00  | 64% | 18% 
 
 
-FNC  to get FB vs G2:        $120 | 2.10 | Win  | $63.00  | 78% | 44% 
-FNC  to get FB vs G2:        $120 | 2.10 | Win  | $63.00  | 78% | 44% 
-FNC  to get FB vs G2:        $120 | 2.10 | Win  | $63.00  | 78% | 44% 
+FNC  to get FB vs G2:        $120 | 2.10 | Lose | $00.00 | 78% | 44% 
+FNC  to get FB vs G2:        $120 | 2.10 | Lose | $00.00 | 78% | 44% 
+FNC  to get FB vs G2:        $120 | 2.10 | Win  | $252.0 | 78% | 44% 
+
+CG  to get FT vs TSM:        $120 | 1.80 | Lose | $00.00 | 72% | 33% 
+CG  to get FT vs TSM:        $120 | 1.80 | Lose | $00.00 | 72% | 33% 
+CG  to get FT vs TSM:        $120 | 1.80 | Win  | $216.0 | 72% | 33% 
+
+Ending total  $569.32
