@@ -1,4 +1,5 @@
 const fs = require('fs')
+const _ = require('lodash')
 
 const extractData = (d, idx) => {
   const fields = d.split(":")
@@ -35,6 +36,17 @@ const summarizeBets = filename => {
     .split("\n")
     .filter(x => x.includes("Win") || x.includes("Lose"))
     .map(extractData)
+  
+  let s = ''
+  let running = 200
+  for (const bet of data) {
+    running += (bet.rewarded - bet.staked)
+    s += [bet.t1, bet.t2, bet.market.toUpperCase(), bet.odds, '$' + bet.staked, '$' + bet.rewarded, '$' + _.round(running,2)].join(',') + '\n'
+  }
+  fs.writeFileSync('table.txt', s)
+
+
+  console.log(data)
 
   const defaults = { staked: 0, 
     rewarded: 0, 

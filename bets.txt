@@ -157,3 +157,5 @@ CG  to get FT vs TSM:        $120 | 1.80 | Lose | $00.00 | 72% | 33%
 CG  to get FT vs TSM:        $120 | 1.80 | Win  | $216.0 | 72% | 33% 
 
 Ending total  $569.32
+
+======= CASH OUT =========
