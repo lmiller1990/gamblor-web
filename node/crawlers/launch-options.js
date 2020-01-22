@@ -11,7 +11,7 @@ const args = [
 
 const options = {
   args,
-  headless: true,
+  headless: false,
   ignoreHTTPSErrors: true,
   userDataDir: './tmp'
 }
