@@ -20,7 +20,7 @@
     "lodash": "^4.17.10",
     "moment": "^2.23.0",
     "prop-types": "^15.6.2",
-    "puppeteer": "^1.9.0",
+    "puppeteer": "^1.13.0",
     "snakecase-keys": "^1.2.0",
     "ts-loader": "3.5.0",
     "ts-vue-plugin": "^0.2.0",
