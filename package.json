@@ -14,7 +14,7 @@
     "@vue/test-utils": "^1.0.0-beta.25",
     "axios": "^0.18.0",
     "camelcase-keys": "^4.2.0",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "chartkick": "^3.0.1",
     "flush-promises": "^1.0.0",
     "lodash": "^4.17.10",
